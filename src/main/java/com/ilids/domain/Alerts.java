@@ -47,8 +47,8 @@ public class Alerts implements Serializable {
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    @Column(name = "delete")
-    private Boolean delete;
+    @Column(name = "deleteFlag")
+    private Boolean deleteFlag;
     @JoinColumn(name = "device_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Devices deviceId;
@@ -89,13 +89,15 @@ public class Alerts implements Serializable {
 	this.time = time;
     }
 
-    public Boolean getDelete() {
-	return delete;
+    
+    public Boolean isDeleteFlag() {
+	return deleteFlag;
     }
 
-    public void setDelete(Boolean delete) {
-	this.delete = delete;
+    public void setDeleteFlag(Boolean deleteFlag) {
+	this.deleteFlag = deleteFlag;
     }
+    
 
     public Devices getDeviceId() {
 	return deviceId;
