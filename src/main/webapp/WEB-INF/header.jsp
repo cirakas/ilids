@@ -48,12 +48,11 @@
                        data-target=".nav-collapse"> <span class="icon-bar"></span> <span
                             class="icon-bar"></span> <span class="icon-bar"></span>
                     </a> <a class="brand" href='<c:url value="/home"/>'>ILIDS</a>
+                     <security:authorize access="hasRole('ROLE_ADMIN')">
                     <a class="brand" style="margin-left:-20px;font-size: 15px;" href='<c:url value="/home"/>'>Admin</a>
-                    
-                    <div class="nav-collapse collapse">
-                        <security:authorize access="hasRole('ROLE_ADMIN')">
-                        
                         </security:authorize>
+                    <div class="nav-collapse collapse">
+                       
                         <ul class="nav">
                             <security:authorize access="isAuthenticated()">
                                 <li><a href='<c:url value="/j_spring_security_logout"/>'>Logout</a></li>
