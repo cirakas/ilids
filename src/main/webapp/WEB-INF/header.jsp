@@ -1,6 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <c:url var="resources" value="/resources/" />
 
 <!DOCTYPE html>
@@ -38,46 +37,27 @@ body {
 <link rel="apple-touch-icon-precomposed"
 	href="${resources}ico/apple-touch-icon-57-precomposed.png">
 </head>
-
 <body>
-
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="#">ILIDS</a>
+				</a> <a class="brand" href='<c:url value="/home"/>'>ILIDS</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<security:authorize access="hasRole('ROLE_ADMIN')">
-                            <li><a href='<c:url value="/admin"/>'>Admin</a></li>
-                        </security:authorize>
-						<security:authorize access="isAuthenticated()">
-						    <li><a href='<c:url value="/book/add"/>'>Books(Sample CRUD operation)</a></li>
-							<li><a href='<c:url value="/j_spring_security_logout"/>'>Logout</a></li>
-						</security:authorize>
-						<security:authorize access="isAnonymous()">
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">Sign in<b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<center>
-										<form action="<c:url value='j_spring_security_check' />"
-											method="post">
-											<input type="text" placeholder="username" name="j_username"
-												required /> <input type="password" placeholder="password"
-												name="j_password" required />
-											<button type="submit" class="btn">Sign in</button>
-										</form>
-									</center>
-								</ul></li>
-							<li><a href='<c:url value="#"/>' style="color: red">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</a></li>
-						</security:authorize>
+                                            <security:authorize access="isAuthenticated()">
+                                                   <li><a href='<c:url value="/j_spring_security_logout"/>'>Logout</a></li>
+                                              </security:authorize>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
-
-	<div class="container">
+<!--                   Left side Menu bar                         -->
+            <div style="width:200px;height: 400px;;float: left; margin: 5px;">
+              
+            </div>  
+                       <div class="container">

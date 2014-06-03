@@ -98,6 +98,6 @@ public class AdminController {
 
             }
         }
-        return "redirect:/welcome";
+        return "redirect:/home";
     }
 }

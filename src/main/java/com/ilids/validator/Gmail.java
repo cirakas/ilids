@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Documented
 @Constraint(validatedBy = GmailValidator.class)
 public @interface Gmail {
-    String message() default "{com.keyki.sec.validator.email.gmail.message}";
+    String message() default "{com.ilids.validator.email.gmail.message}";
 
     Class<?>[] groups() default {};
 

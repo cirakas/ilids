@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.keyki.sec">
+	<logger name="com.ilids">
 		<level value="info" />
 	</logger>
 	

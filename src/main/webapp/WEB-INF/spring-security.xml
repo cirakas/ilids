@@ -17,6 +17,8 @@
 			error-page="/denied" />
 		<security:intercept-url pattern="/register"
 			access="permitAll" />
+                <security:intercept-url pattern="/login"
+			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/**"
@@ -40,16 +42,16 @@
 
 	<bean id="simpleUrlLogoutSuccessHandler"
 		class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler"
-		p:defaultTargetUrl="/welcome" />
+		p:defaultTargetUrl="/home" />
 
 	<bean id="authenticationEntryPoint"
 		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-		<constructor-arg value="/register" />
+		<constructor-arg value="/login" />
 	</bean>
 
 	<bean id="customAuthenticationSuccessHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"
-		p:defaultTargetUrl="/welcome" />
+		p:defaultTargetUrl="/home" />
 
 	<bean id="customAuthenticationFailureHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"

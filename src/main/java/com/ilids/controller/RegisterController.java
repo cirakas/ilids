@@ -29,7 +29,7 @@ public class RegisterController {
     public String showRegisterForm() {
         return "register/register";
     }
-
+    
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String create(@Valid User user, BindingResult errors, Model model, RedirectAttributes flash) {
         if (errors.hasErrors()) {
