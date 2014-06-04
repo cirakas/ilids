@@ -16,11 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -45,7 +42,7 @@ public class UserSettings implements Serializable {
     private Charts chart;
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Users user;
+    private User user;
 
     public UserSettings() {
     }
@@ -86,11 +83,11 @@ public class UserSettings implements Serializable {
 	this.chart = chart;
     }
 
-    public Users getUser() {
+    public User getUser() {
 	return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
 	this.user = user;
     }
 

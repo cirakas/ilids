@@ -54,7 +54,7 @@ public class Notes implements Serializable {
     private Date createdDate;
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Users user;
+    private User user;
 
     public Notes() {
     }
@@ -87,11 +87,11 @@ public class Notes implements Serializable {
 	this.createdDate = createdDate;
     }
 
-    public Users getUser() {
+    public User getUser() {
 	return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
 	this.user = user;
     }
 
