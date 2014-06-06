@@ -42,14 +42,14 @@ public class User {
     private Set<Role> roles = new HashSet<Role>();
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<Book>();
-
+    
     public void addBook(Book book) {
         if (book.getUser() != null)
             throw new IllegalArgumentException();
         books.add(book);
         book.setUser(this);
     }
-
+    
     public void removeBook(Book book) {
         books.remove(book);
     }
@@ -121,4 +121,4 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-}
+    }

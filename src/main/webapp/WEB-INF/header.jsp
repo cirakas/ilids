@@ -90,7 +90,7 @@
                         <li><a href='#'><span>E-mail/Sms settings</span></a> </li>
                         <li><a href='#'><span>Live chat</span></a>  </li>
                         <li><a href='#'><span>Profile management</span></a>  </li>
-                        <li class='last'> <a href='#'><span>Notes</span></a>  </li>
+                        <li class='last'> <a href='<c:url value="/note/add"/>'><span>Notes</span></a>  </li>
                     </ul>
                 </div>
             </security:authorize>
@@ -101,7 +101,7 @@
                         <li class='active'></li>
                         <li ><a href='#'><span>Graphs</span></a></li>
                         <li ><a href='#'><span>Alerts</span></a></li>
-                        <li ><a href='#'><span>Notes</span></a></li>
+                        <li ><a href='<c:url value="/note/add"/>'><span>Notes</span></a></li>
                         <li ><a href='#'><span>Message</span></a></li>
                         <li ><a href='#'><span>Live chat</span></a></li>
                         <li ><a href='#'><span>Profile</span></a></li>

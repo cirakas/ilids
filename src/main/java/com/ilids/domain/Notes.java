@@ -58,6 +58,11 @@ public class Notes implements Serializable {
 
     public Notes() {
     }
+    
+    public Notes(String note) {
+        this.note=note;
+    }
+
 
     public Notes(Long id) {
 	this.id = id;
