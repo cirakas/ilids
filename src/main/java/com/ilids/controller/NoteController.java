@@ -1,7 +1,7 @@
 package com.ilids.controller;
 
-import java.util.List;
 
+import com.ilids.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,41 +11,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ilids.domain.Notes;
-import com.ilids.domain.Notes;
-import com.ilids.domain.User;
 import com.ilids.service.NoteService;
-import com.ilids.service.UserService;
+import java.util.List;
 
 @Controller
 public class NoteController {
 
-    @Autowired
-    private UserService userService;
+   
     @Autowired
     private NoteService noteService;
-
-    @ModelAttribute("users")
-    public List<User> getUsers() {
-       return userService.getAllUsersExceptAdmin();
-   }
+    
 
     @ModelAttribute("notes")
-    public List<Notes> getNotes() {
-        return noteService.getAllNotes();
+    public Notes getNotes() {
+        return new Notes();
     }
 
     @RequestMapping(value = "/note/add", method = RequestMethod.GET)
     public String show() {
+        System.out.println("Inside the show");
         return "/note/add";
     }
 
     @RequestMapping(value = "/note/add", method = RequestMethod.POST)
-    public String add(@RequestParam("name") String noteName, @RequestParam("username") String username, RedirectAttributes flash) {
-        if (noteService.addNoteToUser(noteName, username)) {
-            flash.addFlashAttribute("success", "Note successfully added.");
-        } else {
-            flash.addFlashAttribute("error", "Could not add note.");
-        }
+    public String add(Notes notes, RedirectAttributes flash) {
+            if (noteService.addNote(notes))
+                flash.addFlashAttribute("success", "Note has been successfully added.");
+            else
+                flash.addFlashAttribute("error", "User cannot be created.");
+            
         return "redirect:/note/add";
     }
 

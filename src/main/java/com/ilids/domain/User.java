@@ -42,14 +42,20 @@ public class User {
     private Set<Role> roles = new HashSet<Role>();
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<Book>();
-    
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//     private List<Notes> notes = new ArrayList<Notes>();
     public void addBook(Book book) {
         if (book.getUser() != null)
             throw new IllegalArgumentException();
         books.add(book);
         book.setUser(this);
-    }
-    
+    }    
+//    public void addNote(Notes note) {
+//        if (note.getUser() != null)
+//            throw new IllegalArgumentException();
+//        notes.add(note);
+//        note.setUser(this);
+//    }    
     public void removeBook(Book book) {
         books.remove(book);
     }

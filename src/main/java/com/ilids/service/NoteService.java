@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ilids.dao.NoteRepository;
 import com.ilids.domain.Notes;
 import com.ilids.domain.User;
+import java.util.Date;
+import javax.annotation.Resource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistryImpl;
 
 @Component
 @Transactional
@@ -18,6 +23,9 @@ public class NoteService {
     private UserService userService;
     @Autowired
     private NoteRepository noteRepository;
+    
+    @Resource(name = "sessionRegistry")
+    private SessionRegistryImpl sessionRegistry;
 
     public List<Notes> getAllNotes() {
         return noteRepository.getAll();
@@ -44,11 +52,21 @@ public class NoteService {
         if (user == null) {
             throw new IllegalArgumentException();
         }
-       // user.addNote(note);
+     //   user.addNote(note);
         userService.persist(user);
         return true;
     }
-
+    
+    public boolean addNote(Notes notes){
+        notes.setCreatedDate(new Date());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName=auth.getName();
+        User user=userService.findByCustomField("username", userName);
+        notes.setUser(user);
+        noteRepository.persist(notes);
+        return true;
+    }
+    
     private Notes createNote(String name) {
         return new Notes(name);
     }
