@@ -5772,3 +5772,16 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
+.panel a {
+  color:#777;
+}
+
+.panel a:hover {
+ text-decoration:none;
+ color:#222;
+}
+
+.panel .table td {
+ border-color: #f3f3f3;
+}

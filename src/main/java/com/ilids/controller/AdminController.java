@@ -100,4 +100,10 @@ public class AdminController {
         }
         return "redirect:/home";
     }
+    
+     @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String userManagement(Model model) {
+        return "/user/users";
+    }
+
 }
