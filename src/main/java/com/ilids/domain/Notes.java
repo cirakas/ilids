@@ -53,7 +53,7 @@ public class Notes implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @JoinColumn(name = "user", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User user;
 
     public Notes() {

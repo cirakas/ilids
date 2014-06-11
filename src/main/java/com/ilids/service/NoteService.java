@@ -58,10 +58,12 @@ public class NoteService {
     }
     
     public boolean addNote(Notes notes){
+        System.out.println("Note fro jsp page---In service---"+notes.getNote());
         notes.setCreatedDate(new Date());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName=auth.getName();
         User user=userService.findByCustomField("username", userName);
+        System.out.println("----------usser from db"+user.getUsername());
         notes.setUser(user);
         noteRepository.persist(notes);
         return true;
