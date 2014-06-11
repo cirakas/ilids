@@ -32,10 +32,11 @@ public class User {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
     private boolean enabled = true;
     @Column(nullable = false, unique = true)
     @Email
-    @Gmail
     private String email;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
@@ -126,5 +127,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    
+    public String getName() {
+	return name;
+    }
+
+    public void setName(String name) {
+	this.name = name;
     }
     }

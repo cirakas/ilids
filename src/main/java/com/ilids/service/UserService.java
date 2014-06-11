@@ -54,7 +54,7 @@ public class UserService {
         Role userRole = roleService.findByName("ROLE_USER");
         user.addRole(userRole);
         encryptPassword(user);
-        //user.encryptPassword();
+        user.encryptPassword();
         persist(user);
         return true;
     }
