@@ -46,16 +46,16 @@ public class NoteService {
     }
 
     
-    public boolean addNoteToUser(String notename, String username) {
-        Notes note = createNote(notename);
-        User user = userService.findByCustomField("username", username);
-        if (user == null) {
-            throw new IllegalArgumentException();
-        }
-     //   user.addNote(note);
-        userService.persist(user);
-        return true;
-    }
+//    public boolean addNoteToUser(String notename, String username) {
+//        Notes note = createNote(notename);
+//        User user = userService.findByCustomField("username", username);
+//        if (user == null) {
+//            throw new IllegalArgumentException();
+//        }
+//     //   user.addNote(note);
+//        userService.persist(user);
+//        return true;
+//    }
     
     public boolean addNote(Notes notes){
         System.out.println("Note fro jsp page---In service---"+notes.getNote());

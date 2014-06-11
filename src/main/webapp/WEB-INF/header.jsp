@@ -62,7 +62,7 @@
               </ul>
             </li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
-            <li><a href="#"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
+            <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
             <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
