@@ -123,7 +123,7 @@ public class AdminController {
                 flash.addFlashAttribute("success", "User has been successfully created.");
             else
                 flash.addFlashAttribute("error", "User cannot be created.");
-            return "/user/users";
+            return "redirect:/user";
         }
     }
 }

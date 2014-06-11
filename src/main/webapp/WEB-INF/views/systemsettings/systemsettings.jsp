@@ -5,7 +5,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
         <div class="row">
           <div class="col-lg-12">
-            <h1>Device Management</h1>
+            <h1>SystemSettings Management</h1>
 <!--            <ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i> Users</li>
             </ol>-->
@@ -29,13 +29,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Add Device</h4>
+        <h4 class="modal-title" id="myModalLabel">Add SystemSettings</h4>
       </div>
-        <c:url value="/saveDevice" var="url" />
-           <form:form action="${url}" method="post" modelAttribute="deviceModel">
+        <c:url value="/saveSystemSettings" var="url" />
+           <form:form action="${url}" method="post" modelAttribute="SystemSettingsModel">
       <div class="modal-body">
-           <div class="form-group"><label> Device Name: </label><form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
-           <div class="form-group">Device Code <form:input path="code" class="form-control required code" data-placement="top" placeholder="code" required="required"/></div>
+           <div class="form-group"><label> ID </label><form:input path="id" class="form-control required name" placeholder="id" required="required"/></div>
+           <div class="form-group">MDV <form:input path="mdv" class="form-control required code" data-placement="top" placeholder="mdv" required="required"/></div>
+           <div class="form-group">Rates Per Unit <form:input path="ratesPerUnit" class="form-control required code" data-placement="top" placeholder="ratesPerUnit" required="required"/></div>
+           <div class="form-group">Time Zone <form:input path="timeZone" class="form-control required code" data-placement="top" placeholder="timeZone" required="required"/></div>
+           <div class="form-group">System Clock <form:input path="systemClock" class="form-control required code" data-placement="top" placeholder="systemClock" required="required"/></div>
+
+           
            
      </div>
       <div class="modal-footer">
@@ -53,17 +58,23 @@
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
                   <tr>
-                    <th>Name <i class="fa fa-sort"></i></th>
-                    <th>Code <i class="fa fa-sort"></i></th>
-                    <th>Action <i class="fa fa-sort"></i></th>
+                    <th>ID <i class="fa fa-sort"></i></th>
+                    <th>MDV <i class="fa fa-sort"></i></th>
+                    <th>Rates Per Unit <i class="fa fa-sort"></i></th>
+                     <th>Time Zone <i class="fa fa-sort"></i></th>
+                    <th>System Clock <i class="fa fa-sort"></i></th>
+                    
+                    
                   </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="device" items="${deviceList}">
+                    <c:forEach var="systemSettings" items="${SystemSettingsList}">
 				<tr>
-					<td>${device.name}</td>
-                                         <td>${device.code}</td>
-					
+					<td>${systemSettings.id}</td>
+                                        <td>${systemSettings.mdv}</td>
+					<td>${systemSettings.ratesPerUnit}</td>
+                                        <td>${systemSettings.timeZone}</td>
+                                        <td>${systemSettings.systemClock}</td>
                                           <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
                                                     edit
                                                 </button>

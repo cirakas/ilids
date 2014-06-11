@@ -9,17 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.ilids.domain.Devices;
+
+import com.ilids.domain.SystemSettings;
 import com.ilids.domain.User;
-import com.ilids.service.DeviceService;
+import com.ilids.service.SystemSettingsService;
 
 
 @Controller
-public class DeviceController {
+public class SystemSettingsController {
 
    
     @Autowired
-    private DeviceService deviceService;
+    private SystemSettingsService systemSettingsService;
 
 //    @ModelAttribute("users")
 //    public List<User> getUsers() {
@@ -31,35 +32,35 @@ public class DeviceController {
 //        return new Users();
 //    }
 
-    @ModelAttribute("deviceModel")
-    public Devices getDevices() {
-        return new Devices();
+    @ModelAttribute("SystemSettingsModel")
+    public SystemSettings SystemSettings() {
+        return new SystemSettings();
     }
     
-     @ModelAttribute("deviceList")
-    public List<Devices> getDeviceList() {
-        return deviceService.getAllDevice();
+     @ModelAttribute("SystemSettingsList")
+    public List<SystemSettings> getSystemSettingsList() {
+        return systemSettingsService.getAllSystemSettings();
     }
     
-    @RequestMapping(value = "devices", method = RequestMethod.GET)
+    @RequestMapping(value = "systemsettings", method = RequestMethod.GET)
     public String show() {
         System.out.println("Inside the show");
-        return "/device/devices";
+        return "/systemsettings/systemsettings";
     }
 
-    @RequestMapping(value = "saveDevice", method = RequestMethod.POST)
-    public String add(Devices device, RedirectAttributes flash) {
-        if (deviceService.addDevice(device)) {
+    @RequestMapping(value = "saveSystemSettings", method = RequestMethod.POST)
+    public String add(SystemSettings systemSettings, RedirectAttributes flash) {
+        if (systemSettingsService.addSystemSettings(systemSettings)) {
             flash.addFlashAttribute("success", "Device has been successfully added.");
         } else {
             flash.addFlashAttribute("error", "Could not add device.");
         }
-        return "redirect:/devices";
+        return "redirect:/systemsettings";
     }
 
 //    @RequestMapping(value = "/devices/delete", method = RequestMethod.POST)
 //    public String delete(@RequestParam("deviceid") Long deviceId) {
-//        deviceService.remove(deviceId);
+//        systemSettingsService.remove(deviceId);
 //        return "redirect:/device/add";
 //    }
 

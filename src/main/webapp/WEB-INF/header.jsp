@@ -44,7 +44,8 @@
                 <security:authorize access="hasRole('ROLE_ADMIN')">
             <ul class="nav navbar-nav side-nav">
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
-              <li class="dropdown">
+              <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
+<!--              <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> System settings<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">MDV</a></li>
@@ -52,7 +53,7 @@
                 <li><a href="#">Rates/unit management</a></li>    
                 <li><a href="#">Time zone settings</a></li>
                 <li><a href="#">Periodic billing</a></li>
-              </ul>
+              </ul>-->
             </li>
               <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> User Management<b class="caret"></b></a>
@@ -63,6 +64,7 @@
             </li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
             <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
+            <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System Settings</a></li>
             <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
