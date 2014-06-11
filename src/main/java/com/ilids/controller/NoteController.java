@@ -22,8 +22,12 @@ public class NoteController {
     private NoteService noteService;
     
 
-    @ModelAttribute("notes")
-    public Notes getNotes() {
+   @ModelAttribute("notesList")
+    public List<Notes> getNotes() {
+        return noteService.getAllNotes();
+    }
+  @ModelAttribute("noteAdd")
+    public Notes getNote() {
         return new Notes();
     }
 
@@ -33,9 +37,9 @@ public class NoteController {
         return "/note/add";
     }
 
-    @RequestMapping(value = "/note/add", method = RequestMethod.POST)
-    public String add(Notes notes, RedirectAttributes flash) {
-            if (noteService.addNote(notes))
+    @RequestMapping(value = "/note/create", method = RequestMethod.POST)
+    public String add(Notes note, RedirectAttributes flash) {
+            if (noteService.addNote(note))
                 flash.addFlashAttribute("success", "Note has been successfully added.");
             else
                 flash.addFlashAttribute("error", "User cannot be created.");
