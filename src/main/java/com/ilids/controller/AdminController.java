@@ -19,6 +19,9 @@ import com.ilids.domain.Role;
 import com.ilids.domain.User;
 import com.ilids.service.RoleService;
 import com.ilids.service.UserService;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AdminController {
@@ -33,6 +36,11 @@ public class AdminController {
     @ModelAttribute("users")
     public List<User> getUsers() {
         return userService.getAllUsersExceptAdmin();
+    }
+    
+     @ModelAttribute("userModel")
+    public User getUser() {
+        return new User();
     }
 
     @ModelAttribute("roles")
@@ -105,5 +113,17 @@ public class AdminController {
     public String userManagement(Model model) {
         return "/user/users";
     }
-
+    
+      @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    public String saveUser(@Valid User user, BindingResult errors, Model model, RedirectAttributes flash) {
+	if (errors.hasErrors()) {
+           return "/user/users";
+        } else {
+            if (userService.addNewUserToDatabase(user))
+                flash.addFlashAttribute("success", "User has been successfully created.");
+            else
+                flash.addFlashAttribute("error", "User cannot be created.");
+            return "/user/users";
+        }
+    }
 }
