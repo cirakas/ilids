@@ -17,6 +17,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -65,6 +67,13 @@ public class Devices implements Serializable {
     private Collection<Alerts> alertsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceId", fetch = FetchType.LAZY)
     private Collection<Data> dataCollection;
+     @JoinColumn(name = "user", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
 
     public Devices() {
     }
@@ -92,6 +101,10 @@ public class Devices implements Serializable {
 
     public void setName(String name) {
 	this.name = name;
+    }
+    
+     public void setUser(User user) {
+	this.user = user;
     }
 
     public String getCode() {

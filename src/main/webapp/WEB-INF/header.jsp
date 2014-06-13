@@ -5,19 +5,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta charset="utf-8">
+      <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>ILIDS</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${resources}ilids-template/css/bootstrap.css" rel="stylesheet">
+    <link href="${resources}ilids-template/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
     <link href="${resources}ilids-template/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="${resources}ilids-template/font-awesome/css/font-awesome.min.css">
     <!-- Page Specific CSS -->
+    <link href="css/dc.css" rel="stylesheet">
+    
+    
 <!--    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">-->
   </head>
 
@@ -44,7 +49,8 @@
                 <security:authorize access="hasRole('ROLE_ADMIN')">
             <ul class="nav navbar-nav side-nav">
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
-              <li class="dropdown">
+              <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
+<!--              <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> System settings<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">MDV</a></li>
@@ -52,7 +58,7 @@
                 <li><a href="#">Rates/unit management</a></li>    
                 <li><a href="#">Time zone settings</a></li>
                 <li><a href="#">Periodic billing</a></li>
-              </ul>
+              </ul>-->
             </li>
               <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> User Management<b class="caret"></b></a>
@@ -62,7 +68,8 @@
               </ul>
             </li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
-            <li><a href="#"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
+            <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
+            <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System Settings</a></li>
             <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
