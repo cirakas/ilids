@@ -5,19 +5,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta charset="utf-8">
+      <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>ILIDS</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${resources}ilids-template/css/bootstrap.css" rel="stylesheet">
+    <link href="${resources}ilids-template/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
     <link href="${resources}ilids-template/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="${resources}ilids-template/font-awesome/css/font-awesome.min.css">
     <!-- Page Specific CSS -->
+    <link href="css/dc.css" rel="stylesheet">
+    
+    
 <!--    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">-->
   </head>
 

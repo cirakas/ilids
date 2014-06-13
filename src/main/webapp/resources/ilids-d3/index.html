@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>iLIDS data Processing</title>
+
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dc.css"/>
+ <style>    
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}    
+    
+  .line {
+  stroke: #993300;
+  fill: none;
+  stroke-width: 0.75px;
+}
+
+.line.line1 {
+  stroke:#FFCC00 ;
+}
+
+.line.line0 {
+  stroke:#99CC00 ;
+}
+
+.line.line3 {
+  stroke:#FFCC00 ;
+}
+
+.svg line{
+ fill: none;  
+}
+.svg line.x{
+ stroke: #FF0000   
+}
+
+.svg line{
+    stroke: #FF0000
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+}
+
+.focus circle.y0 {
+  stroke: blue;
+}
+
+.focus circle.y1 {
+  stroke: red;
+}
+
+.focus line {
+  stroke: purple;
+  shape-rendering: crispEdges;
+}
+
+.focus line.y0 {
+  stroke: steelblue;
+  stroke-dasharray: 3 3;
+  opacity: .5;
+}
+
+.focus line.y1 {
+  stroke: indianred;
+  stroke-dasharray: 3 3;
+  opacity: .5;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+} 
+
+
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/*.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}*/
+
+
+
+
+
+
+ </style>  
+ </head>
+ <body>
+     
+   <div class="container">
+   <div id="dashboard" style="display:block;">
+        <div>
+         <h3 style="font-size: 20px;">Current vs Time </h3>
+         <div id="linGraph" style=" float: left;margin-top: 0px;width:100%;" ></div>
+         </div>
+       <div>
+          <h3 style="font-size: 20px;">Power vs Time </h3>
+         <div id="powGraph" style=" float: left;margin-top: 0px;width:100%;" ></div>
+         
+       </div>
+       
+         <table class="table table-hover dc-data-table">
+        <thead>
+        <tr class="header">
+            <th>date</th>
+            <th>voltage</th>
+            <th>current</th>
+            <th>power</th>
+            
+       </tr>
+        </thead>
+    </table>
+   </div>   
+       <div class="clearfix"></div>
+       
+   </div>  
+<script type="text/javascript" src="js/d3.js"></script>
+<script type="text/javascript" src="js/crossfilter.js"></script>
+<script type="text/javascript" src="js/dc.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="graph.js"></script>
+<script type="text/javascript" src="powGrap.js"></script>
+<script type="text/javascript" src="js/dimple.v2.0.0.min.js"></script>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33628816-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<script language="Javascript">
+            //Script to handle the ajax starts
+            // handle the ajax ends     
+       </script>
+
+ </body>
+</html>
