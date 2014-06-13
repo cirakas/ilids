@@ -20,8 +20,30 @@ d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
     var ndx = crossfilter(data);
     var all = ndx.groupAll();
     
+      var count=0;
+    var alertData=new Array();
+    var obj=null;
+ var alert1=ndx.dimension(function(d){
+      var power=d.power;
+      if (power>12)
+      {
+          obj=new Object();
+        //  xmlhttpPost("sendMessage.jsp");
+         //var div = document.getElementById( 'alertId' );         
+           // div.style.backgroundColor='#cc2921';
+           // div.style.borderRadius='10px';
+           var newDiv=document.createElement('div');
+            newDiv.style="background-color:#FFFFFF;padding:5px;border:1px solid blue;text-color:#FFCC66;";
+            newDiv.innerHTML="Power consumption has crossed the MDV at"+d.date;
+            count= +count + +1;
+             document.getElementById('alertId').innerHTML=count;
+            //document.getElementById('AlertShow').innerHTML="<div style='text-align:center;margin-top:25px;color:#FF9900;font-size:30px;'><b><a href='alert.html' style='color:#FF9900; text-decoration:none;' onclick='displayMessage();'>"+count+" Alert(s)</a></b></div>";
+             obj.power=d.power;
+             obj.date=d.dd;
+             alertData[alertData.length]=obj;
+        }
+     });
 
-      
     var main_margin = {top: 20, right: 60, bottom: 100, left: 110},
         mini_margin = {top: 430, right: 60, bottom: 20, left: 110},
         main_width = 660 - main_margin.left - main_margin.right,

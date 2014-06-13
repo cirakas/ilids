@@ -86,7 +86,7 @@
             </security:authorize>
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">7 New Messages</li>
                 <li class="message-preview">
@@ -120,7 +120,7 @@
               </ul>
             </li>
             <li class="dropdown alerts-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span class="badge">3</span> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span id="alertId" class="badge"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Default <span class="label label-default">Default</span></a></li>
                 <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
