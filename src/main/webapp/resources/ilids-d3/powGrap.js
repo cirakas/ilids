@@ -24,7 +24,7 @@ d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
       
     var main_margin = {top: 20, right: 60, bottom: 100, left: 110},
         mini_margin = {top: 430, right: 60, bottom: 20, left: 110},
-        main_width = 660 - main_margin.left - main_margin.right,
+        main_width = 1040 - main_margin.left - main_margin.right,
         main_height = 500 - main_margin.top - main_margin.bottom,
         mini_height = 500 - mini_margin.top - mini_margin.bottom;
 

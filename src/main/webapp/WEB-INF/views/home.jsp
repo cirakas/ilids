@@ -22,7 +22,8 @@
 
  <style>    
 body {
-  font: 10px sans-serif;
+  font: 14px sans-serif;
+  outline: none!important;
 }
 
 .axis path,
@@ -33,13 +34,13 @@ body {
 }    
     
   .line {
-  stroke: #993300;
+  stroke: #F2700D;
   fill: none;
   stroke-width: 0.75px;
 }
 
 .line.line1 {
-  stroke:#FFCC00 ;
+  stroke:#0D98B3;
 }
 
 .line.line0 {
@@ -142,7 +143,7 @@ body {
         <div class="row">
           <div class="col-lg-12">
             <h2>Charts</h2>
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="height: 600px;">
               <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
               </div>
@@ -162,9 +163,9 @@ body {
         
         <div class="row">
           <div class="col-lg-12">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="height: 600px;">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Power vs Time Graph </h3>
               </div>
               <div class="panel-body">
                 <div class="flot-chart">

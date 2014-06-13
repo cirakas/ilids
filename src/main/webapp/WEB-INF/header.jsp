@@ -20,10 +20,13 @@
     <link href="${resources}ilids-template/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="${resources}ilids-template/font-awesome/css/font-awesome.min.css">
     <!-- Page Specific CSS -->
-    <link href="css/dc.css" rel="stylesheet">
+<!--    <link href="css/dc.css" rel="stylesheet">-->
     
     
 <!--    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">-->
+<style>
+    .color-menu{color: #f00!important;}
+</style>
   </head>
 
   <body>
@@ -47,7 +50,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <security:authorize access="isAuthenticated()">
                 <security:authorize access="hasRole('ROLE_ADMIN')">
-            <ul class="nav navbar-nav side-nav">
+            <ul class="nav navbar-nav side-nav color-menu">
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
               <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
 <!--              <li class="dropdown">
