@@ -1,7 +1,7 @@
 
 'use strict';
 
-d3.csv("/writedat123.csv", function (data) {
+d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
       console.log('---------');
     /* since its a csv file we need to format the data a bit */
     var dateFormat = d3.time.format("%b/%d/%Y %H:%M:%S");

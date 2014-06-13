@@ -1,26 +1,18 @@
 
 'use strict';
 
-d3.csv("/writedat123.csv", function (data) {
-    console.log('---------');
+d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
     /* since its a csv file we need to format the data a bit */
     var dateFormat = d3.time.format("%b/%d/%Y %H:%M:%S");
    //var timeFormat = d3.time.format("hh:mm:ss")
     //console.dir(dateFormat);
     var numberFormat = d3.format(".2f");
     data.forEach(function (d) {
-        console.log("-----------date");
-         console.log("-----------current"+d.current);
-        //d.dd = dateFormat.parse(d.date);
-        console.log("-----------dateee"+d.dd);
-        //d.lineDate =dateFormat.parse(d.date);
-        //d.month = d3.time.month(d.dd); // pre-calculate month for better performance
-        console.log("-----------month"+d.month);
-        
+        d.dd = dateFormat.parse(d.date);
+        d.lineDate =dateFormat.parse(d.date);
+        d.month = d3.time.month(d.dd); // pre-calculate month for better performance
         d.current = +d.current; // coerce to number
-        console.log("-----------current"+d.current);
         d.voltage = +d.voltage;
-        console.log("-----------voltage"+d.voltage);
         d.power = +d.power;
         d.threshold = +d.threshold;
         d.cost = +d.power * 8;
