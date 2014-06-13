@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.ilids.domain.Role;
 import com.ilids.domain.User;
 import com.ilids.service.RoleService;
 import com.ilids.service.UserService;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -38,10 +43,12 @@ public class AdminController {
         return userService.getAllUsersExceptAdmin();
     }
     
-     @ModelAttribute("userModel")
-    public User getUser() {
-        return new User();
-    }
+    Long currentUserId=0l;
+
+//    @ModelAttribute("userModel")
+//    public User getUser() {
+//        return new User();
+//    }
 
     @ModelAttribute("roles")
     public List<Role> getRoles() {
@@ -111,6 +118,7 @@ public class AdminController {
     
      @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userManagement(Model model) {
+	model.addAttribute("userModel", new User());
         return "/user/users";
     }
     
@@ -126,4 +134,27 @@ public class AdminController {
             return "/user/users";
         }
     }
+    
+     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
+    public void editUser(Model model, HttpServletRequest request) {
+	System.out.println("Inside the editUser------");
+	String userId=request.getParameter("userId");
+	if(userId!=null)
+	    currentUserId=Long.valueOf(userId);
+	User editUser=userService.findById(currentUserId);
+	model.addAttribute("userModel",editUser);
+      
+    }
+    
+    @RequestMapping(value = "/getTags", method = RequestMethod.POST)
+     @ResponseBody
+	public  ModelAndView getTags(@RequestParam("tagName") String tagName) {
+		System.out.println("----=====-==="+tagName);
+		if(tagName!=null)
+	    currentUserId=Long.valueOf(tagName);
+	    User editUser=userService.findById(currentUserId);
+	     ModelAndView mav = new ModelAndView("/user");
+	      mav.addObject("userModel", editUser);
+	     return mav; 
+	}
 }
