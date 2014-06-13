@@ -136,8 +136,46 @@ body {
             </div>
           </div>
         </div><!-- /.row -->
+        
+        
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Charts</h2>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
+              </div>
+              <div class="panel-body">
+                <div class="flot-chart">
+                  <div class="flot-chart-content" id="linGraph"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.row -->
+        
+        <div class="row" style="margin-top:70px;">
+            
+            
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
+              </div>
+              <div class="panel-body">
+                <div class="flot-chart">
+                  <div class="flot-chart-content" id="powGraph"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.row -->
 
- <div class="row">
+<!-- <div class="row">
          <div class="container">
    <div id="dashboard" style="display:block;">
         <div>
@@ -165,7 +203,7 @@ body {
        <div class="clearfix"></div>
        
    </div>  
-         </div>
+         </div>-->
 <!--welcome <security:authentication property="principal.username" />
 
 -->

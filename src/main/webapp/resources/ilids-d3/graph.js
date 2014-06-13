@@ -2,14 +2,12 @@
 'use strict';
 
 d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
-      console.log('---------');
     /* since its a csv file we need to format the data a bit */
     var dateFormat = d3.time.format("%b/%d/%Y %H:%M:%S");
    //var timeFormat = d3.time.format("hh:mm:ss")
     //console.dir(dateFormat);
     var numberFormat = d3.format(".2f");
     data.forEach(function (d) {
-         console.log("------gg-----date"+d.date);
         d.dd = dateFormat.parse(d.date);
         d.lineDate =dateFormat.parse(d.date);
         d.month = d3.time.month(d.dd); // pre-calculate month for better performance

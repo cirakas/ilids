@@ -121,10 +121,26 @@ body {
      
    <div class="container">
    <div id="dashboard" style="display:block;">
-        <div>
-         <h3 style="font-size: 20px;">Current vs Time </h3>
-         <div id="linGraph" style=" float: left;margin-top: 0px;width:100%;" ></div>
-         </div>
+       
+       <div class="row">
+          <div class="col-lg-12">
+            <h2>Flot Charts</h2>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
+              </div>
+              <div class="panel-body">
+                <div class="flot-chart">
+                  <div class="flot-chart-content" id="linGraph"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.row -->
+       
+      
+       
+       
        <div>
           <h3 style="font-size: 20px;">Power vs Time </h3>
          <div id="powGraph" style=" float: left;margin-top: 0px;width:100%;" ></div>
