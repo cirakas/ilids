@@ -1,10 +1,9 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="row">
      <div class="col-lg-12">
-	<h1>Add note</h1>
-     
+         <h1>Add note</h1><br>
         <c:if test="${not empty success}">
-	<div class="text-success">
+            <div class="text-success" style="background: #DFF0D8;color: #3C763D;padding: 4px;border-color: #D6E9C6;width: 24%;border-radius:2px;margin:0 0 8px 60px;text-align: center; ">
             <button type="" class="close" data-dismiss="alert" style="float: none;">×</button>
 		${success}
 	</div>
@@ -16,33 +15,28 @@
                 </div>
         </c:if>
 	<c:url var="url" value="/note/create" />
-        
-        <form:form action="${url}" method="post" modelAttribute="noteAdd">
-             Note: <form:input path="note" class="input-large"
-		placeholder="note" required="required"/>  
-             
-	<form:button class="btn btn-default"> Add</form:button>
+        <form:form action="${url}" method="post" modelAttribute="noteAdd" style="float:left;width:100%;">
+            <div style="float:left;width:60px;margin:8px 0 0 0;">Note:</div> <form:input path="note" class="input-large form-control"
+		placeholder="note" required="required" style="width:500px;float:left;"/>  
+	<form:button class="btn btn-primary" style="float:left;margin:0 0 0 8px;"> Add</form:button>
         </form:form>
-         
-        <hr />
+        <hr /><br>
 	<h4>Previously added notes</h4>  
         <hr /> 
         </br>
           <div class="table-responsive">
         <table cellpadding="0" cellspacing="0" border="0"
-		class="table table-bordered table-hover table-striped tablesorter" id="example">
+		class="table table-bordered table-hover table-striped tablesorter" id="example" style="table-layout: fixed; word-wrap: break-word;" >
 		<thead>
 			<tr>
-				<th>Note</th>
-				<th>User</th>
-                                <th>Created Date</th>
-				<th>Action</th>
+				<th>Note <i class="fa fa-sort"></i></th>
+                                <th>Created Date <i class="fa fa-sort"></i></th>
+				<th>Action <i class="fa fa-sort"></i></th>
 			</tr>
 		</thead>
-                <c:forEach var="note" items="${notesList}">
+                <c:forEach var="note" items="${notesList}" >
                     <tr>
                         <td>${note.note}</td>
-                        <td>${note.user.username}</td>
                         <td>${note.createdDate}</td>
                         <td><c:url var="deleteUrl" value="/note/delete" />
 						<form action="${deleteUrl}" method="post">
@@ -51,8 +45,8 @@
 						</form>
                         </td>
                     </tr>
-        </c:forEach>
+                </c:forEach>
               </table>
           </div>
-    </div>
+</div>
 </div>
