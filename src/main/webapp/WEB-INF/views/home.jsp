@@ -131,10 +131,10 @@ body {
             <ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
             </ol>
-            <div class="alert alert-success alert-dismissable">
+<!--            <div class="alert alert-success alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               Welcome to ILIDS
-            </div>
+            </div>-->
           </div>
         </div><!-- /.row -->
         
