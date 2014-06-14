@@ -142,7 +142,7 @@ body {
         
         <div class="row">
           <div class="col-lg-12">
-            <h2>Charts</h2>
+<!--            <h2>Charts</h2>-->
             <div class="panel panel-primary" style="height: 600px;">
               <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
