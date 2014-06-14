@@ -25,7 +25,7 @@
 </form>
   </div>
 
-<li><a href='<c:url value="/register"/>'>Register</a></li>
+<!--<li><a href='<c:url value="/register"/>'>Register</a></li>-->
     </security:authorize>                      
                     
 <!--    <li><a href='<c:url value="#"/>' style="color: red">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</a></li>-->

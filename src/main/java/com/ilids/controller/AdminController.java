@@ -157,4 +157,10 @@ public class AdminController {
 	      mav.addObject("userModel", editUser);
 	     return mav; 
 	}
+	
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+    public String deleteUser(@RequestParam Long userId, Model model) {
+        userService.removeUserFromDatabase(userId);
+        return "redirect:/user";
+    }
 }

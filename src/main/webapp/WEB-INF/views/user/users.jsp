@@ -3,16 +3,54 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+   <script type="text/javascript">
+//function madeAjaxCall(){
+//	$.ajax({
+//		type: "POST",
+//		url: "http://localhost:8080/ilids/user/getTags",
+//		cache: false,	
+//                data:"tagName=uuuu",
+//		success: function(response){
+//			alert("response----");
+//		},
+//		error: function(){						
+//			alert('Error while request..');
+//		}
+//	});
+//}
+
+//function ajaxLink(url, params, displayComponentId) {
+//   
+//            $.post(url, params, function(data) {
+//                alert('-------'+data);
+//                document.getElementById(displayComponentId).innerHTML = data+"test";
+//              
+//            });
+//        }
+//        
+//        
+//        function onClickMethod(val){
+//            ajaxLink('/ilids/getTags', {'tagName': val}, 'viewDiv');
+//
+//        }
+//
+//</script>
+<div id="viewDiv">
+    
+</div>
+    
+    
         <div class="row">
           <div class="col-lg-12">
             <h1>User Management</h1>
 <!--            <ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i> Users</li>
             </ol>-->
-            <div class="alert alert-success alert-dismissable">
+<!--            <div class="alert alert-success alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               Welcome to ILIDS
-            </div>
+            </div>-->
           </div>
         </div><!-- /.row -->
         
@@ -22,7 +60,7 @@
   <span class="glyphicon glyphicon-plus"></span>
 </button></div>
         <br/>
-
+    
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -58,7 +96,6 @@
                     <th>User name <i class="fa fa-sort"></i></th>
                     <th>E-mail <i class="fa fa-sort"></i></th>
                     <th>Enable <i class="fa fa-sort"></i></th>
-                     <th>Action <i class="fa fa-sort"></i></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,9 +108,12 @@
                                           <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
                                                     edit
                                                 </button>
-                                              <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-                                                delete
-                                                </button>
+                                            </td>
+                                             <td>
+                                              <form method="post" action='<c:url value="/deleteUser"/>'>
+                                                <input type="hidden" value="${user.id}" name="userId" /> 
+                                                <button id="deleteUser" class="btn btn-primary btn-danger" >delete</button>
+						</form>
                                             </td>
                                 </tr>
                     </c:forEach>       
