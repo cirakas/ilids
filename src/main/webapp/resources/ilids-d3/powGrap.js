@@ -164,7 +164,7 @@ data.forEach(function(d) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Current");
+      .text("Power");
 
 //  main.append("g")
 //      .attr("class", "y axis axisRight")
