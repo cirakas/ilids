@@ -51,28 +51,18 @@
             <security:authorize access="isAuthenticated()">
                 <security:authorize access="hasRole('ROLE_ADMIN')">
             <ul class="nav navbar-nav side-nav color-menu">
-             <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
-              <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
-<!--              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> System settings<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">MDV</a></li>
-                <li><a href="#">System clock settings</a></li>
-                <li><a href="#">Rates/unit management</a></li>    
-                <li><a href="#">Time zone settings</a></li>
-                <li><a href="#">Periodic billing</a></li>
-              </ul>-->
-            </li>
-              <li class="dropdown">
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> User Management<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href='<c:url value="/user"/>'>Users</a></li>
                 <li><a href="#">User types</a></li>
               </ul>
             </li>
+              <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
+             <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
+           
+               <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
-            <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
-            <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System Settings</a></li>
             <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
@@ -125,10 +115,10 @@
             <li class="dropdown alerts-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span id="alertId" class="badge" style="background:#FF0404;">3</span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Default <span class="label label-default">Default</span></a></li>
+<!--                <li><a href="#">Default <span class="label label-default">Default</span></a></li>
                 <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
                 <li><a href="#">Success <span class="label label-success">Success</span></a></li>
-                <li><a href="#">Info <span class="label label-info">Info</span></a></li>
+                <li><a href="#">Info <span class="label label-info">Info</span></a></li>-->
                 <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
                 <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
                 <li class="divider"></li>
