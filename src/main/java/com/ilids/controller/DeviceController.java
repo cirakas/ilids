@@ -57,10 +57,10 @@ public class DeviceController {
         return "redirect:/devices";
     }
 
-//    @RequestMapping(value = "/devices/delete", method = RequestMethod.POST)
-//    public String delete(@RequestParam("deviceid") Long deviceId) {
-//        deviceService.remove(deviceId);
-//        return "redirect:/device/add";
-//    }
+    @RequestMapping(value = "/deleteDevice", method = RequestMethod.POST)
+    public String delete(@RequestParam("deviceId") Long deviceId) {
+        deviceService.remove(deviceId);
+        return "redirect:/devices";
+    }
 
 }

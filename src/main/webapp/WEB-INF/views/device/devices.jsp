@@ -63,14 +63,14 @@
 				<tr>
 					<td>${device.name}</td>
                                          <td>${device.code}</td>
-					
-                                          <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-                                                    edit
-                                                </button>
-                                              <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-                                                delete
-                                                </button>
-                                            </td>
+                                         <td>
+                                           <form method="post" action='<c:url value="/deleteDevice"/>'>
+                                                <input type="hidden" value="${device.id}" name="deviceId" /> 
+                                                <button id="deleteUser" class="btn btn-primary btn-danger" >delete</button>
+						</form>
+                                             
+                                         </td>
+                                            
                                 </tr>
                     </c:forEach>       
                 </tbody>
