@@ -19,7 +19,9 @@ d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
       });
     var ndx = crossfilter(data);
     var all = ndx.groupAll();
-    
+  var mdvValue = mdvValue1;
+  console.log('----ffffff---'+mdvValue);
+  
 
       
     var main_margin = {top: 40, right: 60, bottom: 100, left: 110},
@@ -114,7 +116,7 @@ var mini = svg.append("g")
     
 var valueline2 = d3.svg.line()
     .x(function(d) { return main_x(d.datee); })
-    .y(function(d) { return main_y0(12); });
+    .y(function(d) { return main_y0(mdvValue); });
     
 var main1 = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");   
@@ -127,7 +129,7 @@ data.forEach(function(d) {
         var months1= name[months];*/
     d.powers =+d.power;
    // console.log("month"+ d.cost);
-   
+ //  d.mdvValue=+mdvValue;
   
 });
   data.sort(function(a, b) {

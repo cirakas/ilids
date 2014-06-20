@@ -22,7 +22,6 @@ import com.ilids.service.RoleService;
 import com.ilids.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;

@@ -2,7 +2,7 @@
 <%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33628816-1']);
@@ -16,7 +16,17 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
+    
+   
 </script>
+
+<script type="text/javascript">
+
+var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
+
+console.log('-------'+message);
+</script>
+
 
 
 
@@ -140,6 +150,8 @@ body {
         
         
         
+        
+        
         <div class="row">
           <div class="col-lg-12">
 <!--            <h2>Charts</h2>-->
@@ -176,6 +188,11 @@ body {
           </div>
         </div><!-- /.row -->
 
+        
+  
+        
+        
+        
 <!-- <div class="row">
          <div class="container">
    <div id="dashboard" style="display:block;">
@@ -220,8 +237,8 @@ body {
 
 </div>-->
 
-<!--<br/>
-Logged-in Users</h1><table>
+<br/>
+<!--Logged-in Users</h1><table>
 <tr>
 <td width="100">Username</td>
 <td width="150">Authorities</td>
@@ -238,9 +255,10 @@ Logged-in Users</h1><table>
 <td><c:out value="${user.accountNonLocked}" /></td>
 </tr>
 </c:forEach>
+
+
 </table>-->
-
-
+<!--${SystemSettings.mdv}-->
 
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
 <script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>

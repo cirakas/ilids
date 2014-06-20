@@ -7,11 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ilids.domain.SystemSettings;
-import com.ilids.domain.User;
 import com.ilids.service.SystemSettingsService;
 
 
@@ -51,9 +49,9 @@ public class SystemSettingsController {
     @RequestMapping(value = "saveSystemSettings", method = RequestMethod.POST)
     public String add(SystemSettings systemSettings, RedirectAttributes flash) {
         if (systemSettingsService.addSystemSettings(systemSettings)) {
-            flash.addFlashAttribute("success", "Device has been successfully added.");
+            flash.addFlashAttribute("success", "System settings has been successfully added.");
         } else {
-            flash.addFlashAttribute("error", "Could not add device.");
+            flash.addFlashAttribute("error", "Could not add System settings.");
         }
         return "redirect:/systemsettings";
     }

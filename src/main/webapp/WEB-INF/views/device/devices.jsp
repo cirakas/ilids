@@ -17,10 +17,11 @@
         </div><!-- /.row -->
         
         <!-- Button trigger modal -->
-          <div class="row">
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  <span class="glyphicon glyphicon-plus"></span>
-</button></div>
+     <div class="row">
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+     </div>
         <br/>
 
 <!-- Modal -->
