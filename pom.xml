@@ -105,7 +105,11 @@
 			<version>1.0.1.RELEASE</version>
 		</dependency>
 
-
+ <dependency>
+                <groupId> org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.5</version>
+                </dependency>
 
 		<!-- @Inject -->
 		<dependency>
@@ -121,6 +125,8 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
+                
+                
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -170,6 +176,17 @@
 			<artifactId>lombok</artifactId>
 			<version>0.11.4</version>
 		</dependency>
+                <dependency>
+                        <groupId>org.json</groupId>
+                        <artifactId>json</artifactId>
+                        <version>20140107</version>
+                </dependency>
+	 <dependency>
+	  <groupId>javax.annotation</groupId>
+	  <artifactId>jsr250-api</artifactId>
+	  <version>1.0</version>
+	  <scope>provided</scope>
+	 </dependency>
 	</dependencies>
 	<build>
 		<plugins>

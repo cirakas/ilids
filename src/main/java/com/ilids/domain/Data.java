@@ -37,9 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Data.findAll", query = "SELECT d FROM Data d"),
     @NamedQuery(name = "Data.findById", query = "SELECT d FROM Data d WHERE d.id = :id"),
-    @NamedQuery(name = "Data.findByPower", query = "SELECT d FROM Data d WHERE d.power = :power"),
-    @NamedQuery(name = "Data.findByVoltage", query = "SELECT d FROM Data d WHERE d.voltage = :voltage"),
-    @NamedQuery(name = "Data.findByCurrent", query = "SELECT d FROM Data d WHERE d.current = :current"),
+    @NamedQuery(name = "Data.findByData", query = "SELECT d FROM Data d WHERE d.data = :data"),
     @NamedQuery(name = "Data.findByTime", query = "SELECT d FROM Data d WHERE d.time = :time")})
 public class Data implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,25 +48,20 @@ public class Data implements Serializable {
     private Long id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "power", nullable = false)
-    private double power;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "voltage", nullable = false)
-    private double voltage;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "current", nullable = false)
-    private double current;
+    @Column(name = "data", nullable = false)
+    private double data;
     @Basic(optional = false)
     @NotNull
     @Column(name = "time", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    @JoinColumn(name = "device_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "device_id", referencedColumnName = "slave_id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Devices deviceId;
-
+    
+    @JoinColumn(name = "address_map", referencedColumnName = "off_set", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private AddressMap addressMap;
     public Data() {
     }
 
@@ -76,11 +69,9 @@ public class Data implements Serializable {
 	this.id = id;
     }
 
-    public Data(Long id, double power, double voltage, double current, Date time) {
+    public Data(Long id, double data, double voltage, double current, Date time) {
 	this.id = id;
-	this.power = power;
-	this.voltage = voltage;
-	this.current = current;
+	this.data = data;
 	this.time = time;
     }
 
@@ -92,28 +83,12 @@ public class Data implements Serializable {
 	this.id = id;
     }
 
-    public double getPower() {
-	return power;
+    public double getData() {
+	return data;
     }
 
-    public void setPower(double power) {
-	this.power = power;
-    }
-
-    public double getVoltage() {
-	return voltage;
-    }
-
-    public void setVoltage(double voltage) {
-	this.voltage = voltage;
-    }
-
-    public double getCurrent() {
-	return current;
-    }
-
-    public void setCurrent(double current) {
-	this.current = current;
+    public void setData(double data) {
+	this.data = data;
     }
 
     public Date getTime() {
@@ -131,6 +106,15 @@ public class Data implements Serializable {
     public void setDeviceId(Devices deviceId) {
 	this.deviceId = deviceId;
     }
+    
+    public AddressMap getAddressMap() {
+        return addressMap;
+    }
+
+    public void setAddressMap(AddressMap addressMap) {
+        this.addressMap = addressMap;
+    }
+    
 
     @Override
     public int hashCode() {

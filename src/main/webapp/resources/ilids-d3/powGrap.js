@@ -1,13 +1,16 @@
 
 'use strict';
 
-d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
+d3.json("http://localhost:8080/ilids/getData", function (data) {
+    console.log("----data----"+data);
     /* since its a csv file we need to format the data a bit */
+   data=myArray;
     var dateFormat = d3.time.format("%b/%d/%Y %H:%M:%S");
    //var timeFormat = d3.time.format("hh:mm:ss")
     //console.dir(dateFormat);
     var numberFormat = d3.format(".2f");
     data.forEach(function (d) {
+        console.log('------ytytytyy'+d.date);
         d.dd = dateFormat.parse(d.date);
         d.lineDate =dateFormat.parse(d.date);
         d.month = d3.time.month(d.dd); // pre-calculate month for better performance
@@ -20,7 +23,9 @@ d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
     var ndx = crossfilter(data);
     var all = ndx.groupAll();
   var mdvValue = mdvValue1;
-  console.log('----ffffff---'+mdvValue);
+  
+  
+ // console.log('----ffffff---'+mdvValue);
   
 
       

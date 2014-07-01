@@ -26,7 +26,14 @@ public class SystemSettingsService {
     private SystemSettingsRepository systemSettingsRepository;
 
     public List<SystemSettings> getAllSystemSettings() {
-        return systemSettingsRepository.getAll();
+        
+        List<SystemSettings> list=systemSettingsRepository.getAll();
+        
+        for(SystemSettings sys:list){
+            System.out.println("Id---------"+sys.getMdv());
+        }
+        
+        return list;
     }
 
     public SystemSettings findById(Long id) {

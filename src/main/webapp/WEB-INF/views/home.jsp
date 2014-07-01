@@ -23,10 +23,17 @@
 <script type="text/javascript">
 
 var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
+var myArray=null;
+myArray= '<c:out value="${dataList}"/>';
+console.log("----kkkk--"+myArray.length);
 
-console.log('-------'+message);
 </script>
 
+<!--<script type="text/javascript">
+
+var datalist = '<c:out value="${Data.dataList.size()}"/>';
+
+</script>-->
 
 
 
@@ -189,7 +196,12 @@ body {
         </div><!-- /.row -->
 
         
-  
+  <tbody>
+               <c:forEach var="data" items="${DataList}">
+                   
+                   console.log("--------"+${DataList})
+<!--		
+                 </c:forEach> 
         
         
         

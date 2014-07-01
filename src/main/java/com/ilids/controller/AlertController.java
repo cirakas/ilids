@@ -48,7 +48,7 @@ public class AlertController {
     
      @RequestMapping(value = "/deviceUrl", method = RequestMethod.POST)
     public String devices(@Valid Devices devices, BindingResult errors, Model model, RedirectAttributes flash) {
-	System.out.print("-----"+devices.getCode());
+	System.out.print("-----"+devices.getSlaveId());
 	return "redirect:/alerts";
     }
     

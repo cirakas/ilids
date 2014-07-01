@@ -22,6 +22,7 @@ import com.ilids.service.RoleService;
 import com.ilids.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -156,6 +157,18 @@ public class AdminController {
 	      mav.addObject("userModel", editUser);
 	     return mav; 
 	}
+        
+        @RequestMapping(value = "/getData", method = RequestMethod.GET)
+        public @ResponseBody  JSONPObject getData(Model model) {
+        System.out.println("----=====-===");
+        JSONPObject jsn=new JSONPObject("hello","hello");
+        ModelAndView mav = new ModelAndView("/user");
+        mav.addObject("data", "12222");
+        return jsn; 
+       }
+        
+        
+        
 	
     @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
     public String deleteUser(@RequestParam Long userId, Model model) {

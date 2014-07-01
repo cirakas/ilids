@@ -1,6 +1,7 @@
 package com.ilids.controller;
 
 import com.ilids.domain.SystemSettings;
+import com.ilids.service.DataService;
 import com.ilids.service.SystemSettingsService;
 import java.util.List;
 import javax.annotation.Resource;
@@ -21,16 +22,23 @@ public class LoginController {
     
     @Autowired
     private SystemSettingsService systemSettingsService;
+    
+     @Autowired
+    private DataService dataService;
 
     @RequestMapping("/home")
     public String welcome(Model model) {
         model.addAttribute("users", sessionRegistry.getAllPrincipals());
         model.addAttribute("SystemSettings", systemSettingsService.getAllSystemSettings().get(0));
-        
+       model.addAttribute("dataList", dataService.getAllData()); 
         
         return "home";
     }
-    
+     @RequestMapping(value = "/getDataFromDB", method = RequestMethod.GET)
+    public String getDataFromDB() {
+         System.out.println("Iside the controller-----------------------");
+        return "home";
+    }
     
     
     

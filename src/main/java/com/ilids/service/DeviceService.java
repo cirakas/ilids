@@ -58,9 +58,9 @@ public class DeviceService {
      public boolean addDevice(Devices device){
         device.setCreatedDate(new Date());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName=auth.getName();
-        User user=userService.findByCustomField("username", userName);
-        device.setUser(user);
+//        String userName=auth.getName();
+//        User user=userService.findByCustomField("username", userName);
+//        device.setUser(user);
         deviceRepository.persist(device);
         return true;
     }

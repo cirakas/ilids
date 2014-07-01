@@ -67,7 +67,8 @@
                                          <td>
                                            <form method="post" action='<c:url value="/deleteDevice"/>'>
                                                 <input type="hidden" value="${device.id}" name="deviceId" /> 
-                                                <button id="deleteUser" class="btn btn-primary btn-danger" >delete</button>
+                                                <button id="deleteDevice" class="btn btn-primary btn-danger" >delete</button>
+                                                
 						</form>
                                              
                                          </td>

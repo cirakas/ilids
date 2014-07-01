@@ -21,7 +21,7 @@ public abstract class AbstractGenericDao<T> implements GenericDao<T> {
     public List<T> getAll() {
         return entityManager.createQuery("SELECT u FROM " + type.getSimpleName() + " u").getResultList();
     }
-
+    
     @SuppressWarnings("unchecked")
     @Override
     public List<T> runCustomQuery(Query query) {
