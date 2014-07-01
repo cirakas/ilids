@@ -111,6 +111,13 @@ var main = svg.append("g")
 
 var mini = svg.append("g")
     .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");
+    
+var valueline2 = d3.svg.line()
+    .x(function(d) { return main_x(d.datee); })
+    .y(function(d) { return main_y0(12); });
+    
+var main1 = svg.append("g")
+    .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");   
 
 data.forEach(function(d) {
     d.datee = d.dd;
@@ -145,6 +152,13 @@ data.forEach(function(d) {
       .attr("class", "line line0")
       .attr("d", main_line0);
 
+
+   main1.append("path")
+      .datum(data)
+      .attr("clip-path", "url(#clip)")
+      .attr("class", "line line5")
+      .style("stroke-dasharray", ("3, 3"))
+      .attr("d", valueline2);
 //  main.append("path")
 //      .datum(data)
 //      .attr("clip-path", "url(#clip)")
@@ -165,6 +179,12 @@ data.forEach(function(d) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("Power");
+      
+      main1.append("text")      // text label for the x axis
+        .attr("x", 890)
+        .attr("y",  65 )
+        .style("text-anchor", "middle")
+        .text("MDV");
 
 //  main.append("g")
 //      .attr("class", "y axis axisRight")
