@@ -20,22 +20,19 @@
 //	});
 //}
 
-//function ajaxLink(url, params, displayComponentId) {
-//   
-//            $.post(url, params, function(data) {
-//                alert('-------'+data);
-//                document.getElementById(displayComponentId).innerHTML = data+"test";
-//              
-//            });
-//        }
-//        
-//        
-//        function onClickMethod(val){
-//            ajaxLink('/ilids/getTags', {'tagName': val}, 'viewDiv');
-//
-//        }
-//
-//</script>
+function ajaxLink(url, params, displayComponentId) {
+            $.post(url, params, function(data) {
+                alert('-------'+data);
+                document.getElementById(displayComponentId).innerHTML = data+"test";
+              
+            });
+        }
+        
+        
+        function onClickMethod(val){
+            ajaxLink('/ilids/getTags', {'tagName': val}, 'viewDiv');
+        }
+</script>
 <div id="viewDiv">
     
 </div>
@@ -66,7 +63,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
         <h4 class="modal-title" id="myModalLabel">Add User</h4>
       </div>
         <c:url value="/saveUser" var="url" />
@@ -79,13 +76,37 @@
      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <form:button class="btn btn-primary">Save</form:button>
+      </div>
+    </form:form>
+    </div>
+  </div>
+</div>
+    
+           <!-- Popup for User edit -->
+<div class="modal fade" id="myModaledit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+        <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+      </div>
+        <c:url value="/saveUser" var="url" />
+           <form:form action="${url}" method="post" modelAttribute="userModel">
+      <div class="modal-body">
+           <div class="form-group"><label> Name: </label><form:input path="name" class="form-control required name" required="required"/></div>
+           <div class="form-group">Email: <form:input path="email" class="form-control required email" data-placement="top" required="required"/></div>
+           <div class="form-group"><label> User name </label><form:input path="username" class="form-control required userame" required="required"/></div>
+         <div class="form-group"> <label>Password</label> <form:password class="form-control required pass" path="password" required="required"/></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <form:button class="btn btn-primary">Save changes</form:button>
       </div>
     </form:form>
     </div>
   </div>
 </div>
-
 
         <div class="row">
             <div class="table-responsive">
@@ -102,10 +123,10 @@
                     <c:forEach var="user" items="${users}">
 				<tr>
 					<td>${user.name}</td>
-                                         <td>${user.username}</td>
+                                        <td>${user.username}</td>
 					<td>${user.email}</td>
                                         <td>${user.enabled}</td>
-                                          <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                                        <td><button class="btn btn-primary btn-sm" onclick="onClickMethod(${user.id})" data-toggle="modal" data-target="#myModaledit" >
                                                     edit
                                                 </button>
                                             </td>
