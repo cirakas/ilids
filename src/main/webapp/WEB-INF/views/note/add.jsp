@@ -30,14 +30,14 @@
 		<thead>
 			<tr>
 				<th>Note <i class="fa fa-sort"></i></th>
-                                <th>Created Date <i class="fa fa-sort"></i></th>
+                                <th>User <i class="fa fa-sort"></i></th>
 				<th>Action <i class="fa fa-sort"></i></th>
 			</tr>
 		</thead>
                 <c:forEach var="note" items="${notesList}" >
                     <tr>
                         <td>${note.note}</td>
-                        <td>${note.createdDate}</td>
+                        <td>${note.user.username}</td>
                         <td><c:url var="deleteUrl" value="/note/delete" />
 						<form action="${deleteUrl}" method="post">
 							<input type="hidden" value="${note.id}" name="noteid"/>
