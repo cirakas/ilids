@@ -1,100 +1,63 @@
-
 'use strict';
 
-d3.json("http://localhost:8080/ilids/getData", function (data) {
-    console.log("----data----"+data);
-    /* since its a csv file we need to format the data a bit */
-   data=myArray;
-    var dateFormat = d3.time.format("%b/%d/%Y %H:%M:%S");
-   //var timeFormat = d3.time.format("hh:mm:ss")
-    //console.dir(dateFormat);
-    var numberFormat = d3.format(".2f");
-    data.forEach(function (d) {
-        console.log('------ytytytyy'+d.date);
-        d.dd = dateFormat.parse(d.date);
-        d.lineDate =dateFormat.parse(d.date);
-        d.month = d3.time.month(d.dd); // pre-calculate month for better performance
-        d.current = +d.current; // coerce to number
-        d.voltage = +d.voltage;
-        d.power = +d.power;
-        d.threshold = +d.threshold;
-        d.cost = +d.power * 8;
-      });
-    var ndx = crossfilter(data);
-    var all = ndx.groupAll();
-  var mdvValue = mdvValue1;
+d3.json("DataAccessServlet", function (data) {
+   var dateFormat = d3.time.format("%m/%d/%Y %I:%M:%S");
+   var numberFormat = d3.format(".2f");
+   data.forEach(function (d) {
+        d.dateFn = dateFormat.parse(d.date);
+        d.currents = numberFormat(d.current);
+   });
+   var ndx = crossfilter(data);
+   var all = ndx.groupAll();
+   var mdvValue = mdvValue1;
   
-  
- // console.log('----ffffff---'+mdvValue);
-  
-
-      
     var main_margin = {top: 40, right: 60, bottom: 100, left: 110},
         mini_margin = {top: 430, right: 60, bottom: 20, left: 110},
         main_width = 1040 - main_margin.left - main_margin.right,
         main_height = 500 - main_margin.top - main_margin.bottom,
         mini_height = 500 - mini_margin.top - mini_margin.bottom;
 
-    var formatDate = d3.time.format("%H:%M:%S"),
+    var formatDate = d3.time.format("%I:%M"),
 
         parseDate = formatDate.parse,
         bisectDate = d3.bisector(function(d) { return d.datee; }).left,
-        formatOutput0 = function(d) { return formatDate(d.datee) + " - "  + d.powers+" KWH "; };
+        formatOutput0 = function(d) { return formatDate(d.datee) + " - "  + d.currents+" A "; };
        
-     //  formatOutput1 = function(d) { return   formatDate(d.datee) +"\n"+ " - " +"\n"+ d.power; };
-     
+    var main_x = d3.time.scale()
+      .range([0, main_width]),
+       mini_x = d3.time.scale()
+      .range([0, main_width]);
 
-var main_x = d3.time.scale()
-   .range([0, main_width]),
-    mini_x = d3.time.scale()
-   .range([0, main_width]);
+    var main_y0 = d3.scale.sqrt()
+      .range([main_height, 0]),
+       mini_y0 = d3.scale.sqrt()
+      .range([mini_height, 0]);
 
-var main_y0 = d3.scale.sqrt()
-   .range([main_height, 0]),
-//    main_y1 = d3.scale.sqrt()
-//   .range([main_height, 0]),
-    mini_y0 = d3.scale.sqrt()
-   .range([mini_height, 0]);
-//    mini_y1 = d3.scale.sqrt()
-//   .range([mini_height, 0]);
-
-var main_xAxis = d3.svg.axis()
+   var main_xAxis = d3.svg.axis()
     .scale(main_x)
-    .tickFormat(d3.time.format("%H:%M:%S"))
+    .tickFormat(d3.time.format("%I:%M"))
     .orient("bottom"),
     mini_xAxis = d3.svg.axis()
     .scale(mini_x)
-    .tickFormat(d3.time.format("%H:%M:%S"))
+    .tickFormat(d3.time.format("%I:%M"))
     .orient("bottom");
 
 var main_yAxisLeft = d3.svg.axis()
     .scale(main_y0)
     .orient("left");
-//    main_yAxisRight = d3.svg.axis()
-//    .scale(main_y1)
-//    .orient("right");
 
 var brush = d3.svg.brush()
     .x(mini_x)
     .on("brush", brush3);
 
 var main_line0 = d3.svg.line()
-    .interpolate("cardinal")
+    .interpolate("linear")
     .x(function(d) { return main_x(d.datee); })
-    .y(function(d) { return main_y0(d.powers); });
-
-//var main_line1 = d3.svg.line()
-//    .interpolate("cardinal")
-//    .x(function(d) { return main_x(d.datee); })
-//    .y(function(d) { return main_y1(d.power); });
+    .y(function(d) { return main_y0(d.currents); });
 
 var mini_line0 = d3.svg.line()
     .x(function(d) { return mini_x(d.datee); })
-    .y(function(d) { return mini_y0(d.powers); });
-
-//var mini_line1 = d3.svg.line()
-//    .x(function(d) { return mini_x(d.datee); })
-//    .y(function(d) { return mini_y1(d.power); });
+    .y(function(d) { return mini_y0(d.currents); });
 
 var svg = d3.select("#powGraph").append("svg")
     .attr("width", main_width + main_margin.left + main_margin.right)
@@ -106,13 +69,6 @@ svg.append("defs").append("clipPath")
     .attr("width", main_width)
     .attr("height", main_height);
     
-//svg.append( "line2" )
-//  .attr("x1", x( x.domain()[0] ) )
-//  .attr("x2", x( x.domain()[1] ) )
-//  .attr("y1", y( 60 ) );   // whatever the y-val should be
-  
-  
-
 var main = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");
 
@@ -127,31 +83,15 @@ var main1 = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");   
 
 data.forEach(function(d) {
-    d.datee = d.dd;
-     //console.log("month"+ d.date);
-/*var months = d.dd.getMonth();
-        var name=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-        var months1= name[months];*/
-    d.powers =+d.power;
-   // console.log("month"+ d.cost);
- //  d.mdvValue=+mdvValue;
-  
+   d.datee = d.dateFn;
+   d.currents =+d.currents;
+   d.mdvValue=+mdvValue;
 });
-  data.sort(function(a, b) {
-
-   //var dat= a.datee - b.datee;
-  //  console.log("date"+dat);
-    return a.datee - b.datee;
-    
-  });
 
   main_x.domain([data[0].datee, data[data.length - 1].datee]);
-  main_y0.domain(d3.extent(data, function(d) { return d.powers; }));
-  //main_y0.domain([0.1, d3.max(data, function(d) { return d.Durchschn; })]);
- // main_y1.domain(d3.extent(data, function(d) { return d.power; }));
+  main_y0.domain(d3.extent(data, function(d) { return d.currents; }));
   mini_x.domain(main_x.domain());
   mini_y0.domain(main_y0.domain());
- // mini_y1.domain(main_y1.domain());
 
   main.append("path")
       .datum(data)
@@ -166,11 +106,6 @@ data.forEach(function(d) {
       .attr("class", "line line5")
       .style("stroke-dasharray", ("3, 3"))
       .attr("d", valueline2);
-//  main.append("path")
-//      .datum(data)
-//      .attr("clip-path", "url(#clip)")
-//      .attr("class", "line line1")
-//      .attr("d", main_line1);
 
   main.append("g")
       .attr("class", "x axis")
@@ -185,25 +120,13 @@ data.forEach(function(d) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Power");
+      .text("Phase1 Current");
       
       main1.append("text")      // text label for the x axis
         .attr("x", 890)
         .attr("y",  65 )
         .style("text-anchor", "middle")
-        .text("MDV");
-
-//  main.append("g")
-//      .attr("class", "y axis axisRight")
-//      .attr("transform", "translate(" + main_width + ", 0)")
-//      .call(main_yAxisRight)
-//    .append("text")
-//      .attr("transform", "rotate(-90)")
-//      .attr("y", -12)
-//      .attr("dy", ".71em")
-//      .style("text-anchor", "end")
-//      .text("Power");
-
+        .text();
   mini.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + mini_height + ")")
@@ -213,12 +136,6 @@ data.forEach(function(d) {
       .datum(data)
       .attr("class", "line")
       .attr("d", mini_line0);
-
-//  mini.append("path")
-//      .datum(data)
-//      .attr("class", "line")
-//      .attr("d", mini_line1);
-
   mini.append("g")
       .attr("class", "x brush")
       .call(brush)
@@ -239,8 +156,8 @@ data.forEach(function(d) {
   // Anzeige auf der linken Leiste
   focus.append("line")
       .attr("class", "y0")
-      .attr("x1", main_width - 6) // nach links
-      .attr("x2", main_width + 6); // nach rechts
+      .attr("x1", main_width - 6) 
+      .attr("x2", main_width + 6); 
 
   // Anzeige auf der rechten Leiste
   focus.append("line")
@@ -255,14 +172,6 @@ data.forEach(function(d) {
   focus.append("text")
       .attr("class", "y0")
       .attr("dy", "-1em");
-
-//  focus.append("circle")
-//      .attr("class", "y1")
-//      .attr("r", 4);
-//
-//  focus.append("text")
-//      .attr("class", "y1")
-//      .attr("dy", "-1em");
 
   main.append("rect")
       .attr("class", "overlay")
@@ -280,76 +189,18 @@ data.forEach(function(d) {
         d0 = data[i - 1],
         d1 = data[i],
         d = x0 - d0.datee > d1.datee - x0 ? d1 : d0;
-    focus.select("circle.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.powers) + ")");
-    focus.select("text.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.powers) + ")").text(formatOutput0(d));
-   // focus.select("circle.y1").attr("transform", "translate(" + main_x(d.datee) + "," + main_y1(d.power) + ")");
-    //focus.select("text.y1").attr("transform", "translate(" + main_x(d.datee) + "," + main_y1(d.power) + ")").text(formatOutput1(d));
+    focus.select("circle.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.currents) + ")");
+    focus.select("text.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.currents) + ")").text(formatOutput0(d));
     focus.select(".x").attr("transform", "translate(" + main_x(d.datee) + ",0)");
-    focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(d.powers) + ")").attr("x2", main_width + main_x(d.datee));
-    //focus.select(".y1").attr("transform", "translate(0, " + main_y1(d.power) + ")").attr("x1", main_x(d.datee));
+    focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(d.currents) + ")").attr("x2", main_width + main_x(d.datee));
   }
 
 
 function brush3() {
   main_x.domain(brush.empty() ? mini_x.domain() : brush.extent()); 
   main.select(".line0").attr("d", main_line0);
-//  main.select(".line1").attr("d", main_line1);
   main.select(".x.axis").call(main_xAxis);
 }
     
-
-//////////////////////////////////////////////////////////////////////////////
-
-
-
- var dateDimension = ndx.dimension(function (d) {
-        return d.dd;
-     //   console.log('-----'+dateDimension);
-    });
-
-     dc.dataTable(".dc-data-table")
-        .dimension(dateDimension)
-        // data table does not use crossfilter group but rather a closure
-        // as a grouping function
-        .group(function (d) {
-            var format = d3.format("02d");
-            return d.dd.getFullYear() + "/" + format((d.dd.getMonth() + 1));
-        })
-        .size(10) // (optional) max number of records to be shown, :default = 25
-        // dynamic columns creation using an array of closures
-        .columns([
-            function (d) {
-                return d.date;
-            },
-            function (d) {
-                return numberFormat(d.voltage);
-            },
-            function (d) {
-                return numberFormat(d.current);
-            },
-            function (d) {
-                return numberFormat(d.power);
-            }
-           
-            
-         //   function (d) {
-           //     return d.deviceID;
-          //  }
-        ])
-        // (optional) sort using the given field, :default = function(d){return d;}
-        .sortBy(function (d) {
-            return d.dd;
-        })
-        // (optional) sort order, :default ascending
-        .order(d3.ascending)
-        // (optional) custom renderlet to post-process chart using D3
-        .renderlet(function (table) {
-            table.selectAll(".dc-table-group").classed("info", true);
-        });
-
-    
-    dc.renderAll();
-    
        
 });
-   d3.selectAll("#version").text(dc.version); 

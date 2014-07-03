@@ -49,18 +49,7 @@ d3.csv("resources/ilids-d3/writedat122.csv", function (data) {
         main_width = 1040 - main_margin.left - main_margin.right,
         main_height = 500 - main_margin.top - main_margin.bottom,
         mini_height = 500 - mini_margin.top - mini_margin.bottom;
-//        
-//        var margin = {top: 100, right: 100, bottom: 100, left: 100},
-//    width = 960 - margin.left - margin.right,
-//    height = 500 - margin.top - margin.bottom;
-//
-//var x = d3.scale.identity()
-//    .domain([0, width]);
-//
-//var xAxis = d3.svg.axis()
-//    .scale(x)
-//    .ticks(0)
-//    .orient("bottom");
+
 
     var formatDate = d3.time.format("%H:%M:%S"),
 
@@ -78,12 +67,8 @@ var main_x = d3.time.scale()
 
 var main_y0 = d3.scale.sqrt()
    .range([main_height, 0]),
-//    main_y1 = d3.scale.sqrt()
-//   .range([main_height, 0]),
     mini_y0 = d3.scale.sqrt()
    .range([mini_height, 0]);
-//    mini_y1 = d3.scale.sqrt()
-//   .range([mini_height, 0]);
 
 var main_xAxis = d3.svg.axis()
     .scale(main_x)
@@ -97,19 +82,6 @@ var main_xAxis = d3.svg.axis()
 var main_yAxisLeft = d3.svg.axis()
     .scale(main_y0)
     .orient("left");
-//    main_yAxisRight = d3.svg.axis()
-//    .scale(main_y1)
-//    .orient("right");
-
-
-//var y = d3.scale.linear()
-//    .domain([0, 1e6])
-//    .range([main_height, 0]);
-//
-//var x = d3.time.scale()
-//    .domain([new Date(2010, 7, 1), new Date(2012, 7, 1)])
-//    .range([0, main_width]);
-//    
     
 var brush = d3.svg.brush()
     .x(mini_x)
@@ -120,26 +92,10 @@ var main_line0 = d3.svg.line()
     .x(function(d) { return main_x(d.datee); })
     .y(function(d) { return main_y0(d.currents); });
 
-//var main_line1 = d3.svg.line()
-//    .interpolate("cardinal")
-//    .x(function(d) { return main_x(d.datee); })
-//    .y(function(d) { return main_y1(d.power); });
 
 var mini_line0 = d3.svg.line()
     .x(function(d) { return mini_x(d.datee); })
     .y(function(d) { return mini_y0(d.currents); });
-
-//var mini_line1 = d3.svg.line()
-//    .x(function(d) { return mini_x(d.datee); })
-//    .y(function(d) { return mini_y1(d.power); });
-
-//var x = d3.scale.identity()
-//    .domain([0, width]);
-//
-//var xAxis = d3.svg.axis()
-//    .scale(x)
-//    .ticks(0)
-//    .orient("bottom");
 
 
 var svg = d3.select("#linGraph").append("svg")
@@ -167,30 +123,20 @@ var mini = svg.append("g")
 
 data.forEach(function(d) {
     d.datee = d.dd;
-     //console.log("month"+ d.date);
-/*var months = d.dd.getMonth();
-        var name=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-        var months1= name[months];*/
     d.currents =+d.current;
-   // console.log("month"+ d.cost);
    
   
 });
   data.sort(function(a, b) {
 
-   //var dat= a.datee - b.datee;
-  //  console.log("date"+dat);
     return a.datee - b.datee;
     
   });
 
   main_x.domain([data[0].datee, data[data.length - 1].datee]);
   main_y0.domain(d3.extent(data, function(d) { return d.currents; }));
-  //main_y0.domain([0.1, d3.max(data, function(d) { return d.Durchschn; })]);
- // main_y1.domain(d3.extent(data, function(d) { return d.power; }));
   mini_x.domain(main_x.domain());
   mini_y0.domain(main_y0.domain());
- // mini_y1.domain(main_y1.domain());
 
   main.append("path")
       .datum(data)
@@ -198,11 +144,6 @@ data.forEach(function(d) {
       .attr("class", "line line1")
       .attr("d", main_line0);
 
-//  main.append("path")
-//      .datum(data)
-//      .attr("clip-path", "url(#clip)")
-//      .attr("class", "line line1")
-//      .attr("d", main_line1);
 
   main.append("g")
       .attr("class", "x axis")
@@ -219,16 +160,6 @@ data.forEach(function(d) {
       .style("text-anchor", "end")
       .text("Current");
 
-//  main.append("g")
-//      .attr("class", "y axis axisRight")
-//      .attr("transform", "translate(" + main_width + ", 0)")
-//      .call(main_yAxisRight)
-//    .append("text")
-//      .attr("transform", "rotate(-90)")
-//      .attr("y", -12)
-//      .attr("dy", ".71em")
-//      .style("text-anchor", "end")
-//      .text("Power");
 
   mini.append("g")
       .attr("class", "x axis")
@@ -240,10 +171,6 @@ data.forEach(function(d) {
       .attr("class", "line")
       .attr("d", mini_line0);
 
-//  mini.append("path")
-//      .datum(data)
-//      .attr("class", "line")
-//      .attr("d", mini_line1);
 
   mini.append("g")
       .attr("class", "x brush")
@@ -282,13 +209,6 @@ data.forEach(function(d) {
       .attr("class", "y0")
       .attr("dy", "-1em");
 
-//  focus.append("circle")
-//      .attr("class", "y1")
-//      .attr("r", 4);
-//
-//  focus.append("text")
-//      .attr("class", "y1")
-//      .attr("dy", "-1em");
 
   main.append("rect")
       .attr("class", "overlay")
@@ -308,11 +228,8 @@ data.forEach(function(d) {
         d = x0 - d0.datee > d1.datee - x0 ? d1 : d0;
     focus.select("circle.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.currents) + ")");
     focus.select("text.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.currents) + ")").text(formatOutput0(d));
-   // focus.select("circle.y1").attr("transform", "translate(" + main_x(d.datee) + "," + main_y1(d.power) + ")");
-    //focus.select("text.y1").attr("transform", "translate(" + main_x(d.datee) + "," + main_y1(d.power) + ")").text(formatOutput1(d));
     focus.select(".x").attr("transform", "translate(" + main_x(d.datee) + ",0)");
     focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(d.currents) + ")").attr("x2", main_width + main_x(d.datee));
-    //focus.select(".y1").attr("transform", "translate(0, " + main_y1(d.power) + ")").attr("x1", main_x(d.datee));
   }
 
 
@@ -323,8 +240,6 @@ function brush3() {
   main.select(".x.axis").call(main_xAxis);
 }
     
-
-//////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -358,9 +273,6 @@ function brush3() {
             }
            
             
-         //   function (d) {
-           //     return d.deviceID;
-          //  }
         ])
         // (optional) sort using the given field, :default = function(d){return d;}
         .sortBy(function (d) {

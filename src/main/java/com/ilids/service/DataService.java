@@ -36,7 +36,7 @@ public class DataService {
         JSONObject tmp;
           for(int i = 0; i < dataList.size(); i++) {
               System.out.println("Inside loop"+i);
-             if(0==dataList.get(i).getAddressMap().getOffSet()){
+             if(8==dataList.get(i).getAddressMap().getOffSet()){
                  System.out.println("Date time is-----"+dataList.get(i).getTime());
              tmp = new JSONObject();
              tmp.put("voltage",dataList.get(i).getData()); //some public getters inside GraphUser?

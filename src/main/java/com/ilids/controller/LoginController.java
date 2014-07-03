@@ -30,7 +30,7 @@ public class LoginController {
     public String welcome(Model model) {
         model.addAttribute("users", sessionRegistry.getAllPrincipals());
         model.addAttribute("SystemSettings", systemSettingsService.getAllSystemSettings().get(0));
-       model.addAttribute("dataList", dataService.getAllData()); 
+      // model.addAttribute("dataList", dataService.getAllData()); 
         
         return "home";
     }

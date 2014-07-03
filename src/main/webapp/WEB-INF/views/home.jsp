@@ -61,7 +61,7 @@ body {
 }
 
 .line.line0 {
-  stroke:#99CC00 ;
+  stroke:#290AF2 ;
 }
 
 .line.line3 {
@@ -156,7 +156,20 @@ body {
         </div><!-- /.row -->
         
         
-        
+         <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-primary" style="height: 600px;">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Phase1 Current vs Time Graph </h3>
+              </div>
+              <div class="panel-body">
+                <div class="flot-chart">
+                  <div class="flot-chart-content" id="powGraph"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.row -->
         
         
         <div class="row">
@@ -180,20 +193,7 @@ body {
             
         </div>
         
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="panel panel-primary" style="height: 600px;">
-              <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Power vs Time Graph </h3>
-              </div>
-              <div class="panel-body">
-                <div class="flot-chart">
-                  <div class="flot-chart-content" id="powGraph"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- /.row -->
+       
 
         
   <tbody>
