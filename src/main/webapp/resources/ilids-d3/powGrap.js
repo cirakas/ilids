@@ -17,7 +17,7 @@ d3.json("DataAccessServlet", function (data) {
         main_height = 500 - main_margin.top - main_margin.bottom,
         mini_height = 500 - mini_margin.top - mini_margin.bottom;
 
-    var formatDate = d3.time.format("%I:%M"),
+    var formatDate = d3.time.format("%I:%M:%S"),
 
         parseDate = formatDate.parse,
         bisectDate = d3.bisector(function(d) { return d.datee; }).left,

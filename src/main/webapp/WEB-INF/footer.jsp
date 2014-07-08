@@ -30,29 +30,42 @@
 		forceParse: 0,
         showMeridian: 1
     });
-//this is for Date only	
- 	$('.form_date').datetimepicker({
-        language:  'en',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
-    });
-//this is for Time Only	
-	$('.form_time').datetimepicker({
-        language:  'en',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 1,
-		minView: 0,
-		maxView: 1,
-		forceParse: 0
-    });
+    
+//     $('.form_datetime').datetimepicker({
+//        language:  'en',
+//        weekStart: 1,
+//        todayBtn:  1,
+//		autoclose: 1,
+//		todayHighlight: 1,
+//		startView: 2,
+//		forceParse: 0,
+//        showMeridian: 1
+//    });
+    
+    
+////this is for Date only	
+// 	$('.form_date').datetimepicker({
+//        language:  'en',
+//        weekStart: 1,
+//        todayBtn:  1,
+//		autoclose: 1,
+//		todayHighlight: 1,
+//		startView: 2,
+//		minView: 2,
+//		forceParse: 0
+//    });
+////this is for Time Only	
+//	$('.form_time').datetimepicker({
+//        language:  'en',
+//        weekStart: 1,
+//        todayBtn:  1,
+//		autoclose: 1,
+//		todayHighlight: 1,
+//		startView: 1,
+//		minView: 0,
+//		maxView: 1,
+//		forceParse: 0
+//    });
 </script>
   </body>
 </html>

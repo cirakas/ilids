@@ -154,18 +154,42 @@ body {
           </div>
         </div><!-- /.row -->
         
-          
-        
-       <div class="row">
-                <label for="dtp_input1" class="col-md-2 control-label">Date And Time</label>
-                <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+            <div class="row">
+          <div class="col-lg-3">
+          <div class="form-group">
+             <!--<div class="btn-group pull-right">-->
+                <label>Graph type</label>
+                <select class="form-control">
+                  <option>Phase1 Current Vs Time</option>
+                  <option>Phase2 Current Vs Time</option>
+                  <option>Phase3 Current Vs Time</option>
+                  <option>Phase1 Power Vs Time</option>
+                  <option>Phase2 Power Vs Time</option>
+                  <option>Phase3 Power Vs Time</option>
+                </select>
+              <!--</div>-->
+        </div>
+        </div>
+                 <label for="dtp_input1" class="col-lg-1">From</label>
+                <div class="input-group date form_datetime col-md-3" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
                     <input class="form-control" size="16" type="text" value="" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
 		<input type="hidden" id="dtp_input1" value="" /><br/>
-            </div>
+                
+               <label for="dtp_input2" class="col-lg-1">To</label>
+                <div class="input-group date form_datetime col-md-3" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input2">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+		<input type="hidden" id="dtp_input2" value="" /><br/> 
+                
+                
+            </div> 
         
+       
         
            
          <div class="row">
