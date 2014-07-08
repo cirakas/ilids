@@ -34,10 +34,6 @@ function ajaxLink(url, params, displayComponentId) {
         }
 </script>
 <div id="viewDiv">
-    
-</div>
-    
-    
         <div class="row">
           <div class="col-lg-12">
             <h1>User Management</h1>
@@ -53,17 +49,17 @@ function ajaxLink(url, params, displayComponentId) {
         
         <!-- Button trigger modal -->
           <div class="row">
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="userModel.reset()">
   <span class="glyphicon glyphicon-plus"></span>
 </button></div>
         <br/>
     
-<!-- Modal -->
+<!-- Popup for Add user -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="userModel.reset()">&times;</button> 
         <h4 class="modal-title" id="myModalLabel">Add User</h4>
       </div>
         <c:url value="/saveUser" var="url" />
@@ -93,11 +89,11 @@ function ajaxLink(url, params, displayComponentId) {
       </div>
         <c:url value="/saveUser" var="url" />
            <form:form action="${url}" method="post" modelAttribute="userModel">
-      <div class="modal-body">
+       <div class="modal-body">
            <div class="form-group"><label> Name: </label><form:input path="name" class="form-control required name" required="required"/></div>
            <div class="form-group">Email: <form:input path="email" class="form-control required email" data-placement="top" required="required"/></div>
            <div class="form-group"><label> User name </label><form:input path="username" class="form-control required userame" required="required"/></div>
-         <div class="form-group"> <label>Password</label> <form:password class="form-control required pass" path="password" required="required"/></div>
+         <div class="form-group"> <label>New Password</label> <form:password class="form-control required pass" path="password" required="required"/></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -126,12 +122,12 @@ function ajaxLink(url, params, displayComponentId) {
                                         <td>${user.username}</td>
 					<td>${user.email}</td>
                                         <td>${user.enabled}</td>
-                                        <td><button class="btn btn-primary btn-sm" onclick="onClickMethod(${user.id})" data-toggle="modal" data-target="#myModaledit" >
+                                        <td><button class="btn btn-primary btn-sm" onclick="onClickMethod(${user.id})"  data-toggle="modal" data-target="#myModaledit" >
                                                     edit
                                                 </button>
                                             </td>
-                                             <td>
-                                              <form method="post" action='<c:url value="/deleteUser"/>'>
+                                             <td><c:url var="deleteUrl" value="/deleteUser"/>
+                                              <form method="post" action="${deleteUrl}">
                                                 <input type="hidden" value="${user.id}" name="userId" /> 
                                                 <button id="deleteUser" class="btn btn-primary btn-danger" >delete</button>
 						</form>
@@ -142,5 +138,4 @@ function ajaxLink(url, params, displayComponentId) {
               </table>
           </div>
         </div><!-- /.row -->
-        
-        
+</div>   
