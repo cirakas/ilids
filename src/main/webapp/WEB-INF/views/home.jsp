@@ -25,7 +25,6 @@
 var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
 var myArray=null;
 myArray= '<c:out value="${dataList}"/>';
-console.log("----kkkk--"+myArray.length);
 
 </script>
 
@@ -155,7 +154,20 @@ body {
           </div>
         </div><!-- /.row -->
         
+          
         
+       <div class="row">
+                <label for="dtp_input1" class="col-md-2 control-label">Date And Time</label>
+                <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+		<input type="hidden" id="dtp_input1" value="" /><br/>
+            </div>
+        
+        
+           
          <div class="row">
           <div class="col-lg-12">
             <div class="panel panel-primary" style="height: 600px;">
@@ -171,7 +183,7 @@ body {
           </div>
         </div><!-- /.row -->
         
-        
+           
         <div class="row">
           <div class="col-lg-12">
 <!--            <h2>Charts</h2>-->
@@ -197,12 +209,7 @@ body {
 
         
   <tbody>
-               <c:forEach var="data" items="${DataList}">
-                   
-                   console.log("--------"+${DataList})
-<!--		
-                 </c:forEach> 
-        
+
         
         
 <!-- <div class="row">

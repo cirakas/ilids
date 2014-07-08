@@ -15,7 +15,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="${resources}ilids-template/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="${resources}ilids-template/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    
     <!-- Add custom CSS here -->
     <link href="${resources}ilids-template/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="${resources}ilids-template/font-awesome/css/font-awesome.min.css">
