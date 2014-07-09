@@ -1,6 +1,6 @@
 'use strict';
 
-d3.json("DataAccessServlet", function (data) {
+d3.json(dataTo, function (data) {
    var dateFormat = d3.time.format("%m/%d/%Y %I:%M:%S");
    var numberFormat = d3.format(".2f");
    data.forEach(function (d) {
