@@ -23,6 +23,7 @@ import com.ilids.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.codehaus.jackson.map.util.JSONPObject;
+import org.json.JSONObject;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -135,32 +136,55 @@ public class AdminController {
         }
     }
     
-     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
-    public void editUser(Model model, HttpServletRequest request) {
-	System.out.println("Inside the editUser------");
-	String userId=request.getParameter("userId");
-	if(userId!=null)
-	    currentUserId=Long.valueOf(userId);
-	User editUser=userService.findById(currentUserId);
-	model.addAttribute("userModel",editUser);
-      
+    
+      @RequestMapping(value = "/saveUser/{id}", method = RequestMethod.POST)
+    public String editUser(@PathVariable("id") String id,@Valid User user, BindingResult errors, Model model, RedirectAttributes flash) {
+        System.out.println("Inside the edit id id------"+id);
+        long userid=Long.valueOf(id);
+        user.setId(userid);
+//        System.out.println("Inside the edit id name------"+user.getName());
+//        System.out.println("Inside the edit id email------"+user.getEmail());
+//        System.out.println("Inside the edit id password------"+user.getPassword());
+//        System.out.println("Inside the edit id username------"+user.getUsername());
+       if (errors.hasErrors()) {
+           return "/user/users";
+        } else {
+            if (userService.updateNewUserToDatabase(user))
+                flash.addFlashAttribute("success", "User has been successfully created.");
+            else
+                flash.addFlashAttribute("error", "User cannot be created.");
+            return "redirect:/user";
+        }
     }
     
-    @RequestMapping(value = "/getTags", method = RequestMethod.POST)
+    
+//     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
+//    public void editUser(Model model, HttpServletRequest request) {
+//	//System.out.println("Inside the editUser------");
+//	String userId=request.getParameter("userId");
+//	if(userId!=null)
+//	    currentUserId=Long.valueOf(userId);
+//	User editUser=userService.findById(currentUserId);
+//	model.addAttribute("userModel",editUser);
+    
+  //  }
+    
+    @RequestMapping(value = "/editUser", method = RequestMethod.POST)
      @ResponseBody
-	public  ModelAndView getTags(@RequestParam("tagName") String tagName) {
-		System.out.println("----=====-==="+tagName);
-		if(tagName!=null)
-	    currentUserId=Long.valueOf(tagName);
-	    User editUser=userService.findById(currentUserId);
-	     ModelAndView mav = new ModelAndView("/user");
-	      mav.addObject("userModel", editUser);
-	     return mav; 
+	public  User editUser(@RequestParam("id") String id) {
+            User user=new User();
+          System.out.println("id----"+id);
+        if(id!=null)
+        currentUserId=Long.valueOf(id);
+        user=userService.findById(currentUserId);
+        user.setPassword(null);
+        user.setRoles(null);
+        return user; 
 	}
         
         @RequestMapping(value = "/getData", method = RequestMethod.GET)
         public @ResponseBody  JSONPObject getData(Model model) {
-        System.out.println("----=====-===");
+     //  System.out.println("----=====-===");
         JSONPObject jsn=new JSONPObject("hello","hello");
         ModelAndView mav = new ModelAndView("/user");
         mav.addObject("data", "12222");

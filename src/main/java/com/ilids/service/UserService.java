@@ -58,6 +58,14 @@ public class UserService {
         persist(user);
         return true;
     }
+ public boolean updateNewUserToDatabase(User user) {
+        Role userRole = roleService.findByName("ROLE_USER");
+        user.addRole(userRole);
+        encryptPassword(user);
+        user.encryptPassword();
+        merge(user);
+        return true;
+    }
 
     private void encryptPassword(User user) {
         user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
@@ -71,6 +79,10 @@ public class UserService {
         userRepository.persist(user);
     }
 
+     public void merge(User user) {
+        userRepository.merge(user);
+    }
+    
     public boolean changeEnabled(Long userId, boolean value) {
         User user = findById(userId);
         user.setEnabled(value);

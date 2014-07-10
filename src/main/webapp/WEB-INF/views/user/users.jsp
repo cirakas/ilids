@@ -22,15 +22,27 @@
 
 function ajaxLink(url, params, displayComponentId) {
             $.post(url, params, function(data) {
-                alert('-------'+data);
-                document.getElementById(displayComponentId).innerHTML = data+"test";
-              
-            });
+               document.getElementById('userModel').action="saveUser/"+data.id;
+               document.getElementById('name').value=data.name;
+               document.getElementById('email').value=data.email;
+               document.getElementById('username').value=data.username;
+               document.getElementById('myModalLabel').innerHTML="Edit user";
+               document.getElementById('btn-save').innerHTML="Save changes";
+               });
         }
         
         
-        function onClickMethod(val){
-            ajaxLink('/ilids/getTags', {'tagName': val}, 'viewDiv');
+        function onClickEdituser(val){
+            ajaxLink('/ilids/editUser', {'id': val}, 'viewDiv');
+        }
+        function onClickAdduser(){
+               document.getElementById('userModel').action="saveUser/";
+               document.getElementById('myModalLabel').innerHTML="Add user";
+               document.getElementById('btn-save').innerHTML="Save"; 
+               document.getElementById('name').value="";
+               document.getElementById('email').value="";
+               document.getElementById('username').value="";
+               document.getElementById('password').value="";
         }
 </script>
 <div id="viewDiv">
@@ -49,7 +61,7 @@ function ajaxLink(url, params, displayComponentId) {
         
         <!-- Button trigger modal -->
           <div class="row">
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="userModel.reset()">
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAdduser()">
   <span class="glyphicon glyphicon-plus"></span>
 </button></div>
         <br/>
@@ -59,51 +71,26 @@ function ajaxLink(url, params, displayComponentId) {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="userModel.reset()">&times;</button> 
-        <h4 class="modal-title" id="myModalLabel">Add User</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+          <h4 class="modal-title" id="myModalLabel">Add User</h4>
       </div>
         <c:url value="/saveUser" var="url" />
-           <form:form action="${url}" method="post" modelAttribute="userModel">
-      <div class="modal-body">
+   <form:form action="${url}" method="post" modelAttribute="userModel">
+     <div class="modal-body">
            <div class="form-group"><label> Name: </label><form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
            <div class="form-group">Email: <form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required"/></div>
            <div class="form-group"><label> User name </label><form:input path="username" class="form-control required userame" placeholder="username" required="required"/></div>
-         <div class="form-group"> <label>Password</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
+           <div class="form-group" id="passwordfield"> <label>Password</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <form:button class="btn btn-primary">Save</form:button>
+        <form:button class="btn btn-primary" id="btn-save">Save</form:button>
       </div>
     </form:form>
     </div>
   </div>
 </div>
     
-           <!-- Popup for User edit -->
-<div class="modal fade" id="myModaledit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
-        <h4 class="modal-title" id="myModalLabel">Edit User</h4>
-      </div>
-        <c:url value="/saveUser" var="url" />
-           <form:form action="${url}" method="post" modelAttribute="userModel">
-       <div class="modal-body">
-           <div class="form-group"><label> Name: </label><form:input path="name" class="form-control required name" required="required"/></div>
-           <div class="form-group">Email: <form:input path="email" class="form-control required email" data-placement="top" required="required"/></div>
-           <div class="form-group"><label> User name </label><form:input path="username" class="form-control required userame" required="required"/></div>
-         <div class="form-group"> <label>New Password</label> <form:password class="form-control required pass" path="password" required="required"/></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <form:button class="btn btn-primary">Save changes</form:button>
-      </div>
-    </form:form>
-    </div>
-  </div>
-</div>
-
         <div class="row">
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped tablesorter">
@@ -122,7 +109,7 @@ function ajaxLink(url, params, displayComponentId) {
                                         <td>${user.username}</td>
 					<td>${user.email}</td>
                                         <td>${user.enabled}</td>
-                                        <td><button class="btn btn-primary btn-sm" onclick="onClickMethod(${user.id})"  data-toggle="modal" data-target="#myModaledit" >
+                                        <td><button class="btn btn-primary btn-sm" onclick="onClickEdituser(${user.id})"  data-toggle="modal" data-target="#myModal" >
                                                     edit
                                                 </button>
                                             </td>
