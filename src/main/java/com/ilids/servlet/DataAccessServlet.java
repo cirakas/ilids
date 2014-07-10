@@ -46,8 +46,15 @@ public class DataAccessServlet extends HttpServlet {
 	String dbPassword = ServerConfig.DB_PASS;
 	Connection connection = (Connection) DriverManager.getConnection(connectionUrl, dbUserName, dbPassword);
 	Statement statement = (Statement) connection.createStatement();
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '2014-06-29' AND '2014-07-21'    and address_map=6";
-	ResultSet rs = statement.executeQuery(selectQuery);
+        String phase=request.getParameter("phase");
+        Long addressMap=Long.valueOf(phase);
+        if(phase.equals("phase1Current")){
+            
+        }
+        
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '2014-06-30 12:01:55' AND '2014-06-30 12:06:17'    and address_map="+addressMap;
+        ResultSet rs = statement.executeQuery(selectQuery);
+       
 	PrintWriter out = response.getWriter();
 
 	JSONArray jsonArray = new JSONArray();

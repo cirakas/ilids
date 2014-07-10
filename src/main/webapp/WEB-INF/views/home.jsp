@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-33628816-1']);
@@ -17,25 +18,35 @@
         s.parentNode.insertBefore(ga, s);
     })();
     
-   
+  var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
+  var myArray=null;
+      myArray= '<c:out value="${dataList}"/>';
+  var param=getQueryVariable('phase');
+    if(!param){
+       param='06';
+   }
+  var dataTo = "DataAccessServlet?phase="+param;
+    function selectFunction()
+   {
+     var graphType=document.getElementById("graphType").value;
+     dataTo = "DataAccessServlet?phase="+graphType;
+     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+      document.location = myURL + "?phase="+graphType;
+   }
+
+    function getQueryVariable(variable) 
+    {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+       var pair = vars[i].split("=");
+       if (pair[0] == variable) {
+         return pair[1];
+       }
+      }
+    }
+
 </script>
-
-<script type="text/javascript">
-
-var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
-var myArray=null;
-myArray= '<c:out value="${dataList}"/>';
-console.log("----kkkk--"+myArray.length);
-
-</script>
-
-<!--<script type="text/javascript">
-
-var datalist = '<c:out value="${Data.dataList.size()}"/>';
-
-</script>-->
-
-
 
  <style>    
 body {
@@ -126,42 +137,50 @@ body {
   shape-rendering: crispEdges;
 }
 
-/*.grid .tick {
-    stroke: lightgrey;
-    opacity: 0.7;
-}
-.grid path {
-      stroke-width: 0;
-}
-.grid .tick {
-    stroke: lightgrey;
-    opacity: 0.7;
-}
-.grid path {
-      stroke-width: 0;
-}*/
-
  </style> 
+ 
         <div class="row">
           <div class="col-lg-12">
             <h1>Dashboard <small>Statistics Overview</small></h1>
             <ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
             </ol>
-<!--            <div class="alert alert-success alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              Welcome to ILIDS
-            </div>-->
           </div>
-        </div><!-- /.row -->
-        
+        </div>
         
          <div class="row">
-          <div class="col-lg-12">
-            <div class="panel panel-primary" style="height: 600px;">
-              <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Phase1 Current vs Time Graph </h3>
-              </div>
+           <div class="col-lg-3">
+             <div class="form-group">
+                <label>Graph type</label>
+                <select class="form-control" id="graphType" value="" onchange="selectFunction()">
+                    <option value="06">Phase1 Current Vs Time</option>
+                    <option value="08">Phase2 Current Vs Time</option>
+                    <option value="10">Phase3 Current Vs Time</option>
+                    <option value="12">Phase1 Power Vs Time</option>
+                    <option value="14">Phase2 Power Vs Time</option>
+                    <option value="16">Phase3 Power Vs Time</option>
+                  
+                </select>
+             </div>
+           </div>
+
+           <div class="form-group">
+              <label for="dtp_input2" class="col-md-2 control-label">Date Only</label>
+                 <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+		    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                 </div>
+		    <input type="hidden" id="dtp_input2" value="" /><br/>
+           </div>
+          </div> 
+        
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-primary" style="height: 600px;">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Phase1 Current vs Time Graph </h3>
+                </div>
               <div class="panel-body">
                 <div class="flot-chart">
                   <div class="flot-chart-content" id="powGraph"></div>
@@ -169,12 +188,10 @@ body {
               </div>
             </div>
           </div>
-        </div><!-- /.row -->
-        
+        </div>
         
         <div class="row">
           <div class="col-lg-12">
-<!--            <h2>Charts</h2>-->
             <div class="panel panel-primary" style="height: 600px;">
               <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
@@ -186,92 +203,14 @@ body {
               </div>
             </div>
           </div>
-        </div><!-- /.row -->
-        
-        <div class="row" style="margin-top:70px;">
-            
-            
         </div>
-        
-       
-
-        
   <tbody>
-               <c:forEach var="data" items="${DataList}">
-                   
-                   console.log("--------"+${DataList})
-<!--		
-                 </c:forEach> 
-        
-        
-        
-<!-- <div class="row">
-         <div class="container">
-   <div id="dashboard" style="display:block;">
-        <div>
-         <h3 style="font-size: 20px;">Current vs Time </h3>
-         <div id="linGraph" style=" float: left;margin-top: 0px;width:100%;" ></div>
-         </div>
-       <div>
-          <h3 style="font-size: 20px;">Power vs Time </h3>
-         <div id="powGraph" style=" float: left;margin-top: 0px;width:100%;" ></div>
-         
-       </div>
-       
-         <table class="table table-hover dc-data-table">
-        <thead>
-        <tr class="header">
-            <th>date</th>
-            <th>voltage</th>
-            <th>current</th>
-            <th>power</th>
-            
-       </tr>
-        </thead>
-    </table>
-   </div>   
-       <div class="clearfix"></div>
-       
-   </div>  
-         </div>-->
-<!--welcome <security:authentication property="principal.username" />
-
--->
-
-<!--<div style="width: 200px;height: 100px; float: right;">
-    Learn crud operations
-     <security:authorize access="hasRole('ROLE_ADMIN')">
-         <li><a href='<c:url value="/admin"/>'>Admin</a></li>
-    </security:authorize>
-        <security:authorize access="isAuthenticated()">
-           <li><a href='<c:url value="/book/add"/>'>Books</a></li>
-     </security:authorize>
-
-</div>-->
-
 <br/>
-<!--Logged-in Users</h1><table>
-<tr>
-<td width="100">Username</td>
-<td width="150">Authorities</td>
-<td width="170">IsAccountNonExpired</td>
-<td width="190">IsCredentialsNonExpired</td>
-<td width="150">IsAccountNonLocked</td>
-</tr>
-<c:forEach items="${users}" var="user">
-<tr>
-<td><a href='<c:url value="/admin/invalidate/${user.username}"/>'><c:out value="${user.username}"/></a></td>
-<td><c:out value="${user.authorities}" /></td>
-<td><c:out value="${user.accountNonExpired}" /></td>
-<td><c:out value="${user.credentialsNonExpired}" /></td>
-<td><c:out value="${user.accountNonLocked}" /></td>
-</tr>
-</c:forEach>
 
-
-</table>-->
-<!--${SystemSettings.mdv}-->
-
+  <script type="text/javascript">
+     document.getElementById("graphType").value=param;
+  </script>
+  
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
 <script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>
 <script type="text/javascript" src="${resources}ilids-d3/js/dc.js"></script>
