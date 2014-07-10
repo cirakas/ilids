@@ -21,17 +21,40 @@
   var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
   var myArray=null;
       myArray= '<c:out value="${dataList}"/>';
-  var param=getQueryVariable('phase');
-    if(!param){
-       param='06';
+      
+  var phaseParam=getQueryVariable('phase');
+  var fromDateParam=getQueryVariable('fromDate');
+  var toDateParam=getQueryVariable('toDate');
+    if(!phaseParam){
+       phaseParam='06';
    }
-  var dataTo = "DataAccessServlet?phase="+param;
-    function selectFunction()
+   if(!fromDateParam){
+       fromDateParam=Date.now();;
+   }
+   if(!toDateParam){
+       toDateParam=Date.now();;
+   }
+  var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&toDate="+toDateParam;
+ 
+//    function selectFunction()
+//   {
+//     var graphType=document.getElementById("graphType").value;
+//     dataTo = "DataAccessServlet?phase="+graphType;
+//     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+//      document.location = myURL + "?phase="+graphType;
+//   }
+   
+   function selectFunction()
    {
-     var graphType=document.getElementById("graphType").value;
-     dataTo = "DataAccessServlet?phase="+graphType;
-     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-      document.location = myURL + "?phase="+graphType;
+    var graphType=document.getElementById("graphType").value;   
+    var fromDate=document.getElementById("SelectedDate").value;
+    var toDate=document.getElementById("SelectedDate1").value;
+
+  var dataTo = "DataAccessServlet?phase="+graphType+"&fromDate="+fromDate+"&toDate="+toDate;
+    var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    
+    console.log("---"+myURL);
+    document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&toDate="+toDate;
    }
 
     function getQueryVariable(variable) 
@@ -47,6 +70,10 @@
     }
 
 </script>
+
+<script language="JavaScript" src="${resources}ilids-template/js/htmlDatePicker.js" type="text/javascript"></script>
+<link href="${resources}ilids-template/css/htmlDatePicker.css" rel="stylesheet" />
+
 
  <style>    
 body {
@@ -163,8 +190,20 @@ body {
                 </select>
              </div>
            </div>
-
-           <div class="form-group">
+             
+         <div class="row">
+           <div class="col-lg-3">
+             <div class="form-group">
+                <label>start date</label>
+                <input type="text" name="SelectedDate" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" onchange="selectFunction()" />
+             </div>
+                <div class="form-group">
+                  <label>end date</label>
+                  <input type="text" name="SelectedDate" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />
+               </div>   
+           </div>
+          </div>
+<!--           <div class="form-group">
               <label for="dtp_input2" class="col-md-2 control-label">Date Only</label>
                  <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                     <input class="form-control" size="16" type="text" value="" readonly>
@@ -173,7 +212,7 @@ body {
                  </div>
 		    <input type="hidden" id="dtp_input2" value="" /><br/>
            </div>
-          </div> 
+          </div> -->
         
           <div class="row">
             <div class="col-lg-12">
@@ -190,7 +229,7 @@ body {
           </div>
         </div>
         
-        <div class="row">
+<!--        <div class="row">
           <div class="col-lg-12">
             <div class="panel panel-primary" style="height: 600px;">
               <div class="panel-heading">
@@ -203,12 +242,12 @@ body {
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
   <tbody>
 <br/>
 
   <script type="text/javascript">
-     document.getElementById("graphType").value=param;
+     document.getElementById("graphType").value=phaseParam;
   </script>
   
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>

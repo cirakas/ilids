@@ -18,7 +18,7 @@
     <script src="${resources}ilids-template/js/tablesorter/jquery.tablesorter.js"></script>
     <script src="${resources}ilids-template/js/tablesorter/tables.js"></script>
     
-<script type="text/javascript">
+<!--<script type="text/javascript">
 //in this line of code, to display the datetimepicker,  we used form_datetime as an argument to be 
 //passed in javascript. This is for Date and Time.
     $('.form_datetime').datetimepicker({
@@ -32,6 +32,6 @@
         showMeridian: 1
     });
 
-</script>
+</script>-->
   </body>
 </html>

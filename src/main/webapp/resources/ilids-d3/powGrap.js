@@ -1,6 +1,6 @@
 'use strict';
 
-d3.json(dataTo, function (data) {
+d3.json(servlet, function (data) {
    var dateFormat = d3.time.format("%m/%d/%Y %I:%M:%S");
    var numberFormat = d3.format(".2f");
    data.forEach(function (d) {
@@ -21,7 +21,7 @@ d3.json(dataTo, function (data) {
 
         parseDate = formatDate.parse,
         bisectDate = d3.bisector(function(d) { return d.datee; }).left,
-        formatOutput0 = function(d) { return formatDate(d.datee) + " - "  + d.currents+" A "; };
+        formatOutput0 = function(d) { return formatDate(d.datee) + " - "  + d.currents; };
        
     var main_x = d3.time.scale()
       .range([0, main_width]),

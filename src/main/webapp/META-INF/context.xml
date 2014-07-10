@@ -2,4 +2,5 @@
 <Context antiJARLocking="true" path="/ilids">
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="ilids" password="" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/ilids?zeroDateTimeBehavior=convertToNull" username="root"/>
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="ilidss" password="" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/ilids?zeroDateTimeBehavior=convertToNull" username="root"/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="sreejith" password="testpass" type="javax.sql.DataSource" url="jdbc:mysql://10.0.1.15:3306/ilids?zeroDateTimeBehavior=convertToNull" username="testjoby"/>
 </Context>

@@ -48,11 +48,16 @@ public class DataAccessServlet extends HttpServlet {
 	Statement statement = (Statement) connection.createStatement();
         String phase=request.getParameter("phase");
         Long addressMap=Long.valueOf(phase);
+        String start=request.getParameter("fromDate");
+        String dateFormat="yyyy-MM-dd";
+        String startDate=dateFormat.format(start);
+        System.out.println("---datee--"+startDate);
         if(phase.equals("phase1Current")){
             
         }
         
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '2014-06-30 12:01:55' AND '2014-06-30 12:06:17'    and address_map="+addressMap;
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '2014-07-10 08:08:31' AND '2014-07-10 12:08:31'    and address_map="+addressMap;
+        System.out.println("query---"+selectQuery);
         ResultSet rs = statement.executeQuery(selectQuery);
        
 	PrintWriter out = response.getWriter();
