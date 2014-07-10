@@ -46,6 +46,19 @@ int main(int argc,char *argv[])
         pclose(cmd);
     }
 
+    log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
+	umask_access_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
+	umask(umask_access_mode);
+   	open_log();
+
+   	sprintf(msg_to_log,"**************************************");
+   	log_to_file(msg_to_log,strlen(msg_to_log));
+   	sprintf(msg_to_log,"DATA ACCESS MODULE STARTED");
+   	log_to_file(msg_to_log,strlen(msg_to_log));
+
+    sprintf(msg_to_log,"Entering Daemon Mode");
+   	log_to_file(msg_to_log,strlen(msg_to_log));
+
     daemon(1,0);//This will cause the program to run as a system daemon without any terminal.Output should be checked through log file.
 
     p_int=POLL_INTERVAL;
@@ -53,6 +66,9 @@ int main(int argc,char *argv[])
     slave_id=DEFAULT_SLID;
     cport=DEFAULT_PORT;
     ex_term=FALSE;
+    random_mode=FALSE;
+    rand_time=5;
+    rand_count=0;
 
 
     for(i=1;i<argc;i++)
@@ -77,6 +93,15 @@ int main(int argc,char *argv[])
                 cport=&(argv[i][j+3]);
                 break;
 
+                case 'i':
+                random_mode=TRUE;
+                rand_time=atoi(&(argv[i][j+3]));
+                printf("\nRandom Simulation Mode Enabled\n");
+                sprintf(msg_to_log,"Random Simulation Mode Enabled : %d",rand_time);
+                log_to_file(msg_to_log,strlen(msg_to_log));
+
+                break;
+
                 default:printf("\nInvalid Arguments,Using Default Values\n");
                 sprintf(msg_to_log,"Invalid Arguments,Using Default Values");
                 log_to_file(msg_to_log,strlen(msg_to_log));
@@ -90,15 +115,6 @@ int main(int argc,char *argv[])
         }
     }
 
-	log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
-	umask_access_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
-	umask(umask_access_mode);
-   	open_log();
-
-   	sprintf(msg_to_log,"**************************************");
-   	log_to_file(msg_to_log,strlen(msg_to_log));
-   	sprintf(msg_to_log,"DATA ACCESS MODULE STARTED");
-   	log_to_file(msg_to_log,strlen(msg_to_log));
 
     if(argc==1)
     {

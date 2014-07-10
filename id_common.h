@@ -67,6 +67,7 @@
 
 #define QUERRY_MAXSIZE 256
 #define F_PRECISION 0.1
+#define RANGEVAL 10
 
 #define Read_Holding_Registers 0x3
 #define Preset_Single_Register 0x6
@@ -149,5 +150,8 @@ int p_int;
 int rd_timeout;
 int slave_id;
 char *cport;
+int random_mode;
+int rand_time;
+int rand_count;
 
 volatile int ex_term;
