@@ -8,13 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ilids.dao.DeviceRepository;
 import com.ilids.domain.Devices;
-import com.ilids.domain.User;
 import java.util.Date;
-import javax.annotation.Resource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionRegistryImpl;
-
 
 @Component
 @Transactional
@@ -38,7 +34,7 @@ public class DeviceService {
         if (device == null) {
             throw new IllegalArgumentException();
         }
-      //  device.getUser().getDevices().remove(device); //pre remove
+        //  device.getUser().getDevices().remove(device); //pre remove
         deviceRepository.delete(device);
         return device;
     }
@@ -54,20 +50,17 @@ public class DeviceService {
 //        userService.persist(user);
 //        return true;
 //    }
-    
-     public boolean addDevice(Devices device){
+    public boolean addDevice(Devices device) {
         device.setCreatedDate(new Date());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String userName=auth.getName();
-//        User user=userService.findByCustomField("username", userName);
-//        device.setUser(user);
         deviceRepository.persist(device);
         return true;
     }
-    
 
-//    private Devices createDevice(String name) {
-//        return new Devices(name);
-//    }
-
+    public boolean updateDevice(Devices device) {
+        device.setCreatedDate(new Date());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        deviceRepository.merge(device);
+        return true;
+    }
 }

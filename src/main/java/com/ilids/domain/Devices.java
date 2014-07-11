@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ilids.domain;
 
 import java.io.Serializable;
@@ -29,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "devices", catalog = "ilids", schema = "")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Devices.findAll", query = "SELECT d FROM Devices d"),
     @NamedQuery(name = "Devices.findById", query = "SELECT d FROM Devices d WHERE d.id = :id"),
@@ -37,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Devices.findBySlaveId", query = "SELECT d FROM Devices d WHERE d.slaveId = :slaveId"),
     @NamedQuery(name = "Devices.findByCreatedDate", query = "SELECT d FROM Devices d WHERE d.createdDate = :createdDate")})
 public class Devices implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -122,5 +121,5 @@ public class Devices implements Serializable {
     public String toString() {
         return "com.ilids.domain.Devices[ id=" + id + " ]";
     }
-    
+
 }
