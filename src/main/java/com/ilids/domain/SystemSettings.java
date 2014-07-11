@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ilids.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -30,7 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "system_settings", catalog = "ilids", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"id"})})
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SystemSettings.findAll", query = "SELECT s FROM SystemSettings s"),
     @NamedQuery(name = "SystemSettings.findById", query = "SELECT s FROM SystemSettings s WHERE s.id = :id"),
@@ -39,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemSettings.findByTimeZone", query = "SELECT s FROM SystemSettings s WHERE s.timeZone = :timeZone"),
     @NamedQuery(name = "SystemSettings.findBySystemClock", query = "SELECT s FROM SystemSettings s WHERE s.systemClock = :systemClock")})
 public class SystemSettings implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,79 +49,78 @@ public class SystemSettings implements Serializable {
     @Column(name = "time_zone", length = 45)
     private String timeZone;
     @Column(name = "system_clock")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date systemClock;
+    private String systemClock;
 
     public SystemSettings() {
     }
 
     public SystemSettings(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public Double getMdv() {
-	return mdv;
+        return mdv;
     }
 
     public void setMdv(Double mdv) {
-	this.mdv = mdv;
+        this.mdv = mdv;
     }
 
     public Double getRatesPerUnit() {
-	return ratesPerUnit;
+        return ratesPerUnit;
     }
 
     public void setRatesPerUnit(Double ratesPerUnit) {
-	this.ratesPerUnit = ratesPerUnit;
+        this.ratesPerUnit = ratesPerUnit;
     }
 
     public String getTimeZone() {
-	return timeZone;
+        return timeZone;
     }
 
     public void setTimeZone(String timeZone) {
-	this.timeZone = timeZone;
+        this.timeZone = timeZone;
     }
 
-    public Date getSystemClock() {
-	return systemClock;
+    public String getSystemClock() {
+        return systemClock;
     }
 
-    public void setSystemClock(Date systemClock) {
-	this.systemClock = systemClock;
+    public void setSystemClock(String systemClock) {
+        this.systemClock = systemClock;
     }
 
     @Override
     public int hashCode() {
-	int hash = 0;
-	hash += (id != null ? id.hashCode() : 0);
-	return hash;
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof SystemSettings)) {
-	    return false;
-	}
-	SystemSettings other = (SystemSettings) object;
-	if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-	    return false;
-	}
-	return true;
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof SystemSettings)) {
+            return false;
+        }
+        SystemSettings other = (SystemSettings) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "com.ilids.entity.SystemSettings[ id=" + id + " ]";
+        return "com.ilids.entity.SystemSettings[ id=" + id + " ]";
     }
-    
+
 }
