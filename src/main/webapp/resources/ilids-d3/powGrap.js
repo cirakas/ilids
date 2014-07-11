@@ -68,6 +68,40 @@ svg.append("defs").append("clipPath")
     .attr("width", main_width)
     .attr("height", main_height);
     
+    //vertical lines
+svg.selectAll(".vline").data(d3.range(26)).enter()
+    .append("line")
+    .attr("x1", function (d) {
+    return d * 40;
+})
+    .attr("x2", function (d) {
+    return d * 40;
+})
+    .attr("y1", function (d) {
+    return 0;
+})
+    .attr("y2", function (d) {
+    return 1000;
+})
+    .style("stroke", "lightgrey");
+
+// horizontal lines
+svg.selectAll(".vline").data(d3.range(26)).enter()
+    .append("line")
+    .attr("y1", function (d) {
+    return d * 20;
+})
+    .attr("y2", function (d) {
+    return d * 20;
+})
+    .attr("x1", function (d) {
+    return 0;
+})
+    .attr("x2", function (d) {
+    return 1000;
+})
+    .style("stroke", "lightgrey");
+    
 var main = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");
 
@@ -193,7 +227,6 @@ data.forEach(function(d) {
     focus.select(".x").attr("transform", "translate(" + main_x(d.datee) + ",0)");
     focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(d.currents) + ")").attr("x2", main_width + main_x(d.datee));
   }
-
 
 function brush3() {
   main_x.domain(brush.empty() ? mini_x.domain() : brush.extent()); 

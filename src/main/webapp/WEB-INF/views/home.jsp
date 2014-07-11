@@ -120,7 +120,7 @@ body {
 }
 
 .line.line0 {
-  stroke:#290AF2 ;
+  stroke:#0101DF ;
 }
 
 .line.line3 {
@@ -232,16 +232,6 @@ body {
                </div>   
            </div>
           </div>
-<!--           <div class="form-group">
-              <label for="dtp_input2" class="col-md-2 control-label">Date Only</label>
-                 <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-		    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                 </div>
-		    <input type="hidden" id="dtp_input2" value="" /><br/>
-           </div>
-          </div> -->
         
           <div class="row">
             <div class="col-lg-12">
@@ -262,20 +252,6 @@ body {
           </div>
         </div>
         
-<!--        <div class="row">
-          <div class="col-lg-12">
-            <div class="panel panel-primary" style="height: 600px;">
-              <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Current vs Time Graph </h3>
-              </div>
-              <div class="panel-body">
-                <div class="flot-chart">
-                  <div class="flot-chart-content" id="linGraph"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>-->
   <tbody>
 <br/>
 
