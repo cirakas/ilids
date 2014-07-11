@@ -7,8 +7,7 @@ d3.json(servlet, function (data) {
         d.dateFn = dateFormat.parse(d.date);
         d.currents = numberFormat(d.current);
    });
-   var ndx = crossfilter(data);
-   var all = ndx.groupAll();
+   
    var mdvValue = mdvValue1;
   
     var main_margin = {top: 40, right: 60, bottom: 100, left: 110},
@@ -120,7 +119,7 @@ data.forEach(function(d) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Phase1 Current");
+      .text(yaxisTitle);//Specified in the home.jsp
       
       main1.append("text")      // text label for the x axis
         .attr("x", 890)
@@ -142,7 +141,7 @@ data.forEach(function(d) {
     .selectAll("rect")
       .attr("y", -6)
       .attr("height", mini_height + 7);
-
+      
   var focus = main.append("g")
       .attr("class", "focus")
       .style("display", "none");

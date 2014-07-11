@@ -217,6 +217,7 @@ function DrawCalendar(l, t) {
 						linkDay = (wDate.getTime() < dRestriction.getTime());
 					}
 				}
+                                linkDay=true;
 				if(linkDay) { 
 					// date is selectable
 					sCal = sCal + "<td class=\""+dayclass+"\"><a href=\"javascript: ReturnDay("+wDay+");\">"+wDay+"</a></td>";
@@ -311,6 +312,7 @@ function ReturnDay(day) {
 		dest.value = sOutput;
 	}
 	DestroyCalendar();
+        fireOnChange=true;
 	if(fireOnChange && typeof(dest.onchange) == "function") dest.onchange();
 }
 

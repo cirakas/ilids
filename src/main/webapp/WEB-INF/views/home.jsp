@@ -19,9 +19,7 @@
     })();
     
   var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
-  var myArray=null;
-      myArray= '<c:out value="${dataList}"/>';
-      
+ 
   var phaseParam=getQueryVariable('phase');
   var fromDateParam=getQueryVariable('fromDate');
   var toDateParam=getQueryVariable('toDate');
@@ -29,31 +27,50 @@
        phaseParam='06';
    }
    if(!fromDateParam){
-       fromDateParam=Date.now();;
+       fromDateParam=new Date().toLocaleDateString();
    }
    if(!toDateParam){
-       toDateParam=Date.now();;
+       toDateParam=new Date().toLocaleDateString();
    }
   var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&toDate="+toDateParam;
  
-//    function selectFunction()
-//   {
-//     var graphType=document.getElementById("graphType").value;
-//     dataTo = "DataAccessServlet?phase="+graphType;
-//     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-//      document.location = myURL + "?phase="+graphType;
-//   }
+ switch(phaseParam){
+      case '06':
+        headTitle="Phase1 Current vs Time";
+        yaxisTitle= "Phase1 Current";
+      break;
+      case '08': 
+        headTitle="Phase2 Current vs Time";
+        yaxisTitle= "Phase2 Current"; 
+      break; 
+      case '10':
+        headTitle="Phase3 Current vs Time";
+        yaxisTitle= "Phase3 Current";
+      break;
+      case '12':
+        headTitle="Phase1 Power vs Time";
+        yaxisTitle= "Phase1 Power";
+      break;
+      case '14':
+        headTitle="Phase2 Power vs Time";
+        yaxisTitle= "Phase2 Power";
+      break;
+      case '16':  
+        headTitle="Phase3 Power vs Time";
+        yaxisTitle= "Phase3 Power"; 
+        break;
+      default :
+        headTitle="Phase1 Current vs Time";
+        yaxisTitle= "Phase1 Current";
+      
+    }
    
    function selectFunction()
    {
     var graphType=document.getElementById("graphType").value;   
     var fromDate=document.getElementById("SelectedDate").value;
     var toDate=document.getElementById("SelectedDate1").value;
-
-  var dataTo = "DataAccessServlet?phase="+graphType+"&fromDate="+fromDate+"&toDate="+toDate;
     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    
-    console.log("---"+myURL);
     document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&toDate="+toDate;
    }
 
@@ -69,6 +86,10 @@
       }
     }
 
+
+ setTimeout(function () { 
+      location.reload();
+    }, 30000);
 </script>
 
 <script language="JavaScript" src="${resources}ilids-template/js/htmlDatePicker.js" type="text/javascript"></script>
@@ -164,6 +185,14 @@ body {
   shape-rendering: crispEdges;
 }
 
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
  </style> 
  
         <div class="row">
@@ -218,7 +247,11 @@ body {
             <div class="col-lg-12">
               <div class="panel panel-primary" style="height: 600px;">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Phase1 Current vs Time Graph </h3>
+                  <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> <script type="text/javascript">
+                    document.write(headTitle);
+                        </script> 
+                  
+                  </h3>
                 </div>
               <div class="panel-body">
                 <div class="flot-chart">
@@ -248,12 +281,15 @@ body {
 
   <script type="text/javascript">
      document.getElementById("graphType").value=phaseParam;
+     document.getElementById("SelectedDate").value=fromDateParam;
+     document.getElementById("SelectedDate1").value=toDateParam; 
+       
   </script>
   
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
-<script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>
-<script type="text/javascript" src="${resources}ilids-d3/js/dc.js"></script>
+<!--<script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>-->
+<!--<script type="text/javascript" src="${resources}ilids-d3/js/dc.js"></script>-->
 <script type="text/javascript" src="${resources}ilids-d3/js/jquery.min.js"></script>
-<script type="text/javascript" src="${resources}ilids-d3/graph.js"></script>
+<!--<script type="text/javascript" src="${resources}ilids-d3/graph.js"></script>-->
 <script type="text/javascript" src="${resources}ilids-d3/powGrap.js"></script>
-<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>
+<!--<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>-->

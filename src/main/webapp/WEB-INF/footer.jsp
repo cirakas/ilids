@@ -12,9 +12,9 @@
     <script type="text/javascript" src="${resources}ilids-template/js/locales/bootstrap-datetimepicker.uk.js" charset="UTF-8"></script>
     <script src="${resources}ilids-template/js/bootstrap.js"></script>
     <!-- Page Specific Plugins-- Path should be changed when everything works fine -->
-    <script src="${resources}ilids-template/js/raphel/raphael-min.js"></script>
-    <script src="${resources}ilids-template/js/morris/morris.min.js"></script>
-    <script src="${resources}ilids-template/js/morris/chart-data-morris.js"></script>
+<!--    <script src="${resources}ilids-template/js/raphel/raphael-min.js"></script>-->
+<!--    <script src="${resources}ilids-template/js/morris/morris.min.js"></script>-->
+<!--    <script src="${resources}ilids-template/js/morris/chart-data-morris.js"></script>-->
     <script src="${resources}ilids-template/js/tablesorter/jquery.tablesorter.js"></script>
     <script src="${resources}ilids-template/js/tablesorter/tables.js"></script>
     

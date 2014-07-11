@@ -13,7 +13,9 @@ import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -39,7 +41,7 @@ public class DataAccessServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException, SQLException {
+	    throws ServletException, IOException, SQLException, ParseException {
 	response.setContentType("application/json");
 	String connectionUrl=ServerConfig.DB_TYPE+"//"+ServerConfig.DB_HOSTNAME+":"+ServerConfig.DB_PORT+"/"+ServerConfig.DB_NAME;
 	String dbUserName = ServerConfig.DB_USERNAME;
@@ -49,15 +51,15 @@ public class DataAccessServlet extends HttpServlet {
         String phase=request.getParameter("phase");
         Long addressMap=Long.valueOf(phase);
         String start=request.getParameter("fromDate");
-        String dateFormat="yyyy-MM-dd";
-        String startDate=dateFormat.format(start);
-        System.out.println("---datee--"+startDate);
-        if(phase.equals("phase1Current")){
-            
-        }
+        String end=request.getParameter("toDate");
+        String dateFormat="MM/dd/yyyy";
+        String toDateFormat="yyyy-MM-dd";
+        SimpleDateFormat parsePattern = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
+        start=parseFormat.format(parsePattern.parse(start));
+         end=parseFormat.format(parsePattern.parse(end));
         
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '2014-07-10 08:08:31' AND '2014-07-10 12:08:31'    and address_map="+addressMap;
-        System.out.println("query---"+selectQuery);
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+"  00:00:01' AND '"+end+"   23:59:59'  and address_map="+addressMap;
         ResultSet rs = statement.executeQuery(selectQuery);
        
 	PrintWriter out = response.getWriter();
@@ -116,7 +118,9 @@ public class DataAccessServlet extends HttpServlet {
 	    processRequest(request, response);
 	} catch (SQLException ex) {
 	    Logger.getLogger(DataAccessServlet.class.getName()).log(Level.SEVERE, null, ex);
-	}
+	} catch (ParseException ex) {
+            Logger.getLogger(DataAccessServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -134,7 +138,9 @@ public class DataAccessServlet extends HttpServlet {
 	    processRequest(request, response);
 	} catch (SQLException ex) {
 	    Logger.getLogger(DataAccessServlet.class.getName()).log(Level.SEVERE, null, ex);
-	}
+	} catch (ParseException ex) {
+            Logger.getLogger(DataAccessServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
