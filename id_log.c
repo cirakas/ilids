@@ -28,7 +28,7 @@ int mod_ret=0;
         }
         else
         {
-                sprintf(log_name,"data_access_log_%s",append_date);
+                sprintf(log_name,"idriver_log_%s",append_date);
                 flog=open(log_name,O_CREAT | O_RDWR | O_APPEND);
                 if(flog < 0)
                 {
