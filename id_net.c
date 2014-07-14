@@ -228,7 +228,7 @@ void * nwcom()
 			    				{
 			      					if(dclients[i].sockfd != -1)
                                     {
-                                        printf("\nClient %s is Disconnected\n",dclients[i].name);
+                                        //printf("\nClient %s is Disconnected\n",dclients[i].name);
                                         sprintf(msg_to_log,"Client %s is Disconnected",dclients[i].name);
                                         log_to_file(msg_to_log,strlen(msg_to_log));
                                         FD_CLR(dclients[i].sockfd,&socket_set);
@@ -248,7 +248,7 @@ void * nwcom()
                             }
                             if(i==no_of_clients)
                             {
-                                printf("\nClient %s is not allowed to Connect\n",client_info->h_name);
+                                //printf("\nClient %s is not allowed to Connect\n",client_info->h_name);
                                 sprintf(msg_to_log,"Client %s is not allowed to Connect",client_info->h_name);
                                 log_to_file(msg_to_log,strlen(msg_to_log));
 		      					close(client_socket);
@@ -275,13 +275,13 @@ void * nwcom()
 		      				if((retn=read(dclients[i].sockfd,dclients[i].inbuf,MAXSIZE)) > 0)
                             {
                                 //Process Client Data Here
-                                printf("\nRead %d bytes from %s\n",retn,dclients[i].name);
+                                //printf("\nRead %d bytes from %s\n",retn,dclients[i].name);
                                 sprintf(msg_to_log,"Read %d bytes from %s",retn,dclients[i].name);
                                 log_to_file(msg_to_log,strlen(msg_to_log));
                             }
 		      				else
                             {
-                                printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
+                                //printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
                                 sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
                                 log_to_file(msg_to_log,strlen(msg_to_log));
 
@@ -315,7 +315,8 @@ int rcount=0;
                 {
                     FD_CLR(dclients[i].sockfd,&socket_set);
                     close(dclients[i].sockfd);
-                    printf("\nWrite Error Client %s is Disconnected\n",dclients[i].name);
+                    sprintf(msg_to_log,"Write Error : Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
+                    log_to_file(msg_to_log,strlen(msg_to_log));
                     dclients[i].sockfd=-1;
                     dclients[i].send=FALSE;
                 }
