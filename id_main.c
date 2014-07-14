@@ -13,6 +13,7 @@ extern mode_t umask_access_mode;
 pthread_attr_t TH_ATTR;
 pthread_t th_read;
 pthread_t th_nw;
+extern pthread_mutex_t LMutex;
 
 int main(int argc,char *argv[])
 {
@@ -49,6 +50,7 @@ int main(int argc,char *argv[])
     log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
 	umask_access_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
 	umask(umask_access_mode);
+	pthread_mutex_init(&LMutex, NULL);
    	open_log();
 
    	sprintf(msg_to_log,"**************************************");

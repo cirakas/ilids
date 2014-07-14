@@ -5,6 +5,7 @@ int log_mode;
 int flog;
 mode_t umask_access_mode;
 char msg_to_log[MSG_SIZE];
+pthread_mutex_t LMutex;
 
 void open_log();
 void log_to_file(char * log_msg,int log_count);
@@ -57,6 +58,7 @@ char * formatted_time;
 char curr_hour[6],mid_night[6]="00:00";
 char * format = "::";
 
+        pthread_mutex_lock(&LMutex);
         curtime = time(NULL);
         formatted_time = ctime((const time_t *)&curtime);
         memcpy(curr_hour,&formatted_time[11],5);
@@ -78,6 +80,7 @@ char * format = "::";
         {
                 new_log_file =0;
         }
+        pthread_mutex_unlock(&LMutex);
 
 }
 
