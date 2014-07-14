@@ -1,6 +1,5 @@
 package com.ilids.service;
 
-import com.ilids.dao.MenuRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ilids.dao.RoleRepository;
-import com.ilids.domain.Menu;
 import com.ilids.domain.Role;
 
 @Component
@@ -17,9 +15,6 @@ public class RoleService {
 
     @Autowired
     private RoleRepository roleRepository;
-    
-     @Autowired
-    private MenuService menuService;
 
     public List<Role> getAllRoles() {
         return roleRepository.getAll();
@@ -47,7 +42,4 @@ public class RoleService {
         roleRepository.persist(role);
     }
 
-public List<Menu>getAllMenu(){
-    return menuService.getAllMenu();
-}
 }
