@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.ilids.domain;
 
 import java.io.Serializable;
@@ -8,20 +13,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author cirakas
+ */
 @Entity
-@Table(name = "role", catalog = "ilids", schema = "")
-public class Role implements Serializable {
+@Table(name = "menu", catalog = "ilids", schema = "")
+public class Menu implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id",nullable = false,unique = true)
     private Long id;
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(length = 225,name = "name",nullable = false)
     private String name;
-    @Column(name = "description", length = 1000)
+    @Column (name = "description",length = 1000)
     private String description;
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -33,11 +41,11 @@ public class Role implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public void SetName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
+    public String getDescription(String description) {
         return description;
     }
 
@@ -55,10 +63,10 @@ public class Role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof Menu)) {
             return false;
         }
-        Role other = (Role) object;
+        Menu other = (Menu) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,6 +75,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ilids.entity.Role[ id=" + id + " ]";
+        return "com.ilids.entity.Menu[ id=" + id + " ]";
     }
+
 }
