@@ -70,8 +70,15 @@
     var graphType=document.getElementById("graphType").value;   
     var fromDate=document.getElementById("SelectedDate").value;
     var toDate=document.getElementById("SelectedDate1").value;
+   var d1 = new Date(fromDate)
+   var d2 = new Date(toDate)
+    if(d2<d1){
+        alert("end date should not be less than start date");
+    }
+    else{
     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
     document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&toDate="+toDate;
+    }
    }
 
     function getQueryVariable(variable) 
@@ -87,9 +94,9 @@
     }
 
 
- setTimeout(function () { 
-      location.reload();
-    }, 30000);
+
+    
+    
 </script>
 
 <script language="JavaScript" src="${resources}ilids-template/js/htmlDatePicker.js" type="text/javascript"></script>
@@ -206,7 +213,7 @@ body {
         
          <div class="row">
            <div class="col-lg-3">
-             <div class="form-group">
+             <div class="form-group" style="float:left;">
                 <label>Graph type</label>
                 <select class="form-control" id="graphType" value="" onchange="selectFunction()">
                     <option value="06">Phase1 Current Vs Time</option>
@@ -220,19 +227,19 @@ body {
              </div>
            </div>
              
-         <div class="row">
-           <div class="col-lg-3">
-             <div class="form-group">
-                <label>start date</label>
+             <div class="col-lg-3" style="width: 700px;float: left;">
+             <div class="form-group" style="float:left;">
+                 <label>start date</label><br>
                 <input type="text" name="SelectedDate" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" onchange="selectFunction()" />
              </div>
-                <div class="form-group">
-                  <label>end date</label>
+                <div class="form-group" style="float:left;margin-left: 30px;">
+                  <label>end date</label><br>
                   <input type="text" name="SelectedDate" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />
                </div>   
            </div>
-          </div>
-        
+            </div> 
+         
+
           <div class="row">
             <div class="col-lg-12">
               <div class="panel panel-primary" style="height: 600px;">

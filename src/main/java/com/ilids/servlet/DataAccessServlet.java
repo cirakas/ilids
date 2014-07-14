@@ -41,7 +41,7 @@ public class DataAccessServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException, SQLException, ParseException {
+	 throws ServletException, IOException, SQLException, ParseException {
 	response.setContentType("application/json");
 	String connectionUrl=ServerConfig.DB_TYPE+"//"+ServerConfig.DB_HOSTNAME+":"+ServerConfig.DB_PORT+"/"+ServerConfig.DB_NAME;
 	String dbUserName = ServerConfig.DB_USERNAME;
@@ -57,7 +57,7 @@ public class DataAccessServlet extends HttpServlet {
         SimpleDateFormat parsePattern = new SimpleDateFormat(dateFormat);
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         start=parseFormat.format(parsePattern.parse(start));
-         end=parseFormat.format(parsePattern.parse(end));
+        end=parseFormat.format(parsePattern.parse(end));
         
 	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+"  00:00:01' AND '"+end+"   23:59:59'  and address_map="+addressMap;
         ResultSet rs = statement.executeQuery(selectQuery);

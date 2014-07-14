@@ -16,7 +16,7 @@ d3.json(servlet, function (data) {
         main_height = 500 - main_margin.top - main_margin.bottom,
         mini_height = 500 - mini_margin.top - mini_margin.bottom;
 
-    var formatDate = d3.time.format("%I:%M:%S"),
+    var formatDate = d3.time.format("%m/%d/%Y %I:%M:%S"),
 
         parseDate = formatDate.parse,
         bisectDate = d3.bisector(function(d) { return d.datee; }).left,
@@ -149,9 +149,9 @@ data.forEach(function(d) {
       .attr("class", "y axis axisLeft")
       .call(main_yAxisLeft)
     .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
+      .attr("transform", "rotate(0)")
+      .attr("y", -16)
+      .attr("dy", ".91em")
       .style("text-anchor", "end")
       .text(yaxisTitle);//Specified in the home.jsp
       
