@@ -61,13 +61,13 @@
               </ul>
             </li>
               <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
-             <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
-           
+              <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
                <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
             <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
+              <li><a href="<c:url value="/role"/>"><i class="fa fa-bar-chart-o"></i> Roles</a></li>
          </ul>
             </security:authorize>
           <security:authorize access="hasRole('ROLE_USER')">
