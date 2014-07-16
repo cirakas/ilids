@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -41,12 +42,12 @@ public class RoleController {
     public List<Role> getRoleList() {
         return roleService.getAllRoles();
     }
-
+    
     @ModelAttribute("menuList")
-    public List<Menu>getMenuList(){
-        return roleService.getAllMenu();
-        
-    }
+    public List<Menu> getMenuList(){
+       List<Menu> menuList=roleService.getAllMenu();
+        return menuList;
+      }
             Long currentUserId = 0l;
 
     @RequestMapping(value = "/editRoles", method = RequestMethod.POST)
@@ -56,6 +57,13 @@ public class RoleController {
         if (id != null) {
             currentUserId = Long.valueOf(id);
         }
-        return null;
+        return role;
+    }
+    
+     @RequestMapping(value = "/saveRole", method = RequestMethod.POST)
+    public String addRole(Role role, RedirectAttributes flash) {
+        role=roleService.saveNewRole(role);
+        roleService.saveMenuItems(role);
+        return "redirect:/role";
     }
 }

@@ -37,18 +37,15 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Add Role</h4>
-            </div>
-            <form:form action="" method="post" modelAttribute="roleModel">
+            </div>     <c:url value="/saveRole" var="url" />
+            <form:form action="${url}" method="post" modelAttribute="roleModel">
                 <div class="modal-body">
                     <div class="form-group"><label> Role Name: </label><form:input path="name" class="form-control required name" placeholder="Role name" required="required"/></div>
                      <div class="form-group"><label> Description: </label><form:input path="description" class="form-control required name" placeholder="Description" required="required"/></div>
+                    <label>Menu Items</label>
                      <div class="form-group">
-                         <label>Menu Items</label>
-                         <div class="checkbox">
-                             <c:forEach var="menu" items="${menuList}">
-                                 <form:checkboxes path="" items="${menu.name}" itemValue="id" itemLabel="name"/> 
-                             </c:forEach>
-                         </div>
+                         
+                         <form:checkboxes path="menuvalues"   items="${menuList}" itemLabel="name" itemValue="id"  /> 
                      </div>
                 </div>
                 <div class="modal-footer">
@@ -83,10 +80,10 @@
                                 edit
                             </button></td>
                         <td>
-                            <!--<form method="post" action='<c:url value="/deleteDevice"/>'>-->
-                                <!--<input type="hidden" value="${role.id}" name="deviceId" />--> 
-                                <button id="deleteDevice" class="btn btn-primary btn-danger" >delete</button>
-                            <!--</form>-->
+                            <form method="post" action='<c:url value="/deleteRole"/>'>
+                                <input type="hidden" value="${role.id}" name="roleId" />
+                                <button id="deleteRole" class="btn btn-primary btn-danger" >delete</button>
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>       

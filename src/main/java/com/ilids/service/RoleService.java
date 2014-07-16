@@ -1,6 +1,5 @@
 package com.ilids.service;
 
-import com.ilids.dao.MenuRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,15 @@ public class RoleService {
     public Role findByName(String name) {
         return roleRepository.findByCustomField("name", name);
     }
-
+    public Role remove(Long id) {
+        Role role = roleRepository.findById(id);
+        if (role == null) {
+            throw new IllegalArgumentException();
+        }
+        //  device.getUser().getDevices().remove(device); //pre remove
+        roleRepository.delete(role);
+        return role;
+    }
     public void delete(String name) {
         roleRepository.delete(findByName(name));
     }
@@ -47,6 +54,27 @@ public class RoleService {
         roleRepository.persist(role);
     }
 
+    public Role saveNewRole(Role role){
+        roleRepository.persist(role);
+        return role;
+    }
+    
+    public void saveMenuItems(Role role){
+        String insertQuery="INSERT INTO role_menu(role_id, menu_id) VALUES ";
+        String appendQuery="";
+        String subQuery="";
+        for(String menuId:role.getMenuvalues()){
+            if(!"".equals(appendQuery)){
+            appendQuery=appendQuery+",";
+            }
+            subQuery="("+role.getId()+","+Long.valueOf(menuId)+")";
+            appendQuery=appendQuery+subQuery;
+        }
+        insertQuery=insertQuery+appendQuery;
+        roleRepository.executeNativeQuery(insertQuery);
+    }
+    
+    
 public List<Menu>getAllMenu(){
     return menuService.getAllMenu();
 }

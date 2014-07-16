@@ -55,5 +55,12 @@ public abstract class AbstractGenericDao<T> implements GenericDao<T> {
     public T merge(T t) {
         return entityManager.merge(t);
     }
+    
+    @Override
+    public int executeNativeQuery(String queryString){
+        Query query = entityManager.createNativeQuery(queryString);
+        return query.executeUpdate();
+    }
+    
 
 }

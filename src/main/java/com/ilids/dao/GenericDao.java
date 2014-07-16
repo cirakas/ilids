@@ -19,5 +19,7 @@ public interface GenericDao<T> {
     void delete(T t);
 
     T merge(T t);
+    
+    int executeNativeQuery(String value);
 
 }
