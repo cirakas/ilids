@@ -62,7 +62,6 @@
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
                 <tr>
-                    <th>ID <i class="fa fa-sort"></i></th>
                     <th>Role Name <i class="fa fa-sort"></i></th>
                     <th>Description <i class="fa fa-sort"></i></th>
                     <th>Edit <i class="fa fa-sort"></i></th>
@@ -72,7 +71,6 @@
             <tbody>
                 <c:forEach var="role" items="${roleList}">
                     <tr>
-                        <td>${role.id}</td>
                         <td>${role.name}</td>
                         <td>${role.description}</td>
                         <td>
