@@ -130,7 +130,12 @@ int main(int argc,char *argv[])
 
 	initcom();
 
-	sdev[slave_id-1].dev_id=TRUE;//temporary way of initialising slave device.
+    for(i=0;i<MAXSLAVE;i++)
+    {
+        sdev[i].active=FALSE;
+        sdev[i].status=TRUE;
+    }
+
 
     intitialize_poll_packet();
 

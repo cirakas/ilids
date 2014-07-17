@@ -10,7 +10,7 @@ void intitialize_poll_packet()
 
     for(i=0;i<MAXSLAVE;i++)
     {
-        if(sdev[i].dev_id)
+        //if(sdev[i].dev_id)
         {
             sdev[i].ppkt[0]=(BYTE *)calloc(POLL_PKT_SIZE ,1);
             sdev[i].ppkt[1]=(BYTE *)calloc(POLL_PKT_SIZE,1);
@@ -59,8 +59,12 @@ static int sid=0,pktid=0;
 
             for(;sid<MAXSLAVE;sid++)
             {
-                if(sdev[sid].dev_id)
+                if(sdev[sid].active || sdev[sid].status)
                 {
+                    if(sdev[sid].status)
+                    {
+                        sdev[sid].status=FALSE;
+                    }
                     writecom(sdev[sid].ppkt[pktid],POLL_PKT_SIZE);
                     pktid++;
                     if(pktid==3)

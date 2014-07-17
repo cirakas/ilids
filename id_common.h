@@ -45,7 +45,7 @@
 #define POLL_PKT_SIZE 6
 #define POLL_PKT 0x3
 
-#define MAXSLAVE 255
+#define MAXSLAVE 32//theoretically 255
 
 #define MSG_SIZE 256
 
@@ -131,7 +131,8 @@ int db_id1,db_id2,db_id3;
 
 typedef struct
 {
-    BYTE dev_id;
+    BYTE status;
+    BYTE active;
     BYTE *ppkt[3];
 }S_DEVICE_LIST;
 

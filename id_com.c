@@ -178,6 +178,7 @@ int bytes_write=0,i=0,wcount=0,count=0;
 		{
 			if(Check_CRC(gl_buf,gl_count))
 			{
+			    sdev[gl_buf[0]-1].active=TRUE;
 			    switch_params(gl_buf,gl_count);
 			}
 			else
