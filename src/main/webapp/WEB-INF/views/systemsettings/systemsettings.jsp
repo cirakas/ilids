@@ -108,6 +108,7 @@
                             </button></td>
                         <td><c:url var="deleteUrl" value="/deleteSystemsettings"/>
                             <form method="post" action="${deleteUrl}">
+                                <input type="hidden" value="${systemSettings.id}" name="systemSettingsId" /> 
                                 <button id="deleteSystemsettings" class="btn btn-primary btn-danger" >delete</button>
                             </form>
                         </td>

@@ -35,6 +35,21 @@
   var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&toDate="+toDateParam;
  
  switch(phaseParam){
+      case '00':
+        headTitle="Phase1 Voltage vs Time";
+        yaxisTitle= "Phase1 Voltage";
+      break;
+      
+      case '02':
+        headTitle="Phase2 Voltage vs Time";
+        yaxisTitle= "Phase2 Voltage";
+      break;
+      
+      case '04':
+        headTitle="Phase3 Voltage vs Time";
+        yaxisTitle= "Phase3 Voltage";
+      break;
+     
       case '06':
         headTitle="Phase1 Current vs Time";
         yaxisTitle= "Phase1 Current";
@@ -216,6 +231,9 @@ body {
              <div class="form-group" style="float:left;">
                 <label>Graph type</label>
                 <select class="form-control" id="graphType" value="" onchange="selectFunction()">
+                    <option value="00">Phase1 Voltage Vs Time</option>
+                    <option value="02">Phase2 Voltage Vs Time</option>
+                    <option value="04">Phase3 Voltage Vs Time</option>
                     <option value="06">Phase1 Current Vs Time</option>
                     <option value="08">Phase2 Current Vs Time</option>
                     <option value="10">Phase3 Current Vs Time</option>

@@ -69,7 +69,7 @@ function ajaxLink(url, params, displayComponentId) {
            <div class="form-group" id="passwordfield"> <label><spring:message code="label.password" />:</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" />;</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
         <form:button class="btn btn-primary" id="btn-save"><spring:message code="label.save" /></form:button>
       </div>
     </form:form>

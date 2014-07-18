@@ -57,7 +57,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> User Management<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href='<c:url value="/user"/>'>Users</a></li>
-               <li><a href="<c:url value="/role"/>">Roles</a></li>
+              <li><a href="<c:url value="/role"/>"> Roles</a></li>
               </ul>
             </li>
               <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
@@ -67,6 +67,7 @@
             <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
+            
          </ul>
             </security:authorize>
           <security:authorize access="hasRole('ROLE_USER')">
