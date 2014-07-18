@@ -57,7 +57,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> User Management<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href='<c:url value="/user"/>'>Users</a></li>
-                <li><a href="#">User types</a></li>
+               <li><a href="<c:url value="/role"/>">Roles</a></li>
               </ul>
             </li>
               <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
@@ -67,7 +67,6 @@
             <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
-              <li><a href="<c:url value="/role"/>"><i class="fa fa-bar-chart-o"></i> Roles</a></li>
          </ul>
             </security:authorize>
           <security:authorize access="hasRole('ROLE_USER')">
@@ -115,7 +114,7 @@
               </ul>
             </li>
             <li class="dropdown alerts-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span id="alertId" class="badge" style="background:#FF0404;"></span> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span style="color: red;">${alertCount}</span> Alerts <span id="alertId" class="badge" style="background:#FF0404;"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
 <!--                <li><a href="#">Default <span class="label label-default">Default</span></a></li>
                 <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
@@ -124,7 +123,7 @@
                 <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
                 <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
                 <li class="divider"></li>
-                <li><a href="#">View All</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#myAlertModal">View All</a></li>
               </ul>
             </li>
             <li class="dropdown user-dropdown">
@@ -143,4 +142,36 @@
            </security:authorize>
         </div><!-- /.navbar-collapse -->
       </nav>
+      
+      <!-- Modal to show alerts -->
+<div class="modal fade" id="myAlertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Alerts</h4>
+            </div>
+            <table cellpadding="0" cellspacing="0" border="0"
+		class="table table-bordered table-hover table-striped tablesorter" id="example" style="table-layout: fixed; word-wrap: break-word;" >
+		<thead>
+			<tr>
+                                <th>Feeder <i class="fa fa-sort"></i></th>
+                                <th>Data type <i class="fa fa-sort"></i></th>
+				<th>vale <i class="fa fa-sort"></i></th>
+                                <th>Time <i class="fa fa-sort"></i></th>
+			</tr>
+		</thead>
+                <c:forEach var="alertData" items="${alertData}" >
+                    <tr>
+                        <td>${alertData.deviceId.name}</td>
+                        <td>${alertData.addressMap.paramName}</td>
+                        <td>${alertData.data}</td>
+                        <td>${alertData.time}</td>
+                    </tr>
+                </c:forEach>
+              </table>
+        </div>
+    </div>
+</div>
+      
       <div id="page-wrapper">
