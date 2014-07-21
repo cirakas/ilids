@@ -107,15 +107,15 @@
        }
       }
     }
-
-
-
-    
     
 </script>
 
+
+
 <script language="JavaScript" src="${resources}ilids-template/js/htmlDatePicker.js" type="text/javascript"></script>
 <link href="${resources}ilids-template/css/htmlDatePicker.css" rel="stylesheet" />
+<!--<script language="JavaScript" src="${resources}ilids-template/js/polling.js" type="text/javascript"></script>-->
+
 
 
  <style>    
@@ -218,11 +218,31 @@ body {
  </style> 
  
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-6">
             <h1>Dashboard <small>Statistics Overview</small></h1>
             <ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
             </ol>
+          </div>
+         <div class="col-lg-3">
+           
+          </div>
+            <div class="col-lg-3">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                      <p class="announcement-text">Power Factor</p>
+                  </div>
+               
+                  <div class="col-xs-6">
+                  <p class="announcement-text"> Phase 1: ${phase1PowerFactor}</p>
+                  <p class="announcement-text"> Phase 2: ${phase2PowerFactor}</p>
+                 <p class="announcement-text">  Phase 3: ${phase3PowerFactor}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -253,7 +273,7 @@ body {
                 <div class="form-group" style="float:left;margin-left: 30px;">
                   <label>end date</label><br>
                   <input type="text" name="SelectedDate" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />
-               </div>   
+               </div>  
            </div>
             </div> 
          
@@ -276,7 +296,23 @@ body {
             </div>
           </div>
         </div>
-        
+<!--        <div id='first_row' class="span-22 prepend-2">
+			<div style='float: left;'></div>
+			<div>
+			<h2 class="update">Match Updates</h2>
+			</div>
+			<hr />
+		</div>
+		<%-- Place updates in here --%>
+		<div class="span-4  prepend-2">
+			<p class="update">Time:</p>
+		</div>
+		<div class="span-3 border">
+			<p id='time' class="update"></p>
+		</div>
+		<div class="span-13 append-2 last" id='update-div'>
+			<p id='message' class="update">The game has not yet started</p>
+		</div>-->
   <tbody>
 <br/>
 
@@ -286,7 +322,7 @@ body {
      document.getElementById("SelectedDate1").value=toDateParam; 
        
   </script>
-  
+    
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>-->
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dc.js"></script>-->
@@ -294,3 +330,12 @@ body {
 <!--<script type="text/javascript" src="${resources}ilids-d3/graph.js"></script>-->
 <script type="text/javascript" src="${resources}ilids-d3/powGrap.js"></script>
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>-->
+
+<!--<script type="text/javascript">
+	$(document).ready(function() {
+		var startUrl = "matchupdate/subscribe";
+		var pollUrl = "matchupdate/simple";
+		var poll = new Poll();
+		poll.start(startUrl,pollUrl);
+	});
+</script>-->

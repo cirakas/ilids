@@ -78,4 +78,9 @@ public class DataService {
 	 return alertDatas;
      }
 
+     public Data getLatestPowerFactorValues(int offSet){
+	 Data data=dataRepository.getLatestDataList(offSet);
+	 return data;
+}
+
 }
