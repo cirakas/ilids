@@ -67,7 +67,7 @@
 
 #define QUERRY_MAXSIZE 256
 #define F_PRECISION 0.1
-#define RANGEVAL 10
+#define RANGEVAL 20
 
 #define Read_Holding_Registers 0x3
 #define Preset_Single_Register 0x6
@@ -123,6 +123,7 @@ typedef struct
     WORD nwords;
     float mf;
     float val;
+    float offset;
 }PARAM_DETAILS;
 
 WORD scondition;
@@ -156,3 +157,4 @@ int rand_time;
 int rand_count;
 
 volatile int ex_term;
+char scommand[256];

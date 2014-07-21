@@ -18,7 +18,6 @@ extern pthread_mutex_t LMutex;
 int main(int argc,char *argv[])
 {
   int i=0,j=0;
-  char verify[64];
   FILE * cmd;
   char ret[16];
 
@@ -31,8 +30,8 @@ int main(int argc,char *argv[])
     }
 
 
-    sprintf(verify,"ps -A | grep %s| wc -l 2>/dev/null",(char *)&argv[0][i+1]);
-    if((cmd=popen((const char *)verify,"r"))!=NULL)
+    sprintf(scommand,"ps -A | grep %s| wc -l 2>/dev/null",(char *)&argv[0][i+1]);
+    if((cmd=popen((const char *)scommand,"r"))!=NULL)
     {
 
         if(fgets(ret,16,cmd)!=NULL)
