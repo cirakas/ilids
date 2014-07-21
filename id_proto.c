@@ -297,28 +297,12 @@ NVALUE neg_val;
                             if(params1[db_id1].val==0)
                             {
                                 sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params1[db_id1].addr_off,1);
-                                if((params1[db_id1].addr_off==30)||(params1[db_id1].addr_off==32)||(params1[db_id1].addr_off==34))
-                                {
-                                    sprintf(scommand,"wget  http://10.0.1.5:8080/ilids/PowerFactorNotificationServlet?pValue=%f\\&offSetValue=%d 1>/dev/null 2>/dev/null",cval,params1[db_id1].addr_off);
-                                    //"http://10.0.1.5:8080/ilids/PowerFactorNotificationServlet?pValue=1&offSetValue=32"
-                                    popen((const char *)scommand,"r");
-                                    memset(scommand,0x0,QUERRY_MAXSIZE);
-                                    sprintf(msg_to_log,"Powerfactor Initial Value : %f: %f",cval,params1[db_id1].val);
-                                    log_to_file(msg_to_log,strlen(msg_to_log));
-                                }
+
                             }
                             else
                             {
                                 sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params1[db_id1].addr_off,!compare_float(cval,params1[db_id1].val,params1[db_id1].offset));
-                                if(((compare_float(cval,params1[db_id1].val,params1[db_id1].offset))==FALSE) && ((params1[db_id1].addr_off==30)||(params1[db_id1].addr_off==32)||(params1[db_id1].addr_off==34)))
-                                {
-                                    sprintf(scommand,"wget  http://10.0.1.5:8080/ilids/PowerFactorNotificationServlet?pValue=%f\\&offSetValue=%d 1>/dev/null 2>/dev/null",cval,params1[db_id1].addr_off);
-                                    //"http://10.0.1.5:8080/ilids/PowerFactorNotificationServlet?pValue=1&offSetValue=32"
-                                    popen((const char *)scommand,"r");
-                                    memset(scommand,0x0,QUERRY_MAXSIZE);
-                                    sprintf(msg_to_log,"Powerfactor Alert : Current Value : %f:Previous Value : %f",cval,params1[db_id1].val);
-                                    log_to_file(msg_to_log,strlen(msg_to_log));
-                                }
+
                             }
                             if(!compare_float(cval,0x2A,1))
                             {
