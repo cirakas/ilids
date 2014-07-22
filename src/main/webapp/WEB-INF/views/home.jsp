@@ -83,6 +83,26 @@
         headTitle="Phase3 Power vs Time";
         yaxisTitle= "Phase3 Power"; 
         break;
+      case '30':  
+        headTitle="Phase1 Power Factor vs Time";
+        yaxisTitle= "Phase1 Power Factor"; 
+        break;
+    case '32':  
+        headTitle="Phase2 Power Factor vs Time";
+        yaxisTitle= "Phase2 Power Factor"; 
+        break;
+      case '34':  
+        headTitle="Phase3 Power Factor vs Time";
+        yaxisTitle= "Phase3 Power Factor"; 
+        break;
+    case '512':  
+        headTitle="Cumulative Energy kVAh vs Time";
+        yaxisTitle= "Cumulative Energy kVAh"; 
+        break;
+     case '514':  
+        headTitle="Cumulative Energy kWh vs Time";
+        yaxisTitle= "Cumulative Energy kWh"; 
+        break;   
       default :
         headTitle="Phase1 Current vs Time";
         yaxisTitle= "Phase1 Current";
@@ -250,6 +270,7 @@ body {
                      </div></div>
           </div>
             <div class="col-lg-3">
+<<<<<<< HEAD
                  <div id="phase1PowerFactorPanel" class="panel power-factor-panel panel-success">
                      <div  class="panel-heading power-factor">
                                 <div id="phase1PowerFactor">
@@ -272,7 +293,7 @@ body {
                       </div>              
           </div>
         </div>
-        
+   
          <div class="row">
            <div class="col-lg-3">
              <div class="form-group" style="float:left;">
@@ -287,6 +308,11 @@ body {
                     <option value="12">Phase1 Power Vs Time</option>
                     <option value="14">Phase2 Power Vs Time</option>
                     <option value="16">Phase3 Power Vs Time</option>
+                    <option value="30">Phase1 Power Factor Vs Time</option>
+                    <option value="32">Phase2 Power Factor Vs Time</option>
+                    <option value="34">Phase3 Power Factor Vs Time</option>
+                    <option value="512">Cumulative Energy kVAh Vs Time</option>
+                    <option value="514">Cumulative Energy kWh Vs Time</option>
                   
                 </select>
              </div>

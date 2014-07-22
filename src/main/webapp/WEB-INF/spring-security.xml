@@ -82,9 +82,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/ilids" />
-		<property name="username" value="root" />
-		<property name="password" value="password" />
+		<property name="url" value="jdbc:mysql://10.0.1.18:3306/ilids" />
+		<property name="username" value="testjoby" />
+		<property name="password" value="testpass" />
 	</bean>
 
 	<bean id="passwordEncoder"
