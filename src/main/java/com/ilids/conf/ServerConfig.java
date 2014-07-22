@@ -13,9 +13,9 @@ package com.ilids.conf;
 public final class ServerConfig {
     public static String DB_TYPE = "jdbc:mysql:";
     public static String DB_NAME = "ilids";
-    public static String DB_HOSTNAME = "localhost";
+    public static String DB_HOSTNAME = "10.0.1.18";
     public static String DB_PORT = "3306";
-    public static String DB_USERNAME = "root";
-    public static String DB_PASS = "password";
+    public static String DB_USERNAME = "testjoby";
+    public static String DB_PASS = "testpass";
    
 }

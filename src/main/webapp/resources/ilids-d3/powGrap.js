@@ -28,23 +28,23 @@ d3.json(servlet, function (data) {
       .range([0, main_width]);
 
     var main_y0 = d3.scale.sqrt()
-      .range([main_height, 0]),
+      .range([350, 0]),
        mini_y0 = d3.scale.sqrt()
-      .range([mini_height, 0]);
+      .range([20, 0]);
 
    var main_xAxis = d3.svg.axis()
     .scale(main_x)
-    .tickFormat(d3.time.format("%I:%M"))
+    .tickFormat(d3.time.format("%H:%M"))
     .orient("bottom"),
     mini_xAxis = d3.svg.axis()
     .scale(mini_x)
-    .tickFormat(d3.time.format("%I:%M"))
+    .tickFormat(d3.time.format("%H:%M"))
     .orient("bottom");
 
 var main_yAxisLeft = d3.svg.axis()
     .scale(main_y0)
-    .orient("left");
-
+    .orient("left")
+    .ticks(4);
 var brush = d3.svg.brush()
     .x(mini_x)
     .on("brush", brush3);
