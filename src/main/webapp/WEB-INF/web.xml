@@ -25,6 +25,10 @@
         <servlet-name>DataAccessServlet</servlet-name>
         <servlet-class>com.ilids.servlet.DataAccessServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PowerFactorNotificationServlet</servlet-name>
+        <servlet-class>com.ilids.servlet.PowerFactorNotificationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>appServlet</servlet-name>
         <url-pattern>/</url-pattern>
@@ -40,6 +44,10 @@
     <servlet-mapping>
         <servlet-name>DataAccessServlet</servlet-name>
         <url-pattern>/DataAccessServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PowerFactorNotificationServlet</servlet-name>
+        <url-pattern>/PowerFactorNotificationServlet</url-pattern>
     </servlet-mapping>
     <jsp-config>
         <jsp-property-group>

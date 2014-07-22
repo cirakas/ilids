@@ -1,5 +1,6 @@
 package com.ilids.controller;
 
+import com.ilids.conf.ServerConfig;
 import com.ilids.domain.Data;
 import com.ilids.domain.SystemSettings;
 import com.ilids.service.DataService;
@@ -29,13 +30,14 @@ public class LoginController {
 
     @RequestMapping("/home")
     public String welcome(Model model) {
+	ServerConfig.latestAlertsScheduleCheckTime=System.currentTimeMillis();
         model.addAttribute("users", sessionRegistry.getAllPrincipals());
 	SystemSettings systemSettings=systemSettingsService.getAllSystemSettings().get(0);
         model.addAttribute("SystemSettings", systemSettings);
 	List<Data> alertData=dataService.getAllAlertData(systemSettings.getMdv());
 	Data phase1PowerFactor=dataService.getLatestPowerFactorValues(30);
-	Data phase2PowerFactor=dataService.getLatestPowerFactorValues(30);
-	Data phase3PowerFactor=dataService.getLatestPowerFactorValues(30);
+	Data phase2PowerFactor=dataService.getLatestPowerFactorValues(32);
+	Data phase3PowerFactor=dataService.getLatestPowerFactorValues(34);
 	model.addAttribute("phase1PowerFactor", phase1PowerFactor.getData());
 	model.addAttribute("phase2PowerFactor", phase2PowerFactor.getData());
 	model.addAttribute("phase3PowerFactor", phase3PowerFactor.getData());

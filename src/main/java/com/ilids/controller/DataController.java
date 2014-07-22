@@ -49,7 +49,7 @@ public class DataController {
         System.out.println("Inside the show");
         return "/home";
     }
-
+    
 //    @RequestMapping(value = "saveData", method = RequestMethod.POST)
 //    public String add(Data data, RedirectAttributes flash) {
 //        if (dataService.addData(data)) {

@@ -17,6 +17,8 @@
 			error-page="/denied" />
 		<security:intercept-url pattern="/register"
 			access="permitAll" />
+                <security:intercept-url pattern="/PowerFactorNotificationServlet"
+			access="permitAll" />
                 <security:intercept-url pattern="/login"
 			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
