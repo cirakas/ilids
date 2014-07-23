@@ -36,10 +36,10 @@
        phaseParam='06';
    }
    if(!fromDateParam){
-       fromDateParam=new Date().toLocaleDateString();
+       fromDateParam="7/19/2014"//new Date().toLocaleDateString();
    }
    if(!toDateParam){
-       toDateParam=new Date().toLocaleDateString();
+       toDateParam="7/19/2014"//new Date().toLocaleDateString();
    }
   var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&toDate="+toDateParam;
  
@@ -270,7 +270,6 @@ body {
                      </div></div>
           </div>
             <div class="col-lg-3">
-<<<<<<< HEAD
                  <div id="phase1PowerFactorPanel" class="panel power-factor-panel panel-success">
                      <div  class="panel-heading power-factor">
                                 <div id="phase1PowerFactor">
