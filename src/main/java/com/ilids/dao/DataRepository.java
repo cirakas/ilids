@@ -25,14 +25,19 @@ public class DataRepository extends AbstractGenericDao<Data> {
 	return powerData;
     }
 
-    public List<Data> getCumilativeEnergy(String startDateParam, String endDateParam, boolean startFlag) {
-	List<Data> cumilativeData = (List<Data>) entityManager.createQuery("SELECT u FROM Data u where time BETWEEN '" + startDateParam + " 00:00:01' AND '" + endDateParam + " 23:59:59' and address_map=512)").getResultList();
-	List<Data> actualDataList = new ArrayList<Data>();
-	if (cumilativeData != null && cumilativeData.size() > 0) {
-	    actualDataList.add(0, cumilativeData.get(0));
-	    actualDataList.add(0, cumilativeData.get(cumilativeData.size() - 1));
-	}
-	return actualDataList;
+    public List<Object[]> getCumilativeEnergy(String startDateParam, String endDateParam, boolean startFlag) {
+	Object[] startCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time > '" + startDateParam + " 00:00:01' and address_map=512 order by id asc limit 1 ").getSingleResult();
+	Object[] endCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time < '" + endDateParam + " 23:59:59' and address_map=512 order by id desc limit 1 ").getSingleResult();
+	List<Object[]> cumialtiveDataList = new ArrayList<Object[]>();
+	cumialtiveDataList.add(0, startCumilative);
+	cumialtiveDataList.add(1, endCumilative);
+	return cumialtiveDataList;
+    }
+
+    public Long getAlertCount(String startDateParam, String endDateParam, double mdv) {
+	Object alertCount = entityManager.createNativeQuery("SELECT count(id) FROM data where time > '" + startDateParam + " 00:00:01' and time < '" + endDateParam + " 23:59:59' and data>" + mdv + " and (address_map=12 or address_map=14 or address_map=16)").getSingleResult();
+	Long.valueOf(alertCount.toString());
+	return Long.valueOf(alertCount.toString());
     }
 
     public List<Data> getAllAlertDataForSchedule(String lastScheduleTime, String currentScheduleTime, double mdv) {

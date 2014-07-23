@@ -34,16 +34,12 @@ public class LoginController {
         model.addAttribute("users", sessionRegistry.getAllPrincipals());
 	SystemSettings systemSettings=systemSettingsService.getAllSystemSettings().get(0);
         model.addAttribute("SystemSettings", systemSettings);
-	List<Data> alertData=dataService.getAllAlertData(systemSettings.getMdv());
 	Data phase1PowerFactor=dataService.getLatestPowerFactorValues(30);
 	Data phase2PowerFactor=dataService.getLatestPowerFactorValues(32);
 	Data phase3PowerFactor=dataService.getLatestPowerFactorValues(34);
 	model.addAttribute("phase1PowerFactor", phase1PowerFactor.getData());
 	model.addAttribute("phase2PowerFactor", phase2PowerFactor.getData());
 	model.addAttribute("phase3PowerFactor", phase3PowerFactor.getData());
-	model.addAttribute("alertCount", alertData.size());
-	model.addAttribute("alertData", alertData);
-      // model.addAttribute("dataList", dataService.getAllData()); 
         return "home";
     }
      @RequestMapping(value = "/getDataFromDB", method = RequestMethod.GET)

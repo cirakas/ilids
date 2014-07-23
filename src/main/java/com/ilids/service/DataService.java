@@ -70,11 +70,18 @@ public class DataService {
 	return data;
     }
 
-    public List<Data> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag) throws ParseException {
+    public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag) throws ParseException {
 	startDateValue = convertToDate(startDateValue);
 	endDateValue = convertToDate(endDateValue);
-	List<Data> cumilativeDataList = dataRepository.getCumilativeEnergy(startDateValue, endDateValue, startFlag);
+	List<Object[]> cumilativeDataList = dataRepository.getCumilativeEnergy(startDateValue, endDateValue, startFlag);
 	return cumilativeDataList;
+    }
+
+    public Long getAlertCount(String startDateValue, String endDateValue, double mdv) throws ParseException {
+	startDateValue = convertToDate(startDateValue);
+	endDateValue = convertToDate(endDateValue);
+	Long alertCount = dataRepository.getAlertCount(startDateValue, endDateValue, mdv);
+	return alertCount;
     }
 
     public String convertToDate(String dateValue) throws ParseException {

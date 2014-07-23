@@ -18,14 +18,14 @@
 //        s.parentNode.insertBefore(ga, s);
 //    })();
     
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
+//    (function () {
+//        var ga = document.createElement('script');
+//        ga.type = 'text/javascript';
+//        ga.async = true;
+//        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//        var s = document.getElementsByTagName('script')[0];
+//        s.parentNode.insertBefore(ga, s);
+//    })();
     
   var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
  
@@ -380,6 +380,7 @@ body {
                 var toDateParams=document.getElementById("SelectedDate1").value;
                 var energyRequestUrl = "dashboardupdate/energyCost";
                 var energyValueDiv=0;
+                var alertSpan=0;
                 if (energyRequest) {
 			energyRequest.abort(); // abort any pending request
 		}
@@ -391,7 +392,9 @@ body {
                         data : { "startDate":fromDateParams, "endDate":toDateParams},
                         success: function(pollData) {
                             energyValueDiv='<p id="energyCostValue" class="announcement-text">Energy Cost: Rs.'+ Number(pollData.energyCost)+'</p>';
-                              $(energyValueDiv).replaceAll('#energyCostValue');
+                               alertSpan='<span id="alertCountId" style="color: red;">'+Number(pollData.alertCount)+'</span>';
+                            $(energyValueDiv).replaceAll('#energyCostValue');
+                            $(alertSpan).replaceAll('#alertCountId');
                         
                     }
 		});
