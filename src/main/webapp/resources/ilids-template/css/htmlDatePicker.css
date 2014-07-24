@@ -7,45 +7,62 @@
 #dpCalendar {
 	display: none;					/* Important, do not change */
 	position: absolute;				/* Important, do not change */
-	background-color: #eeeeee;
+	//background-color: #eeeeee;
 	color: black;
 	font-size: xx-small;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	width: 150px;
+	width: 169px; 
+        z-index: 1000000000;
+        border-radius: 20px;
 }
 /* The table of the Calendar */
-#dpCalendar table {
-	border: 1px solid black;
-	background-color: #eeeeee;
-	color: black;
+#dpCalendar table a{
+        background: #fff;
+	color: #067890;
+        border: 1px solid #bee0fe;
+}
+#dpCalendar table{
+	border: 1px solid #2f75b1;
+        background: #fff;
+	color: #012a33;
 	font-size: xx-small;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	width: 100%;
+        text-align: center;
+        float: left;
+        border-radius: 20px;
 }
 /* The Next/Previous buttons */
 #dpCalendar .cellButton {
 	background-color: #ddddff;
-	color: black;
+        background: #428BCA;     
+	color: #fff;
 }
+#dpCalendar .cellButton a{background: #fff;border-radius: 10px;border: none;padding:5px;}
 /* The Month/Year title cell */
 #dpCalendar .cellMonth {
 	background-color: #ddddff;
-	color: black;
+        background: #428BCA;
+	color: #fff;
 	text-align: center;
+        padding: 10px 5px;
 }
 /* Any regular day of the month cell */
-#dpCalendar .cellDay {
-	background-color: #ddddff;
-	color: black;
+#dpCalendar .cellDay{
+	background-color: #f7f7f7;
 	text-align: center;
+        padding: 2px;
 }
+#dpCalendar .cellDay a{color: #616060;}
+
 /* The day of the month cell that is selected */
 #dpCalendar .cellSelected {
-	border: 1px solid red;
-	background-color: #ffdddd;
+	//border: 1px solid red;
+	//background-color: #ff0;
 	color: black;
 	text-align: center;
 }
+#dpCalendar .cellSelected a{background-color: #ff0;border: 1px solid red;border-radius: 5px;padding: 3px;}
 /* The day of the month cell that is Today */
 #dpCalendar .cellToday {
 	background-color: #ddffdd;
@@ -65,14 +82,18 @@
 }
 /* The Cancel/No Date button */
 #dpCalendar .cellCancel {
-	background-color: #cccccc;
-	color: black;
-	border: 1px solid black;
+	
 	text-align: center;
+        padding-top:10px;
 }
 /* The text inside the Cancel/No Date button */
 #dpCalendar .cellCancel a {
 	display: block;
+        background-color: #000;
+        padding: 3px;
+        color: #fff;
+        border: none;
+        outline: none;
 }
 /* The clickable text inside the calendar */
 #dpCalendar a {

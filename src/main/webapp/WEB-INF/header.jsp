@@ -27,7 +27,10 @@
     
 <!--    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">-->
 <style>
-    .color-menu{color: #f00!important;}
+    .color-menu li a{outline:none;}
+    .color-menu li{border-top: 1px solid #343434;}
+    .color-menu li:first-child{border: none;}
+    body{font: 14px sans-serif;outline: none!important;}
 </style>
   </head>
 
@@ -36,7 +39,7 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -45,33 +48,33 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="home">ILIDS</a>
+          <a class="navbar-brand" href="home" style="outline: none;font-size: 25px;color:#e8e7e7;">iLids</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <security:authorize access="isAuthenticated()">
                 <security:authorize access="hasRole('ROLE_ADMIN')">
-            <ul class="nav navbar-nav side-nav color-menu">
+            <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> User Management<b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href='<c:url value="/user"/>'>Users</a></li>
               <li><a href="<c:url value="/role"/>"> Roles</a></li>
               </ul>
             </li>
-              <li><a href="<c:url value="/systemsettings"/>"><i class="fa fa-bar-chart-o"></i> System settings</a></li>
-              <li><a href="<c:url value="/devices"/>"><i class="fa fa-bar-chart-o"></i> Devices</a></li>
-               <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
-             <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
-            <li><a href="#"><i class="fa fa-bar-chart-o"></i> E-mail/SMS settings</a></li>
-             <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
-             <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
+              <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_.png"></i> System settings</a></li>
+              <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices</a></li>
+               <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts</a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts</a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings</a></li>
+             <li><a href='<c:url value="/note/add"/>'><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes</a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat</a></li>
             
          </ul>
             </security:authorize>
           <security:authorize access="hasRole('ROLE_USER')">
-            <ul class="nav navbar-nav side-nav">
+            <ul class="nav navbar-nav side-nav"  style="outline:none; ">
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
              <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
             <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
@@ -79,7 +82,7 @@
               <li><a href="#"><i class="fa fa-bar-chart-o"></i>Help</a></li>
          </ul>
             </security:authorize>
-          <ul class="nav navbar-nav navbar-right navbar-user">
+                <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge" style="background:#FB8805;"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
