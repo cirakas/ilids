@@ -6,7 +6,9 @@ package com.ilids.controller;
 import com.ilids.conf.ServerConfig;
 import com.ilids.domain.Data;
 import com.ilids.domain.PollData;
+import com.ilids.domain.SystemSettings;
 import com.ilids.service.DataService;
+import com.ilids.service.SystemSettingsService;
 import java.text.ParseException;
 import java.util.List;
 import org.slf4j.Logger;
@@ -31,6 +33,9 @@ public class DashBoardUpdateController {
 
     @Autowired
     private DataService dataService;
+    
+     @Autowired
+    private SystemSettingsService systemSettingsService;
 
     PollData pollData;
 
@@ -63,13 +68,21 @@ public class DashBoardUpdateController {
     public PollData energyCost(@RequestParam(value = "startDate", required = true) String startDate, @RequestParam(value = "endDate", required = true) String endDate) throws ParseException {
 	double startCumilative = 0;
 	double endCumilative = 0;
-	List<Data> cumilativeData = dataService.getCumilativeEnergy(startDate, endDate, true);
+	double mdv=100;
+	logger.info("Calculating energy cost");
+	List<Object[]> cumilativeData = dataService.getCumilativeEnergy(startDate, endDate, true);
+	SystemSettings systemSettings=systemSettingsService.getAllSystemSettings().get(0);
+	mdv=systemSettings.getMdv();
+	Long alertCount=dataService.getAlertCount(startDate, endDate, mdv);
 	if (cumilativeData.size() > 0) {
-	    startCumilative = cumilativeData.get(1).getData();
-	    endCumilative = cumilativeData.get(0).getData();
+	    startCumilative = (Double)cumilativeData.get(0)[1];
+	    endCumilative = (Double)cumilativeData.get(1)[1];
 	}
 	PollData pollData = ServerConfig.pollData;
 	pollData.energyCost = (endCumilative - startCumilative) * 6.5;
+	pollData.alertCount=alertCount;
+	logger.info("Energy cost calculated::"+pollData.alertCount);
+	logger.info("Alert count::"+alertCount);
 	return pollData;
     }
 }

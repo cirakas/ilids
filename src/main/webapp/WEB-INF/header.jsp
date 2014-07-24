@@ -89,7 +89,7 @@
                 <li class="dropdown-header">7 New Messages</li>
                 <li class="message-preview">
                   <a href="#">
-                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+<!--                    <span class="avatar"><img src="http://placehold.it/50x50"></span>-->
                     <span class="name">John Smith:</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
@@ -98,7 +98,7 @@
                 <li class="divider"></li>
                 <li class="message-preview">
                   <a href="#">
-                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+<!--                    <span class="avatar"><img src="http://placehold.it/50x50"></span>-->
                     <span class="name">John Smith:</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
@@ -107,7 +107,7 @@
                 <li class="divider"></li>
                 <li class="message-preview">
                   <a href="#">
-                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+<!--                    <span class="avatar"><img src="http://placehold.it/50x50"></span>-->
                     <span class="name">John Smith:</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
@@ -118,7 +118,7 @@
               </ul>
             </li>
             <li class="dropdown alerts-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span style="color: red;">${alertCount}</span> Alerts <span id="alertId" class="badge" style="background:#FF0404;"></span> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span id="alertCountId" style="color: red;">${alertCount}</span> Alerts <span id="alertId" class="badge" style="background:#FF0404;"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
 <!--                <li><a href="#">Default <span class="label label-default">Default</span></a></li>
                 <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>

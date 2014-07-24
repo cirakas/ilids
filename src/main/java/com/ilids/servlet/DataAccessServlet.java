@@ -52,7 +52,6 @@ public class DataAccessServlet extends HttpServlet {
         String phase=request.getParameter("phase");
         Long addressMap=Long.valueOf(phase);
         int addrMap = Integer.valueOf(phase);
-        System.out.println("adresmap=-----"+addrMap);
         float diffCheck=0;
         String start=request.getParameter("fromDate");
         String end=request.getParameter("toDate");
@@ -62,19 +61,57 @@ public class DataAccessServlet extends HttpServlet {
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         start=parseFormat.format(parsePattern.parse(start));
         end=parseFormat.format(parsePattern.parse(end));
-//        int catg=1;
-//        if(addressMap==12L){
-//            catg=0;
-//            System.out.println("------");
-//        }
-//        
-//        else{
-//            catg=1;
-//        }
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+"  00:00:01' AND '"+end+"   23:59:59'  and address_map="+addressMap;
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+"  00:00:01' AND '"+end+"   23:59:59'  and address_map="+addressMap+" and category=1;";
         ResultSet rs = statement.executeQuery(selectQuery);
        
 	PrintWriter out = response.getWriter();
+        
+           switch(addrMap){
+////            case 0:
+////              diffCheck=5;
+////              break;
+////            case 2:
+////              diffCheck=5;
+////              break;
+////           case 4:
+////              diffCheck=5;
+////              break;     
+////           case 6:
+////              diffCheck=20;
+////              break;    
+////           case 8:
+////              diffCheck=20;
+////              break;
+////           case 10:
+////              diffCheck=20;
+////              break;        
+           case 12:
+              diffCheck=7;
+              break;
+           case 14:
+              diffCheck=7;
+              break;    
+////           case 16:
+////              diffCheck=7;
+////              break;  
+////           case 30:
+////              diffCheck=(float) 0.1;
+////              break;  
+////           case 32:
+////              diffCheck=(float) 0.1;
+////              break;  
+////           case 34:
+////              diffCheck=(float) 0.1;
+////              break;      
+////           case 512:
+////              diffCheck=10;
+////              break;  
+////           case 514:
+////              diffCheck=10;
+////              break;      
+//           default:
+//              diffCheck=7;
+          }
 
 	JSONArray jsonArray = new JSONArray();
 	try {
@@ -88,77 +125,17 @@ public class DataAccessServlet extends HttpServlet {
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 	    while (rs.next()) {
 		datas = rs.getFloat("real_data");
-//               float data1=(int) (datas%100);
-//                System.out.println("------dada"+data1);
-//                if(data1<50){
-//                  datas1 =Math.round(datas-data1);
-//                }
-//                else{
-//                    datas1=Math.round(datas+data1);
-//                }
-//                System.out.println("---data"+datas1);
                 float difference= Math.abs(datas-predata);
-              //  System.out.println("difffff---"+difference);
                 if(difference<0){
                    difference=difference*(-1); 
-                   // System.out.println("integer---"+difference);
                 }
-                switch(addrMap){
-            case 0:
-              diffCheck=5;
-              break;
-            case 2:
-              diffCheck=5;
-              break;
-           case 4:
-              diffCheck=5;
-              break;     
-           case 6:
-              diffCheck=20;
-               System.out.println("------diffcheckkk"+20);
-              break;    
-           case 8:
-              diffCheck=20;
-              break;
-           case 10:
-              diffCheck=20;
-              break;        
-           case 12:
-              diffCheck=7;
-              break;
-           case 14:
-              diffCheck=7;
-              break;    
-           case 16:
-              diffCheck=7;
-              break;  
-           case 30:
-              diffCheck=(float) 0.1;
-              System.out.println("------diffcheckkk"+diffCheck);
-              break;  
-           case 32:
-              diffCheck=(float) 0.1;
-              break;  
-           case 34:
-              diffCheck=(float) 0.1;
-              break;      
-           case 512:
-              diffCheck=10;
-              break;  
-           case 514:
-              diffCheck=10;
-              break;      
-           default:
-              diffCheck=7;
-          }
+//                if(addrMap==12 || addrMap==14){
+                   
                 if((difference<=diffCheck) &&(Float.floatToIntBits (predata)!=0)){
                     datas=predata;
-                    System.out.println("---daaataaa---"+datas);
-                    
+//                }
                 }
                 predata=datas;
-                System.out.println("---daooo---"+predata);
-              //  System.out.println("prevdata---"+datas);
 		realDate = format.format(rs.getTimestamp("data_time"));
 		JSONObject json = new JSONObject();
 		json.put("date", realDate);
@@ -166,7 +143,6 @@ public class DataAccessServlet extends HttpServlet {
 		json.put("power", datas);
 		json.put("voltage", datas);
 		jsonArray.put(json);
-
 	    }
 	    out.println(jsonArray.toString());
 	    if (rs != null) {
@@ -186,8 +162,6 @@ public class DataAccessServlet extends HttpServlet {
 		rs.close();
 	    }
 	}
-       
-      
     }
     
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

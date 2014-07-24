@@ -16,5 +16,6 @@ public class PollData {
     public double phase2Value=0.68;
     public double phase3Value=0.68;
     public double energyCost=0;
+    public double alertCount=0;
     
 }

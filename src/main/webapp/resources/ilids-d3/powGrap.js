@@ -12,11 +12,11 @@ d3.json(servlet, function (data) {
   
     var main_margin = {top: 40, right: 60, bottom: 100, left: 110},
         mini_margin = {top: 430, right: 60, bottom: 20, left: 110},
-        main_width = 1040 - main_margin.left - main_margin.right,
+        main_width = 800 - main_margin.left - main_margin.right,
         main_height = 500 - main_margin.top - main_margin.bottom,
         mini_height = 500 - mini_margin.top - mini_margin.bottom;
 
-    var formatDate = d3.time.format("%m/%d/%Y %I:%M:%S"),
+    var formatDate = d3.time.format("%H:%M:%S"),
 
         parseDate = formatDate.parse,
         bisectDate = d3.bisector(function(d) { return d.datee; }).left,
@@ -44,29 +44,45 @@ d3.json(servlet, function (data) {
 var main_yAxisLeft = d3.svg.axis()
     .scale(main_y0)
     .orient("left")
-    .ticks(4);
-var brush = d3.svg.brush()
-    .x(mini_x)
-    .on("brush", brush3);
-
+    .ticks(5);
+    
 var main_line0 = d3.svg.line()
     .interpolate("linear")
     .x(function(d) { return main_x(d.datee); })
     .y(function(d) { return main_y0(d.currents); });
+    
+    var mainarea = d3.svg.area()
+    .interpolate("linear")
+    .x0(main_width)
+    .x(function(d) { return main_x(d.datee); })
+    .y0(main_height)
+    .y1(function(d) { return main_y0(d.currents); }); 
 
 var mini_line0 = d3.svg.line()
+    .interpolate("linear")
     .x(function(d) { return mini_x(d.datee); })
     .y(function(d) { return mini_y0(d.currents); });
+    
+   var miniarea = d3.svg.area()
+    .interpolate("linear")
+    .x(function(d) { return mini_x(d.datee); })
+    .y0(mini_height)
+    .y1(function(d) { return mini_y0(d.currents); }); 
 
 var svg = d3.select("#powGraph").append("svg")
     .attr("width", main_width + main_margin.left + main_margin.right)
     .attr("height", main_height + main_margin.top + main_margin.bottom);
-
+    
+ 
+var brush = d3.svg.brush()
+    .x(miniarea)
+    .on("brush", brush3);
+    
 svg.append("defs").append("clipPath")
     .attr("id", "clip")
-  .append("rect")
+    .append("rect")
     .attr("width", main_width)
-    .attr("height", main_height);
+    .attr("height", main_height)
     
     //vertical lines
 svg.selectAll(".vline").data(d3.range(26)).enter()
@@ -83,7 +99,7 @@ svg.selectAll(".vline").data(d3.range(26)).enter()
     .attr("y2", function (d) {
     return 1000;
 })
-    .style("stroke", "lightgrey");
+    .style("stroke", "#EBEBE0");
 
 // horizontal lines
 svg.selectAll(".vline").data(d3.range(26)).enter()
@@ -114,7 +130,14 @@ var valueline2 = d3.svg.line()
     
 var main1 = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");   
+var main2 = svg.append("g")
+    .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")"); 
+    
+var mini2 = svg.append("g")
+    .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");    
+   
 
+    
 data.forEach(function(d) {
    d.datee = d.dateFn;
    d.currents =+d.currents;
@@ -125,7 +148,7 @@ data.forEach(function(d) {
   main_y0.domain(d3.extent(data, function(d) { return d.currents; }));
   mini_x.domain(main_x.domain());
   mini_y0.domain(main_y0.domain());
-
+  
   main.append("path")
       .datum(data)
       .attr("clip-path", "url(#clip)")
@@ -133,12 +156,19 @@ data.forEach(function(d) {
       .attr("d", main_line0);
 
 
-   main1.append("path")
+//   main1.append("path")
+//      .datum(data)
+//      .attr("clip-path", "url(#clip)")
+//      .attr("class", "line line5")
+//      .style("stroke-dasharray", ("3, 3"))
+//      .attr("d", valueline2);
+      
+   main2.append("path")
       .datum(data)
       .attr("clip-path", "url(#clip)")
-      .attr("class", "line line5")
-      .style("stroke-dasharray", ("3, 3"))
-      .attr("d", valueline2);
+      .attr("class", "area")
+      
+      .attr("d", mainarea);   
 
   main.append("g")
       .attr("class", "x axis")
@@ -171,14 +201,21 @@ data.forEach(function(d) {
       .attr("d", mini_line0);
   mini.append("g")
       .attr("class", "x brush")
+//      .attr("class", "area")
       .call(brush)
-    .selectAll("rect")
+      .selectAll("rect")
       .attr("y", -6)
       .attr("height", mini_height + 7);
       
-  var focus = main.append("g")
-      .attr("class", "focus")
-      .style("display", "none");
+   mini2.append("path")
+      .datum(data)
+      .attr("clip-path", "url(#clip)")
+      .attr("class", "area")
+      .attr("d", miniarea);      
+      
+ var focus = main2.append("g")
+    .attr("class", "focus")
+    .style("display", "none");
 
   // Anzeige auf der Zeitleiste
   focus.append("line")
@@ -189,14 +226,14 @@ data.forEach(function(d) {
   // Anzeige auf der linken Leiste
   focus.append("line")
       .attr("class", "y0")
-      .attr("x1", main_width - 6) 
-      .attr("x2", main_width + 6); 
+      .attr("x1", main_width - 1) 
+      .attr("x2", main_width + 1); 
 
   // Anzeige auf der rechten Leiste
   focus.append("line")
       .attr("class", "y1")
-      .attr("x1", main_width - 6)
-      .attr("x2", main_width + 6);
+      .attr("x1", main_width - 5)
+      .attr("x2", main_width + 5);
 
   focus.append("circle")
       .attr("class", "y0")
@@ -204,9 +241,10 @@ data.forEach(function(d) {
 
   focus.append("text")
       .attr("class", "y0")
-      .attr("dy", "-1em");
+      .attr("dy", "-1em")
+      .style("stroke", "green"); 
 
-  main.append("rect")
+  main2.append("rect")
       .attr("class", "overlay")
       .attr("width", main_width)
       .attr("height", main_height)
@@ -231,6 +269,7 @@ data.forEach(function(d) {
 function brush3() {
   main_x.domain(brush.empty() ? mini_x.domain() : brush.extent()); 
   main.select(".line0").attr("d", main_line0);
+  main2.select(".area").attr("d", mainarea);
   main.select(".x.axis").call(main_xAxis);
 }
     
