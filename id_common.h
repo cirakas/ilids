@@ -1,3 +1,17 @@
+/*
+ * id_common.h
+ *
+ * This is the common header file for idriver module in ilids
+ * project.
+ *
+ * V. SREEJITH : sree777@gmail.com : July,2014
+ *
+ * This program is a part of the iLIDS project
+ *
+ */
+
+
+
 #include <stdio.h>
 #include<stdlib.h>
 #include <unistd.h>
@@ -35,17 +49,17 @@
 #define NW_RESET_TIME 120
 
 
-#define POLL_INTERVAL 500//Here 500ms is given to give read port method,  sufficient time to read all response before sending the next poll.
-//240//300 milliseconds.Should be > 240ms(Page-30 in manual) Might be increased upto < 1 second
+#define POLL_INTERVAL 500
+
 
 #define RTIMEOUT 100
-#define DEFAULT_SLID 17//hex 11
+#define DEFAULT_SLID 17
 #define DEFAULT_PORT "/dev/ttyUSB0"
 
 #define POLL_PKT_SIZE 6
 #define POLL_PKT 0x3
 
-#define MAXSLAVE 32//theoretically 255
+#define MAXSLAVE 32
 
 #define MSG_SIZE 256
 

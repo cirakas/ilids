@@ -1,3 +1,19 @@
+/*
+ * id_main.c
+ *
+ * This is the main initialization function for idriver module in ilids
+ * project.Initialisation of program parameters,creation of threads,
+ * and installation of signal handlers are done here.The arguments passed
+ * to idriver are also processed here.
+ *
+ * V. SREEJITH : sree777@gmail.com : July,2014
+ *
+ * This program is a part of the iLIDS project
+ *
+ */
+
+
+
 #include "id_common.h"
 
 
@@ -60,7 +76,7 @@ int main(int argc,char *argv[])
     sprintf(msg_to_log,"Entering Daemon Mode");
    	log_to_file(msg_to_log,strlen(msg_to_log));
 
-    daemon(1,0);//This will cause the program to run as a system daemon without any terminal.Output should be checked through log file.
+    daemon(1,0);
 
     p_int=POLL_INTERVAL;
     rd_timeout=RTIMEOUT;
@@ -119,11 +135,10 @@ int main(int argc,char *argv[])
 
     if(argc==1)
     {
-        //printf("\nNo arguments Supplied, Using default values\n");
         sprintf(msg_to_log,"No arguments Supplied, Using default values");
         log_to_file(msg_to_log,strlen(msg_to_log));
     }
-    //printf("\nCOMPORT is %s, Poll Interval is %d ms, Read Timeout is %d ms, Slave Id is %d\n",cport,p_int,rd_timeout,slave_id);
+
     sprintf(msg_to_log,"COMPORT is %s, Poll Interval is %d ms, Read Timeout is %d ms, Slave Id is %d",cport,p_int,rd_timeout,slave_id);
     log_to_file(msg_to_log,strlen(msg_to_log));
 
@@ -138,12 +153,11 @@ int main(int argc,char *argv[])
 
     intitialize_poll_packet();
 
-	Signal_exitsignal(); //for catching Cntrl-C
-	Signal_sigio_signal();//for catching sigio signals
+	Signal_exitsignal();
+	Signal_sigio_signal();
 
 	if(!db_start())
 	{
-	    //printf("\nError Initializing MySQL Database,Exiting\n");
 	    sprintf(msg_to_log,"Error Initializing MySQL Database,Exiting");
         log_to_file(msg_to_log,strlen(msg_to_log));
         exit(EXIT_FAILURE);
