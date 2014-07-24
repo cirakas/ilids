@@ -85,4 +85,13 @@ public class DashBoardUpdateController {
 	logger.info("Alert count::"+alertCount);
 	return pollData;
     }
+    
+    @RequestMapping(value = "/dashboardupdate/alertList", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Object[]> alertData(@RequestParam(value = "startDate", required = true) String startDate, @RequestParam(value = "endDate", required = true) String endDate ) throws ParseException{
+	SystemSettings systemSettings=systemSettingsService.getAllSystemSettings().get(0);
+	double mdv=systemSettings.getMdv();
+	List<Object[]> alertDataList=dataService.getAllAlertData(startDate,endDate,mdv);
+	return alertDataList;
+    }
 }

@@ -29,6 +29,25 @@
 <style>
     .color-menu{color: #f00!important;}
 </style>
+
+<script type="text/javascript">
+    function latestAlertRequest(){
+        var fromDateAlert=document.getElementById("SelectedDate").value;
+        var toDateAlert=document.getElementById("SelectedDate1").value;
+        var alertUrl = "dashboardupdate/alertList";
+       $.post(alertUrl,{'startDate':fromDateAlert, 'endDate':toDateAlert},function(data) {
+             $('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+               var theTable = "";
+      for(var j=0;j<data.length;j++){
+          var currentDates=new Date(Number(data[j][2]));
+          theTable += '<tr><td>Chiller</td><td>'+data[j][4]+'</td><td>'+data[j][1]+'</td><td>'+currentDates.getDate()+'/'+(currentDates.getMonth()+1)+'/'+currentDates.getFullYear()+' '+currentDates.getHours()+':'+currentDates.getMinutes()+':'+currentDates.getSeconds()+'</td>';
+          theTable += '</tr>';
+      }
+        $('#example').append(theTable);
+       });
+    }
+</script>
+
   </head>
 
   <body>
@@ -124,7 +143,7 @@
                 <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
                 <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
                 <li class="divider"></li>
-                <li><a href="#" data-toggle="modal" data-target="#myAlertModal">View All</a></li>
+                <li><a href="#" onclick="latestAlertRequest();" data-toggle="modal" data-target="#myAlertModal">View All</a></li>
               </ul>
             </li>
             <li class="dropdown user-dropdown">
@@ -162,14 +181,7 @@
                                 <th>Time <i class="fa fa-sort"></i></th>
 			</tr>
 		</thead>
-                <c:forEach var="alertData" items="${alertData}" >
-                    <tr>
-                        <td>${alertData.deviceId.name}</td>
-                        <td>${alertData.addressMap.paramName}</td>
-                        <td>${alertData.data}</td>
-                        <td>${alertData.time}</td>
-                    </tr>
-                </c:forEach>
+              
               </table>
         </div>
     </div>

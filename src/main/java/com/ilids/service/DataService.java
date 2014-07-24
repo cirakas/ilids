@@ -60,8 +60,10 @@ public class DataService {
 	return true;
     }
 
-    public List<Data> getAllAlertData(double mdv) {
-	List<Data> alertDatas = dataRepository.getAllAlertData(mdv);
+    public List<Object[]> getAllAlertData(String startDate,String endDate,double mdv) throws ParseException {
+	startDate = convertToDate(startDate);
+	endDate = convertToDate(endDate);
+	List<Object[]> alertDatas = dataRepository.getAllAlertData(startDate,endDate,mdv);
 	return alertDatas;
     }
 
