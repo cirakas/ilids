@@ -18,14 +18,14 @@
 //        s.parentNode.insertBefore(ga, s);
 //    })();
     
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
+//    (function () {
+//        var ga = document.createElement('script');
+//        ga.type = 'text/javascript';
+//        ga.async = true;
+//        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//        var s = document.getElementsByTagName('script')[0];
+//        s.parentNode.insertBefore(ga, s);
+//    })();
     
   var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
  
@@ -257,37 +257,63 @@ body {
       stroke-width: 0;
 }
 .power-factor{
-/*    height: 20px;*/
+    height: 20px;
     padding-top: 0px;
-    width: 220px;
-    padding: 5px 0;
-    text-align: center;
-    color: #fff;
 }
 .power-factor-panel{
-   margin-left: 4px;
-   float: left;
+    margin-bottom: 3px;
 }
-.text-announce{
-    background: #17a668;color:#fff;width: 100%;padding: 10px 0 10px 5px;
-    text-align: center;
-    font-size: 11px;
-}
-.panel-heading1{padding-left: 0;padding-right: 0;padding-bottom: 0;}
 
 
  </style> 
  
-        
+        <div class="row">
+          <div class="col-lg-6">
+            <!--<h1>Dashboard <small>Statistics Overview</small></h1>-->
+            <ol class="breadcrumb">
+              <!--<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>-->
+            </ol>
+          </div>
+         <div class="col-lg-3">
+            <div id="energyCostPanel" class="panel panel-success">
+                     <div  class="panel-heading">
+                                <div id="energyCost">
+                                <p id="energyCostValue" class="announcement-text"></p>
+                                </div>
+                     </div></div>
+          </div>
+            <div class="col-lg-3">
+                 <div id="phase1PowerFactorPanel" class="panel power-factor-panel panel-success">
+                     <div  class="panel-heading power-factor">
+                                <div id="phase1PowerFactor">
+                                <p class="announcement-text">Power factor Phase 1: ${phase1PowerFactor}</p>
+                                </div>
+                     </div></div>
+                      <div id="phase2PowerFactorPanel" class="panel power-factor-panel panel-success">
+                     <div  class="panel-heading power-factor">
+                                  <div id="phase2PowerFactor">
+                                    <p class="announcement-text">Power factor Phase 2: ${phase2PowerFactor}</p>
+                                </div>
+                     </div>
+                      </div>   
+                    <div id="phase3PowerFactorPanel"  class="panel power-factor-panel panel-success">
+                     <div class="panel-heading power-factor">
+                                  <div id="phase3PowerFactor">
+                                     <p class="announcement-text">Power factor Phase 3: ${phase3PowerFactor}</p>
+                                </div>
+                     </div>
+                      </div>              
+          </div>
+        </div>
    
          <div class="row">
            <div class="col-lg-3">
-             <div class="form-group" style="float:left;margin-top: 6px;">
-                <label></label>
-                <select class="form-control form_new _" id="graphType" value="" onchange="selectFunction()">
-                    <option value="00" style="background: #fff;">Phase1 Voltage Vs Time</option>
+             <div class="form-group" style="float:left;">
+                <!--<label>Graph type</label>-->
+                <select class="form-control" id="graphType" value="" onchange="selectFunction()">
+<!--                    <option value="00">Phase1 Voltage Vs Time</option>
                     <option value="02">Phase2 Voltage Vs Time</option>
-                    <option value="04">Phase3 Voltage Vs Time</option>
+                    <option value="04">Phase3 Voltage Vs Time</option>-->
                     <option value="06">Phase1 Current Vs Time</option>
                     <option value="08">Phase2 Current Vs Time</option>
                     <option value="10">Phase3 Current Vs Time</option>
@@ -304,77 +330,40 @@ body {
              </div>
            </div>
              
-             <div class="col-lg-3" style="width: 50%;float: left;">
-                <div class="form-group" style="float:left;">
-                    <label style="color:#047187;">FROM</label><br>
-                    <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" onchange="selectFunction()" />
-                </div>
-                <div class="form-group" style="float:left;margin-left: 30px;">
-                  <label style="color:#047187;">TO</label><br>
-                  <input type="text" name="SelectedDate" class=" input_" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />
-                </div>  
+             <div class="col-lg-3" style="width: 700px;float: left;">
+             <div class="form-group" style="float:left;">
+                 <label>start date</label><br>
+                <input type="text" name="SelectedDate" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" onchange="selectFunction()" />
              </div>
-         </div> 
+                <div class="form-group" style="float:left;margin-left: 30px;">
+                  <label>end date</label><br>
+                  <input type="text" name="SelectedDate" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />
+               </div>  
+           </div>
+            </div> 
          
 
- <div class="row" style="margin-bottom: 0;">
-            <div class="col-lg-6" style="width:77%;">
-              <div class="panel panel-primary" style="margin-bottom: 0;height: 430px; ">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-primary" style="height: 600px;">
                 <div class="panel-heading">
                   <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> <script type="text/javascript">
                     document.write(headTitle);
-                        </script>                 
+                        </script> 
+                  
                   </h3>
                 </div>
-                  <div class="panel-body" style="width: 100%;height: 390px;">
-                    <div class="flot-chart">
-                      <div class="flot-chart-content" id="powGraph" style="height: 365px;"></div>
-                    </div>
+              <div class="panel-body">
+                <div class="flot-chart">
+                  <div class="flot-chart-content" id="powGraph"></div>
                   </div>
+                     </div>
+              </div>
             </div>
           </div>
-              
-              
-     <div style="float: right;width: 222px;">
-         <div class="" style="float: right;">
-            <div id="energyCostPanel" class="panel panel-success" style="width: 220px;border:1px solid #14a164!important;">
-                     <div  class="panel-heading panel-heading1" style="background: #3ac98b;border:none;">
-                               <img src="/ilids/resources/images/bulb_green1.png" style="margin-left: 50px;">
-                               <div id="energyCost" class="text-announce" style="">
-                                <p id="energyCostValue" class="announcement-text" style="padding: 5px;"></p>
-                                </div>
-                     </div>
-            </div>
-          </div>
-            <div class=""style="float: right; width: 222px;">
-                 <div id="phase1PowerFactorPanel" class="panel power-factor-panel" style="padding: 9px 0;background: #e75151;margin-left: 0;">
-                     <div  class="power-factor" style="border:none;">
-                                <div id="phase1PowerFactor">
-                                    <p class="announcement-text">Power factor Phase 1: ${phase1PowerFactor}</p>
-                                </div>
-                     </div>
-                 </div>
-                      <div id="phase2PowerFactorPanel" class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;">
-                        <div  class="power-factor" style="border:none;">
-                                  <div id="phase2PowerFactor">
-                                    <p class="announcement-text">Power factor Phase 2: ${phase2PowerFactor}</p>
-                                  </div>
-                        </div>
-                      </div>   
-                    <div id="phase3PowerFactorPanel"  class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;">
-                     <div class="power-factor" style="border:none;">
-                                <div id="phase3PowerFactor">
-                                     <p class="announcement-text">Power factor Phase 3: ${phase3PowerFactor}</p>
-                                </div>
-                     </div>
-                    </div>              
-           </div>
-     </div>
-  </div>
       
   <tbody>
-
-
+<br/>
 
   <script type="text/javascript">
      document.getElementById("graphType").value=phaseParam;
@@ -392,12 +381,12 @@ body {
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>-->
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		var startUrl = "dashboardupdate/subscribe";
-		var pollUrl = "dashboardupdate/polldata";
-		var poll = new Poll();
-		poll.start(startUrl,pollUrl);
-	});
+  $(document).ready(function() {
+    var startUrl = "dashboardupdate/subscribe";
+    var pollUrl = "dashboardupdate/polldata";
+    var poll = new Poll();
+    poll.start(startUrl,pollUrl);
+  });
         
         $(function() {
                 var fromDateParams=document.getElementById("SelectedDate").value;
@@ -406,22 +395,22 @@ body {
                 var energyValueDiv=0;
                 var alertSpan=0;
                 if (energyRequest) {
-			energyRequest.abort(); // abort any pending request
-		}
+      energyRequest.abort(); // abort any pending request
+    }
              
-		// fire off the request to MatchUpdateController
-		var energyRequest = $.ajax({
-			url : energyRequestUrl,
-			type : "get",
+    // fire off the request to MatchUpdateController
+    var energyRequest = $.ajax({
+      url : energyRequestUrl,
+      type : "get",
                         data : { "startDate":fromDateParams, "endDate":toDateParams},
                         success: function(pollData) {
                             energyValueDiv='<p id="energyCostValue" class="announcement-text">Energy Cost: Rs.'+ Number(pollData.energyCost)+'</p>';
                                alertSpan='<span id="alertCountId" style="color: red;">'+Number(pollData.alertCount)+'</span>';
-                              $(energyValueDiv).replaceAll('#energyCostValue');
+                            $(energyValueDiv).replaceAll('#energyCostValue');
                             $(alertSpan).replaceAll('#alertCountId');
                         
                     }
-		});
+    });
         });
         
 </script>

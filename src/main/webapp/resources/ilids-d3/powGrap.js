@@ -55,7 +55,7 @@ var main_line0 = d3.svg.line()
     .interpolate("linear")
     .x0(main_width)
     .x(function(d) { return main_x(d.datee); })
-    .y0(main_height)
+    .y0(main_height+ main_margin.bottom)
     .y1(function(d) { return main_y0(d.currents); }); 
 
 var mini_line0 = d3.svg.line()
@@ -75,7 +75,7 @@ var svg = d3.select("#powGraph").append("svg")
     
  
 var brush = d3.svg.brush()
-    .x(miniarea)
+    .x(mini_x)
     .on("brush", brush3);
     
 svg.append("defs").append("clipPath")
@@ -136,7 +136,6 @@ var main2 = svg.append("g")
 var mini2 = svg.append("g")
     .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");    
    
-
     
 data.forEach(function(d) {
    d.datee = d.dateFn;
@@ -167,7 +166,6 @@ data.forEach(function(d) {
       .datum(data)
       .attr("clip-path", "url(#clip)")
       .attr("class", "area")
-      
       .attr("d", mainarea);   
 
   main.append("g")
@@ -178,17 +176,17 @@ data.forEach(function(d) {
   main.append("g")
       .attr("class", "y axis axisLeft")
       .call(main_yAxisLeft)
-    .append("text")
+      .append("text")
       .attr("transform", "rotate(0)")
       .attr("y", -16)
       .attr("dy", ".91em")
       .style("text-anchor", "end")
       .text(yaxisTitle);//Specified in the home.jsp
       
-      main1.append("text")      // text label for the x axis
-        .attr("x", 890)
-        .attr("y",  65 )
-        .style("text-anchor", "middle")
+  main1.append("text")      // text label for the x axis
+      .attr("x", 890)
+      .attr("y",  65 )
+      .style("text-anchor", "middle")
         .text();
   mini.append("g")
       .attr("class", "x axis")
@@ -199,23 +197,23 @@ data.forEach(function(d) {
       .datum(data)
       .attr("class", "line")
       .attr("d", mini_line0);
-  mini.append("g")
-      .attr("class", "x brush")
-//      .attr("class", "area")
-      .call(brush)
-      .selectAll("rect")
-      .attr("y", -6)
-      .attr("height", mini_height + 7);
-      
+  
    mini2.append("path")
       .datum(data)
       .attr("clip-path", "url(#clip)")
       .attr("class", "area")
       .attr("d", miniarea);      
       
- var focus = main2.append("g")
-    .attr("class", "focus")
-    .style("display", "none");
+   mini2.append("g")
+      .attr("class", "x brush")
+      .call(brush)
+      .selectAll("rect")
+      .attr("y", -6)
+      .attr("height", mini_height + 7);
+      
+  var focus = main2.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
 
   // Anzeige auf der Zeitleiste
   focus.append("line")
