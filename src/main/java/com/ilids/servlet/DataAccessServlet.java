@@ -61,66 +61,64 @@ public class DataAccessServlet extends HttpServlet {
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         start=parseFormat.format(parsePattern.parse(start));
         end=parseFormat.format(parsePattern.parse(end));
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+"  00:00:01' AND '"+end+"   23:59:59'  and address_map="+addressMap;
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+"  00:00:01' AND '"+end+"   23:59:59'  and address_map="+addressMap+" and category=1;";
         ResultSet rs = statement.executeQuery(selectQuery);
        
 	PrintWriter out = response.getWriter();
         
-            switch(addrMap){
-            case 0:
-              diffCheck=5;
-              break;
-            case 2:
-              diffCheck=5;
-              break;
-           case 4:
-              diffCheck=5;
-              break;     
-           case 6:
-              diffCheck=20;
-              break;    
-           case 8:
-              diffCheck=20;
-              break;
-           case 10:
-              diffCheck=20;
-              break;        
+           switch(addrMap){
+////            case 0:
+////              diffCheck=5;
+////              break;
+////            case 2:
+////              diffCheck=5;
+////              break;
+////           case 4:
+////              diffCheck=5;
+////              break;     
+////           case 6:
+////              diffCheck=20;
+////              break;    
+////           case 8:
+////              diffCheck=20;
+////              break;
+////           case 10:
+////              diffCheck=20;
+////              break;        
            case 12:
-              diffCheck=7;
+              diffCheck=(float) 0.1;
               break;
            case 14:
-              diffCheck=7;
+              diffCheck=3;
               break;    
-           case 16:
-              diffCheck=7;
-              break;  
-           case 30:
-              diffCheck=(float) 0.1;
-              break;  
-           case 32:
-              diffCheck=(float) 0.1;
-              break;  
-           case 34:
-              diffCheck=(float) 0.1;
-              break;      
-           case 512:
-              diffCheck=10;
-              break;  
-           case 514:
-              diffCheck=10;
-              break;      
-           default:
-              diffCheck=7;
+//           case 16:
+//              diffCheck=7;
+//              break;  
+////           case 30:
+////              diffCheck=(float) 0.1;
+////              break;  
+////           case 32:
+////              diffCheck=(float) 0.1;
+////              break;  
+////           case 34:
+////              diffCheck=(float) 0.1;
+////              break;      
+////           case 512:
+////              diffCheck=10;
+////              break;  
+////           case 514:
+////              diffCheck=10;
+////              break;      
+//           default:
+//              diffCheck=7;
           }
 
 	JSONArray jsonArray = new JSONArray();
 	try {
 	    /* TODO output your page here. You may use following sample code. */
 	    float datas = 1;
-            float datas1=1;
 	    String realDate = "";
             float predata=0;
-            float predat=0;
 	    String pattern = "MM/dd/yyyy HH:mm:ss";
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 	    while (rs.next()) {
@@ -129,8 +127,13 @@ public class DataAccessServlet extends HttpServlet {
                 if(difference<0){
                    difference=difference*(-1); 
                 }
+//                if(addrMap==12 || addrMap==14){
+                   
                 if((difference<=diffCheck) &&(Float.floatToIntBits (predata)!=0)){
+                    System.out.println("----dfrnc---");
                     datas=predata;
+                    System.out.println("iiiii-----"+datas);
+//                }
                 }
                 predata=datas;
 		realDate = format.format(rs.getTimestamp("data_time"));
