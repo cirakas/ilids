@@ -107,7 +107,7 @@ extern BYTE LoByte(WORD val);
 extern BYTE HiByte(WORD val);
 extern WORD LoWord(unsigned int val);
 extern WORD HiWord(unsigned int val);
-extern void ShowBits(BYTE y,int no_of_bytes);
+extern void ShowBits(int y,int no_of_bytes);
 
 extern void switch_params(BYTE * pktdata, int pktcount);
 extern void Process_ParamsA(BYTE * pktdata, int pktcount);

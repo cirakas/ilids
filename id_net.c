@@ -53,6 +53,14 @@ int nw_timeout=0;
 char *s_name[]={"sreejith-Lenovo-Z50-70","cirakas.local","cirakas-2","videocon","","","","","","","",""};
 
 
+/*--------------------------------Initiate_Server_Socket-----------------------//
+           Function: Initiate_Server_Socket
+
+           Purpose:  Creates,Binds and Make the Server Socket wait for Client
+                     Connections.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
 
 int Initiate_Server_Socket(unsigned short int port,char * ip)
 {
@@ -104,6 +112,15 @@ int Initiate_Server_Socket(unsigned short int port,char * ip)
 	return TRUE;
 }
 
+/*--------------------------------start_server--------------------------------
+           Function: start_server
+
+           Purpose:  Setup the Client Structures and Calls the Server Socket
+                     Create Function
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
+
 void start_server()
 {
 
@@ -144,6 +161,14 @@ void start_server()
 
 }
 
+/*--------------------------------shutdown_nw----------------------------------//
+           Function: shutdown_nw
+
+           Purpose:  Shuts Down the Client-Server Communication
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
+
 void shutdown_nw()
 {
     int i=0;
@@ -162,6 +187,16 @@ void shutdown_nw()
     FD_CLR(server_socket,&socket_set);
     close(server_socket);
 }
+
+/*--------------------------------nwcom--------------------------------------//
+           Function: nwcom
+
+           Purpose:  Accept Client Connections and reads data from the
+                     connected clients.This is implemented as a seperate
+                     thread.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
 
 void * nwcom()
 {
@@ -314,7 +349,15 @@ void * nwcom()
 	return FALSE;
 }
 
-void Send_Data_To_Clients(BYTE * msg, int ncount)//not used currently.Enable it to send data directly to clients.
+/*--------------------------------Send_Data_To_Clients--------------------------------------//
+           Function: Send_Data_To_Clients
+
+           Purpose:  Sends Data to the connected Clients.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
+
+void Send_Data_To_Clients(BYTE * msg, int ncount)
 {
 int i=0,j=0;
 int retn=0;

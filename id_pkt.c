@@ -18,6 +18,15 @@
 void send_pkt(int pkt_type);
 void intitialize_poll_packet();
 
+/*--------------------------------intitialize_poll_packet----------------------------------//
+           Function: intitialize_poll_packet
+
+           Purpose:  Initializes the poll packets for each device to be send later.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
+
+
 void intitialize_poll_packet()
 {
     int i=0,j=0;
@@ -51,6 +60,13 @@ void intitialize_poll_packet()
     }
 
 }
+/*--------------------------------send_pkt-------------------------------------//
+           Function: send_pkt
+
+           Purpose:  Sends the poll packet to each slave device in turn.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
 
 void send_pkt(int pkt_type)
 {

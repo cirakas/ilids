@@ -33,8 +33,16 @@ int gl_count=0;
 int bytes_read=0;
 struct termios old_port_attrib,new_port_attrib;
 
+/*--------------------------------ShowBits -----------------------------------
+           Function: ShowBits
 
-void ShowBits(BYTE y,int no_of_bytes)
+           Purpose:  Takes  an integer and prints the bitwise representation
+                     in 1's and 0s upto the number of bytes required
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
+
+void ShowBits(int y,int no_of_bytes)
 {
 	int i=0;
 	unsigned int j=0x1;
@@ -64,6 +72,14 @@ void ShowBits(BYTE y,int no_of_bytes)
 		}
 	}
 }
+
+/*--------------------------------initcom -----------------------------------
+           Function: initcom
+
+           Purpose:  Opens and Initializes the serial port.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
 
 void initcom()
 {
@@ -101,6 +117,14 @@ void initcom()
 
 }
 
+/*--------------------------------closecom -----------------------------------
+           Function: closecom
+
+           Purpose:  Closes and resets the serial port.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
+
 void closecom(void)
 {
 
@@ -109,6 +133,14 @@ void closecom(void)
     	close(fport);
         pthread_mutex_destroy(&IOMutex);
 }
+
+/*--------------------------------readcom -----------------------------------
+           Function: readcom
+
+           Purpose:  Reads data from the serial port in a seperate thread
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
 
 void * readcom()
 {
@@ -178,6 +210,14 @@ void * readcom()
         }
         return FALSE;
 }
+
+/*--------------------------------writecom -----------------------------------
+           Function: writecom
+
+           Purpose:  Writes data to the serial port.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
 
 void  writecom(BYTE * msg, int ncount)
 {

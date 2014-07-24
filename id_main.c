@@ -31,6 +31,14 @@ pthread_t th_read;
 pthread_t th_nw;
 extern pthread_mutex_t LMutex;
 
+/*--------------------------------main-------------------------------------
+           Function: main
+
+           Purpose:  main function of the idriver module.
+
+           Returns:  int
+-------------------------------------------------------------------------------*/
+
 int main(int argc,char *argv[])
 {
   int i=0,j=0;

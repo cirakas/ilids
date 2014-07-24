@@ -36,6 +36,14 @@ PARAM_DETAILS params1rand[24]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,227.
 PARAM_DETAILS params2[40]={{512,"Cumulative_energy_forward_kVAh",2,0.01,0.0,5},{514,"Cumulative_energy_forward_kWh",2,0.01,0.0,5},{516,"Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,5},{518,"Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,5},{520,"Cumulative_energy_reverse_kVAh",2,0.01,0.0,5},{522,"Cumulative_energy_reverse_kWh",2,0.01,0.0,5},{524,"Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,5},{526,"Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,5},{528,"Backup_1_Cumulative_energy_forward_kVAh",2,0.01,0.0,5},{530,"Backup_1_Cumulative_energy_forward_kWh",2,0.01,0.0,5},{532,"Backup_1_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,5},{534,"Backup_1_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,5},{536,"Backup_1_Cumulative_energy_reverse_kVAh",2,0.01,0.0,5},{538,"Backup_1_Cumulative_energy_reverse_kWh",2,0.01,0.0,5},{540,"Backup_1_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,5},{542,"Backup_1_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,5},{544,"Backup_2_Cumulative_energy_forward_kVAh",2,0.01,0.0,5},{546,"Backup_2_Cumulative_energy_forward_kWh",2,0.01,0.0,5},{548,"Backup_2_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,5},{550,"Backup_2_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,5},{552,"Backup_2_Cumulative_energy_reverse_kVAh",2,0.01,0.0,5},{554,"Backup_2_Cumulative_energy_reverse_kWh",2,0.01,0.0,5},{556,"Backup_2_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,5},{558,"Backup_2_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,5},{560,"Backup_3_Cumulative_energy_forward_kVAh",2,0.01,0.0,5},{562,"Backup_3_Cumulative_energy_forward_kWh",2,0.01,0.0,5},{564,"Backup_3_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,5},{566,"Backup_3_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,5},{568,"Backup_3_Cumulative_energy_reverse_kVAh",2,0.01,0.0,5},{570,"Backup_3_Cumulative_energy_reverse_kWh",2,0.01,0.0,5},{572,"Backup_3_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,5},{574,"Backup_3_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,5},{576,"Backup_4_Cumulative_energy_forward_kVAh",2,0.01,0.0,5},{578,"Backup_4_Cumulative_energy_forward_kWh",2,0.01,0.0,5},{580,"Backup_4_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,5},{582,"Backup_4_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,5},{584,"Backup_4_Cumulative_energy_reverse_kVAh",2,0.01,0.0,5},{586,"Backup_4_Cumulative_energy_reverse_kWh",2,0.01,0.0,5},{588,"Backup_4_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,5},{590,"Backup_4_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,5}};
 PARAM_DETAILS params3[44]={{1280,"Reset_MD1,2,0.01,0.0,5},{1282,Reset_MD2",2,0.01,0.0,5},{1284,"Reset_MD3",2,0.01,0.0,5},{1286,"Backup_1_MD1",2,0.01,0.0,5},{1288,"Backup_1_MD2",2,0.01,0.0,5},{1290,"Backup_1_MD3",2,0.01,0.0,5},{1292,"Backup_2_MD1",2,0.01,0.0,5},{1294,"Backup_2_MD2",2,0.01,0.0,5},{1296,"Backup_2_MD3",2,0.01,0.0,5},{1298,"Backup_3_MD1",2,0.01,0.0,5},{1300,"Backup_3_MD2",2,0.01,0.0,5},{1302,"Backup_3_MD3",2,0.01,0.0,5},{1304,"Backup_4_MD1",2,0.01,0.0,5},{1306,"Backup_4_MD2",2,0.01,0.0,5},{1308,"Backup_4_MD3",2,0.01,0.0,5},{1536,"Backup_1_reset_date_time_&_type",4,1,0.0,5},{1540,"Backup_2_reset_date_time_&_type",4,1,0.0,5},{1544,"Backup_3_reset_date_time_&_type",4,1,0.0,5},{1548,"Backup_4_reset_date_time_&_type",4,1,0.0,5},{1792,"Reset_Cumulative_MD1",2,0.01,0.0,5},{1794,"Reset_Cumulative_MD2",2,0.01,0.0,5},{1796,"Reset_Cumulative_MD3",2,0.01,0.0,5},{1872,"RD1_elapsed_time",3,0.01,0.0,5},{1875,"RD2_elapsed_time",3,0.01,0.0,5},{1878,"RD3_elapsed_time",3,0.01,0.0,5},{1920,"Anomaly_string_Format:_MSB_A_all_other_bytes_must_be_0xFF_Faults_are_indicated_by_digits_AENRXD_E–_flash_code_corruption_N_EEPROM_setup_corruption_R_RTC_corruption_XD_exception_illegal_opcode",8,1,0.0,5},{1928,"Reset_count_Format:_00_to_99_0x0063,1,1,0.0,5},{1929,Com.count_no._of_times_meter_programmed_via_front_panel_Format_00_to_99_0x0063",1,1,0.0,5},{1930,"CT_Tapping_0x0001_1A_tappin_0x0005_5A_tapping",1,1,0.0,5},{1931,"Reserved_READ_AND_WRITE_PARAMETERS_Real_time_clock_RTC",1,1,0.0,5},{256,"Current_Time_Year_Month_Format:YYMM_BCD",1,1,0.0,5},{257,"Current_Time_Date_Day_Format:DTDY_BCD",1,1,0.0,5},{258,"Current_Time_Hour_Minute_Format:HHMM_BCD",1,1,0.0,5},{259,"Current_Time_econd_Format:SS00_BCD",1,1,0.0,5},{2048,"CT_Primary",1,1,0.0,5},{2049,"CT_Secondary",1,1,0.0,5},{2050,"PT_Primary",1,1,0.0,5},{2051,"PT_Secondary",1,1,0.0,5},{2128,"Reset_type_days_and_Lockout_days_1st_word_Reset_time_HH_MM_hour_min_2nd_word",2,1,0.0,5},{2160,"Setting_for_MD1",2,1,0.0,5},{2162,"Setting_for_MD2",2,1,0.0,5},{2164,"Setting_for_MD3",2,1,0.0,5},{2304,"Method_of_energy_calculation_Lead=Lead_Lead=UPF",1,1,0.0,5},{2305,"Meter_direction_Unidirectional_Bidirectional",1,1,0.0,5}};
 
+/*--------------------------------Add_CRC-------------------------------------//
+           Function: Add_CRC
+
+           Purpose:  Adds the CRC bytes to the end of each message to be send
+                     to the slave device.
+
+           Returns:  CRC WORD
+-------------------------------------------------------------------------------*/
 
 WORD Add_CRC(BYTE buf[], int len)
 {
@@ -61,25 +69,67 @@ WORD Add_CRC(BYTE buf[], int len)
   	return ((WORD)(crc<<8)|(WORD)(crc>>8));
 }
 
+/*--------------------------------LoByte-------------------------------------//
+           Function: LoByte
+
+           Purpose:  Returns the Lower Byte from the input WORD val.
+
+           Returns:  Lower Byte
+-------------------------------------------------------------------------------*/
+
 BYTE LoByte(WORD val)
 {
 	return ((val<<8)>>8);
 }
+
+/*--------------------------------HiByte-------------------------------------//
+           Function: HiByte
+
+           Purpose:  Returns the Higher Byte from the input WORD val.
+
+           Returns:  Higher Byte
+-------------------------------------------------------------------------------*/
 
 BYTE HiByte(WORD val)
 {
 	return val>>8;
 }
 
+/*--------------------------------LoWord-------------------------------------//
+           Function: LoWord
+
+           Purpose:  Returns the Lower Word from the input integer val.
+
+           Returns:  Lower Word
+-------------------------------------------------------------------------------*/
+
 WORD LoWord(unsigned int val)
 {
 	return ((val<<16)>>16);
 }
 
+/*--------------------------------HiWord-------------------------------------//
+           Function: HiWord
+
+           Purpose:  Returns the Higher Word from the input integer val.
+
+           Returns:  Higher Word
+-------------------------------------------------------------------------------*/
+
+
 WORD HiWord(unsigned int val)
 {
 	return val>>16;
 }
+
+/*--------------------------------compare_float-------------------------------------//
+           Function: compare_float
+
+           Purpose:  Compares two floating point numbers according to the given
+                     precision value and returns True or False.
+
+           Returns:  True or False
+-------------------------------------------------------------------------------*/
 
 int compare_float(float f1, float f2,float precision)
 {
@@ -95,6 +145,15 @@ int compare_float(float f1, float f2,float precision)
  }
 
 
+/*--------------------------------reverse_b-------------------------------------//
+           Function: reverse_b
+
+           Purpose:  Reverses bcount number of bytes in the input value and
+                     stores in the target value.This is for correcting the
+                     endianness issue.
+
+           Returns:  None
+-------------------------------------------------------------------------------*/
 
 void reverse_b(BYTE *t_addr,BYTE *s_addr,int bcount)
 {
@@ -105,6 +164,20 @@ void reverse_b(BYTE *t_addr,BYTE *s_addr,int bcount)
         t_addr[i]=s_addr[bcount-i-1];
     }
 }
+
+/*--------------------------------switch_params-----------------------------------//
+           Function: switch_params
+
+           Purpose:  Based on the starting offset address of the params,this
+                     procedure will call the different functions needed for
+                     the processing of each set of params.If random mode is
+                     enabled,it will call the function for generating random
+                     values.
+
+
+           Returns:  None
+-----------------------------------------------------------------------------------*/
+
 
 void switch_params(BYTE * pktdata, int pktcount)
 {
@@ -146,6 +219,16 @@ void switch_params(BYTE * pktdata, int pktcount)
 
 }
 
+/*--------------------------------Check_CRC-----------------------------------//
+           Function: Check_CRC
+
+           Purpose:  This function will check the CRC bytes in the incoming
+                     packet and returns TRUE if they match.
+
+           Returns:  TRUE or FALSE;
+-----------------------------------------------------------------------------------*/
+
+
 int Check_CRC(BYTE * pktdata, int pktcount)
 {
 
@@ -158,6 +241,18 @@ int Check_CRC(BYTE * pktdata, int pktcount)
             }
             return FALSE;
 }
+
+/*--------------------------------Process_ParamsRand-----------------------------------//
+
+           Function: Process_ParamsRand
+
+           Purpose:  This function will generate random values for the first set of
+                     params and updates in the database for testing purposes.
+
+
+           Returns:  None
+
+-----------------------------------------------------------------------------------*/
 
 void Process_ParamsRand(BYTE * pktdata, int pktcount)
 {
@@ -232,6 +327,18 @@ NVALUE neg_val;
 
 
 }
+
+/*--------------------------------Process_ParamsA------------------------------------//
+
+           Function: Process_ParamsA
+
+           Purpose:  This function will process the first set of params coming from
+                     the meter starting from address offset 0.This values will be
+                     updated in the database.
+
+           Returns:  None
+
+-----------------------------------------------------------------------------------*/
 
 
 void Process_ParamsA(BYTE * pktdata, int pktcount)
@@ -312,6 +419,18 @@ NVALUE neg_val;
 
 }
 
+/*--------------------------------Process_ParamsB------------------------------------//
+
+           Function: Process_ParamsB
+
+           Purpose:  This function will process the second set of params coming from
+                     the meter starting from address offset 512.This values will be
+                     updated in the database.
+
+           Returns:  None
+
+-----------------------------------------------------------------------------------*/
+
 void Process_ParamsB(BYTE * pktdata, int pktcount)
 {
 int i=0;
@@ -368,6 +487,18 @@ float cval=0;
                     }
 
 }
+
+/*--------------------------------Process_ParamsC------------------------------------//
+
+           Function: Process_ParamsC
+
+           Purpose:  This function will process the third set of params coming from
+                     the meter starting from address offset 1280.This values will be
+                     updated in the database.
+
+           Returns:  None
+
+-----------------------------------------------------------------------------------*/
 
 void Process_ParamsC(BYTE * pktdata, int pktcount)
 {
