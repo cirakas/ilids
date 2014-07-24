@@ -45,42 +45,42 @@
  
  switch(phaseParam){
       case '00':
-        headTitle="Phase1 Voltage vs Time";
+//        headTitle="Phase1 Voltage vs Time";
         yaxisTitle= "Phase1 Voltage";
       break;
       
       case '02':
-        headTitle="Phase2 Voltage vs Time";
+//        headTitle="Phase2 Voltage vs Time";
         yaxisTitle= "Phase2 Voltage";
       break;
       
       case '04':
-        headTitle="Phase3 Voltage vs Time";
+//        headTitle="Phase3 Voltage vs Time";
         yaxisTitle= "Phase3 Voltage";
       break;
      
       case '06':
-        headTitle="Phase1 Current vs Time";
+//        headTitle="Phase1 Current vs Time";
         yaxisTitle= "Phase1 Current";
       break;
       case '08': 
-        headTitle="Phase2 Current vs Time";
+//        headTitle="Phase2 Current vs Time";
         yaxisTitle= "Phase2 Current"; 
       break; 
       case '10':
-        headTitle="Phase3 Current vs Time";
+//        headTitle="Phase3 Current vs Time";
         yaxisTitle= "Phase3 Current";
       break;
       case '12':
-        headTitle="Phase1 Power vs Time";
+//        headTitle="Phase1 Power vs Time";
         yaxisTitle= "Phase1 Power";
       break;
       case '14':
-        headTitle="Phase2 Power vs Time";
+//        headTitle="Phase2 Power vs Time";
         yaxisTitle= "Phase2 Power";
       break;
       case '16':  
-        headTitle="Phase3 Power vs Time";
+//        headTitle="Phase3 Power vs Time";
         yaxisTitle= "Phase3 Power"; 
         break;
       case '30':  
@@ -157,36 +157,42 @@ body {
 .axis line {
   fill: none;
   stroke: #000;
+  
   shape-rendering: crispEdges;
 }    
     
   .line {
   stroke: #F2700D;
   fill: none;
-  stroke-width: 0.75px;
+  stroke-width: 4;
 }
 
 .line.line1 {
   stroke:#0D98B3;
+  stroke-width: 4;
 }
 
 .line.line0 {
   stroke:#0101DF ;
+  stroke-width: 4;
 }
 
 .line.line3 {
   stroke:#FFCC00 ;
+  stroke-width: 4;
 }
 
 .svg line{
  fill: none;  
 }
 .svg line.x{
- stroke: #FF0000   
+ stroke: #FF0000;   
+ stroke-width: 4;    
 }
 
 .svg line{
-    stroke: #FF0000
+    stroke: #FF0000;
+    stroke-width: 4; 
 }
 
 .overlay {
@@ -195,7 +201,7 @@ body {
 }
 
 .focus circle {
-  fill: none;
+  fill: yellow;
 }
 
 .focus circle.y0 {
@@ -212,15 +218,20 @@ body {
 }
 
 .focus line.y0 {
-  stroke: steelblue;
-  stroke-dasharray: 3 3;
-  opacity: .5;
+  stroke: red;
+  stroke-dasharray: 5 5;
+  opacity: .8;
 }
 
 .focus line.y1 {
   stroke: indianred;
   stroke-dasharray: 3 3;
   opacity: .5;
+}
+.area {
+    fill: lightsteelblue;
+    stroke-width: 0;
+    line-height:50%;
 }
 
 .brush .extent {
@@ -234,6 +245,8 @@ body {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+  stroke-width: 3;
+  line-height:500%;
 }
 
 .grid .tick {
@@ -256,9 +269,9 @@ body {
  
         <div class="row">
           <div class="col-lg-6">
-            <h1>Dashboard <small>Statistics Overview</small></h1>
+            <!--<h1>Dashboard <small>Statistics Overview</small></h1>-->
             <ol class="breadcrumb">
-              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+              <!--<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>-->
             </ol>
           </div>
          <div class="col-lg-3">
@@ -296,22 +309,22 @@ body {
          <div class="row">
            <div class="col-lg-3">
              <div class="form-group" style="float:left;">
-                <label>Graph type</label>
+                <!--<label>Graph type</label>-->
                 <select class="form-control" id="graphType" value="" onchange="selectFunction()">
-                    <option value="00">Phase1 Voltage Vs Time</option>
+<!--                    <option value="00">Phase1 Voltage Vs Time</option>
                     <option value="02">Phase2 Voltage Vs Time</option>
-                    <option value="04">Phase3 Voltage Vs Time</option>
+                    <option value="04">Phase3 Voltage Vs Time</option>-->
                     <option value="06">Phase1 Current Vs Time</option>
                     <option value="08">Phase2 Current Vs Time</option>
                     <option value="10">Phase3 Current Vs Time</option>
                     <option value="12">Phase1 Power Vs Time</option>
                     <option value="14">Phase2 Power Vs Time</option>
                     <option value="16">Phase3 Power Vs Time</option>
-                    <option value="30">Phase1 Power Factor Vs Time</option>
+<!--                    <option value="30">Phase1 Power Factor Vs Time</option>
                     <option value="32">Phase2 Power Factor Vs Time</option>
                     <option value="34">Phase3 Power Factor Vs Time</option>
                     <option value="512">Cumulative Energy kVAh Vs Time</option>
-                    <option value="514">Cumulative Energy kWh Vs Time</option>
+                    <option value="514">Cumulative Energy kWh Vs Time</option>-->
                   
                 </select>
              </div>
