@@ -271,7 +271,8 @@ body {
 .text-announce{
     background: #17a668;color:#fff;width: 100%;padding: 10px 0 10px 5px;
     text-align: center;
-    font-size: 11px;
+    font-size: 14px;
+    font-weight: bold;
 }
 .panel-heading1{padding-left: 0;padding-right: 0;padding-bottom: 0;}
 
@@ -318,8 +319,8 @@ body {
          
 
  <div class="row" style="margin-bottom: 0;">
-            <div class="col-lg-6" style="width:77%;">
-              <div class="panel panel-primary" style="margin-bottom: 0;height: 430px; ">
+            <div class="col-lg-6" style="width:78%;">
+              <div class="panel panel-primary" style="margin-bottom: 0;height: 470px; ">
                 <div class="panel-heading">
                   <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> <script type="text/javascript">
                     document.write(headTitle);
@@ -354,14 +355,14 @@ body {
                                 </div>
                      </div>
                  </div>
-                      <div id="phase2PowerFactorPanel" class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;">
+                      <div id="phase2PowerFactorPanel" class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;margin-left: 0;">
                         <div  class="power-factor" style="border:none;">
                                   <div id="phase2PowerFactor">
                                     <p class="announcement-text">Power factor Phase 2: ${phase2PowerFactor}</p>
                                   </div>
                         </div>
                       </div>   
-                    <div id="phase3PowerFactorPanel"  class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;">
+                    <div id="phase3PowerFactorPanel"  class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;margin-left: 0;">
                      <div class="power-factor" style="border:none;">
                                 <div id="phase3PowerFactor">
                                      <p class="announcement-text">Power factor Phase 3: ${phase3PowerFactor}</p>

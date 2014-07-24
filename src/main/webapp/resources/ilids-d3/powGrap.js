@@ -10,11 +10,11 @@ d3.json(servlet, function (data) {
    
    var mdvValue = mdvValue1;
   
-    var main_margin = {top: 40, right: 60, bottom: 100, left: 110},
-        mini_margin = {top: 430, right: 60, bottom: 20, left: 110},
+    var main_margin = {top: 30, right: 60, bottom: 100, left: 100},
+        mini_margin = {top: 355, right: 60, bottom: 20, left: 100},
         main_width = 800 - main_margin.left - main_margin.right,
-        main_height = 500 - main_margin.top - main_margin.bottom,
-        mini_height = 500 - mini_margin.top - mini_margin.bottom;
+        main_height = 400 - main_margin.top - main_margin.bottom,
+        mini_height = 400 - mini_margin.top - mini_margin.bottom;
 
     var formatDate = d3.time.format("%H:%M:%S"),
 
@@ -28,7 +28,7 @@ d3.json(servlet, function (data) {
       .range([0, main_width]);
 
     var main_y0 = d3.scale.sqrt()
-      .range([350, 0]),
+      .range([265, 0]),
        mini_y0 = d3.scale.sqrt()
       .range([20, 0]);
 
@@ -44,7 +44,7 @@ d3.json(servlet, function (data) {
 var main_yAxisLeft = d3.svg.axis()
     .scale(main_y0)
     .orient("left")
-    .ticks(5);
+    .ticks(4);
     
 var main_line0 = d3.svg.line()
     .interpolate("linear")
@@ -55,7 +55,7 @@ var main_line0 = d3.svg.line()
     .interpolate("linear")
     .x0(main_width)
     .x(function(d) { return main_x(d.datee); })
-    .y0(main_height+ main_margin.bottom)
+    .y0(main_height)
     .y1(function(d) { return main_y0(d.currents); }); 
 
 var mini_line0 = d3.svg.line()
@@ -240,6 +240,7 @@ data.forEach(function(d) {
   focus.append("text")
       .attr("class", "y0")
       .attr("dy", "-1em")
+      .attr("dx", "-4em")
       .style("stroke", "green"); 
 
   main2.append("rect")
