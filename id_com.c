@@ -1,3 +1,19 @@
+/*
+ * id_com.c
+ *
+ * This is the source file where the communication
+ * port is initialized and setup.It also contains
+ * functions for reading and writing to the port.
+ * The port reading is implemented as a seperate thread.
+ *
+ * V. SREEJITH : sree777@gmail.com : July,2014
+ *
+ * This program is a part of the iLIDS project
+ *
+ */
+
+
+
 #include "id_common.h"
 
 
@@ -51,7 +67,7 @@ void ShowBits(BYTE y,int no_of_bytes)
 
 void initcom()
 {
-   fport = open(cport,O_RDWR | O_NOCTTY | O_NONBLOCK);// | O_NONBLOCK);
+   fport = open(cport,O_RDWR | O_NOCTTY | O_NONBLOCK);
    if (fport <0)
    {
        	sprintf(msg_to_log,"Error Opening COMPORT %s:%s",cport,strerror(errno));
@@ -88,8 +104,8 @@ void initcom()
 void closecom(void)
 {
 
-        tcflush(fport, TCIOFLUSH);//clear new port attributes
-        tcsetattr(fport,TCSANOW,&old_port_attrib);//Restore original port attributes
+        tcflush(fport, TCIOFLUSH);
+        tcsetattr(fport,TCSANOW,&old_port_attrib);
     	close(fport);
         pthread_mutex_destroy(&IOMutex);
 }
@@ -108,13 +124,13 @@ void * readcom()
     FD_ZERO(&tmp_set);
 	FD_SET(fport, &tmp_set);
 	s_timeout.tv_sec = 0;
-	s_timeout.tv_usec = rd_timeout * 1000;//100 ms //240000;//240ms
+	s_timeout.tv_usec = rd_timeout * 1000;
 
-	//while(1)
+
 	while(!ex_term)
 	{
             s_timeout.tv_sec = 0;
-            s_timeout.tv_usec = rd_timeout * 1000;//100 ms //240000;//240ms
+            s_timeout.tv_usec = rd_timeout * 1000;
             input=tmp_set;
         	if((n = select(fport + 1, &input, NULL, NULL, &s_timeout))==-1)
         	{

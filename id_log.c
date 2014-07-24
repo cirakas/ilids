@@ -1,3 +1,19 @@
+/*
+ * id_log.c
+ *
+ * This is the source file where the idriver logging
+ * functions are implemented.All the error messages
+ * as well as the communications happening through
+ * the port will be logged to a file.
+ *
+ * V. SREEJITH : sree777@gmail.com : July,2014
+ *
+ * This program is a part of the iLIDS project
+ *
+ */
+
+
+
 #include "id_common.h"
 
 int new_log_file;

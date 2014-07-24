@@ -1,3 +1,18 @@
+/*
+ * id_net.c
+ *
+ * This is the source file where the network
+ * communication functions for idriver are implemented
+ *
+ * V. SREEJITH : sree777@gmail.com : July,2014
+ *
+ * This program is a part of the iLIDS project
+ *
+ */
+
+
+
+
 #include "id_common.h"
 
 #include <sys/socket.h>
