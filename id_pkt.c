@@ -1,17 +1,3 @@
-/*
- * id_pkt.c
- *
- * This is the source file where the commands for
- * the slave devices are prepared and send.
- *
- * V. SREEJITH : sree777@gmail.com : July,2014
- *
- * This program is a part of the iLIDS project
- *
- */
-
-
-
 #include "id_common.h"
 
 
@@ -24,12 +10,14 @@ void intitialize_poll_packet()
 
     for(i=0;i<MAXSLAVE;i++)
     {
+        //if(sdev[i].dev_id)
         {
             sdev[i].ppkt[0]=(BYTE *)calloc(POLL_PKT_SIZE ,1);
             sdev[i].ppkt[1]=(BYTE *)calloc(POLL_PKT_SIZE,1);
             sdev[i].ppkt[2]=(BYTE *)calloc(POLL_PKT_SIZE,1);
             for(j=0;j<3;j++)
             {
+                //sdev[i].ppkt[j][0]=sdev[i].dev_id+1;
                 sdev[i].ppkt[j][0]=i+1;
                 sdev[i].ppkt[j][1]=Read_Holding_Registers;
             }
