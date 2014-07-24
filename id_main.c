@@ -69,12 +69,11 @@ int main(int argc,char *argv[])
    	open_log();
 
    	sprintf(msg_to_log,"**************************************");
-   	log_to_file(msg_to_log,strlen(msg_to_log));
+   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
    	sprintf(msg_to_log,"DATA ACCESS MODULE STARTED");
-   	log_to_file(msg_to_log,strlen(msg_to_log));
-
+   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
     sprintf(msg_to_log,"Entering Daemon Mode");
-   	log_to_file(msg_to_log,strlen(msg_to_log));
+   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
     daemon(1,0);
 
@@ -82,6 +81,7 @@ int main(int argc,char *argv[])
     rd_timeout=RTIMEOUT;
     slave_id=DEFAULT_SLID;
     cport=DEFAULT_PORT;
+    current_log_level=DEBUG_LEVEL_3;
     ex_term=FALSE;
     random_mode=FALSE;
     rand_time=5;
@@ -115,17 +115,25 @@ int main(int argc,char *argv[])
                 rand_time=atoi(&(argv[i][j+3]));
                 printf("\nRandom Simulation Mode Enabled\n");
                 sprintf(msg_to_log,"Random Simulation Mode Enabled : %d",rand_time);
-                log_to_file(msg_to_log,strlen(msg_to_log));
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+
+                break;
+
+                case 'l':
+                current_log_level=atoi(&(argv[i][j+3]));
+                sprintf(msg_to_log,"Setting Log Level to %d",current_log_level);
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
                 break;
 
                 default:printf("\nInvalid Arguments,Using Default Values\n");
                 sprintf(msg_to_log,"Invalid Arguments,Using Default Values");
-                log_to_file(msg_to_log,strlen(msg_to_log));
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                 p_int=POLL_INTERVAL;
                 rd_timeout=RTIMEOUT;
                 slave_id=DEFAULT_SLID;
                 cport=DEFAULT_PORT;
+                current_log_level=DEBUG_LEVEL_3;
                 break;
             }
 
@@ -136,11 +144,11 @@ int main(int argc,char *argv[])
     if(argc==1)
     {
         sprintf(msg_to_log,"No arguments Supplied, Using default values");
-        log_to_file(msg_to_log,strlen(msg_to_log));
+        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
     }
 
     sprintf(msg_to_log,"COMPORT is %s, Poll Interval is %d ms, Read Timeout is %d ms, Slave Id is %d",cport,p_int,rd_timeout,slave_id);
-    log_to_file(msg_to_log,strlen(msg_to_log));
+    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
 	initcom();
 
@@ -159,7 +167,7 @@ int main(int argc,char *argv[])
 	if(!db_start())
 	{
 	    sprintf(msg_to_log,"Error Initializing MySQL Database,Exiting");
-        log_to_file(msg_to_log,strlen(msg_to_log));
+        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
         exit(EXIT_FAILURE);
 	}
 	pthread_attr_init(&TH_ATTR);
@@ -169,7 +177,7 @@ int main(int argc,char *argv[])
 
 	atexit(Handle_exithandler);
 
-   	printf("\nDATA ACCESS MODULE STARTED\n");
+
 
 	while(!ex_term)
    	{
@@ -185,7 +193,7 @@ int main(int argc,char *argv[])
 
 
    	sprintf(msg_to_log,"DATA ACCESS MODULE TERMINATED");
-   	log_to_file(msg_to_log,strlen(msg_to_log));
+   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
    	exit(EXIT_SUCCESS);
 

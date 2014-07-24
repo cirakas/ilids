@@ -93,7 +93,7 @@
 
 
 extern void open_log();
-extern void log_to_file(char * log_msg,int log_count);
+extern void log_to_file(char * log_msg,int log_count,int log_level);
 extern void da_wait(int nsecs,int nmsecs);
 
 extern void  writecom(BYTE * msg, int ncount);
@@ -169,6 +169,12 @@ char *cport;
 int random_mode;
 int rand_time;
 int rand_count;
+int current_log_level;
+
+#define DEBUG_LEVEL_DEFAULT 0
+#define DEBUG_LEVEL_1 1
+#define DEBUG_LEVEL_2 2
+#define DEBUG_LEVEL_3 3
 
 volatile int ex_term;
 char scommand[256];

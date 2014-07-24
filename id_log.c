@@ -24,7 +24,7 @@ char msg_to_log[MSG_SIZE];
 pthread_mutex_t LMutex;
 
 void open_log();
-void log_to_file(char * log_msg,int log_count);
+void log_to_file(char * log_msg,int log_count,int log_level);
 
 void open_log()
 {
@@ -45,6 +45,10 @@ int mod_ret=0;
         }
         else
         {
+                log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
+                umask_access_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
+                umask(umask_access_mode);
+
                 sprintf(log_name,"idriver_log_%s",append_date);
                 flog=open(log_name,O_CREAT | O_RDWR | O_APPEND);
                 if(flog < 0)
@@ -67,7 +71,7 @@ int mod_ret=0;
 
 }
 
-void log_to_file(char * log_msg,int log_count)
+void log_to_file(char * log_msg,int log_count,int log_level)
 {
 time_t curtime;
 char * formatted_time;
@@ -75,6 +79,13 @@ char curr_hour[6],mid_night[6]="00:00";
 char * format = "::";
 
         pthread_mutex_lock(&LMutex);
+
+        if((log_level!=DEBUG_LEVEL_DEFAULT) && (log_level>current_log_level))
+        {
+            pthread_mutex_unlock(&LMutex);
+            return ;
+        }
+
         curtime = time(NULL);
         formatted_time = ctime((const time_t *)&curtime);
         memcpy(curr_hour,&formatted_time[11],5);

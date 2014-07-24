@@ -171,7 +171,7 @@ NVALUE neg_val;
                     for(i=3;i<(pktcount-2);)
                     {
                         sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
                         if(pktdata[i]==0xFF)
                         {
@@ -182,7 +182,7 @@ NVALUE neg_val;
 
                             cval=(float )(params1rand[db_id1].mf * neg_val.wval * -1);
                             sprintf(msg_to_log,"Neg Value is %.2f",cval);
-                            log_to_file(msg_to_log,strlen(msg_to_log));
+                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
                         }
                         else
@@ -201,7 +201,7 @@ NVALUE neg_val;
                             }
                         }
                         sprintf(msg_to_log,"%s -> %.2f",params1rand[db_id1].pname,tcval);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                         if(!compare_float(tcval,params1rand[db_id1].val,params1rand[db_id1].offset))
                         {
                             memset(querry_msg,0x0,QUERRY_MAXSIZE);
@@ -215,7 +215,7 @@ NVALUE neg_val;
                                         goto onEINTR;
                                    }
                                    sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                   log_to_file(msg_to_log,strlen(msg_to_log));
+                                   log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                             }
                         }
 
@@ -246,7 +246,7 @@ NVALUE neg_val;
                     for(i=3;i<(pktcount-2);)
                     {
                         sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
                         if(pktdata[i]==0xFF)
                         {
@@ -257,7 +257,7 @@ NVALUE neg_val;
 
                             cval=(float )(params1[db_id1].mf * neg_val.wval * -1);
                             sprintf(msg_to_log,"Neg Value is %.2f",cval);
-                            log_to_file(msg_to_log,strlen(msg_to_log));
+                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
                         }
                         else
@@ -266,7 +266,7 @@ NVALUE neg_val;
                             cval=(float )(params1[db_id1].mf * mval);
                         }
                         sprintf(msg_to_log,"%s -> %.2f",params1[db_id1].pname,cval);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                         if(!compare_float(cval,params1[db_id1].val,params1[db_id1].offset))
                         {
 
@@ -295,7 +295,7 @@ NVALUE neg_val;
                                         goto onEINTR;
                                    }
                                    sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                   log_to_file(msg_to_log,strlen(msg_to_log));
+                                   log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                             }
                         }
 
@@ -324,11 +324,11 @@ float cval=0;
                     for(i=3;i<(pktcount-2);)
                     {
                         sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),3);
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
                         cval=(float )(params2[db_id2].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params2[db_id2].pname,cval);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                         if(!compare_float(cval,params2[db_id2].val,params2[db_id2].offset))
                         {
                             if(params2[db_id2].val==0)
@@ -354,7 +354,7 @@ float cval=0;
                                         goto onEINTR;
                                     }
                                     sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                    log_to_file(msg_to_log,strlen(msg_to_log));
+                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                             }
 
                         }
@@ -381,11 +381,11 @@ float cval=0;
                     for(i=3;i<(pktcount-2);)
                     {
                         sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
                         cval=(float )(params3[db_id3].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params3[db_id3].pname,cval);
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                         if(!compare_float(cval,params3[db_id3].val,params3[db_id3].offset))
                         {
                             if(params3[db_id3].val==0)
@@ -413,7 +413,7 @@ float cval=0;
                                         goto onEINTR;
                                     }
                                     sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                    log_to_file(msg_to_log,strlen(msg_to_log));
+                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                             }
 
                         }

@@ -62,7 +62,7 @@ int Initiate_Server_Socket(unsigned short int port,char * ip)
     {
      	perror("\nSocket Creation Error");
 		sprintf(msg_to_log,"Server Socket Creation Error");
-   		log_to_file(msg_to_log,strlen(msg_to_log));
+   		log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
      	return FALSE;
     }
 	else
@@ -84,7 +84,7 @@ int Initiate_Server_Socket(unsigned short int port,char * ip)
 			if(errno != EADDRINUSE)
 			{
 				sprintf(msg_to_log,"Bind Error %s",strerror(errno));
-   				log_to_file(msg_to_log,strlen(msg_to_log));
+   				log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
 				perror("\nBind Error ");
 				close(server_socket);
 				return FALSE;
@@ -97,7 +97,7 @@ int Initiate_Server_Socket(unsigned short int port,char * ip)
 			perror("\nListen Error ");
 			close(server_socket);
 			sprintf(msg_to_log,"Server Listen Error");
-   			log_to_file(msg_to_log,strlen(msg_to_log));
+   			log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
 			return FALSE;
 		}
     }
@@ -135,7 +135,7 @@ void start_server()
 	{
 		printf("\nCannot start Server : %s\n",strerror(errno));
 		sprintf(msg_to_log,"Cannot start Server : %s",strerror(errno));
- 		log_to_file(msg_to_log,strlen(msg_to_log));
+ 		log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
  		server_socket=-1;
 	}
 
@@ -202,8 +202,7 @@ void * nwcom()
                 else
                 {
                     sprintf(msg_to_log,"NW Select Error %s",strerror(errno));
-                    log_to_file(msg_to_log,strlen(msg_to_log));
-                    perror("NW Select Error");
+                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                     nw_timeout=0;
                     continue;
                 }
@@ -215,7 +214,7 @@ void * nwcom()
                 if(nw_timeout > NW_RESET_TIME)
                 {
                     sprintf(msg_to_log,"NETWORK TIMEOUT,RESETTING");
-                    log_to_file(msg_to_log,strlen(msg_to_log));
+                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                     nw_timeout=0;
                 }
                 continue;
@@ -228,9 +227,8 @@ void * nwcom()
 	    			client_len=sizeof(client_addr);
 	    			if((client_socket=accept(server_socket,(struct  sockaddr  *)&client_addr,(socklen_t *)&client_len))==-1)
                     {
-                        perror("Accept Error ");
-                        sprintf(msg_to_log,"Accept Error");
-                        log_to_file(msg_to_log,strlen(msg_to_log));
+                        sprintf(msg_to_log,"Accept Error : %s",strerror(errno));
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
                         continue;
                     }
 	    			else
@@ -245,7 +243,7 @@ void * nwcom()
                                     {
                                         //printf("\nClient %s is Disconnected\n",dclients[i].name);
                                         sprintf(msg_to_log,"Client %s is Disconnected",dclients[i].name);
-                                        log_to_file(msg_to_log,strlen(msg_to_log));
+                                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                                         FD_CLR(dclients[i].sockfd,&socket_set);
                                         close(dclients[i].sockfd);
                                         dclients[i].send=FALSE;
@@ -257,7 +255,7 @@ void * nwcom()
 		      						FD_SET(dclients[i].sockfd,&socket_set);
 		      						printf("\nClient %s is Accepted\n",client_info->h_name);
                                     sprintf(msg_to_log,"Client %s is Accepted",client_info->h_name);
-                                    log_to_file(msg_to_log,strlen(msg_to_log));
+                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 		      						break;
 		    					}
                             }
@@ -265,7 +263,7 @@ void * nwcom()
                             {
                                 //printf("\nClient %s is not allowed to Connect\n",client_info->h_name);
                                 sprintf(msg_to_log,"Client %s is not allowed to Connect",client_info->h_name);
-                                log_to_file(msg_to_log,strlen(msg_to_log));
+                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 		      					close(client_socket);
                             }
 
@@ -274,7 +272,7 @@ void * nwcom()
 		    			{
 		      				printf("\nClient %s Not found in host database,Disconnected\n",(const char *)inet_ntoa(client_addr.sin_addr));
                             sprintf(msg_to_log,"Client %s Not found in host database,Disconnected",(const char *)inet_ntoa(client_addr.sin_addr));
-                            log_to_file(msg_to_log,strlen(msg_to_log));
+                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 		      				close(client_socket);
 		    			}
 
@@ -292,13 +290,13 @@ void * nwcom()
                                 //Process Client Data Here
                                 //printf("\nRead %d bytes from %s\n",retn,dclients[i].name);
                                 sprintf(msg_to_log,"Read %d bytes from %s",retn,dclients[i].name);
-                                log_to_file(msg_to_log,strlen(msg_to_log));
+                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                             }
 		      				else
                             {
                                 //printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
                                 sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
-                                log_to_file(msg_to_log,strlen(msg_to_log));
+                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
                                 FD_CLR(dclients[i].sockfd,&socket_set);
                                 close(dclients[i].sockfd);
@@ -331,7 +329,7 @@ int rcount=0;
                     FD_CLR(dclients[i].sockfd,&socket_set);
                     close(dclients[i].sockfd);
                     sprintf(msg_to_log,"Write Error : Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
-                    log_to_file(msg_to_log,strlen(msg_to_log));
+                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                     dclients[i].sockfd=-1;
                     dclients[i].send=FALSE;
                 }
@@ -343,7 +341,7 @@ int rcount=0;
                         rcount+=sprintf(&msg_to_log[rcount]," %02X",msg[j]);
                     }
                     rcount=rcount+sprintf(&msg_to_log[rcount]," To Client %s",dclients[i].name);
-                    log_to_file(msg_to_log,rcount);
+                    log_to_file(msg_to_log,rcount,DEBUG_LEVEL_3);
 
                 }
             }
