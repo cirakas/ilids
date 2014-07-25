@@ -86,7 +86,7 @@
               <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices</a></li>
                <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts</a></li>
              <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts</a></li>
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings</a></li>
+             <li><a href="<c:url value="/mailsms"/>" ><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings</a></li>
              <li><a href='<c:url value="/note/add"/>'><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes</a></li>
              <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat</a></li>
             
