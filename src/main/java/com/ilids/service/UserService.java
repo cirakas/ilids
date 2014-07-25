@@ -51,18 +51,18 @@ public class UserService {
     }
 
     public boolean addNewUserToDatabase(User user) {
-        Role userRole = roleService.findByName("ROLE_USER");
+        Role userRole = roleService.findByName("ROLE_ADMIN");
         user.addRole(userRole);
         encryptPassword(user);
-        user.encryptPassword();
+        //user.encryptPassword();
         persist(user);
         return true;
     }
  public boolean updateNewUserToDatabase(User user) {
-        Role userRole = roleService.findByName("ROLE_USER");
+        Role userRole = roleService.findByName("ROLE_ADMIN");
         user.addRole(userRole);
         encryptPassword(user);
-        user.encryptPassword();
+        //user.encryptPassword();
         merge(user);
         return true;
     }
