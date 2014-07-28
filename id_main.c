@@ -1,4 +1,16 @@
-/*
+/*! \mainpage iDriver
+
+ iDriver is the data collection module in the iLids system.
+ The module collects data from the energy meter device
+ over an rs485 wired link.The values are obtained using
+ polling mechanism. Multiple  devices can be connected over
+ this link.The program updates the values obtained from the
+ meter to a central mysql database,from where other ilids
+ modules can access the data.
+ *
+ */
+
+ /*
  * id_main.c
  *
  * This is the main initialization function for idriver module in ilids
@@ -11,8 +23,6 @@
  * This program is a part of the iLIDS project
  *
  */
-
-
 
 #include "id_common.h"
 
@@ -31,13 +41,14 @@ pthread_t th_read;
 pthread_t th_nw;
 extern pthread_mutex_t LMutex;
 
-/*--------------------------------main-------------------------------------
+/**@brief  This is the main function of the idriver module
+
            Function: main
 
            Purpose:  main function of the idriver module.
 
            Returns:  int
--------------------------------------------------------------------------------*/
+*/
 
 int main(int argc,char *argv[])
 {

@@ -10,9 +10,6 @@
  *
  */
 
-
-
-
 #include "id_common.h"
 
 #include <sys/socket.h>
@@ -35,7 +32,7 @@ typedef struct
   int send;
 }CLIENT_DETAILS;
 
-void * nw_com();
+void * nwcom();
 void shutdown_nw();
 
 
@@ -53,14 +50,15 @@ int nw_timeout=0;
 char *s_name[]={"sreejith-Lenovo-Z50-70","cirakas.local","cirakas-2","videocon","","","","","","","",""};
 
 
-/*--------------------------------Initiate_Server_Socket-----------------------//
+/**@brief  This function initializes the Server Side of the Network Communication.
+
            Function: Initiate_Server_Socket
 
            Purpose:  Creates,Binds and Make the Server Socket wait for Client
                      Connections.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 int Initiate_Server_Socket(unsigned short int port,char * ip)
 {
@@ -112,14 +110,15 @@ int Initiate_Server_Socket(unsigned short int port,char * ip)
 	return TRUE;
 }
 
-/*--------------------------------start_server--------------------------------
+/**@brief This function sets up the Client Structures and Calls the function Initiate_Server_Socket
+
            Function: start_server
 
            Purpose:  Setup the Client Structures and Calls the Server Socket
                      Create Function
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void start_server()
 {
@@ -161,13 +160,14 @@ void start_server()
 
 }
 
-/*--------------------------------shutdown_nw----------------------------------//
+/**@brief This function shuts down the Client-Server Communication
+
            Function: shutdown_nw
 
            Purpose:  Shuts Down the Client-Server Communication
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void shutdown_nw()
 {
@@ -188,7 +188,8 @@ void shutdown_nw()
     close(server_socket);
 }
 
-/*--------------------------------nwcom--------------------------------------//
+/**@brief  This function implements the network communication thread.
+
            Function: nwcom
 
            Purpose:  Accept Client Connections and reads data from the
@@ -196,7 +197,7 @@ void shutdown_nw()
                      thread.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void * nwcom()
 {
@@ -349,13 +350,14 @@ void * nwcom()
 	return FALSE;
 }
 
-/*--------------------------------Send_Data_To_Clients--------------------------------------//
+/**@brief  This function sends data to the Clients
+
            Function: Send_Data_To_Clients
 
            Purpose:  Sends Data to the connected Clients.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void Send_Data_To_Clients(BYTE * msg, int ncount)
 {

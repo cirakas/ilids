@@ -10,8 +10,6 @@
  *
  */
 
-
-
 #include "id_common.h"
 
 
@@ -22,26 +20,28 @@ char *user = "comserver";
 char *password = "compass";
 char *database = "ilids";
 
-/*--------------------------------db_close -----------------------------------
+/**@brief  This function closes the mysql database connection
+
            Function: db_close
 
            Purpose:  Closes the connection to the MYSQL database
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void db_close()
 {
    mysql_close(conn);
 }
 
-/*--------------------------------db_start -----------------------------------
+/**@brief  This function initializes the mysql database connection
+
            Function: db_start
 
            Purpose:  Initiates the connection to the MYSQL database
 
            Returns:  TRUE or FALSE
--------------------------------------------------------------------------------*/
+*/
 
 int db_start()
 {

@@ -12,7 +12,6 @@
  */
 
 
-
 #include "id_common.h"
 
 
@@ -27,7 +26,7 @@ struct timeval da_timeout;
 
 extern pthread_t th_read,th_nw;
 
-/*--------------------------------Signal_exitsignal------------------------------------//
+/**@brief  This function installs the SIGINT signal handler
 
            Function: Signal_exitsignal
 
@@ -37,8 +36,7 @@ extern pthread_t th_read,th_nw;
                      module.
 
            Returns:  None
-
------------------------------------------------------------------------------------*/
+*/
 
 
 void Signal_exitsignal()
@@ -51,7 +49,7 @@ struct sigaction sig_exit;
    sigaction(SIGINT,&sig_exit,0);
 }
 
-/*--------------------------------Signal_sigio_signal------------------------------------//
+/**@brief  This function installs the SIGIO signal handler
 
            Function: Signal_sigio_signal
 
@@ -61,8 +59,7 @@ struct sigaction sig_exit;
                      function.
 
            Returns:  None
-
------------------------------------------------------------------------------------*/
+*/
 
 void Signal_sigio_signal()
 {
@@ -74,15 +71,14 @@ struct sigaction sig_io;
    sigaction(SIGIO,&sig_io,0);
 }
 
-/*--------------------------------Handle_exithandler------------------------------------//
+/**@brief  This function is the handler for SIGINT signals.
 
            Function: Handle_exithandler
 
            Purpose:  This function is the handler for SIGINT(Cntrl^C) signal.
 
            Returns:  None
-
------------------------------------------------------------------------------------*/
+*/
 
 
 void Handle_exithandler()
@@ -90,15 +86,14 @@ void Handle_exithandler()
     ex_term=TRUE;
 }
 
-/*--------------------------------Handle_sigiohandler------------------------------------//
+/**@brief  This function is the handler for SIGIO signals.
 
            Function: Handle_sigiohandler
 
            Purpose:  This function is the handler for SIGIO signal.
 
            Returns:  None
-
------------------------------------------------------------------------------------*/
+*/
 
 
 void Handle_sigiohandler()
@@ -107,7 +102,7 @@ void Handle_sigiohandler()
    	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 }
 
-/*--------------------------------da_wait------------------------------------//
+/**@brief  This function implements microsecond precision sleep
 
            Function: da_wait
 

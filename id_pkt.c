@@ -10,21 +10,20 @@
  *
  */
 
-
-
 #include "id_common.h"
 
 
 void send_pkt(int pkt_type);
 void intitialize_poll_packet();
 
-/*--------------------------------intitialize_poll_packet----------------------------------//
+/**@brief  This function Initializes the poll packets for each device to be send later.
+
            Function: intitialize_poll_packet
 
            Purpose:  Initializes the poll packets for each device to be send later.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 
 void intitialize_poll_packet()
@@ -60,13 +59,14 @@ void intitialize_poll_packet()
     }
 
 }
-/*--------------------------------send_pkt-------------------------------------//
+/**@brief  This function Sends the poll packet to each slave device
+
            Function: send_pkt
 
            Purpose:  Sends the poll packet to each slave device in turn.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void send_pkt(int pkt_type)
 {

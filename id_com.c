@@ -12,8 +12,6 @@
  *
  */
 
-
-
 #include "id_common.h"
 
 
@@ -33,53 +31,15 @@ int gl_count=0;
 int bytes_read=0;
 struct termios old_port_attrib,new_port_attrib;
 
-/*--------------------------------ShowBits -----------------------------------
-           Function: ShowBits
 
-           Purpose:  Takes  an integer and prints the bitwise representation
-                     in 1's and 0s upto the number of bytes required
+/**@brief This function initializes the communication port.
 
-           Returns:  None
--------------------------------------------------------------------------------*/
-
-void ShowBits(int y,int no_of_bytes)
-{
-	int i=0;
-	unsigned int j=0x1;
-	int nsize=0;
-
-
-	if(no_of_bytes>4)
-	{
-		no_of_bytes=4;
-	}
-
-	nsize=no_of_bytes*8;
-	printf("\n");
-	for(i=0;i<nsize;i++)
-	{
-		if(y & j<<(nsize-(i+1)))
-		{
-			printf("1");
-		}
-		else
-		{
-			printf("0");
-		}
-		if((i%4)==3)
-		{
-			printf(" ");
-		}
-	}
-}
-
-/*--------------------------------initcom -----------------------------------
            Function: initcom
 
            Purpose:  Opens and Initializes the serial port.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void initcom()
 {
@@ -117,13 +77,14 @@ void initcom()
 
 }
 
-/*--------------------------------closecom -----------------------------------
+/**@brief  This function resets the communication port to its initial state.
+
            Function: closecom
 
            Purpose:  Closes and resets the serial port.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void closecom(void)
 {
@@ -134,13 +95,14 @@ void closecom(void)
         pthread_mutex_destroy(&IOMutex);
 }
 
-/*--------------------------------readcom -----------------------------------
+/**@brief This function reads data from the communication port.
+
            Function: readcom
 
            Purpose:  Reads data from the serial port in a seperate thread
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void * readcom()
 {
@@ -211,13 +173,56 @@ void * readcom()
         return FALSE;
 }
 
-/*--------------------------------writecom -----------------------------------
+/**@brief This function prints the given input number in binary form.
+
+           Function: ShowBits
+
+           Purpose:  Takes  an integer and prints the bitwise representation
+                     in 1's and 0s upto the number of bytes required
+
+           Returns:  None
+*/
+
+void ShowBits(int y,int no_of_bytes)
+{
+	int i=0;
+	unsigned int j=0x1;
+	int nsize=0;
+
+
+	if(no_of_bytes>4)
+	{
+		no_of_bytes=4;
+	}
+
+	nsize=no_of_bytes*8;
+	printf("\n");
+	for(i=0;i<nsize;i++)
+	{
+		if(y & j<<(nsize-(i+1)))
+		{
+			printf("1");
+		}
+		else
+		{
+			printf("0");
+		}
+		if((i%4)==3)
+		{
+			printf(" ");
+		}
+	}
+}
+
+
+/**@brief  This function writes data to the communication port.
+
            Function: writecom
 
            Purpose:  Writes data to the serial port.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void  writecom(BYTE * msg, int ncount)
 {

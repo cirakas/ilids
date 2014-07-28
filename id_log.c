@@ -12,8 +12,6 @@
  *
  */
 
-
-
 #include "id_common.h"
 
 int new_log_file;
@@ -26,13 +24,14 @@ pthread_mutex_t LMutex;
 void open_log();
 void log_to_file(char * log_msg,int log_count,int log_level);
 
-/*--------------------------------open_log -----------------------------------
+/**@brief  This function opens/creates the log file for logging
+
            Function: open_log
 
            Purpose:  Opens the log file for logging.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 void open_log()
 {
 char log_name[26];
@@ -78,13 +77,14 @@ int mod_ret=0;
 
 }
 
-/*--------------------------------log_to_file -----------------------------------
+/**@brief  This function logs messages to the log file
+
            Function: log_to_file
 
            Purpose:  Writes the log messages to the log file.
 
            Returns:  None
--------------------------------------------------------------------------------*/
+*/
 
 void log_to_file(char * log_msg,int log_count,int log_level)
 {
