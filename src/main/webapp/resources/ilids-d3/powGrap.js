@@ -10,8 +10,8 @@ d3.json(servlet, function (data) {
    
    var mdvValue = mdvValue1;
   
-    var main_margin = {top: 30, right: 60, bottom: 100, left: 100},
-        mini_margin = {top: 355, right: 60, bottom: 20, left: 100},
+    var main_margin = {top: 30, right: 60, bottom: 95, left: 100},
+        mini_margin = {top: 345, right: 60, bottom: 20, left: 100},
         main_width = 800 - main_margin.left - main_margin.right,
         main_height = 400 - main_margin.top - main_margin.bottom,
         mini_height = 400 - mini_margin.top - mini_margin.bottom;
@@ -28,7 +28,7 @@ d3.json(servlet, function (data) {
       .range([0, main_width]);
 
     var main_y0 = d3.scale.sqrt()
-      .range([265, 0]),
+      .range([255, 0]),
        mini_y0 = d3.scale.sqrt()
       .range([20, 0]);
 
@@ -55,7 +55,7 @@ var main_line0 = d3.svg.line()
     .interpolate("linear")
     .x0(main_width)
     .x(function(d) { return main_x(d.datee); })
-    .y0(main_height)
+    .y0(255)
     .y1(function(d) { return main_y0(d.currents); }); 
 
 var mini_line0 = d3.svg.line()
@@ -82,7 +82,7 @@ svg.append("defs").append("clipPath")
     .attr("id", "clip")
     .append("rect")
     .attr("width", main_width)
-    .attr("height", main_height)
+    .attr("height", main_height);
     
     //vertical lines
 svg.selectAll(".vline").data(d3.range(26)).enter()
@@ -99,16 +99,16 @@ svg.selectAll(".vline").data(d3.range(26)).enter()
     .attr("y2", function (d) {
     return 1000;
 })
-    .style("stroke", "#EBEBE0");
+    .style("stroke", "#dddddc");
 
 // horizontal lines
 svg.selectAll(".vline").data(d3.range(26)).enter()
     .append("line")
     .attr("y1", function (d) {
-    return d * 20;
+    return d * 25;
 })
     .attr("y2", function (d) {
-    return d * 20;
+    return d * 25;
 })
     .attr("x1", function (d) {
     return 0;
@@ -116,7 +116,7 @@ svg.selectAll(".vline").data(d3.range(26)).enter()
     .attr("x2", function (d) {
     return 1000;
 })
-    .style("stroke", "lightgrey");
+    .style("stroke", "#dddddc");
     
 var main = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");
@@ -177,10 +177,12 @@ data.forEach(function(d) {
       .attr("class", "y axis axisLeft")
       .call(main_yAxisLeft)
       .append("text")
-      .attr("transform", "rotate(0)")
-      .attr("y", -16)
-      .attr("dy", ".91em")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -65)
+      .attr("dy", ".41em")
+      .attr("x", -65)
       .style("text-anchor", "end")
+      .attr("class", "heading_top_")
       .text(yaxisTitle);//Specified in the home.jsp
       
   main1.append("text")      // text label for the x axis
@@ -235,7 +237,7 @@ data.forEach(function(d) {
 
   focus.append("circle")
       .attr("class", "y0")
-      .attr("r", 4);
+      .attr("r", 5);
 
   focus.append("text")
       .attr("class", "y0")

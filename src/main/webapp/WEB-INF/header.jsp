@@ -8,7 +8,7 @@
   <head>
     
     <meta charset="utf-8">
-      <meta http-equiv="content-type" content="text/html; charset=UTF8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -31,6 +31,8 @@
     .color-menu li{border-top: 1px solid #343434;}
     .color-menu li:first-child{border: none;}
     body{font: 14px sans-serif;outline: none!important;}
+/*    .thead_style{background: #0093c3!important;}
+   .thead_style tr td{text-align: center!important;}*/
 </style>
 
 <script type="text/javascript">
@@ -43,7 +45,7 @@
                var theTable = "";
       for(var j=0;j<data.length;j++){
           var currentDates=new Date(Number(data[j][2]));
-          theTable += '<tr><td>Chiller</td><td>'+data[j][4]+'</td><td>'+data[j][1]+'</td><td>'+currentDates.getDate()+'/'+(currentDates.getMonth()+1)+'/'+currentDates.getFullYear()+' '+currentDates.getHours()+':'+currentDates.getMinutes()+':'+currentDates.getSeconds()+'</td>';
+          theTable += '<tr><td>Chiller</td><td>'+data[j][5]+'</td><td>'+data[j][1]+'</td><td>'+currentDates.getDate()+'/'+(currentDates.getMonth()+1)+'/'+currentDates.getFullYear()+' '+currentDates.getHours()+':'+currentDates.getMinutes()+':'+currentDates.getSeconds()+'</td>';
           theTable += '</tr>';
       }
         $('#example').append(theTable);
@@ -58,7 +60,7 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation">
+      <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation" style="border:none;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -72,33 +74,34 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <c:url value="/systemsettings" var="sysurl"/>
             <security:authorize access="isAuthenticated()">
                 <security:authorize access="hasRole('ROLE_ADMIN')">
             <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<div class="active_arrow"></div><b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href='<c:url value="/user"/>'>Users</a></li>
               <li><a href="<c:url value="/role"/>"> Roles</a></li>
               </ul>
             </li>
-              <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_.png"></i> System settings</a></li>
-              <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices</a></li>
-               <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts</a></li>
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts</a></li>
-             <li><a href="<c:url value="/mailsms"/>" ><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings</a></li>
-             <li><a href='<c:url value="/note/add"/>'><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes</a></li>
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat</a></li>
+             <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_.png"></i> System settings<div class="active_arrow"></div></a></li>
+             <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
+             <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings<div class="active_arrow"></div></a></li>
+             <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
             
          </ul>
             </security:authorize>
           <security:authorize access="hasRole('ROLE_USER')">
             <ul class="nav navbar-nav side-nav"  style="outline:none; ">
-             <li><a href="#"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
-             <li><a href="#"><i class="fa fa-bar-chart-o"></i> Alerts</a></li>
-            <li><a href='<c:url value="/note/add"/>'><i class="fa fa-bar-chart-o"></i> Notes</a></li>
-             <li><a href="#"><i class="fa fa-bar-chart-o"></i> Live chat</a></li>
-              <li><a href="#"><i class="fa fa-bar-chart-o"></i>Help</a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
+            <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notesv</a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
+              <li><a href="#"><i class="fa fa-bar-chart-o"></i>Help<div class="active_arrow"></div></a></li>
          </ul>
             </security:authorize>
                 <ul class="nav navbar-nav navbar-right navbar-user">
@@ -139,7 +142,7 @@
             <li class="dropdown alerts-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span id="alertCountId" style="color: red;">${alertCount}</span> Alerts <span id="alertId" class="badge" style="background:#FF0404;"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-<!--                <li><a href="#">Default <span class="label label-default">Default</span></a></li>
+<!--            <li><a href="#">Default <span class="label label-default">Default</span></a></li>
                 <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
                 <li><a href="#">Success <span class="label label-success">Success</span></a></li>
                 <li><a href="#">Info <span class="label label-info">Info</span></a></li>-->
@@ -168,20 +171,20 @@
       
       <!-- Modal to show alerts -->
 <div class="modal fade" id="myAlertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:750px;">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="border-bottom: 1px solid #0093c3;background:url(/ilids/resources/images/alert_head_bg.png);color:#fff;">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Alerts</h4>
             </div>
             <table cellpadding="0" cellspacing="0" border="0"
 		class="table table-bordered table-hover table-striped tablesorter" id="example" style="table-layout: fixed; word-wrap: break-word;" >
-		<thead>
-			<tr>
-                                <th>Feeder <i class="fa fa-sort"></i></th>
-                                <th>Data type <i class="fa fa-sort"></i></th>
-				<th>vale <i class="fa fa-sort"></i></th>
-                                <th>Time <i class="fa fa-sort"></i></th>
+                <thead class="thead_style">
+			<tr style="">
+                                <th style="">Feeder <!--<i class="fa fa-sort"></i>--></th>
+                                <th style="">Data type <!--<i class="fa fa-sort"></i>--></th>
+				<th style="">Value <!--<i class="fa fa-sort"></i>--></th>
+                                <th style="">Time <!--<i class="fa fa-sort"></i>--></th>
 			</tr>
 		</thead>
                 
