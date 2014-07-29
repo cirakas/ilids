@@ -156,8 +156,7 @@ body {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
-  
+  stroke: #000;  
   shape-rendering: crispEdges;
 }    
     
@@ -173,7 +172,7 @@ body {
 }
 
 .line.line0 {
-  stroke:#0101DF ;
+  stroke:#F2700D ;
   stroke-width: 4;
 }
 
@@ -201,11 +200,12 @@ body {
 }
 
 .focus circle {
-  fill: yellow;
+  fill: #fff;
 }
 
 .focus circle.y0 {
-  stroke: blue;
+  stroke: #F2700D;
+  stroke-width: 2;
 }
 
 .focus circle.y1 {
@@ -218,8 +218,9 @@ body {
 }
 
 .focus line.y0 {
-  stroke: red;
-  stroke-dasharray: 5 5;
+  stroke: #fff;
+  stroke-dasharray: 10 7;
+  stroke-width: 2;
   opacity: .8;
 }
 
@@ -232,10 +233,12 @@ body {
     fill: lightsteelblue;
     stroke-width: 0;
     line-height:50%;
+    fill: #97defd;
+    opacity: 1;
 }
 
 .brush .extent {
-  stroke: #fff;
+  stroke: #ff0;
   fill-opacity: .125;
   shape-rendering: crispEdges;
 } 
@@ -243,7 +246,7 @@ body {
 
 .axis path {
   fill: none;
-  stroke: #000;
+  stroke: #015c85;
   shape-rendering: crispEdges;
   stroke-width: 3;
   line-height:500%;
@@ -256,6 +259,16 @@ body {
 .grid path {
       stroke-width: 0;
 }
+.heading_top_{   
+    fill:#e02222;
+    font-size: 17px;
+    font-family:  sans-serif;
+    font-weight: bold;
+}
+
+
+
+
 .power-factor{
 /*    height: 20px;*/
     padding-top: 0px;
@@ -274,7 +287,27 @@ body {
     font-size: 14px;
     font-weight: bold;
 }
+announce_text_11{word-break:break-all;}
 .panel-heading1{padding-left: 0;padding-right: 0;padding-bottom: 0;}
+
+.panel_1{
+    -webkit-transition: all 0.2s ease-in-out; /* For Safari 3.1 to 6.0 */
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.panel_1:hover{
+    box-shadow:0px 0px 20px #d8d9d9;
+    -webkit-box-shadow:0px 0px 20px #d8d9d9;
+    -moz-box-shadow:0px 0px 20px #d8d9d9;
+    -o-box-shadow:0px 0px 20px #d8d9d9;
+    -ms-box-shadow:0px 0px 20px #d8d9d9;
+}
+
+.graph_heading{
+   background-color: #f6b54e!important;
+   border-color: #d98b12!important;
+   background: url(/ilids/resources/images/graph_head_bg.png);
+}
 
 
  </style> 
@@ -282,8 +315,8 @@ body {
         
    
          <div class="row">
-           <div class="col-lg-3">
-             <div class="form-group" style="float:left;margin-top: 6px;">
+             <div class="col-lg-3" style="width:20.5%;">
+             <div class="form-group" style="float:left;margin-top: 0px;width: 100%;">
                 <label></label>
                 <select class="form-control form_new _" id="graphType" value="" onchange="selectFunction()">
 <!--                    <option value="00" style="background: #fff;">Phase1 Voltage Vs Time</option>
@@ -305,13 +338,13 @@ body {
              </div>
            </div>
              
-             <div class="col-lg-3" style="width: 50%;float: left;">
-                <div class="form-group" style="float:left;">
-                    <label style="color:#047187;">FROM</label><br>
+             <div class="col-lg-3" style="width: 50%;float: left;margin-top: 15px;">
+                <div class="" style="float:left;width:29%;">
+                    <label style="color:#18a7d9;float: left;margin-top: 9px;">FROM</label>
                     <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" onchange="selectFunction()" />
                 </div>
-                <div class="form-group" style="float:left;margin-left: 30px;">
-                  <label style="color:#047187;">TO</label><br>
+                <div class="" style="float:left;width:29%;margin-left: 2%;">
+                  <label style="color:#18a7d9;float: left;margin-top: 9px;">TO</label>
                   <input type="text" name="SelectedDate" class=" input_" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />
                 </div>  
              </div>
@@ -319,51 +352,51 @@ body {
          
 
  <div class="row" style="margin-bottom: 0;">
-            <div class="col-lg-6" style="width:78%;">
-              <div class="panel panel-primary" style="margin-bottom: 0;height: 470px; ">
-                <div class="panel-heading">
+          <div class="col-lg-6" style="width:78%;">
+              <div class="panel panel-primary panel_1" style="margin-bottom: 0;height: 480px;background: #f5fcff;border-color: #f6b54e!important; ">
+                <div class="panel-heading graph_heading">
                   <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> <script type="text/javascript">
                     document.write(headTitle);
                         </script>                 
                   </h3>
                 </div>
-                  <div class="panel-body" style="width: 100%;height: 390px;">
+                  <div class="panel-body" style="width: 100%;">
                     <div class="flot-chart">
-                      <div class="flot-chart-content" id="powGraph" style="height: 365px;"></div>
+                      <div class="flot-chart-content" id="powGraph" style="height: 365px;margin-left: 10px;"></div>
                     </div>
                   </div>
             </div>
           </div>
               
               
-     <div style="float: right;width: 222px;">
-         <div class="" style="float: right;">
-            <div id="energyCostPanel" class="panel panel-success" style="width: 220px;border:1px solid #14a164!important;">
-                     <div  class="panel-heading panel-heading1" style="background: #3ac98b;border:none;">
-                               <img src="/ilids/resources/images/bulb_green1.png" style="margin-left: 50px;">
-                               <div id="energyCost" class="text-announce" style="">
+     <div style="float: right;width: 20%;">
+         <div class="" style="float: right;width:100%">
+            <div id="energyCostPanel" class="panel panel-success" style="width: 100%;border:1px solid #14a164!important;float: left;">
+                     <div  class="panel-heading panel-heading1" style="background: #3ac98b;border:none;width:100%;float: left;">
+                             <div style="margin: 0 auto;width: 80%;"><img src="/ilids/resources/images/bulb_green1.png" style="margin-left: 18%;"></div>
+                             <div id="energyCost" class="text-announce" style="float: left;">
                                 <p id="energyCostValue" class="announcement-text" style="padding: 5px;"></p>
-                                </div>
+                             </div>
                      </div>
             </div>
           </div>
-            <div class=""style="float: right; width: 222px;">
-                 <div id="phase1PowerFactorPanel" class="panel power-factor-panel" style="padding: 9px 0;background: #e75151;margin-left: 0;">
-                     <div  class="power-factor" style="border:none;">
-                                <div id="phase1PowerFactor">
+            <div class=""style="float: right; width: 100%;">
+                 <div id="phase1PowerFactorPanel" class="panel" style="padding: 9px 0;background: #e75151;margin-left: 0;margin-bottom: 8px;width: 100%;float: left;">
+                     <div  class="power-factor" style="border:none;width: 100%;float: left;">
+                         <div id="phase1PowerFactor">
                                     <p class="announcement-text">Power factor Phase 1: ${phase1PowerFactor}</p>
                                 </div>
                      </div>
                  </div>
-                      <div id="phase2PowerFactorPanel" class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;margin-left: 0;">
-                        <div  class="power-factor" style="border:none;">
+                      <div id="phase2PowerFactorPanel" class="panel" style="padding: 9px 0;background: #e75151;margin-left: 0;margin-bottom: 8px;width: 100%;float: left;">
+                        <div  class="power-factor" style="border:none;width: 100%;float: left;">
                                   <div id="phase2PowerFactor">
                                     <p class="announcement-text">Power factor Phase 2: ${phase2PowerFactor}</p>
                                   </div>
                         </div>
                       </div>   
-                    <div id="phase3PowerFactorPanel"  class="panel power-factor-panel " style="padding: 9px 0;background: #e75151;margin-left: 0;">
-                     <div class="power-factor" style="border:none;">
+                    <div id="phase3PowerFactorPanel"  class="panel" style="padding: 9px 0;background: #e75151;margin-left: 0;width: 100%;float: left;">
+                     <div class="power-factor" style="border:none;width: 100%;float: left;">
                                 <div id="phase3PowerFactor">
                                      <p class="announcement-text">Power factor Phase 3: ${phase3PowerFactor}</p>
                                 </div>
