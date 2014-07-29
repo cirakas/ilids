@@ -39,7 +39,7 @@
         var toDateAlert=document.getElementById("SelectedDate1").value;
         var alertUrl = "dashboardupdate/alertList";
        $.post(alertUrl,{'startDate':fromDateAlert, 'endDate':toDateAlert},function(data) {
-             $('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+            // $('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
                var theTable = "";
       for(var j=0;j<data.length;j++){
           var currentDates=new Date(Number(data[j][2]));
@@ -184,8 +184,12 @@
                                 <th>Time <i class="fa fa-sort"></i></th>
 			</tr>
 		</thead>
-              
+                
               </table>
+                <ul class="pager">
+                <li><a href="#">Previous</a></li>
+                <li><a href="#">Next</a></li>
+                </ul>
         </div>
     </div>
 </div>

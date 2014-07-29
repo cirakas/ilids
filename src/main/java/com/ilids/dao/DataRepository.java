@@ -16,7 +16,7 @@ public class DataRepository extends AbstractGenericDao<Data> {
     }
 
     public List<Object[]> getAllAlertData(String startDate, String endDate,double mdv) {
-	return (List<Object[]>) entityManager.createNativeQuery("SELECT d.id, d.data, d.time, d.address_map, am.param_name, d.category FROM data d INNER JOIN address_map am on d.address_map=am.off_set where d.time > '" + startDate + " 00:00:01' and d.time < '" + endDate + " 23:59:59' and d.data>" + mdv + " and (d.address_map=12 or d.address_map=14 or d.address_map=16)").getResultList();
+	return (List<Object[]>) entityManager.createNativeQuery("SELECT d.id, d.data, d.time, d.address_map, am.param_name,  am.name, d.category FROM data d INNER JOIN address_map am on d.address_map=am.off_set where d.time > '" + startDate + " 00:00:01' and d.time < '" + endDate + " 23:59:59' and d.data>" + mdv + " and (d.address_map=12 or d.address_map=14 or d.address_map=16)").getResultList();
     }
 
     public Data getLatestDataList(int offset) {
@@ -39,7 +39,17 @@ public class DataRepository extends AbstractGenericDao<Data> {
 	Long.valueOf(alertCount.toString());
 	return Long.valueOf(alertCount.toString());
     }
+    
+     public Long getAlertCountForScheduling(String startDateParam, String endDateParam, double mdv) {
+	Object alertCount = entityManager.createNativeQuery("SELECT count(id) FROM data where time > '" + startDateParam + "' and time < '" + endDateParam + "' and data>" + mdv + " and (address_map=12 or address_map=14 or address_map=16)").getSingleResult();
+	Long.valueOf(alertCount.toString());
+	return Long.valueOf(alertCount.toString());
+    }
 
+     public List<Object[]> getAllAlertDataSchedule(String startDate, String endDate,double mdv) {
+	return (List<Object[]>) entityManager.createNativeQuery("SELECT d.id, d.data, d.time, d.address_map, am.param_name, am.name, d.category FROM data d INNER JOIN address_map am on d.address_map=am.off_set where d.time > '" + startDate + "' and d.time < '" + endDate + "' and d.data>" + mdv + " and (d.address_map=12 or d.address_map=14 or d.address_map=16)").getResultList();
+    }
+     
     public List<Data> getAllAlertDataForSchedule(String lastScheduleTime, String currentScheduleTime, double mdv) {
 	return (List<Data>) entityManager.createQuery("SELECT u FROM Data u where time BETWEEN '" + lastScheduleTime + "' AND '" + currentScheduleTime + "' and data > " + mdv + " and (address_map=12 or address_map=14 or address_map=16)").getResultList();
     }
