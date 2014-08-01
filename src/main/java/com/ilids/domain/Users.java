@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author cirakas
  */
 @Entity
-@Table(name = "users", catalog = "ilids", schema = "", uniqueConstraints = {
+@Table(name = "users", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"}),
     @UniqueConstraint(columnNames = {"id"}),
     @UniqueConstraint(columnNames = {"user_id"})})

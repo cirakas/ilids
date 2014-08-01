@@ -55,42 +55,49 @@ public class DataAccessServlet extends HttpServlet {
         float diffCheck=0;
         String start=request.getParameter("fromDate");
         String end=request.getParameter("toDate");
+	String fromHours=request.getParameter("fromHours");
+	String fromMinutes=request.getParameter("fromMinutes");
+	String toHours=request.getParameter("toHours");
+	String toMinutes=request.getParameter("toMinutes");
+	String fromTime=fromHours+":"+fromMinutes+":00";
+	String toTime=toHours+":"+toMinutes+":59";
+	System.out.println("fromTime fromTime fromTime"+fromTime);
+	System.out.println("toTime toTime toTime"+toTime);
         String dateFormat="MM/dd/yyyy";
         String toDateFormat="yyyy-MM-dd";
         SimpleDateFormat parsePattern = new SimpleDateFormat(dateFormat);
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         start=parseFormat.format(parsePattern.parse(start));
         end=parseFormat.format(parsePattern.parse(end));
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+"  00:00:01' AND '"+end+"   23:59:59'  and address_map="+addressMap+" and category=1;";
-        ResultSet rs = statement.executeQuery(selectQuery);
-       
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+";";
+	ResultSet rs = statement.executeQuery(selectQuery);
 	PrintWriter out = response.getWriter();
         
-           switch(addrMap){
-////            case 0:
-////              diffCheck=5;
-////              break;
-////            case 2:
-////              diffCheck=5;
-////              break;
-////           case 4:
-////              diffCheck=5;
-////              break;     
-////           case 6:
-////              diffCheck=20;
-////              break;    
-////           case 8:
-////              diffCheck=20;
-////              break;
-////           case 10:
-////              diffCheck=20;
-////              break;        
-           case 12:
-              diffCheck=(float) 0.1;
-              break;
-           case 14:
-              diffCheck=3;
-              break;    
+//           switch(addrMap){
+//////            case 0:
+//////              diffCheck=5;
+//////              break;
+//////            case 2:
+//////              diffCheck=5;
+//////              break;
+//////           case 4:
+//////              diffCheck=5;
+//////              break;     
+//////           case 6:
+//////              diffCheck=20;
+//////              break;    
+//////           case 8:
+//////              diffCheck=20;
+//////              break;
+//////           case 10:
+//////              diffCheck=20;
+//////              break;        
+//           case 12:
+//              diffCheck=(float) 0.1;
+//              break;
+//           case 14:
+//              diffCheck=3;
+//              break;    
 //           case 16:
 //              diffCheck=7;
 //              break;  
@@ -111,7 +118,7 @@ public class DataAccessServlet extends HttpServlet {
 ////              break;      
 //           default:
 //              diffCheck=7;
-          }
+//          }
 
 	JSONArray jsonArray = new JSONArray();
 	try {
@@ -123,19 +130,19 @@ public class DataAccessServlet extends HttpServlet {
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 	    while (rs.next()) {
 		datas = rs.getFloat("real_data");
-                float difference= Math.abs(datas-predata);
-                if(difference<0){
-                   difference=difference*(-1); 
-                }
-//                if(addrMap==12 || addrMap==14){
-                   
-                if((difference<=diffCheck) &&(Float.floatToIntBits (predata)!=0)){
-                    System.out.println("----dfrnc---");
-                    datas=predata;
-                    System.out.println("iiiii-----"+datas);
+              //  float difference= Math.abs(datas-predata);
+//                if(difference<0){
+//                   difference=difference*(-1); 
 //                }
-                }
-                predata=datas;
+////                if(addrMap==12 || addrMap==14){
+//                   
+//                if((difference<=7) &&(Float.floatToIntBits (predata)!=0)){
+//                    System.out.println("----dfrnc---");
+//                    datas=predata;
+//                    System.out.println("iiiii-----"+datas);
+////                }
+//                }
+               // predata=datas;
 		realDate = format.format(rs.getTimestamp("data_time"));
 		JSONObject json = new JSONObject();
 		json.put("date", realDate);

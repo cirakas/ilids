@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * @author cirakas
  */
 @Entity
-@Table(name = "menu", catalog = "ilids", schema = "")
+@Table(name = "menu")
 public class Menu implements Serializable {
 
     @Id

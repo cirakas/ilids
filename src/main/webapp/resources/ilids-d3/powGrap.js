@@ -28,7 +28,7 @@ d3.json(servlet, function (data) {
       .range([0, main_width]);
 
     var main_y0 = d3.scale.sqrt()
-      .range([255, 0]),
+      .range([260, 0]),
        mini_y0 = d3.scale.sqrt()
       .range([20, 0]);
 
@@ -44,7 +44,7 @@ d3.json(servlet, function (data) {
 var main_yAxisLeft = d3.svg.axis()
     .scale(main_y0)
     .orient("left")
-    .ticks(4);
+    .ticks(3);
     
 var main_line0 = d3.svg.line()
     .interpolate("linear")
@@ -55,7 +55,7 @@ var main_line0 = d3.svg.line()
     .interpolate("linear")
     .x0(main_width)
     .x(function(d) { return main_x(d.datee); })
-    .y0(255)
+    .y0(350)
     .y1(function(d) { return main_y0(d.currents); }); 
 
 var mini_line0 = d3.svg.line()
@@ -99,7 +99,7 @@ svg.selectAll(".vline").data(d3.range(26)).enter()
     .attr("y2", function (d) {
     return 1000;
 })
-    .style("stroke", "#dddddc");
+    .style("stroke", "#eef0f1");
 
 // horizontal lines
 svg.selectAll(".vline").data(d3.range(26)).enter()
@@ -116,7 +116,7 @@ svg.selectAll(".vline").data(d3.range(26)).enter()
     .attr("x2", function (d) {
     return 1000;
 })
-    .style("stroke", "#dddddc");
+    .style("stroke", "#eef0f1");
     
 var main = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");

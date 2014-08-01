@@ -3,6 +3,28 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<script type="text/javascript">
+
+function ajaxLink(url, params, displayComponentId) {
+            $.post(url, params, function(data) {
+               document.getElementById('mailSmsModel').action="saveMailSms/"+data.id;
+               document.getElementById('mail').value=data.mail;
+               document.getElementById('sms').value=data.sms;
+               });
+        }
+
+
+        function onClickEditMailSms(val){
+            ajaxLink('/ilids/editMailSms', {'id': val}, 'viewDiv');
+        }
+        function onClickAddMailSms(){
+              document.getElementById('mailSmsModel').action="saveMailSms/";
+              document.getElementById('mail').value="";
+              document.getElementById('sms').value="";
+        }
+</script>
+
 <div class="row">
     <div class="col-lg-12">
         <h1>Mail and Sms Management</h1>
@@ -18,7 +40,7 @@
 
 <!-- Button trigger modal -->
 <div class="row">
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddDevices()">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddMailSms()">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
 </div>
@@ -66,8 +88,8 @@
                                 edit
                             </button></td>
                         <td>
-                            <form method="post" action='<c:url value="/deletemailSms"/>'>
-                                <input type="hidden" value="${mailsms.id}" name="mailSmsId" /> 
+                            <form method="post" action='<c:url value="/deleteMailSms"/>'>
+                                <input type="hidden" value="${mailSms.id}" name="mailsmsId" /> 
                                 <button id="deleteDevice" class="btn btn-primary btn-danger" >delete</button>
                             </form>
                         </td>

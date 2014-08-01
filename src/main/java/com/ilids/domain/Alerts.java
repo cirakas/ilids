@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author cirakas
  */
 @Entity
-@Table(name = "alerts", catalog = "ilids", schema = "", uniqueConstraints = {
+@Table(name = "alerts", uniqueConstraints = {
 @UniqueConstraint(columnNames = {"id"})})
 public class Alerts implements Serializable {
     private static final long serialVersionUID = 1L;

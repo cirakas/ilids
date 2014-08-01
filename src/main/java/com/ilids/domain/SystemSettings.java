@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
  * @author cirakas
  */
 @Entity
-@Table(name = "system_settings", catalog = "ilids", schema = "", uniqueConstraints = {
+@Table(name = "system_settings", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"id"})})
 @NamedQueries({
     @NamedQuery(name = "SystemSettings.findAll", query = "SELECT s FROM SystemSettings s"),

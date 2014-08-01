@@ -62,9 +62,9 @@ public class AlertSchedulerService {
 	currentDateValue = df.format(currentDate);
 	lastScheduleValue = df.format(scheduleDate);
 
-	logger.info("lastScheduleValue RUN ::" + lastScheduleValue);
+	logger.info("lastScheduleValue RUN :: " + lastScheduleValue);
 
-	logger.info("currentDateValue RUN ::" + currentDateValue);
+	logger.info("currentDateValue RUN :: " + currentDateValue);
 
 	int i = 0;
 	List<MailSms> mailSmsList = null;

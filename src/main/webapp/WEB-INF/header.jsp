@@ -31,6 +31,9 @@
     .color-menu li{border-top: 1px solid #343434;}
     .color-menu li:first-child{border: none;}
     body{font: 14px sans-serif;outline: none!important;}
+    .demo-class{
+        cursor: default;
+    }
 /*    .thead_style{background: #0093c3!important;}
    .thead_style tr td{text-align: center!important;}*/
 </style>
@@ -42,13 +45,14 @@
         var alertUrl = "dashboardupdate/alertList";
        $.post(alertUrl,{'startDate':fromDateAlert, 'endDate':toDateAlert},function(data) {
             // $('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
-               var theTable = "";
+               var theTable = "<tbody id=\"alertBody\">";
       for(var j=0;j<data.length;j++){
           var currentDates=new Date(Number(data[j][2]));
           theTable += '<tr><td>Chiller</td><td>'+data[j][5]+'</td><td>'+data[j][1]+'</td><td>'+currentDates.getDate()+'/'+(currentDates.getMonth()+1)+'/'+currentDates.getFullYear()+' '+currentDates.getHours()+':'+currentDates.getMinutes()+':'+currentDates.getSeconds()+'</td>';
           theTable += '</tr>';
       }
-        $('#example').append(theTable);
+      theTable+="</tbody>";
+        $(theTable).replaceAll("#alertBody");
        });
     }
 </script>
@@ -76,7 +80,8 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <c:url value="/systemsettings" var="sysurl"/>
             <security:authorize access="isAuthenticated()">
-                <security:authorize access="hasRole('ROLE_ADMIN')">
+               
+              <security:authorize access="hasRole('ROLE_ADMIN')">
             <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<div class="active_arrow"></div><b class="caret"></b></a>
@@ -95,13 +100,44 @@
             
          </ul>
             </security:authorize>
-          <security:authorize access="hasRole('ROLE_USER')">
+              <!--
+                <security:authorize access="hasRole('ROLE_ADMIN')">
+            <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle demo-class" ><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<div class="active_arrow"></div><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a  class="demo-class" href="#">Users</a></li>
+              <li><a  class="demo-class" href="#"> Roles</a></li>
+              </ul>
+            </li>
+            <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/system_.png"></i> System settings<div class="active_arrow"></div></a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices<div class="active_arrow"></div></a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings<div class="active_arrow"></div></a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes<div class="active_arrow"></div></a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
+            
+         </ul>
+            </security:authorize>-->
+             <!--
+             <security:authorize access="hasRole('ROLE_USER')">
             <ul class="nav navbar-nav side-nav"  style="outline:none; ">
              <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
              <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
             <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notesv</a></li>
              <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
               <li><a href="#"><i class="fa fa-bar-chart-o"></i>Help<div class="active_arrow"></div></a></li>
+         </ul>
+            </security:authorize>-->
+            
+          <security:authorize access="hasRole('ROLE_USER')">
+            <ul class="nav navbar-nav side-nav"  style="outline:none; ">
+             <li><a   class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
+            <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notesv</a></li>
+             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
+              <li><a  class="demo-class" href="#"><i class="fa fa-bar-chart-o"></i>Help<div class="active_arrow"></div></a></li>
          </ul>
             </security:authorize>
                 <ul class="nav navbar-nav navbar-right navbar-user">
@@ -186,7 +222,7 @@
 				<th style="">Value <!--<i class="fa fa-sort"></i>--></th>
                                 <th style="">Time <!--<i class="fa fa-sort"></i>--></th>
 			</tr>
-		</thead>
+                </thead><tbody id="alertBody"></tbody>
                 
               </table>
                 <ul class="pager">

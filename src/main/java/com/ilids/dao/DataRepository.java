@@ -7,9 +7,13 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 public class DataRepository extends AbstractGenericDao<Data> {
+    
+    private static final Logger logger = LoggerFactory.getLogger(DataRepository.class);
 
     public DataRepository() {
 	super(Data.class);
@@ -26,9 +30,15 @@ public class DataRepository extends AbstractGenericDao<Data> {
     }
 
     public List<Object[]> getCumilativeEnergy(String startDateParam, String endDateParam, boolean startFlag) {
-	Object[] startCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time > '" + startDateParam + " 00:00:01' and address_map=512 order by id asc limit 1 ").getSingleResult();
-	Object[] endCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time < '" + endDateParam + " 23:59:59' and address_map=512 order by id desc limit 1 ").getSingleResult();
 	List<Object[]> cumialtiveDataList = new ArrayList<Object[]>();
+	Object[] startCumilative=null;
+	Object[] endCumilative=null;
+	try{
+	startCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time > '" + startDateParam + "' and address_map=512 order by id asc limit 1 ").getSingleResult();
+	endCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time < '" + endDateParam + "' and address_map=512 order by id desc limit 1 ").getSingleResult();
+	}catch(Exception e){
+	    logger.error("There is an error in getCumilativeEnergy method");
+	}
 	cumialtiveDataList.add(0, startCumilative);
 	cumialtiveDataList.add(1, endCumilative);
 	return cumialtiveDataList;

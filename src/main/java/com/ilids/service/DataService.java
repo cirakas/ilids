@@ -73,8 +73,8 @@ public class DataService {
     }
 
     public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag) throws ParseException {
-	startDateValue = convertToDate(startDateValue);
-	endDateValue = convertToDate(endDateValue);
+	//startDateValue = convertToDate(startDateValue);
+	//endDateValue = convertToDate(endDateValue);
 	List<Object[]> cumilativeDataList = dataRepository.getCumilativeEnergy(startDateValue, endDateValue, startFlag);
 	return cumilativeDataList;
     }

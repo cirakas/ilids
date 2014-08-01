@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author cirakas
  */
 @Entity
-@Table(name = "installation", catalog = "ilids", schema = "", uniqueConstraints = {
+@Table(name = "installation", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"}),
     @UniqueConstraint(columnNames = {"id"}),
     @UniqueConstraint(columnNames = {"name"})})

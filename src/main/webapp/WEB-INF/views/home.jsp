@@ -18,30 +18,47 @@
 //        s.parentNode.insertBefore(ga, s);
 //    })();
     
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
+//    (function () {
+//        var ga = document.createElement('script');
+//        ga.type = 'text/javascript';
+//        ga.async = true;
+//        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//        var s = document.getElementsByTagName('script')[0];
+//        s.parentNode.insertBefore(ga, s);
+//    })();
     
   var mdvValue1 = '<c:out value="${SystemSettings.mdv}"/>';
  
   var phaseParam=getQueryVariable('phase');
   var fromDateParam=getQueryVariable('fromDate');
   var toDateParam=getQueryVariable('toDate');
+  var fromHoursParam=getQueryVariable('fromHours');
+   var fromMinutesParam=getQueryVariable('fromMinutes');
+    var toHoursParam=getQueryVariable('toHours');
+   var toMinutesParam=getQueryVariable('toMinutes');
     if(!phaseParam){
        phaseParam='06';
    }
    if(!fromDateParam){
-       fromDateParam="7/19/2014"//new Date().toLocaleDateString();
+       fromDateParam=new Date().toLocaleDateString();//"7/19/2014";//
    }
    if(!toDateParam){
-       toDateParam="7/19/2014"//new Date().toLocaleDateString();
+       toDateParam=new Date().toLocaleDateString();//"7/19/2014";//
    }
-  var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&toDate="+toDateParam;
+    if(!fromHoursParam){
+       fromHoursParam="00";
+   }
+    if(!fromMinutesParam){
+       fromMinutesParam="00";
+   }
+    if(!toHoursParam){
+       toHoursParam="23";
+   }
+    if(!toMinutesParam){
+       toMinutesParam="59";
+   }
+   
+  var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&fromHours="+fromHoursParam+"&fromMinutes="+fromMinutesParam+"&toDate="+toDateParam+"&toHours="+toHoursParam+"&toMinutes="+toMinutesParam;
  
  switch(phaseParam){
       case '00':
@@ -114,14 +131,19 @@
     var graphType=document.getElementById("graphType").value;   
     var fromDate=document.getElementById("SelectedDate").value;
     var toDate=document.getElementById("SelectedDate1").value;
-   var d1 = new Date(fromDate)
-   var d2 = new Date(toDate)
+    var fromHours=document.getElementById("from-hours").value;
+    var fromMinutes=document.getElementById("from-minutes").value;
+     var toHours=document.getElementById("to-hours").value;
+    var toMinutes=document.getElementById("to-minutes").value;
+    var toDate=document.getElementById("SelectedDate1").value;
+   var d1 = new Date(fromDate+" "+fromHours+":"+fromMinutes+":00");
+   var d2 = new Date(toDate+" "+toHours+":"+toMinutes+":59");
     if(d2<d1){
         alert("end date should not be less than start date");
     }
     else{
     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&toDate="+toDate;
+    document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&fromHours="+fromHours+"&fromMinutes="+fromMinutes+"&toDate="+toDate+"&toHours="+toHours+"&toMinutes="+toMinutes;
     }
    }
 
@@ -338,15 +360,90 @@ announce_text_11{word-break:break-all;}
              </div>
            </div>
              
-             <div class="col-lg-3" style="width: 50%;float: left;margin-top: 15px;">
-                <div class="" style="float:left;width:29%;">
+             <div class="col-lg-3" style="width: 70%;float: left;margin-top: 15px;">
+                <div class="" style="float:left;width:20%;">
                     <label style="color:#18a7d9;float: left;margin-top: 9px;">FROM</label>
                     <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" onchange="selectFunction()" />
+                
                 </div>
-                <div class="" style="float:left;width:29%;margin-left: 2%;">
+                 <div class="" style="float:left;width:15%;margin-top: 5px;">
+                 <select class="" id="from-hours" value="" onchange="selectFunction()">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                      <option value="02">02</option>
+                    <option value="03">03</option>
+                      <option value="04">04</option>
+                    <option value="05">05</option>
+                      <option value="06">06</option>
+                       <option value="07">07</option>
+                    <option value="08">08</option>
+                     <option value="09">09</option>
+                     <option value="10">10</option>
+                     <option value="11">11</option>
+                     <option value="12">12</option>
+                     <option value="13">13</option>
+                     <option value="14">14</option>
+                      <option value="15">15</option>
+                     <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                       <option value="20">20</option>
+                       <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                </select>
+                 <select class="" id="from-minutes" value="" onchange="selectFunction()">
+                    <option value="00">00</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="59">59</option>
+                </select>
+                </div>
+                <div class="" style="float:left;width:20%;margin-left: 2%;">
                   <label style="color:#18a7d9;float: left;margin-top: 9px;">TO</label>
                   <input type="text" name="SelectedDate" class=" input_" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />
                 </div>  
+                 <div class="" style="float:left;width:15%;margin-top: 5px;">
+                 <select class="" id="to-hours" value="" onchange="selectFunction()">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                      <option value="02">02</option>
+                    <option value="03">03</option>
+                      <option value="04">04</option>
+                    <option value="05">05</option>
+                      <option value="06">06</option>
+                       <option value="07">07</option>
+                    <option value="08">08</option>
+                     <option value="09">09</option>
+                     <option value="10">10</option>
+                     <option value="11">11</option>
+                     <option value="12">12</option>
+                     <option value="13">13</option>
+                     <option value="14">14</option>
+                      <option value="15">15</option>
+                     <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                       <option value="20">20</option>
+                       <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                </select>
+                 <select class="" id="to-minutes" value="" onchange="selectFunction()">
+                    <option value="00">00</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="59">59</option>
+                </select>
+                </div>
              </div>
          </div> 
          
@@ -414,6 +511,10 @@ announce_text_11{word-break:break-all;}
      document.getElementById("graphType").value=phaseParam;
      document.getElementById("SelectedDate").value=fromDateParam;
      document.getElementById("SelectedDate1").value=toDateParam; 
+     document.getElementById("from-hours").value=fromHoursParam;
+     document.getElementById("from-minutes").value=fromMinutesParam; 
+     document.getElementById("to-hours").value=toHoursParam;
+     document.getElementById("to-minutes").value=toMinutesParam; 
        
   </script>
     
@@ -435,7 +536,11 @@ announce_text_11{word-break:break-all;}
         
         $(function() {
                 var fromDateParams=document.getElementById("SelectedDate").value;
+                var fromHoursParams=document.getElementById("from-hours").value;
+                var fromMinutesParams=document.getElementById("from-minutes").value;
                 var toDateParams=document.getElementById("SelectedDate1").value;
+                 var toHoursParams=document.getElementById("to-hours").value;
+                var toMinutesParams=document.getElementById("to-minutes").value;
                 var energyRequestUrl = "dashboardupdate/energyCost";
                 var energyValueDiv=0;
                 var alertSpan=0;
@@ -447,9 +552,9 @@ announce_text_11{word-break:break-all;}
 		var energyRequest = $.ajax({
 			url : energyRequestUrl,
 			type : "get",
-                        data : { "startDate":fromDateParams, "endDate":toDateParams},
+                        data : { "startDate":fromDateParams, "endDate":toDateParams,"fromHours":fromHoursParams,"fromMinutes":fromMinutesParams,"toHours":toHoursParams,"toMinutes":toMinutesParams},
                         success: function(pollData) {
-                            energyValueDiv='<p id="energyCostValue" class="announcement-text">Energy Cost: Rs.'+ Number(pollData.energyCost)+'</p>';
+                            energyValueDiv='<p id="energyCostValue" class="announcement-text" style="float:left;"><div style="float:left;margin-left:12px;">Peak cost</div><div style="float:left;margin-left:27px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.peakCost)+'</div><br/><div style="float:left;margin-left:12px;">Normal cost</div><div style="float:left;margin-left:12px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.normalCost)+'</div><br/><div style="float:left;margin-left:12px;">Off peak cost</div><div style="float:left;margin-left:2px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.offPeakCost)+'</div></p>';
                                alertSpan='<span id="alertCountId" style="color: red;">'+Number(pollData.alertCount)+'</span>';
                               $(energyValueDiv).replaceAll('#energyCostValue');
                             $(alertSpan).replaceAll('#alertCountId');

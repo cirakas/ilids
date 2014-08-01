@@ -48,20 +48,20 @@ public class MailSmsController{
     }
 
     @RequestMapping(value = "saveMailSms", method = RequestMethod.POST)
-    public String addDevice(MailSms mailSms, RedirectAttributes flash) {
+    public String addMailSms(MailSms mailSms, RedirectAttributes flash) {
         mailSmsService.saveMailSms(mailSms);
         return "redirect:/mailsms";
     }
 
     @RequestMapping(value = "saveMailSms/{id}", method = RequestMethod.POST)
-    public String updateDevice(MailSms mailSms, RedirectAttributes flash) {
+    public String updateMailSms(MailSms mailSms, RedirectAttributes flash) {
 	mailSmsService.updateMailSms(mailSms);
         return "redirect:/mailsms";
     }
 
     @RequestMapping(value = "/editMailSms", method = RequestMethod.POST)
     @ResponseBody
-    public MailSms editDevices(@RequestParam("id") String id) {
+    public MailSms editMailSms(@RequestParam("id") String id) {
         MailSms mailSms = new MailSms();
         if (id != null) {
             currentMailSmsId = Long.valueOf(id);
