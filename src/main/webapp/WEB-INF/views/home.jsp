@@ -330,6 +330,13 @@ announce_text_11{word-break:break-all;}
    border-color: #d98b12!important;
    background: url(/ilids/resources/images/graph_head_bg.png);
 }
+.power-factor-warning{
+    background: #e75151;
+}
+
+.power-factor-success{
+    background: #3AC98B;
+}
 
 
  </style> 
@@ -478,21 +485,21 @@ announce_text_11{word-break:break-all;}
             </div>
           </div>
             <div class=""style="float: right; width: 100%;">
-                 <div id="phase1PowerFactorPanel" class="panel" style="padding: 9px 0;background: #e75151;margin-left: 0;margin-bottom: 8px;width: 100%;float: left;">
+                 <div id="phase1PowerFactorPanel" class="panel" style="padding: 9px 0;margin-left: 0;margin-bottom: 8px;width: 100%;float: left;">
                      <div  class="power-factor" style="border:none;width: 100%;float: left;">
                          <div id="phase1PowerFactor">
                                     <p class="announcement-text">Power factor Phase 1: ${phase1PowerFactor}</p>
                                 </div>
                      </div>
                  </div>
-                      <div id="phase2PowerFactorPanel" class="panel" style="padding: 9px 0;background: #e75151;margin-left: 0;margin-bottom: 8px;width: 100%;float: left;">
+                      <div id="phase2PowerFactorPanel" class="panel" style="padding: 9px 0;margin-left: 0;margin-bottom: 8px;width: 100%;float: left;">
                         <div  class="power-factor" style="border:none;width: 100%;float: left;">
                                   <div id="phase2PowerFactor">
                                     <p class="announcement-text">Power factor Phase 2: ${phase2PowerFactor}</p>
                                   </div>
                         </div>
                       </div>   
-                    <div id="phase3PowerFactorPanel"  class="panel" style="padding: 9px 0;background: #e75151;margin-left: 0;width: 100%;float: left;">
+                    <div id="phase3PowerFactorPanel"  class="panel" style="padding: 9px 0;margin-left: 0;width: 100%;float: left;">
                      <div class="power-factor" style="border:none;width: 100%;float: left;">
                                 <div id="phase3PowerFactor">
                                      <p class="announcement-text">Power factor Phase 3: ${phase3PowerFactor}</p>

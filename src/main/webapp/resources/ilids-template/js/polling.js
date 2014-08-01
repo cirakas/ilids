@@ -67,34 +67,34 @@ function Poll() {
          phase3Value='<div id="phase3PowerFactor"><p class="announcement-text">Power factor Phase 3:  '+ Number(pollData.phase3Value)+'</p></div>';
          if(phase1Value){
           $(phase1Value).replaceAll('#phase1PowerFactor');
-            $('#phase1PowerFactorPanel').removeClass('panel-success');
-            $('#phase1PowerFactorPanel').removeClass('panel-warning');
+            $('#phase1PowerFactorPanel').removeClass('power-factor-success');
+            $('#phase1PowerFactorPanel').removeClass('power-factor-warning');
            if(Number(pollData.phase1Value)<.9 || Number(pollData.phase1Value)===42){
-            $('#phase1PowerFactorPanel').addClass('panel-warning');
+            $('#phase1PowerFactorPanel').addClass('power-factor-warning');
           }else{
-            $('#phase1PowerFactorPanel').addClass('panel-warning');
+            $('#phase1PowerFactorPanel').addClass('power-factor-success');
           }
         }
           if(phase2Value){
           $(phase2Value).replaceAll('#phase2PowerFactor');
-            $('#phase2PowerFactorPanel').removeClass('panel-success');
-            $('#phase2PowerFactorPanel').removeClass('panel-warning');
+            $('#phase2PowerFactorPanel').removeClass('power-factor-success');
+            $('#phase2PowerFactorPanel').removeClass('power-factor-warning');
           if(Number(pollData.phase1Value)<.9 || Number(pollData.phase1Value)===42){
-            $('#phase2PowerFactorPanel').addClass('panel-warning');
+            $('#phase2PowerFactorPanel').addClass('power-factor-warning');
           }else{
-            $('#phase2PowerFactorPanel').addClass('panel-warning');
+            $('#phase2PowerFactorPanel').addClass('power-factor-success');
           }
          
            
         }
           if(phase3Value){
            $(phase3Value).replaceAll('#phase3PowerFactor');
-             $('#phase3PowerFactorPanel').removeClass('panel-success');
-            $('#phase3PowerFactorPanel').removeClass('panel-warning');
+             $('#phase3PowerFactorPanel').removeClass('power-factor-success');
+            $('#phase3PowerFactorPanel').removeClass('power-factor-warning');
             if(Number(pollData.phase1Value)<.9 || Number(pollData.phase1Value)===42){
-            $('#phase3PowerFactorPanel').addClass('panel-warning');
+            $('#phase3PowerFactorPanel').addClass('power-factor-warning');
           }else{
-            $('#phase3PowerFactorPanel').addClass('panel-warning');
+            $('#phase3PowerFactorPanel').addClass('power-factor-success');
           }
          }
 		};
