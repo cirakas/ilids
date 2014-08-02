@@ -1,24 +1,5 @@
-#include<stdio.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <sys/stat.h>
-#include <arpa/inet.h>
+#include "ids_common.h"
 
-
-#define TRUE 1
-#define FALSE 0
-#define FDMAX 1024
-#define MAXSIZE 1024
-
-
-typedef unsigned char BYTE;
 
 int clientfd=-1;
 struct sockaddr_in server_addr;
@@ -27,15 +8,19 @@ fd_set socket_set,temp_set;
 BYTE temp_buf[MAXSIZE];
 int bufindex=0;
 char cmd_str[256];
-BYTE cmd=0x0,prev=0x0,sub_started=FALSE,client_started=FALSE;
 int log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
 int fwritefd=-1,fverify=-1;
+char * paddr="3306";
+char * saddr="10.0.1.20";
+int dev_id[32];
+int no_of_devices=0;
+
 
 int GetServerInfo()
 {
   server_addr.sin_family=AF_INET;
-  server_addr.sin_port=htons(strtol("1388",NULL,0));
-  server_addr.sin_addr.s_addr=inet_addr("10.0.1.18");
+  server_addr.sin_port=htons(strtol(paddr,NULL,0));
+  server_addr.sin_addr.s_addr=inet_addr(saddr);
   return TRUE;
 }
 
@@ -53,13 +38,86 @@ int ProcessServerData(BYTE * buffer,int count)
   return TRUE;
 }
 
+void get_slave_idys(char *i_list,int list_len)
+{
+    int i=0;
+    char *a,*b;
+
+    //dev_id=atoi(i_list);
+    //printf("\nDevice Id is %d , len is %d\n",dev_id,list_len);
+    b=i_list;
+    while( b==i_list || *a==',' || *a==' ')
+    {
+        dev_id[i++]=strtol(b,&a,10);
+        no_of_devices=i;
+        b=a+1;
+        if(i>31)
+        {
+            return;
+        }
+    }
+}
+
 int main(int argc,char * argv[])
 {
   struct timeval timeout;
-  int result=-1,retn=0,i=0;
+  int result=-1,retn=0,i=0,j=0;
 
 
-    printf("\nDevice Simulation Started\n");
+        for(i=1;i<argc;i++)
+        {
+            if(argv[i][j]=='-')
+            {
+                switch(argv[i][j+1])
+                {
+                    case 's':
+                    saddr=(char *)&argv[i][j+3];
+                    printf("\nServer Address is %s\n",saddr);
+                    break;
+
+                    case 'p':
+                    paddr=(char *)&argv[i][j+3];
+                    printf("\nPort Address is %s\n",paddr);
+                    break;
+
+                    case 'd':
+                    get_slave_idys(((char *)&argv[i][j+3]),strlen(((char *)&argv[i][j+3])));
+                    break;
+
+                    default:
+                    printf("\nInvalid Arguments,Using Default Values\n");
+                    sprintf(msg_to_log,"Invalid Arguments,Using Default Values");
+                    log_to_file(msg_to_log,strlen(msg_to_log));
+                    break;
+                }
+            }
+        }
+
+
+
+
+    if(no_of_devices==0)
+    {
+        printf("\nNo Device Addresses Provided for Emulation,Exiting...\n");
+        exit(0);
+    }
+
+    open_log();
+    sprintf(msg_to_log,"Device Emulation Started");
+    log_to_file(msg_to_log,strlen(msg_to_log));
+    sprintf(msg_to_log,"Server Address is %s",saddr);
+    log_to_file(msg_to_log,strlen(msg_to_log));
+    sprintf(msg_to_log,"Port Address is %s",paddr);
+    log_to_file(msg_to_log,strlen(msg_to_log));
+
+    j=0;
+    j+=sprintf(&msg_to_log[j],"Device Addresses to be Emulated are ");
+
+    for(i=0;i<no_of_devices;i++)
+    {
+        j+=sprintf(&msg_to_log[j]," %d",dev_id[i]);
+    }
+    log_to_file(msg_to_log,j);
 
 
     while(1)
