@@ -21,6 +21,7 @@
 
 
 typedef unsigned char BYTE;
+typedef unsigned short WORD;
 
 char msg_to_log[MSG_SIZE];
 

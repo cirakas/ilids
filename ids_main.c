@@ -1,6 +1,10 @@
 #include "ids_common.h"
 
 
+#define ADDR_0 0
+
+extern void process_master_data(BYTE *inbuf,int inlen);
+
 int clientfd=-1;
 struct sockaddr_in server_addr;
 socklen_t servlen=0;
@@ -40,15 +44,33 @@ int ProcessServerData(BYTE * buffer,int count)
 
 void get_slave_idys(char *i_list,int list_len)
 {
-    int i=0;
+    int i=0,j=0;
     char *a,*b;
+    int dup_id=0;
 
     //dev_id=atoi(i_list);
     //printf("\nDevice Id is %d , len is %d\n",dev_id,list_len);
     b=i_list;
     while( b==i_list || *a==',' || *a==' ')
     {
-        dev_id[i++]=strtol(b,&a,10);
+        dev_id[i]=strtol(b,&a,10);
+
+        dup_id=FALSE;
+        for(j=0;j<no_of_devices;j++)
+        {
+            if(dev_id[i]==dev_id[j])
+            {
+                printf("\nDuplicate Slave Address,Ignoring...\n");
+                dup_id=TRUE;
+                break;
+            }
+        }
+
+
+        if(dev_id[i]!=ADDR_0 && dup_id == FALSE)
+        {
+            i++;
+        }
         no_of_devices=i;
         b=a+1;
         if(i>31)
@@ -86,8 +108,6 @@ int main(int argc,char * argv[])
 
                     default:
                     printf("\nInvalid Arguments,Using Default Values\n");
-                    sprintf(msg_to_log,"Invalid Arguments,Using Default Values");
-                    log_to_file(msg_to_log,strlen(msg_to_log));
                     break;
                 }
             }
@@ -112,12 +132,15 @@ int main(int argc,char * argv[])
 
     j=0;
     j+=sprintf(&msg_to_log[j],"Device Addresses to be Emulated are ");
+    printf("\nDevice Addresses to be Emulated are  ");
 
     for(i=0;i<no_of_devices;i++)
     {
         j+=sprintf(&msg_to_log[j]," %d",dev_id[i]);
+        printf("%d ",dev_id[i]);
     }
     log_to_file(msg_to_log,j);
+    printf("\n");
 
 
     while(1)
@@ -172,17 +195,15 @@ int main(int argc,char * argv[])
                                     }
                                     else
                                     {
-                                        printf("\nRead Data from Server ");
-                                        for(i=0;i<retn;i++)
-                                        {
-                                            printf("%X ",temp_buf[i]);
-                                        }
-
+                                        process_master_data(temp_buf,retn);
                                     }
 
                                 }
 
-
+                            }
+                            if(result==0)
+                            {
+                                //send data to server
                             }
 
                         }
