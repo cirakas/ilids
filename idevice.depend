@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1406963433 source:/home/sreejith/Cirakas/iLids/idevice/ids_main.c
+	<stdio.h>
+	<sys/time.h>
+	<sys/types.h>
+	<unistd.h>
+	<stdlib.h>
+	<string.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<errno.h>
+	<sys/stat.h>
+	<arpa/inet.h>
+
