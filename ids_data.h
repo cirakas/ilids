@@ -5,6 +5,8 @@
 #define Preset_Single_Register 06
 #define Preset_Multiple_Registers 16
 
+#define MAX_PARAMS 86
+
 void prepare_slave_data(BYTE *inbuf,int inlen);
 void process_master_data(BYTE *inbuf,int inlen);
 int Check_CRC(BYTE * pktdata, int pktcount);
@@ -13,6 +15,8 @@ BYTE LoByte(WORD val);
 BYTE HiByte(WORD val);
 WORD LoWord(unsigned int val);
 WORD HiWord(unsigned int val);
+void make_val(BYTE * inval,int val);
+void reverse_b(BYTE *t_addr,BYTE *s_addr,int bcount);
 
 
 typedef struct
@@ -25,9 +29,9 @@ typedef struct
     float offset;
 }PARAM_DETAILS;
 
-PARAM_DETAILS param_list[108]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,0.0,5},{2,"Y_Phase_Voltage_4W_BY_Voltage_3W",2,0.01,0.0,5},\
-{4,"B_Phase_Voltage_4W",2,0.01,0.0,5},{6,"R_Phase_Current_4W_R_Current_3W",2,0.001,0.0,10},{8,"Y_Phase_Current_4W_B_Current_3W",2,0.001,0.0,10},\
-{10,"B_Phase_Current_4W",2,0.001,0.0,10},{12,"Active_Power_R_Phase_4W_RY_Active_Power_3W",2,0.0001,0.0,5},\
+PARAM_DETAILS param_list[MAX_PARAMS]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,230.0,5},{2,"Y_Phase_Voltage_4W_BY_Voltage_3W",2,0.01,240.0,5},\
+{4,"B_Phase_Voltage_4W",2,0.01,250.0,5},{6,"R_Phase_Current_4W_R_Current_3W",2,0.001,120.0,10},{8,"Y_Phase_Current_4W_B_Current_3W",2,0.001,130.0,10},\
+{10,"B_Phase_Current_4W",2,0.001,140.0,10},{12,"Active_Power_R_Phase_4W_RY_Active_Power_3W",2,0.0001,0.0,5},\
 {14,"Active_Power_Y_Phase_4W_BY_Active_Power_3W",2,0.0001,0.0,5},{16,"Active_Power_B_Phase_4W",2,0.0001,0.0,5},\
 {18,"Reactive_Power_R_Phase_4W_RY_Reactive_Power_3W",2,0.0001,0.0,5},{20,"Reactive_Power_Y_Phase_4W_BY_Reactive_Power_3W",2,0.0001,0.0,5},\
 {22,"Reactive_Power_B_Phase_4W",2,0.0001,0.0,5},{24,"Apparent_Power_R_Phase_4W_RY_Apparent_Power_3W",2,0.0001,0.0,5},\
@@ -59,8 +63,10 @@ PARAM_DETAILS param_list[108]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,0.0,
 {1296,"Backup_2_MD3",2,0.01,0.0,5},{1298,"Backup_3_MD1",2,0.01,0.0,5},{1300,"Backup_3_MD2",2,0.01,0.0,5},{1302,"Backup_3_MD3",2,0.01,0.0,5},\
 {1304,"Backup_4_MD1",2,0.01,0.0,5},{1306,"Backup_4_MD2",2,0.01,0.0,5},{1308,"Backup_4_MD3",2,0.01,0.0,5},{1536,"Backup_1_reset_date_time_&_type",4,1,0.0,5},\
 {1540,"Backup_2_reset_date_time_&_type",4,1,0.0,5},{1544,"Backup_3_reset_date_time_&_type",4,1,0.0,5},{1548,"Backup_4_reset_date_time_&_type",4,1,0.0,5},\
-{1792,"Reset_Cumulative_MD1",2,0.01,0.0,5},{1794,"Reset_Cumulative_MD2",2,0.01,0.0,5},{1796,"Reset_Cumulative_MD3",2,0.01,0.0,5},\
-{1872,"RD1_elapsed_time",3,0.01,0.0,5},{1875,"RD2_elapsed_time",3,0.01,0.0,5},{1878,"RD3_elapsed_time",3,0.01,0.0,5},\
+{1792,"Reset_Cumulative_MD1",2,0.01,0.0,5},{1794,"Reset_Cumulative_MD2",2,0.01,0.0,5},{1796,"Reset_Cumulative_MD3",2,0.01,0.0,5}};
+
+
+/*{1872,"RD1_elapsed_time",3,0.01,0.0,5},{1875,"RD2_elapsed_time",3,0.01,0.0,5},{1878,"RD3_elapsed_time",3,0.01,0.0,5},\
 {1920,"Anomaly_string_Format:_MSB_A_all_other_bytes_must_be_0xFF_Faults_are_indicated_by_digits_AENRXD_E–_flash_code_corruption_\
 N_EEPROM_setup_corruption_R_RTC_corruption_XD_exception_illegal_opcode",8,1,0.0,5},{1928,"Reset_count_Format:_00_to_99_0x0063",1,1,0.0,5},\
 {1929,"Com.count_no._of_times_meter_programmed_via_front_panel_Format_00_to_99_0x0063",1,1,0.0,5},\
@@ -69,7 +75,7 @@ N_EEPROM_setup_corruption_R_RTC_corruption_XD_exception_illegal_opcode",8,1,0.0,
 {258,"Current_Time_Hour_Minute_Format:HHMM_BCD",1,1,0.0,5},{259,"Current_Time_Second_Format:SS00_BCD",1,1,0.0,5},{2048,"CT_Primary",1,1,0.0,5},\
 {2049,"CT_Secondary",1,1,0.0,5},{2050,"PT_Primary",1,1,0.0,5},{2051,"PT_Secondary",1,1,0.0,5},{2128,"Reset_type_days_and_Lockout_days_1st_word_Reset_time_\
 HH_MM_hour_min_2nd_word",2,1,0.0,5},{2160,"Setting_for_MD1",2,1,0.0,5},{2162,"Setting_for_MD2",2,1,0.0,5},{2164,"Setting_for_MD3",2,1,0.0,5},\
-{2304,"Method_of_energy_calculation_Lead_Lead_Lead_UPF",1,1,0.0,5},{2305,"Meter_direction_Unidirectional_Bidirectional",1,1,0.0,5}};
+{2304,"Method_of_energy_calculation_Lead_Lead_Lead_UPF",1,1,0.0,5},{2305,"Meter_direction_Unidirectional_Bidirectional",1,1,0.0,5}};*/
 
 /*PARAM_DETAILS params1[24]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,0.0,5},{2,"Y_Phase_Voltage_4W_BY_Voltage_3W",2,0.01,0.0,5},{4,"B_Phase_Voltage_4W",2,0.01,0.0,5},{6,"R_Phase_Current_4W_R_Current_3W",2,0.001,0.0,10},{8,"Y_Phase_Current_4W_B_Current_3W",2,0.001,0.0,10},{10,"B_Phase_Current_4W",2,0.001,0.0,10},{12,"Active_Power_R_Phase_4W_RY_Active_Power_3W",2,0.0001,0.0,5},{14,"Active_Power_Y_Phase_4W_BY_Active_Power_3W",2,0.0001,0.0,5},{16,"Active_Power_B_Phase_4W",2,0.0001,0.0,5},{18,"Reactive_Power_R_Phase_4W_RY_Reactive_Power_3W",2,0.0001,0.0,5},{20,"Reactive_Power_Y_Phase_4W_BY_Reactive_Power_3W",2,0.0001,0.0,5},{22,"Reactive_Power_B_Phase_4W",2,0.0001,0.0,5},{24,"Apparent_Power_R_Phase_4W_RY_Apparent_Power_3W",2,0.0001,0.0,5},{26,"Apparent_Power_Y_Phase_4W_BY_Apparent_Power_3W",2,0.0001,0.0,5},{28,"Apparent_Power_B_Phase_4W",2,0.0001,0.0,5},{30,"Power_Factor_R_Phase_4W_Power_Factor_R_Phase_3W",2,0.001,0.0,0.1},{32,"Power_Factor_Y_Phase_4W_Power_Factor_B_Phase_3W",2,0.001,0.0,0.1},{34,"Power_Factor_B_Phase_4W",2,0.001,0.0,0.1},{36,"Total_Active_Power",2,0.0001,0.0,5},{38,"Total_Reactive_Power",2,0.0001,0.0,5},{40,"Total_Apparent_Power",2,0.0001,0.0,5},{42,"Total_Power_Factor",2,0.001,0.0,5},{44,"Line_Frequency",2,0.01,0.0,5},{46,"Phase_Sequence",2,1,0.0,5}};
 PARAM_DETAILS params1rand[24]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,227.0,5},{2,"Y_Phase_Voltage_4W_BY_Voltage_3W",2,0.01,236.0,5},{4,"B_Phase_Voltage_4W",2,0.01,239.0,5},{6,"R_Phase_Current_4W_R_Current_3W",2,0.001,119.0,10},{8,"Y_Phase_Current_4W_B_Current_3W",2,0.001,103.0,10},{10,"B_Phase_Current_4W",2,0.001,123.0,10},{12,"Active_Power_R_Phase_4W_RY_Active_Power_3W",2,0.0001,22.0,5},{14,"Active_Power_Y_Phase_4W_BY_Active_Power_3W",2,0.0001,21.0,5},{16,"Active_Power_B_Phase_4W",2,0.0001,24.0,5},{18,"Reactive_Power_R_Phase_4W_RY_Reactive_Power_3W",2,0.0001,16.0,5},{20,"Reactive_Power_Y_Phase_4W_BY_Reactive_Power_3W",2,0.0001,14.0,5},{22,"Reactive_Power_B_Phase_4W",2,0.0001,19.0,5},{24,"Apparent_Power_R_Phase_4W_RY_Apparent_Power_3W",2,0.0001,28.0,5},{26,"Apparent_Power_Y_Phase_4W_BY_Apparent_Power_3W",2,0.0001,26.0,5},{28,"Apparent_Power_B_Phase_4W",2,0.0001,31.0,5},{30,"Power_Factor_R_Phase_4W_Power_Factor_R_Phase_3W",2,0.001,0.5,0.1},{32,"Power_Factor_Y_Phase_4W_Power_Factor_B_Phase_3W",2,0.001,0.5,0.1},{34,"Power_Factor_B_Phase_4W",2,0.001,0.5,0.1},{36,"Total_Active_Power",2,0.0001,68.0,5},{38,"Total_Reactive_Power",2,0.0001,50.0,5},{40,"Total_Apparent_Power",2,0.0001,85.0,5},{42,"Total_Power_Factor",2,0.001,0.0,5},{44,"Line_Frequency",2,0.01,0.0,5},{46,"Phase_Sequence",2,1,0.0,5}};

@@ -24,6 +24,20 @@ typedef unsigned char BYTE;
 typedef unsigned short WORD;
 
 char msg_to_log[MSG_SIZE];
+int clientfd;
+struct sockaddr_in server_addr;
+socklen_t servlen;
+fd_set socket_set,temp_set;
+BYTE temp_buf[MAXSIZE];
+int bufindex;
+char cmd_str[256];
+int log_mode;
+int fwritefd,fverify;
+char * paddr;
+char * saddr;
+int dev_id[32];
+int no_of_devices;
+
 
 extern void open_log();
 extern void log_to_file(char * log_msg,int log_count);

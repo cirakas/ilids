@@ -5,19 +5,6 @@
 
 extern void process_master_data(BYTE *inbuf,int inlen);
 
-int clientfd=-1;
-struct sockaddr_in server_addr;
-socklen_t servlen=0;
-fd_set socket_set,temp_set;
-BYTE temp_buf[MAXSIZE];
-int bufindex=0;
-char cmd_str[256];
-int log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
-int fwritefd=-1,fverify=-1;
-char * paddr="3306";
-char * saddr="10.0.1.20";
-int dev_id[32];
-int no_of_devices=0;
 
 
 int GetServerInfo()
@@ -83,8 +70,17 @@ void get_slave_idys(char *i_list,int list_len)
 int main(int argc,char * argv[])
 {
   struct timeval timeout;
-  int result=-1,retn=0,i=0,j=0;
+  int result=-1,retn=0,i=0,j=0,k=0,rcount=0;
 
+
+        servlen=0;
+        bufindex=0;
+        log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
+        fwritefd=-1;
+        fverify=-1;
+        paddr="3306";
+        saddr="10.0.1.20";
+        no_of_devices=0;
 
         for(i=1;i<argc;i++)
         {
@@ -142,7 +138,7 @@ int main(int argc,char * argv[])
     log_to_file(msg_to_log,j);
     printf("\n");
 
-
+    clientfd=-1;
     while(1)
     {
         sleep(1);
@@ -182,7 +178,6 @@ int main(int argc,char * argv[])
                             {
                                 if(FD_ISSET(clientfd,&temp_set))
                                 {
-
                                     memset(temp_buf,0x0,MAXSIZE);
                                     if((retn=read(clientfd,temp_buf,MAXSIZE)) <= 0)
                                     {
@@ -195,7 +190,18 @@ int main(int argc,char * argv[])
                                     }
                                     else
                                     {
-                                        process_master_data(temp_buf,retn);
+                                        if(retn > 0)
+                                        {
+                                            rcount=sprintf(msg_to_log,"READ DATA ");
+                                            for(k=0;k<retn;k++)
+                                            {
+                                                rcount += sprintf(&msg_to_log[rcount]," %02X",temp_buf[k]);
+                                            }
+                                            rcount += sprintf(&msg_to_log[rcount]," FROM DEVICE");
+                                            log_to_file(msg_to_log,rcount);
+
+                                            process_master_data(temp_buf,retn);
+                                        }
                                     }
 
                                 }
