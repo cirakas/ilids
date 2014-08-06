@@ -26,9 +26,6 @@ static pthread_mutex_t IOMutex;
 
 volatile BYTE read_buf[READ_BUF_SIZE];
 BYTE write_buf[WRITE_BUF_SIZE];
-BYTE gl_buf[BUF_SIZE];
-int gl_count=0;
-int bytes_read=0;
 struct termios old_port_attrib,new_port_attrib;
 
 
@@ -43,6 +40,11 @@ struct termios old_port_attrib,new_port_attrib;
 
 void initcom()
 {
+    if(emulator_mode)
+    {
+        return;
+    }
+
    fport = open(cport,O_RDWR | O_NOCTTY | O_NONBLOCK);
    if (fport <0)
    {
@@ -88,6 +90,10 @@ void initcom()
 
 void closecom(void)
 {
+        if(emulator_mode)
+        {
+            return;
+        }
 
         tcflush(fport, TCIOFLUSH);
         tcsetattr(fport,TCSANOW,&old_port_attrib);
@@ -111,6 +117,10 @@ void * readcom()
 	struct timeval s_timeout;
 
 
+    if(emulator_mode)
+    {
+        return FALSE;
+    }
 
 	pthread_setcancelstate (PTHREAD_CANCEL_ENABLE,NULL);
 	pthread_setcanceltype (PTHREAD_CANCEL_ASYNCHRONOUS,NULL);
@@ -241,6 +251,8 @@ int bytes_write=0,i=0,wcount=0,count=0;
 			{
 			    sdev[gl_buf[0]-1].active=TRUE;
 			    switch_params(gl_buf,gl_count);
+			    sprintf(msg_to_log,"CRC VALID FOR PREVIOUS READ PACKET");
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
 			}
 			else
 			{
@@ -254,7 +266,31 @@ int bytes_write=0,i=0,wcount=0,count=0;
 		count=ncount+2;
 		reverse_b((BYTE *)&scondition,(BYTE *)&msg[2],2);
         pthread_mutex_lock(&IOMutex);
-        bytes_write = write (fport, write_buf, count);
+        if(!emulator_mode)
+        {
+            bytes_write = write (fport, write_buf, count);
+        }
+        else
+        {
+            for(i=0;i<no_of_clients;i++)
+            {
+                if(dclients[i].sockfd != -1)
+                {
+                    if((bytes_write=write(dclients[i].sockfd,write_buf,count)) <= 0)
+                    {
+                                sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
+                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+
+                                FD_CLR(dclients[i].sockfd,&socket_set);
+                                close(dclients[i].sockfd);
+                                dclients[i].sockfd=-1;
+                                dclients[i].send=FALSE;
+
+                    }
+                }
+            }
+        }
+
 		pthread_mutex_unlock(&IOMutex);
 
 		if(bytes_write>0)

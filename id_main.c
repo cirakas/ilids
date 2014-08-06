@@ -94,7 +94,7 @@ int main(int argc,char *argv[])
     sprintf(msg_to_log,"Entering Daemon Mode");
    	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
-    daemon(1,0);
+    //daemon(1,0);
 
     p_int=POLL_INTERVAL;
     rd_timeout=RTIMEOUT;
@@ -102,9 +102,14 @@ int main(int argc,char *argv[])
     cport=DEFAULT_PORT;
     current_log_level=DEBUG_LEVEL_3;
     ex_term=FALSE;
+    no_of_clients=MAXCLIENTS;
     random_mode=FALSE;
+    emulator_mode=FALSE;
     rand_time=5;
     rand_count=0;
+    gl_count=0;
+    bytes_read=0;
+
 
 
     for(i=1;i<argc;i++)
@@ -127,6 +132,10 @@ int main(int argc,char *argv[])
 
                 case 'c':
                 cport=&(argv[i][j+3]);
+                break;
+
+                case 'e':
+                emulator_mode=TRUE;
                 break;
 
                 case 'i':

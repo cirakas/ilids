@@ -28,6 +28,12 @@
 #include <sys/select.h>
 #include <errno.h>
 #include <mysql.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <dirent.h>
+
 
 
 #define UINT32 unsigned int
@@ -69,7 +75,7 @@
 
 #define MAXPARAMS_A 24
 #define MAXPARAMS_B 40
-#define MAXPARAMS_C 30
+#define MAXPARAMS_C 15
 
 #define addr_MAXPARAMS_A 0
 #define addr_MAXPARAMS_B 512
@@ -77,7 +83,7 @@
 
 #define nwrds_MAXPARAMS_A 48
 #define nwrds_MAXPARAMS_B 80
-#define nwrds_MAXPARAMS_C 72
+#define nwrds_MAXPARAMS_C 30
 
 #define QUERRY_MAXSIZE 256
 #define F_PRECISION 0.1
@@ -89,7 +95,9 @@
 
 #define ECLOSE_WAIT 1000
 
-
+#define FDMAX 1024
+#define MAXSIZE 1024
+#define MAXCLIENTS 12
 
 
 extern void open_log();
@@ -143,6 +151,16 @@ typedef struct
 WORD scondition;
 int db_id1,db_id2,db_id3;
 
+typedef struct
+{
+  int sockfd;
+  struct sockaddr_in client_addr;
+  char name[1024];
+  BYTE inbuf[MAXSIZE];
+  int count;
+  int send;
+}CLIENT_DETAILS;
+
 
 typedef struct
 {
@@ -167,6 +185,7 @@ int rd_timeout;
 int slave_id;
 char *cport;
 int random_mode;
+int emulator_mode;
 int rand_time;
 int rand_count;
 int current_log_level;
@@ -178,3 +197,10 @@ int current_log_level;
 
 volatile int ex_term;
 char scommand[256];
+
+int no_of_clients;
+CLIENT_DETAILS dclients[MAXCLIENTS];
+fd_set socket_set,temp_set;
+BYTE gl_buf[BUF_SIZE];
+int gl_count;
+int bytes_read;
