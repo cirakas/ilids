@@ -81,15 +81,14 @@ void make_val(BYTE * inval,int val)
     inval[1]=LoByte(HiWord(val));
     inval[2]=HiByte(LoWord(val));
     inval[3]=LoByte(LoWord(val));
-
 }
 
 void prepare_slave_data(BYTE *inbuf,int inlen)
 {
     int slave_id=0,cmd=0,k=0,wcount=0;
     WORD start_addr=0,no_of_regs=0;
+    int no_of_params=0;
     int i=0,j=0,count=0,retw=0;
-    BYTE out_buf[MAXSIZE];
 
     slave_id=inbuf[0];
 
@@ -97,13 +96,12 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
     {
         if(dev_id[i]==slave_id)
         {
-
-                printf("\n");
+                /*printf("\n");
                 for(i=0;i<inlen;i++)
                 {
                     printf("%X ",inbuf[i]);
                 }
-                printf("\n");
+                printf("\n");*/
 
                 cmd=inbuf[1];
 
@@ -113,9 +111,11 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
 
                             reverse_b((BYTE *)&start_addr,(BYTE *)&inbuf[2],2);
                             reverse_b((BYTE *)&no_of_regs,(BYTE *)&inbuf[4],2);
-                            printf("\nstart addr is %d\n",start_addr);
-                            printf("\nnregs is %d\n",no_of_regs);
-
+                            //printf("\nstart addr is %d\n",start_addr);
+                            //printf("\nnregs is %d\n",no_of_regs);
+                            //no of params =40
+                            //no of regs to read 80
+                            //no of bytes 160
                             for(i=0;i<MAX_PARAMS;i++)
                             {
                                 j=0;
@@ -125,25 +125,29 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                     out_buf[j++]=slave_id;
                                     out_buf[j++]=cmd;
                                     out_buf[j++]=no_of_regs*2;
-                                    while(j<no_of_regs)
+                                    no_of_params=no_of_regs/2;
+
+                                    while(count<(no_of_params))
                                     {
                                         make_val(&out_buf[j],param_list[i].p_val);
+                                        //printf("\naddr=%d,val=%f,i=%d,j=%d,count=%d,outbuf[%d] is %X,outbuf[%d] is %X,outbuf[%d] is %X,outbuf[%d] is %X",param_list[i].p_addr ,param_list[i].p_val,i,j,count,j,out_buf[j],j+1,out_buf[j+1],j+2,out_buf[j+2],j+3,out_buf[j+3]);
                                         i++;
-                                        j++;
-                                        count=j;
+                                        j=j+4;
+                                        count++;
                                     }
-                                    out_buf[j++]=HiByte(Add_CRC(out_buf,count));
-                                    out_buf[j]=LoByte(Add_CRC(out_buf,count));
-                                    printf("\nout_buf\n");
-                                    for(i=0;i<j;i++)
+
+                                    out_buf[j++]=HiByte(Add_CRC(out_buf,(no_of_regs*2)+3));
+                                    out_buf[j]=LoByte(Add_CRC(out_buf,(no_of_regs*2)+3));
+                                    /*printf("\ncount is %d,i is %d,j is %d\n",count,i,j);
+                                    for(k=0;k<=j;k++)
                                     {
-                                        printf("%X ",out_buf[i]);
+                                        printf("%X ",out_buf[k]);
                                     }
-                                    printf("\n");
+                                    printf("\n");*/
 
                                     if(clientfd>0)
                                     {
-                                        if((retw=write(clientfd,out_buf,j)) <= 0)
+                                        if((retw=write(clientfd,out_buf,j+1)) <= 0)
                                         {
                                             perror("Write");
                                             printf("\nClient closing connection\n");
@@ -185,27 +189,21 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
 
 void process_master_data(BYTE *inbuf,int inlen)
 {
-    int i=0;
+    int k=0,wcount=0;
 
     if(Check_CRC(inbuf,inlen))
     {
-        /*printf("\nRead Valid Data from Master\n");
-
-        for(i=0;i<inlen;i++)
-        {
-            printf("%X ",inbuf[i]);
-        }
-        printf("\n");*/
-        prepare_slave_data(inbuf,inlen);
+            prepare_slave_data(inbuf,inlen);
     }
     else
     {
-        printf("\nMaster Data : CRC Failed\n");
-        for(i=0;i<inlen;i++)
+        wcount=sprintf(msg_to_log,"CRC FAILED READ DATA ");
+        for(k=0;k<inlen;k++)
         {
-            printf("%X ",inbuf[i]);
+            wcount += sprintf(&msg_to_log[wcount]," %02X",inbuf[k]);
         }
-        printf("\n");
+        wcount += sprintf(&msg_to_log[wcount]," FROM MASTER");
+        log_to_file(msg_to_log,wcount);
     }
 }
 

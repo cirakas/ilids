@@ -29,9 +29,11 @@ typedef struct
     float offset;
 }PARAM_DETAILS;
 
-PARAM_DETAILS param_list[MAX_PARAMS]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,230.0,5},{2,"Y_Phase_Voltage_4W_BY_Voltage_3W",2,0.01,240.0,5},\
-{4,"B_Phase_Voltage_4W",2,0.01,250.0,5},{6,"R_Phase_Current_4W_R_Current_3W",2,0.001,120.0,10},{8,"Y_Phase_Current_4W_B_Current_3W",2,0.001,130.0,10},\
-{10,"B_Phase_Current_4W",2,0.001,140.0,10},{12,"Active_Power_R_Phase_4W_RY_Active_Power_3W",2,0.0001,0.0,5},\
+BYTE out_buf[MAXSIZE];
+
+PARAM_DETAILS param_list[MAX_PARAMS]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,23000.0,5},{2,"Y_Phase_Voltage_4W_BY_Voltage_3W",2,0.01,24000.0,5},\
+{4,"B_Phase_Voltage_4W",2,0.01,25000.0,5},{6,"R_Phase_Current_4W_R_Current_3W",2,0.001,120000.0,10},{8,"Y_Phase_Current_4W_B_Current_3W",2,0.001,130000.0,10},\
+{10,"B_Phase_Current_4W",2,0.001,140000.0,10},{12,"Active_Power_R_Phase_4W_RY_Active_Power_3W",2,0.0001,0.0,5},\
 {14,"Active_Power_Y_Phase_4W_BY_Active_Power_3W",2,0.0001,0.0,5},{16,"Active_Power_B_Phase_4W",2,0.0001,0.0,5},\
 {18,"Reactive_Power_R_Phase_4W_RY_Reactive_Power_3W",2,0.0001,0.0,5},{20,"Reactive_Power_Y_Phase_4W_BY_Reactive_Power_3W",2,0.0001,0.0,5},\
 {22,"Reactive_Power_B_Phase_4W",2,0.0001,0.0,5},{24,"Apparent_Power_R_Phase_4W_RY_Apparent_Power_3W",2,0.0001,0.0,5},\
@@ -39,7 +41,7 @@ PARAM_DETAILS param_list[MAX_PARAMS]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.
 {30,"Power_Factor_R_Phase_4W_Power_Factor_R_Phase_3W",2,0.001,0.0,0.1},{32,"Power_Factor_Y_Phase_4W_Power_Factor_B_Phase_3W",2,0.001,0.0,0.1},\
 {34,"Power_Factor_B_Phase_4W",2,0.001,0.0,0.1},{36,"Total_Active_Power",2,0.0001,0.0,5},{38,"Total_Reactive_Power",2,0.0001,0.0,5},\
 {40,"Total_Apparent_Power",2,0.0001,0.0,5},{42,"Total_Power_Factor",2,0.001,0.0,5},{44,"Line_Frequency",2,0.01,0.0,5},{46,"Phase_Sequence",2,1,0.0,5},\
-{512,"Cumulative_energy_forward_kVAh",2,0.01,0.0,5},{514,"Cumulative_energy_forward_kWh",2,0.01,0.0,5},{516,"Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,5},\
+{512,"Cumulative_energy_forward_kVAh",2,0.01,23400.0,5},{514,"Cumulative_energy_forward_kWh",2,0.01,23500.0,5},{516,"Cumulative_energy_forward_kVArh_lag",2,0.01,23600.0,5},\
 {518,"Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,5},{520,"Cumulative_energy_reverse_kVAh",2,0.01,0.0,5},{522,"Cumulative_energy_reverse_kWh",2,0.01,0.0,5},\
 {524,"Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,5},{526,"Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,5},\
 {528,"Backup_1_Cumulative_energy_forward_kVAh",2,0.01,0.0,5},{530,"Backup_1_Cumulative_energy_forward_kWh",2,0.01,0.0,5},\

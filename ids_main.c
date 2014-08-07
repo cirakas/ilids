@@ -132,96 +132,76 @@ int main(int argc,char * argv[])
 
     for(i=0;i<no_of_devices;i++)
     {
-        j+=sprintf(&msg_to_log[j]," %d",dev_id[i]);
-        printf("%d ",dev_id[i]);
+        j+=sprintf(&msg_to_log[j]," %X",dev_id[i]);
+        printf("%X ",dev_id[i]);
     }
     log_to_file(msg_to_log,j);
     printf("\n");
 
-    clientfd=-1;
-    while(1)
-    {
-        sleep(1);
-        if(GetServerInfo())
+
+        clientfd=-1;
+        GetServerInfo();
+        servlen=sizeof(server_addr);
+        MakeClientSocket();
+        while(((connect(clientfd,( const struct sockaddr *)&server_addr,servlen))==-1))
         {
-            if(clientfd==-1)
+            sleep(1);
+        }
+
+        sprintf(msg_to_log,"Connected to Server");
+        log_to_file(msg_to_log,strlen(msg_to_log));
+
+        printf("\nConnected to Server\n");
+        FD_ZERO(&socket_set);
+        FD_SET(clientfd,&socket_set);
+
+        while(1)
+        {
+            timeout.tv_sec=1;
+            timeout.tv_usec=0;
+            temp_set=socket_set;
+
+            result=select(clientfd+1,&temp_set,NULL,NULL,&timeout);
+            if(result<0)
             {
-                if(MakeClientSocket())
+                if(errno == EINTR)
                 {
-                    servlen=sizeof(server_addr);
-                    if((connect(clientfd,( const struct sockaddr *)&server_addr,servlen))==-1)
+                    continue;
+                }
+                perror("Select Error");
+                FD_CLR(clientfd,&socket_set);
+                close(clientfd);
+                clientfd=-1;
+                exit(EXIT_FAILURE);
+            }
+
+            if(result >= 0)
+            {
+                if(FD_ISSET(clientfd,&temp_set))
+                {
+                    memset(temp_buf,0x0,MAXSIZE);
+                    if((retn=read(clientfd,temp_buf,MAXSIZE)) <= 0)
                     {
-                        perror("Connect Failed");
+                        perror("Read");
+                        printf("\nClient closing connection\n");
+                        FD_CLR(clientfd,&socket_set);
                         close(clientfd);
                         clientfd=-1;
-                        continue;
+                        exit(EXIT_FAILURE);
                     }
                     else
                     {
-                        printf("\nConnected to Server\n");
-                        FD_ZERO(&socket_set);
-                        FD_SET(clientfd,&socket_set);
-                        while(1)
+                        rcount=sprintf(msg_to_log,"READ DATA ");
+                        for(k=0;k<retn;k++)
                         {
-                            timeout.tv_sec=1;
-                            timeout.tv_usec=0;
-                            temp_set=socket_set;
-                            if((result=select(FDMAX,&temp_set,NULL,NULL,&timeout))==-1)
-                            {
-                                perror("Select Error");
-                                FD_CLR(clientfd,&socket_set);
-                                close(clientfd);
-                                clientfd=-1;
-                                break;
-                            }
-                            if(result > 0)
-                            {
-                                if(FD_ISSET(clientfd,&temp_set))
-                                {
-                                    memset(temp_buf,0x0,MAXSIZE);
-                                    if((retn=read(clientfd,temp_buf,MAXSIZE)) <= 0)
-                                    {
-                                        perror("Read");
-                                        printf("\nClient closing connection\n");
-                                        FD_CLR(clientfd,&socket_set);
-                                        close(clientfd);
-                                        clientfd=-1;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        if(retn > 0)
-                                        {
-                                            rcount=sprintf(msg_to_log,"READ DATA ");
-                                            for(k=0;k<retn;k++)
-                                            {
-                                                rcount += sprintf(&msg_to_log[rcount]," %02X",temp_buf[k]);
-                                            }
-                                            rcount += sprintf(&msg_to_log[rcount]," FROM DEVICE");
-                                            log_to_file(msg_to_log,rcount);
-
-                                            process_master_data(temp_buf,retn);
-                                        }
-                                    }
-
-                                }
-
-                            }
-                            if(result==0)
-                            {
-                                //send data to server
-                            }
-
+                            rcount += sprintf(&msg_to_log[rcount]," %02X",temp_buf[k]);
                         }
+                        rcount += sprintf(&msg_to_log[rcount]," FROM MASTER");
+                        log_to_file(msg_to_log,rcount);
+                        process_master_data(temp_buf,retn);
                     }
                 }
-                else
-                {
-                    return FALSE;
-                }
-
             }
-
         }
-    }
+
 }
