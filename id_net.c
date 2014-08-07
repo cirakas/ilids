@@ -70,7 +70,7 @@ void shutdown_nw()
 
 void * nwcom()
 {
-    int i=0,k=0,rcount_nw=0;
+    int i=0;
     char *ip=NULL;
     int tstat=1;
     unsigned short int port=SERVER_PORT;
@@ -166,7 +166,6 @@ void * nwcom()
 
                     if(FD_ISSET(server_socket,&temp_set))
                     {
-                        printf("\n6server set\n");
                         client_len=sizeof(client_addr);
                         if((client_socket=accept(server_socket,(struct  sockaddr  *)&client_addr,(socklen_t *)&client_len))==-1)
                         {
@@ -222,21 +221,21 @@ void * nwcom()
                             if(FD_ISSET(dclients[i].sockfd,&temp_set))
                             {
                                 bytes_read_nw=read(dclients[i].sockfd,dclients[i].inbuf,MAXSIZE);
+
                                 if(bytes_read_nw > 0)
                                 {
-                                    printf("\nRead %d bytes from Client\n",bytes_read_nw);
-                                    sprintf(msg_to_log,"Read %d bytes from %s",bytes_read_nw,dclients[i].name);
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-                                    printf("\n");
                                     memcpy(&gl_buf[gl_count],(void *)&dclients[i].inbuf[0],bytes_read_nw);
                                     gl_count+=bytes_read_nw;
-                                    rcount_nw=sprintf(msg_to_log,"READ DATA ");
-                                    for(k=0;k<bytes_read_nw;k++)
+
+                                    /*y=sprintf(msg_to_log,"READ DATA ");
+                                    for(x=0;x<bytes_read_nw;x++)
                                     {
-                                        rcount_nw += sprintf(&msg_to_log[rcount_nw]," %02X",dclients[i].inbuf[k]);
+                                        y += sprintf(&msg_to_log[y]," %02X",dclients[i].inbuf[x]);
                                     }
-                                    rcount_nw += sprintf(&msg_to_log[rcount_nw]," FROM NW");
-                                    log_to_file(msg_to_log,rcount_nw,DEBUG_LEVEL_3);
+                                    y += sprintf(&msg_to_log[y]," FROM NW");
+                                    log_to_file(msg_to_log,rcount_nw,DEBUG_LEVEL_DEFAULT);*/
+                                    sprintf(msg_to_log,"Read %d Bytes from NW Device",bytes_read_nw);
+                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
                                 }
                                 else
