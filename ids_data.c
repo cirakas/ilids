@@ -65,6 +65,22 @@ int Check_CRC(BYTE * pktdata, int pktcount)
             return FALSE;
 }
 
+
+int compare_float(float f1, float f2,float precision)
+{
+
+  if(((f1 - precision) < f2) && ((f1 + precision) > f2))
+   {
+    return TRUE;
+   }
+  else
+   {
+    return FALSE;
+   }
+ }
+
+
+
 void reverse_b(BYTE *t_addr,BYTE *s_addr,int bcount)
 {
     int i=0;
@@ -89,7 +105,7 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
     WORD start_addr=0,no_of_regs=0;
     int no_of_params=0;
     int i=0,j=0,count=0,retw=0;
-
+    int val=0;
     slave_id=inbuf[0];
 
     for(i=0;i<no_of_devices;i++)
@@ -129,7 +145,12 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
 
                                     while(count<(no_of_params))
                                     {
-                                        make_val(&out_buf[j],param_list[i].p_val);
+
+
+                                        val=(int ) (((float )(param_list[i].p_val)/(float )(param_list[i].mf)) +0.5);
+                                        //param_list[i].p_val =(float )((param_list[i].p_val) + (((float)rand()/(float)(RAND_MAX)) * (2*param_list[i].offset)));
+                                        make_val(&out_buf[j],val);
+                                        //param_list[i].p_val=val;
                                         //printf("\naddr=%d,val=%f,i=%d,j=%d,count=%d,outbuf[%d] is %X,outbuf[%d] is %X,outbuf[%d] is %X,outbuf[%d] is %X",param_list[i].p_addr ,param_list[i].p_val,i,j,count,j,out_buf[j],j+1,out_buf[j+1],j+2,out_buf[j+2],j+3,out_buf[j+3]);
                                         i++;
                                         j=j+4;
@@ -162,7 +183,7 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                             {
                                                 wcount += sprintf(&msg_to_log[wcount]," %02X",out_buf[k]);
                                             }
-                                            wcount += sprintf(&msg_to_log[wcount]," TO DEVICE");
+                                            wcount += sprintf(&msg_to_log[wcount]," TO MASTER");
                                             log_to_file(msg_to_log,wcount);
                                         }
                                     }
