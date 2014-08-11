@@ -148,7 +148,18 @@ typedef struct
     float offset;
 }PARAM_DETAILS;
 
+typedef struct
+{
+    int active;
+    int chk_count;
+    int reset_chk_count;
+    float param_valueA[MAXPARAMS_A];
+    float param_valueB[MAXPARAMS_B];
+    float param_valueC[MAXPARAMS_C];
+}SLAVE_STAT_LIST;
+
 WORD scondition;
+SLAVE_STAT_LIST vlist[MAXSLAVE];
 int db_id1,db_id2,db_id3;
 
 typedef struct
@@ -164,8 +175,6 @@ typedef struct
 
 typedef struct
 {
-    BYTE status;
-    BYTE active;
     BYTE *ppkt[3];
 }S_DEVICE_LIST;
 

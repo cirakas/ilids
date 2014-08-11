@@ -87,21 +87,32 @@ static int sid=0,pktid=0;
 
             for(;sid<MAXSLAVE;sid++)
             {
-                if(sdev[sid].active || sdev[sid].status)
+                if(vlist[sid].chk_count==3)
                 {
-                    if(sdev[sid].status)
+                    vlist[sid].reset_chk_count++;
+                    if(vlist[sid].reset_chk_count==10)
                     {
-                        sdev[sid].status=FALSE;
+                        vlist[sid].chk_count=0;
+                        vlist[sid].reset_chk_count=0;
                     }
-                    writecom(sdev[sid].ppkt[pktid],POLL_PKT_SIZE);
-                    pktid++;
-                    if(pktid==3)
-                    {
-                        pktid=0;
-                        sid++;
-                    }
-                    break;
+
+                    continue;
                 }
+
+
+                if(vlist[sid].active==FALSE)
+                {
+                    vlist[sid].chk_count++;
+
+                }
+                writecom(sdev[sid].ppkt[pktid],POLL_PKT_SIZE);
+                pktid++;
+                if(pktid==3)
+                {
+                    pktid=0;
+                    sid++;
+                }
+                break;
             }
 
 

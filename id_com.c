@@ -249,7 +249,9 @@ int bytes_write=0,i=0,wcount=0,count=0;
 		{
 			if(Check_CRC(gl_buf,gl_count))
 			{
-			    sdev[gl_buf[0]-1].active=TRUE;
+			    vlist[gl_buf[0]-1].active=TRUE;
+			    vlist[gl_buf[0]-1].chk_count=0;
+                vlist[gl_buf[0]-1].reset_chk_count=0;
 			    switch_params(gl_buf,gl_count);
 			    //sprintf(msg_to_log,"CRC VALID FOR PREVIOUS READ PACKET");
                 //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);

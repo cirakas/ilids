@@ -182,8 +182,9 @@ int main(int argc,char *argv[])
 
     for(i=0;i<MAXSLAVE;i++)
     {
-        sdev[i].active=FALSE;
-        sdev[i].status=TRUE;
+        vlist[i].active=FALSE;
+        vlist[i].chk_count=0;
+        vlist[i].reset_chk_count=0;
     }
 
 
