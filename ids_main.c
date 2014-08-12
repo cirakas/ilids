@@ -138,6 +138,9 @@ int main(int argc,char * argv[])
     log_to_file(msg_to_log,j);
     printf("\n");
 
+    init_slave_params();
+    //exit(0);
+
 
         clientfd=-1;
         GetServerInfo();
