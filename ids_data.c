@@ -149,6 +149,7 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
 
                                         val=(int ) (((float )(param_list[i].p_val)/(float )(param_list[i].mf)) +0.5);
                                         //param_list[i].p_val =(float )((param_list[i].p_val) + (((float)rand()/(float)(RAND_MAX)) * (2*param_list[i].offset)));
+                                        //val=val+2;
                                         make_val(&out_buf[j],val);
                                         //param_list[i].p_val=val;
                                         //printf("\naddr=%d,val=%f,i=%d,j=%d,count=%d,outbuf[%d] is %X,outbuf[%d] is %X,outbuf[%d] is %X,outbuf[%d] is %X",param_list[i].p_addr ,param_list[i].p_val,i,j,count,j,out_buf[j],j+1,out_buf[j+1],j+2,out_buf[j+2],j+3,out_buf[j+3]);
