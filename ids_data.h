@@ -5,7 +5,7 @@
 #define Preset_Single_Register 06
 #define Preset_Multiple_Registers 16
 
-#define MAX_PARAMS 86
+#define MAX_PARAMS 79
 
 void prepare_slave_data(BYTE *inbuf,int inlen);
 void process_master_data(BYTE *inbuf,int inlen);
@@ -63,9 +63,7 @@ PARAM_DETAILS param_list[MAX_PARAMS]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.
 {1280,"Reset_MD1",2,0.01,341.85,5},{1282,"Reset_MD2",2,0.01,301.98,5},{1284,"Reset_MD3",2,0.01,160.83,5},{1286,"Backup_1_MD1",2,0.01,179.31,5},\
 {1288,"Backup_1_MD2",2,0.01,156.85,5},{1290,"Backup_1_MD3",2,0.01,95.37,5},{1292,"Backup_2_MD1",2,0.01,178.18,5},{1294,"Backup_2_MD2",2,0.01,155.16,5},\
 {1296,"Backup_2_MD3",2,0.01,88.5,5},{1298,"Backup_3_MD1",2,0.01,326.65,5},{1300,"Backup_3_MD2",2,0.01,289.35,5},{1302,"Backup_3_MD3",2,0.01,155.54,5},\
-{1304,"Backup_4_MD1",2,0.01,296.82,5},{1306,"Backup_4_MD2",2,0.01,256.26,5},{1308,"Backup_4_MD3",2,0.01,151.55,5},{1536,"Backup_1_reset_date_time_&_type",4,1,0.0,5},\
-{1540,"Backup_2_reset_date_time_&_type",4,1,0.0,5},{1544,"Backup_3_reset_date_time_&_type",4,1,0.0,5},{1548,"Backup_4_reset_date_time_&_type",4,1,0.0,5},\
-{1792,"Reset_Cumulative_MD1",2,0.01,0.0,5},{1794,"Reset_Cumulative_MD2",2,0.01,0.0,5},{1796,"Reset_Cumulative_MD3",2,0.01,0.0,5}};
+{1304,"Backup_4_MD1",2,0.01,296.82,5},{1306,"Backup_4_MD2",2,0.01,256.26,5},{1308,"Backup_4_MD3",2,0.01,151.55,5}};
 
 
 /*{1872,"RD1_elapsed_time",3,0.01,0.0,5},{1875,"RD2_elapsed_time",3,0.01,0.0,5},{1878,"RD3_elapsed_time",3,0.01,0.0,5},\

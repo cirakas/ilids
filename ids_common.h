@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <arpa/inet.h>
+#include <mysql.h>
 #include <pthread.h>
 
 
@@ -41,3 +42,4 @@ int no_of_devices;
 
 extern void open_log();
 extern void log_to_file(char * log_msg,int log_count);
+extern void init_slave_params();

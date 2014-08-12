@@ -1,7 +1,9 @@
 #include "ids_common.h"
 #include "ids_data.h"
 
+#define QUERRY_MAXSIZE 256
 
+void init_slave_params();
 
 WORD LoWord(unsigned int val)
 {
@@ -80,6 +82,61 @@ int compare_float(float f1, float f2,float precision)
  }
 
 
+void init_slave_params()
+{
+    int j=0,k=0;
+    char mquerry_msg[QUERRY_MAXSIZE];
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    MYSQL *conn;
+    char *server = "10.0.1.20";
+    //char *server = "192.168.1.4";
+    char *user = "comserver";
+    char *password = "compass";
+    char *database = "ilids";
+
+        conn = mysql_init(NULL);
+
+        if (!mysql_real_connect(conn, server,user, password, database, 0, NULL, 0))
+        {
+            fprintf(stderr, "%s\n", mysql_error(conn));
+            return;
+        }
+
+        k=0;
+        for(j=0;j<MAX_PARAMS;j++)
+        {
+            if(k==48)
+            {
+                k=512;
+            }
+            if(k==592)
+            {
+                k=1280;
+            }
+            memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
+            sprintf(mquerry_msg,"select data from data where time between \"2014-07-31 13:00:00\" and \"2014-08-01 13:59:00\" and device_id=%d and address_map=%d ORDER by address_map ASC LIMIT 1",17,k);
+            if(!mysql_query(conn,mquerry_msg))
+            {
+                res = mysql_use_result(conn);
+                if((row = mysql_fetch_row(res)) != NULL)
+                {
+                    param_list[j].p_val=strtof(row[0],NULL);//atof(row[0]);
+                }
+                else
+                {
+                    param_list[j].p_val=0.0;
+                }
+                printf("\n%f : addrmap is %d",param_list[j].p_val,param_list[j].p_addr);
+                mysql_free_result(res);
+            }
+            k+=2;
+
+        }
+        mysql_close(conn);
+
+}
+
 
 void reverse_b(BYTE *t_addr,BYTE *s_addr,int bcount)
 {
@@ -145,9 +202,9 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
 
                                     while(count<(no_of_params))
                                     {
-
-
                                         val=(int ) (((float )(param_list[i].p_val)/(float )(param_list[i].mf)) +0.5);
+                                        printf("\nval=%d : %f : addrmap is %d",val,param_list[i].p_val,param_list[i].p_addr);
+                                        //val=val + (0.01 * val);
                                         //param_list[i].p_val =(float )((param_list[i].p_val) + (((float)rand()/(float)(RAND_MAX)) * (2*param_list[i].offset)));
                                         //val=val+2;
                                         make_val(&out_buf[j],val);
