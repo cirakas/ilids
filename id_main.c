@@ -94,7 +94,7 @@ int main(int argc,char *argv[])
     sprintf(msg_to_log,"Entering Daemon Mode");
    	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
-    //daemon(1,0);
+
 
     p_int=POLL_INTERVAL;
     rd_timeout=RTIMEOUT;
@@ -180,25 +180,20 @@ int main(int argc,char *argv[])
 
 	initcom();
 
-    for(i=0;i<MAXSLAVE;i++)
-    {
-        vlist[i].active=FALSE;
-        vlist[i].chk_count=0;
-        vlist[i].reset_chk_count=0;
-    }
-
-
-    intitialize_poll_packet();
-
-	Signal_exitsignal();
-	Signal_sigio_signal();
-
 	if(!db_start())
 	{
 	    sprintf(msg_to_log,"Error Initializing MySQL Database,Exiting");
         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
         exit(EXIT_FAILURE);
 	}
+
+	init_slave_params();
+    intitialize_poll_packet();
+
+	Signal_exitsignal();
+	Signal_sigio_signal();
+
+
 	pthread_attr_init(&TH_ATTR);
 	pthread_attr_setdetachstate(&TH_ATTR, PTHREAD_CREATE_DETACHED);
 	pthread_create(&th_read, &TH_ATTR, readcom,NULL);
@@ -207,7 +202,7 @@ int main(int argc,char *argv[])
 	atexit(Handle_exithandler);
 
 
-
+    //daemon(1,0);
 	while(!ex_term)
    	{
    	    send_pkt(POLL_PKT);

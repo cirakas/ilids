@@ -15,6 +15,105 @@
 
 void send_pkt(int pkt_type);
 void intitialize_poll_packet();
+void init_slave_params();
+
+void init_slave_params()
+{
+    int i=0,j=0,k=0;
+    char mquerry_msg[QUERRY_MAXSIZE];
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+
+
+    for(i=0;i<MAXSLAVE;i++)
+    {
+        vlist[i].active=FALSE;
+        vlist[i].chk_count=0;
+        vlist[i].reset_chk_count=0;
+
+        k=addr_MAXPARAMS_A;
+        for(j=0;j<MAXPARAMS_A;j++)
+        {
+            memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
+            sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
+            if(!mysql_query(conn,mquerry_msg))
+            {
+                res = mysql_use_result(conn);
+                if((row = mysql_fetch_row(res)) != NULL)
+                {
+                    vlist[i].param_valueA[j]=strtof(row[0],NULL);//atof(row[0]);
+                }
+                else
+                {
+                    vlist[i].param_valueA[j]=0.0;
+                }
+                mysql_free_result(res);
+            }
+            else
+            {
+                vlist[i].param_valueA[j]=0.0;
+
+            }
+            k+=2;
+            //printf("\n%f : %d ",vlist[i].param_valueA[j],i);
+        }
+        k=addr_MAXPARAMS_B;
+        for(j=0;j<MAXPARAMS_B;j++)
+        {
+            memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
+            sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
+            if(!mysql_query(conn,mquerry_msg))
+            {
+                res = mysql_use_result(conn);
+                if((row = mysql_fetch_row(res)) != NULL)
+                {
+                    vlist[i].param_valueB[j]=strtof(row[0],NULL);//atof(row[0]);
+                }
+                else
+                {
+                    vlist[i].param_valueB[j]=0.0;
+                }
+                mysql_free_result(res);
+            }
+            else
+            {
+                vlist[i].param_valueB[j]=0.0;
+
+            }
+            k+=2;
+            //printf("\n%f : %d ",vlist[i].param_valueB[j],i);
+        }
+        k=addr_MAXPARAMS_C;
+        for(j=0;j<MAXPARAMS_C;j++)
+        {
+            memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
+            sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
+            if(!mysql_query(conn,mquerry_msg))
+            {
+                res = mysql_use_result(conn);
+                if((row = mysql_fetch_row(res)) != NULL)
+                {
+                    vlist[i].param_valueC[j]=strtof(row[0],NULL);//atof(row[0]);
+                }
+                else
+                {
+                    vlist[i].param_valueC[j]=0.0;
+                }
+                mysql_free_result(res);
+            }
+            else
+            {
+                vlist[i].param_valueC[j]=0.0;
+
+            }
+            k+=2;
+            //printf("\n%f : %d ",vlist[i].param_valueC[j],i);
+        }
+    }
+
+
+}
+
 
 /**@brief  This function Initializes the poll packets for each device to be send later.
 

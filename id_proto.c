@@ -381,10 +381,20 @@ NVALUE neg_val;
                         }
                         sprintf(msg_to_log,"%s -> %.2f",params1[db_id1].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],1))
+                        if(!compare_float(cval,0,1))
+                        {
+                            params1[db_id1].offset=(float )(0.01 * cval);
+                            sprintf(msg_to_log,"Offset is %.2f",params1[db_id1].offset);
+                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        }
+                        else
+                        {
+                            params1[db_id1].offset=1;
+                        }
+                        if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset))
                         {
                             memset(querry_msg,0x0,QUERRY_MAXSIZE);
-                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params1[db_id1].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],1));
+                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params1[db_id1].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset));
                             vlist[pktdata[0]].param_valueA[db_id1]=cval;
                             sprintf(msg_to_log,"%s",querry_msg);
                             log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
@@ -442,10 +452,20 @@ float cval=0;
                         cval=(float )(params2[db_id2].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params2[db_id2].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],1))
+                        if(!compare_float(cval,0,1))
+                        {
+                            params2[db_id2].offset=(float )(0.01 * cval);
+                            sprintf(msg_to_log,"Offset is %.2f",params2[db_id2].offset);
+                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        }
+                        else
+                        {
+                            params2[db_id2].offset=1;
+                        }
+                        if(!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset))
                         {
                             memset(querry_msg,0x0,QUERRY_MAXSIZE);
-                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params2[db_id2].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],1));
+                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params2[db_id2].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset));
                             vlist[pktdata[0]].param_valueB[db_id2]=cval;
                             sprintf(msg_to_log,"%s",querry_msg);
                             log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
@@ -502,10 +522,20 @@ float cval=0;
                         cval=(float )(params3[db_id3].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params3[db_id3].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],1))
+                        if(!compare_float(cval,0,1))
+                        {
+                            params3[db_id3].offset=(float )(0.01 * cval);
+                            sprintf(msg_to_log,"Offset is %.2f",params3[db_id3].offset);
+                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        }
+                        else
+                        {
+                            params3[db_id3].offset=1;
+                        }
+                        if(!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset))
                         {
                             memset(querry_msg,0x0,QUERRY_MAXSIZE);
-                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params3[db_id3].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],1));
+                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params3[db_id3].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset));
                             vlist[pktdata[0]].param_valueC[db_id3]=cval;
                             sprintf(msg_to_log,"%s",querry_msg);
                             log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);

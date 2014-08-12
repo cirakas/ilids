@@ -132,6 +132,8 @@ extern void Handle_exithandler();
 
 extern void reverse_b(BYTE *t_addr,BYTE *s_addr,int bcount);
 
+extern void init_slave_params();
+
 extern char msg_to_log[256];
 extern BYTE gl_buf[BUF_SIZE];
 extern MYSQL *conn;
@@ -213,3 +215,4 @@ fd_set socket_set,temp_set;
 BYTE gl_buf[BUF_SIZE];
 int gl_count;
 int bytes_read;
+
