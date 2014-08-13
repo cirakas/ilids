@@ -127,7 +127,7 @@ void init_slave_params()
                 {
                     param_list[j].p_val=0.0;
                 }
-                printf("\n%f : addrmap is %d",param_list[j].p_val,param_list[j].p_addr);
+                printf("\n%.2f : addrmap is %d",param_list[j].p_val,param_list[j].p_addr);
                 mysql_free_result(res);
             }
             k+=2;
@@ -204,6 +204,7 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                     {
                                         val=(int ) (((float )(param_list[i].p_val)/(float )(param_list[i].mf)) +0.5);
                                         printf("\nval=%d : %f : addrmap is %d",val,param_list[i].p_val,param_list[i].p_addr);
+                                        val=val+2;
                                         //val=val + (0.01 * val);
                                         //param_list[i].p_val =(float )((param_list[i].p_val) + (((float)rand()/(float)(RAND_MAX)) * (2*param_list[i].offset)));
                                         //val=val+2;

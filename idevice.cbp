@@ -13,9 +13,11 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="/usr/include/mysql" />
 				</Compiler>
 				<Linker>
 					<Add library="libpthread" />
+					<Add library="libmysqlclient" />
 				</Linker>
 			</Target>
 		</Build>
