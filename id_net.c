@@ -80,6 +80,7 @@ void * nwcom()
 	pthread_setcanceltype (PTHREAD_CANCEL_ASYNCHRONOUS,NULL);
     atexit(shutdown_nw);
 
+
     if((server_socket=socket(PF_INET,SOCK_STREAM,IPPROTO_TCP))==-1)
     {
      	perror("\nSocket Creation Error");

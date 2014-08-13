@@ -40,10 +40,6 @@ struct termios old_port_attrib,new_port_attrib;
 
 void initcom()
 {
-    if(emulator_mode)
-    {
-        return;
-    }
 
    fport = open(cport,O_RDWR | O_NOCTTY | O_NONBLOCK);
    if (fport <0)
@@ -117,10 +113,6 @@ void * readcom()
 	struct timeval s_timeout;
 
 
-    if(emulator_mode)
-    {
-        return FALSE;
-    }
 
 	pthread_setcancelstate (PTHREAD_CANCEL_ENABLE,NULL);
 	pthread_setcanceltype (PTHREAD_CANCEL_ASYNCHRONOUS,NULL);

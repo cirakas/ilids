@@ -178,7 +178,6 @@ int main(int argc,char *argv[])
     sprintf(msg_to_log,"COMPORT is %s, Poll Interval is %d ms, Read Timeout is %d ms, Slave Id is %d",cport,p_int,rd_timeout,slave_id);
     log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
-	initcom();
 
 	if(!db_start())
 	{
@@ -189,15 +188,22 @@ int main(int argc,char *argv[])
 
 	init_slave_params();
     intitialize_poll_packet();
-
 	Signal_exitsignal();
 	Signal_sigio_signal();
 
 
 	pthread_attr_init(&TH_ATTR);
 	pthread_attr_setdetachstate(&TH_ATTR, PTHREAD_CREATE_DETACHED);
-	pthread_create(&th_read, &TH_ATTR, readcom,NULL);
-	pthread_create(&th_nw, &TH_ATTR, nwcom,NULL);
+
+	if(emulator_mode)//enable network emulation
+	{
+        pthread_create(&th_nw, &TH_ATTR, nwcom,NULL);
+	}
+	else
+	{
+	    initcom();
+	    pthread_create(&th_read, &TH_ATTR, readcom,NULL);
+	}
 
 	atexit(Handle_exithandler);
 
@@ -211,8 +217,15 @@ int main(int argc,char *argv[])
 	}
 
 
-	pthread_cancel(th_read);
-	pthread_cancel(th_nw);
+	if(emulator_mode)
+	{
+	    pthread_cancel(th_nw);
+	}
+	else
+	{
+	    pthread_cancel(th_read);
+	}
+
 	db_close();
 
 

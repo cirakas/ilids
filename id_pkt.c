@@ -54,8 +54,9 @@ void init_slave_params()
                 vlist[i].param_valueA[j]=0.0;
 
             }
+            printf("\nval is %.2f : addr is %d ",vlist[i].param_valueA[j],k);
             k+=2;
-            //printf("\n%f : %d ",vlist[i].param_valueA[j],i);
+
         }
         k=addr_MAXPARAMS_B;
         for(j=0;j<MAXPARAMS_B;j++)
@@ -80,8 +81,9 @@ void init_slave_params()
                 vlist[i].param_valueB[j]=0.0;
 
             }
+            printf("\nval is %.2f : addr is %d ",vlist[i].param_valueB[j],k);
             k+=2;
-            //printf("\n%f : %d ",vlist[i].param_valueB[j],i);
+
         }
         k=addr_MAXPARAMS_C;
         for(j=0;j<MAXPARAMS_C;j++)
@@ -106,8 +108,9 @@ void init_slave_params()
                 vlist[i].param_valueC[j]=0.0;
 
             }
+            printf("\nval is %.2f : addr is %d ",vlist[i].param_valueC[j],k);
             k+=2;
-            //printf("\n%f : %d ",vlist[i].param_valueC[j],i);
+
         }
     }
 
