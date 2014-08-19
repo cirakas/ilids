@@ -89,7 +89,7 @@ void init_slave_params()
     MYSQL_RES *res;
     MYSQL_ROW row;
     MYSQL *conn;
-    char *server = "10.0.1.20";
+    char *server = "127.0.0.1";
     //char *server = "192.168.1.4";
     char *user = "comserver";
     char *password = "compass";
@@ -98,6 +98,7 @@ void init_slave_params()
         conn = mysql_init(NULL);
 
         if (!mysql_real_connect(conn, server,user, password, database, 0, NULL, 0))
+        //if (!mysql_real_connect(conn, saddr,user, password, database, 0, NULL, 0))
         {
             fprintf(stderr, "%s\n", mysql_error(conn));
             return;
@@ -122,6 +123,7 @@ void init_slave_params()
                 if((row = mysql_fetch_row(res)) != NULL)
                 {
                     param_list[j].p_val=strtof(row[0],NULL);//atof(row[0]);
+                    //param_list[j].offset=(float )(.01 * param_list[j].p_val);
                 }
                 else
                 {
@@ -204,7 +206,8 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                     {
                                         val=(int ) (((float )(param_list[i].p_val)/(float )(param_list[i].mf)) +0.5);
                                         printf("\nval=%d : %f : addrmap is %d",val,param_list[i].p_val,param_list[i].p_addr);
-                                        val=val+2;
+                                        val=val+param_list[i].offset;
+                                        param_list[i].p_val=(float )(val * (float )param_list[i].mf);
                                         //val=val + (0.01 * val);
                                         //param_list[i].p_val =(float )((param_list[i].p_val) + (((float)rand()/(float)(RAND_MAX)) * (2*param_list[i].offset)));
                                         //val=val+2;
@@ -229,6 +232,8 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                     {
                                         if((retw=write(clientfd,out_buf,j+1)) <= 0)
                                         {
+                                            //sprintf(msg_to_log,"NW Error %s,Disconnecting",strerror(errno));
+                                            //log_to_file(msg_to_log,strlen(msg_to_log));
                                             perror("Write");
                                             printf("\nClient closing connection\n");
                                             FD_CLR(clientfd,&socket_set);

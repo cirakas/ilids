@@ -5,15 +5,15 @@
 		<Cursor position="254" topLine="0" />
 	</File>
 	<File name="ids_data.c" open="1" top="1" tabpos="1">
-		<Cursor position="5047" topLine="198" />
+		<Cursor position="2547" topLine="108" />
 	</File>
 	<File name="ids_data.h" open="1" top="0" tabpos="5">
-		<Cursor position="665" topLine="27" />
+		<Cursor position="665" topLine="39" />
 	</File>
 	<File name="ids_log.c" open="1" top="0" tabpos="2">
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="ids_main.c" open="1" top="0" tabpos="3">
-		<Cursor position="1617" topLine="21" />
+		<Cursor position="1686" topLine="72" />
 	</File>
 </CodeBlocks_layout_file>
