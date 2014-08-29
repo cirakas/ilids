@@ -4,19 +4,23 @@ import com.ilids.conf.ServerConfig;
 import com.ilids.domain.Data;
 import com.ilids.domain.SystemSettings;
 import com.ilids.service.DataService;
+import com.ilids.service.RoleService;
 import com.ilids.service.SystemSettingsService;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("menuIdList")
 public class LoginController {
 
     @Resource(name = "sessionRegistry")
@@ -25,12 +29,19 @@ public class LoginController {
     @Autowired
     private SystemSettingsService systemSettingsService;
     
-     @Autowired
+    @Autowired
+    private RoleService roleService;
+    
+    @Autowired
     private DataService dataService;
 
+    //Same method is used for login and home redirection
     @RequestMapping("/home")
     public String welcome(Model model) {
 	ServerConfig.latestAlertsScheduleCheckTime=System.currentTimeMillis();
+	User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	List<Object> menuIdList=roleService.getAllMenuIds(user.getUsername());
+	model.addAttribute("menuIdList", menuIdList);
         model.addAttribute("users", sessionRegistry.getAllPrincipals());
 	SystemSettings systemSettings=systemSettingsService.getAllSystemSettings().get(0);
         model.addAttribute("SystemSettings", systemSettings);

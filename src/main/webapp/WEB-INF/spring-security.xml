@@ -97,14 +97,8 @@
 			<security:password-encoder ref="passwordEncoder" />
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
-				users-by-username-query="
-				select username,password, enabled 
-				from user where username=?"
-				authorities-by-username-query="
-				SELECT u.username, r.name FROM user_role ur 
-                INNER JOIN role r ON r.id = ur.role_id
-				INNER JOIN user u ON u.id = ur.user_id
-				WHERE u.username = ?  " />
+				users-by-username-query="select username,password, enabled, role from user where username=?"
+				authorities-by-username-query="SELECT ur.username, r.name, rm.menu_id FROM user ur INNER JOIN role r ON r.id = ur.role INNER JOIN role_menu rm ON rm.role_id=ur.role WHERE ur.username = ?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 

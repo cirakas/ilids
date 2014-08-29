@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.Email;
 
 import com.ilids.validator.Gmail;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class User {
@@ -38,6 +40,14 @@ public class User {
     @Column(nullable = false, unique = true)
     @Email
     private String email;
+   
+    @Transient
+    private String roleId;
+    
+    @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Role role;
+    
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles = new HashSet<Role>();
@@ -136,4 +146,22 @@ public class User {
     public void setName(String name) {
 	this.name = name;
     }
+    
+    public Role getRole() {
+	return role;
+    }
+
+    public void setRole(Role role) {
+	this.role = role;
+    }
+    
+    public String getRoleId() {
+	return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+	this.roleId = roleId;
+    }
+    
+    
     }

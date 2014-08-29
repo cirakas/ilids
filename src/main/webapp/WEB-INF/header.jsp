@@ -80,9 +80,9 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <c:url value="/systemsettings" var="sysurl"/>
             <security:authorize access="isAuthenticated()">
-               
-              <security:authorize access="hasRole('ROLE_ADMIN')">
-            <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;">
+              <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;"> 
+             <c:forEach var="menuIdList" items="${menuIdList}" >
+           <c:if test="${menuIdList=='1'}">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<div class="active_arrow"></div><b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -90,56 +90,30 @@
               <li><a href="<c:url value="/role"/>"> Roles</a></li>
               </ul>
             </li>
+            </c:if>
+              <c:if test="${menuIdList==2}">
              <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_.png"></i> System settings<div class="active_arrow"></div></a></li>
+               </c:if>
+               <c:if test="${menuIdList==3}">
              <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices<div class="active_arrow"></div></a></li>
+                 </c:if>
+             <c:if test="${menuIdList==4}">
              <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
+              </c:if>
+              <c:if test="${menuIdList==5}">
              <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
+             </c:if>     
+             <c:if test="${menuIdList=='6'}">
              <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings<div class="active_arrow"></div></a></li>
+             </c:if>  
+             <c:if test="${menuIdList=='7'}">
              <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes<div class="active_arrow"></div></a></li>
+             </c:if>   
+             <c:if test="${menuIdList=='8'}">
              <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
-            
-         </ul>
-            </security:authorize>
-              <!--
-                <security:authorize access="hasRole('ROLE_ADMIN')">
-            <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle demo-class" ><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<div class="active_arrow"></div><b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a  class="demo-class" href="#">Users</a></li>
-              <li><a  class="demo-class" href="#"> Roles</a></li>
-              </ul>
-            </li>
-            <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/system_.png"></i> System settings<div class="active_arrow"></div></a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices<div class="active_arrow"></div></a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings<div class="active_arrow"></div></a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes<div class="active_arrow"></div></a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
-            
-         </ul>
-            </security:authorize>-->
-             <!--
-             <security:authorize access="hasRole('ROLE_USER')">
-            <ul class="nav navbar-nav side-nav"  style="outline:none; ">
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
-            <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notesv</a></li>
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
-              <li><a href="#"><i class="fa fa-bar-chart-o"></i>Help<div class="active_arrow"></div></a></li>
-         </ul>
-            </security:authorize>-->
-            
-          <security:authorize access="hasRole('ROLE_USER')">
-            <ul class="nav navbar-nav side-nav"  style="outline:none; ">
-             <li><a   class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
-            <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notesv</a></li>
-             <li><a  class="demo-class" href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
-              <li><a  class="demo-class" href="#"><i class="fa fa-bar-chart-o"></i>Help<div class="active_arrow"></div></a></li>
-         </ul>
-            </security:authorize>
+              </c:if>
+               </c:forEach>
+             </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge" style="background:#FB8805;"></span> <b class="caret"></b></a>

@@ -16,5 +16,16 @@ public class UserRepository extends AbstractGenericDao<User> {
     public List<User> getAllUsersExceptAdmin() {
         return super.runCustomQuery(entityManager.createQuery("SELECT c FROM User c WHERE c.username != 'admin'", User.class));
     }
+    
+    public boolean checkRoleUsed(Long roleId){
+	String countQuery="SELECT COUNT(u.id) FROM User u where u.role="+roleId;
+	Long count=null;
+	boolean result=true;
+	count=(Long) entityManager.createQuery(countQuery).getSingleResult();
+	if(count==null || count==0){
+	    result=false;
+	}
+	return result;
+    }
 
 }

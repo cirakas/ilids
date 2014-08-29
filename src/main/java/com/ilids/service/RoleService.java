@@ -16,66 +16,103 @@ public class RoleService {
 
     @Autowired
     private RoleRepository roleRepository;
-    
-     @Autowired
+
+    @Autowired
     private MenuService menuService;
+    
+    @Autowired
+    private UserService userService;
 
     public List<Role> getAllRoles() {
         return roleRepository.getAll();
     }
 
     public List<Role> getAllRolesExceptRestrictedOnes() {
-        return roleRepository.getAllUsersExceptRestrictedOnes();
+	return roleRepository.getAllUsersExceptRestrictedOnes();
     }
 
     public Role findById(Long id) {
-        return roleRepository.findById(id);
+	return roleRepository.findById(id);
     }
 
     public Role findByName(String name) {
-        return roleRepository.findByCustomField("name", name);
+	return roleRepository.findByCustomField("name", name);
     }
-    public Role remove(Long id) {
-        Role role = roleRepository.findById(id);
-        if (role == null) {
-            throw new IllegalArgumentException();
-        }
-        //  device.getUser().getDevices().remove(device); //pre remove
-        roleRepository.delete(role);
-        return role;
+
+    public boolean remove(Long id) {
+	boolean result=false;
+	boolean countResult=userService.checkRoleUsedOrNot(id);
+	if(!countResult){
+	deleteRoleFromRoleMenu(id);
+	Role role = roleRepository.findById(id);
+	if (role == null) {
+	    throw new IllegalArgumentException();
+	}
+	//  device.getUser().getDevices().remove(device); //pre remove
+	roleRepository.delete(role);
+	result=true;
+	}
+	return result;
     }
+
     public void delete(String name) {
-        roleRepository.delete(findByName(name));
+	roleRepository.delete(findByName(name));
     }
 
     public void createNewRole(String name) {
-        Role role = new Role();
-        role.setName(name);
-        roleRepository.persist(role);
+	Role role = new Role();
+	role.setName(name);
+	roleRepository.persist(role);
     }
 
-    public Role saveNewRole(Role role){
-        roleRepository.persist(role);
-        return role;
+    public Role saveNewRole(Role role) {
+	roleRepository.persist(role);
+	return role;
+    }
+
+    public Role updateRole(Role role) {
+	roleRepository.merge(role);
+	return role;
+    }
+
+    public void saveMenuItems(Role role) {
+
+	String deleteQuery = "delete from role_menu where role_id=" + role.getId();
+	roleRepository.executeNativeQuery(deleteQuery);
+	String insertQuery = "INSERT INTO role_menu(role_id, menu_id) VALUES ";
+	String appendQuery = "";
+	String subQuery = "";
+	for (String menuId : role.getMenuvalues()) {
+	    if (!"".equals(appendQuery)) {
+		appendQuery = appendQuery + ",";
+	    }
+	    subQuery = "(" + role.getId() + "," + Long.valueOf(menuId) + ")";
+	    appendQuery = appendQuery + subQuery;
+	}
+	insertQuery = insertQuery + appendQuery;
+	roleRepository.executeNativeQuery(insertQuery);
+    }
+
+    public Role editRole(Long roleId) {
+	Role role = roleRepository.findById(roleId);
+	List<Object> menuObjectList = roleRepository.selectedRoleMenu(roleId);
+	role.setMenuObjectList(menuObjectList);
+	return role;
+
+    }
+
+    public void deleteRoleFromRoleMenu(Long roleId) {
+	String deleteQuery = "delete from role_menu where role_id=" + roleId;
+	roleRepository.executeNativeQuery(deleteQuery);
+    }
+
+    public List<Menu> getAllMenu() {
+	return menuService.getAllMenu();
     }
     
-    public void saveMenuItems(Role role){
-        String insertQuery="INSERT INTO role_menu(role_id, menu_id) VALUES ";
-        String appendQuery="";
-        String subQuery="";
-        for(String menuId:role.getMenuvalues()){
-            if(!"".equals(appendQuery)){
-            appendQuery=appendQuery+",";
-            }
-            subQuery="("+role.getId()+","+Long.valueOf(menuId)+")";
-            appendQuery=appendQuery+subQuery;
-        }
-        insertQuery=insertQuery+appendQuery;
-        roleRepository.executeNativeQuery(insertQuery);
+    public List<Object> getAllMenuIds(String userName){
+	 return roleRepository.getAllMenuIds(userName);
     }
     
     
-public List<Menu>getAllMenu(){
-    return menuService.getAllMenu();
-}
 }

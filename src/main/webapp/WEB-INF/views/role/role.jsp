@@ -9,12 +9,28 @@
           document.getElementById('btn-save').innerHTML = "Save";
           document.getElementById('name').value = "";
           document.getElementById('description').value = "";
+          document.getElementById('roleModel').action="saveRole/";   
     }
     function onClickEditRoles(val){
+        var frm_elements = roleModel.elements;
+        var field_type="";
+        for (var i = 0; i < frm_elements.length; i++) {
+        field_type = frm_elements[i].type.toLowerCase();
+        if(field_type==='checkbox'){
+            frm_elements[i].checked = false;
+        }
+        }
        ajaxLink('/ilids/editRoles', {'id': val}, 'viewDiv'); 
     }
     function ajaxLink(url, params, displayComponentId) {
           $.post(url, params, function(data) {
+              var menuObjectList = data.menuObjectList;
+                for(var i = 0; i < menuObjectList.length; i++) {
+                     document.getElementById("menuvalues"+data.menuObjectList[i]).checked = true;
+                }
+           document.getElementById('roleModel').action="saveRole/"+data.id;      
+          document.getElementById('name').value = data.name;
+          document.getElementById('description').value = data.description;
           document.getElementById('myModalLabel').innerHTML = "Edit Role";
           document.getElementById('btn-save').innerHTML = "Save Changes";
           });
@@ -26,9 +42,12 @@
     </div>
 </div>
 <div class="row">
+     <div class="col-lg-6">
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddRoles()">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
+     </div>
+    <div class="col-lg-6"><div style="color: tomato;">${deleteMessage}</div><div style="color: green;">${successMessage}</div></div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

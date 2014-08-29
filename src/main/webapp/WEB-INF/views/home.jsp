@@ -240,7 +240,7 @@ body {
 }
 
 .focus line.y0 {
-  stroke: #fff;
+  stroke: yellow;
   stroke-dasharray: 10 7;
   stroke-width: 2;
   opacity: .8;

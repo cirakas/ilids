@@ -9,6 +9,7 @@
 function ajaxLink(url, params, displayComponentId) {
             $.post(url, params, function(data) {
                document.getElementById('userModel').action="saveUser/"+data.id;
+               document.getElementById('roleId').value=data.roleId;
                document.getElementById('name').value=data.name;
                document.getElementById('email').value=data.email;
                document.getElementById('username').value=data.username;
@@ -64,9 +65,11 @@ function ajaxLink(url, params, displayComponentId) {
    <form:form action="${url}" method="post" modelAttribute="userModel">
      <div class="modal-body">
            <div class="form-group"><label> <spring:message code="label.name" />: </label><form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
-           <div class="form-group"><spring:message code="label.email" />: <form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required"/></div>
+           <div class="form-group"> <label><spring:message code="label.email" />: </label><form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required"/></div>
+           <div class="form-group"><label>Role</label><form:select class="form-control" path="roleId" items="${roles}"  itemLabel="name" itemValue="id" multiple="false" /></div>
            <div class="form-group"><label> <spring:message code="label.userName" />: </label><form:input path="username" class="form-control required userame" placeholder="username" required="required"/></div>
            <div class="form-group" id="passwordfield"> <label><spring:message code="label.password" />:</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
+           
      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>

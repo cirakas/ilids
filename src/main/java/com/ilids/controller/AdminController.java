@@ -142,10 +142,6 @@ public class AdminController {
         System.out.println("Inside the edit id id------"+id);
         long userid=Long.valueOf(id);
         user.setId(userid);
-//        System.out.println("Inside the edit id name------"+user.getName());
-//        System.out.println("Inside the edit id email------"+user.getEmail());
-//        System.out.println("Inside the edit id password------"+user.getPassword());
-//        System.out.println("Inside the edit id username------"+user.getUsername());
        if (errors.hasErrors()) {
            return "/user/users";
         } else {
@@ -172,19 +168,17 @@ public class AdminController {
     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
      @ResponseBody
 	public  User editUser(@RequestParam("id") String id) {
-            User user=new User();
-          System.out.println("id----"+id);
+        User user=new User();
         if(id!=null)
         currentUserId=Long.valueOf(id);
         user=userService.findById(currentUserId);
         user.setPassword(null);
-        user.setRoles(null);
+	user.setRoleId(String.valueOf(user.getRole().getId()));
         return user; 
 	}
         
         @RequestMapping(value = "/getData", method = RequestMethod.GET)
         public @ResponseBody  JSONPObject getData(Model model) {
-     //  System.out.println("----=====-===");
         JSONPObject jsn=new JSONPObject("hello","hello");
         ModelAndView mav = new ModelAndView("/user");
         mav.addObject("data", "12222");

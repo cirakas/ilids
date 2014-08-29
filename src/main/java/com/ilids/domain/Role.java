@@ -2,6 +2,7 @@ package com.ilids.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,17 @@ public class Role implements Serializable {
     
     @Transient
     private String[] menuvalues;
+    
+    @Transient
+    private List<Object> menuObjectList;
+
+    public List<Object> getMenuObjectList() {
+	return menuObjectList;
+    }
+
+    public void setMenuObjectList(List<Object> menuObjectList) {
+	this.menuObjectList = menuObjectList;
+    }
 
     public String[] getMenuvalues() {
         return menuvalues;

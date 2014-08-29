@@ -51,7 +51,10 @@ public class UserService {
     }
 
     public boolean addNewUserToDatabase(User user) {
+	Long roleId=Long.valueOf(user.getRoleId());
+	Role role=roleService.findById(roleId);
         Role userRole = roleService.findByName("ROLE_ADMIN");
+	user.setRole(role);
         user.addRole(userRole);
         encryptPassword(user);
         //user.encryptPassword();
@@ -59,8 +62,11 @@ public class UserService {
         return true;
     }
  public boolean updateNewUserToDatabase(User user) {
+	Long roleId=Long.valueOf(user.getRoleId());
+	Role role=roleService.findById(roleId);
         Role userRole = roleService.findByName("ROLE_ADMIN");
         user.addRole(userRole);
+	user.setRole(role);
         encryptPassword(user);
         //user.encryptPassword();
         merge(user);
@@ -99,4 +105,10 @@ public class UserService {
         return userRepository.findByCustomField(field, value);
     }
 
+    public boolean checkRoleUsedOrNot(Long roleId){
+	 return userRepository.checkRoleUsed(roleId);
+    }
+    
+    
+    
 }
