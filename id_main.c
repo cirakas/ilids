@@ -56,6 +56,8 @@ int main(int argc,char *argv[])
   FILE * cmd;
   char ret[16];
 
+    Read_Conf();
+
     for(i=strlen(argv[0]);i>0;i--)
     {
         if(argv[0][i] == '/')
@@ -213,7 +215,6 @@ int main(int argc,char *argv[])
    	{
    	    send_pkt(POLL_PKT);
 		da_wait(0,p_int*1000);
-
 	}
 
 
@@ -225,7 +226,6 @@ int main(int argc,char *argv[])
 	{
 	    pthread_cancel(th_read);
 	}
-
 	db_close();
 
 

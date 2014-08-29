@@ -28,6 +28,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="id_common.h" />
+		<Unit filename="id_conf.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="id_db.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -49,6 +52,7 @@
 		<Unit filename="id_sig.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="idriver.conf" />
 		<Extensions>
 			<code_completion />
 			<debugger />

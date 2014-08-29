@@ -530,6 +530,7 @@ float cval=0;
                                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                             }
                         }
+
                         if(!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset))
                         {
                             memset(querry_msg,0x0,QUERRY_MAXSIZE);
@@ -558,7 +559,6 @@ float cval=0;
                         else if(db_id3>21 && db_id3<25)
                         {
                             i+=6;
-
                         }
                         else if(db_id3==25)
                         {
@@ -568,7 +568,6 @@ float cval=0;
                         else if(db_id3>25 && db_id3<29)
                         {
                             i+=2;
-
                         }
                         else
                         {

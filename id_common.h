@@ -134,6 +134,8 @@ extern void reverse_b(BYTE *t_addr,BYTE *s_addr,int bcount);
 
 extern void init_slave_params();
 
+extern int Read_Conf();
+
 extern char msg_to_log[256];
 extern BYTE gl_buf[BUF_SIZE];
 extern MYSQL *conn;
