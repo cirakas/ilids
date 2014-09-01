@@ -52,11 +52,10 @@ extern pthread_mutex_t LMutex;
 
 int main(int argc,char *argv[])
 {
-  int i=0,j=0;
+  int i=0;
   FILE * cmd;
   char ret[16];
 
-    Read_Conf();
 
     for(i=strlen(argv[0]);i>0;i--)
     {
@@ -93,15 +92,8 @@ int main(int argc,char *argv[])
    	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
    	sprintf(msg_to_log,"DATA ACCESS MODULE STARTED");
    	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-    sprintf(msg_to_log,"Entering Daemon Mode");
-   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
-
-
-    p_int=POLL_INTERVAL;
     rd_timeout=RTIMEOUT;
-    slave_id=DEFAULT_SLID;
-    cport=DEFAULT_PORT;
     current_log_level=DEBUG_LEVEL_3;
     ex_term=FALSE;
     no_of_clients=MAXCLIENTS;
@@ -112,9 +104,15 @@ int main(int argc,char *argv[])
     gl_count=0;
     bytes_read=0;
 
+   	if(!Read_Conf())
+   	{
+   	    sprintf(msg_to_log,"Error in Config File,Exiting");
+        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+   	    exit(EXIT_FAILURE);
+   	}
 
 
-    for(i=1;i<argc;i++)
+    /*for(i=1;i<argc;i++)
     {
         if(argv[i][j]=='-')
         {
@@ -175,10 +173,10 @@ int main(int argc,char *argv[])
     {
         sprintf(msg_to_log,"No arguments Supplied, Using default values");
         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-    }
+    }*/
 
-    sprintf(msg_to_log,"COMPORT is %s, Poll Interval is %d ms, Read Timeout is %d ms, Slave Id is %d",cport,p_int,rd_timeout,slave_id);
-    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+    //sprintf(msg_to_log,"COMPORT is %s, Poll Interval is %d ms, Read Timeout is %d ms, Slave Id is %d",cport,p_int,rd_timeout,slave_id);
+    //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
 
 	if(!db_start())
@@ -210,7 +208,13 @@ int main(int argc,char *argv[])
 	atexit(Handle_exithandler);
 
 
-    //daemon(1,0);
+
+    //if(daemon(1,0)==0) NW COM not happening when enabling this mode
+    //{
+        //sprintf(msg_to_log,"Entering Daemon Mode");
+        //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+    //}
+
 	while(!ex_term)
    	{
    	    send_pkt(POLL_PKT);

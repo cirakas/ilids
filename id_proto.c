@@ -359,8 +359,8 @@ NVALUE neg_val;
 
                     for(i=3;i<(pktcount-2);)
                     {
-                        sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
+                        //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
                         if(pktdata[i]==0xFF)
                         {
@@ -445,8 +445,8 @@ float cval=0;
 
                     for(i=3;i<(pktcount-2);)
                     {
-                        sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log),3);
+                        //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
+                        //log_to_file(msg_to_log,strlen(msg_to_log),3);
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
                         cval=(float )(params2[db_id2].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params2[db_id2].pname,cval);
@@ -515,8 +515,8 @@ float cval=0;
 
                     for(i=3;i<(pktcount-2);)
                     {
-                        sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
+                        //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
                         cval=(float )(params3[db_id3].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params3[db_id3].pname,cval);

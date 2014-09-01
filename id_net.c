@@ -241,7 +241,7 @@ void * nwcom()
                                 }
                                 else
                                 {
-                                    //printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
+                                    printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
                                     sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
                                     log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 

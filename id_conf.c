@@ -24,6 +24,10 @@ int no_of_addr;
 int no_of_dev;
 FILE * fconf=NULL;
 char portname[256];
+char em_mode[256];
+char bd_rate[256];
+char poll_int[256];
+int  baud=0;
 char temp_buf[256];
 
 int OpenConfiguration();
@@ -31,6 +35,9 @@ int remove_blnk_lines(char *line);
 int GetAddressList();
 int GetDevIDs();
 int GetPortName();
+int GetMode();
+int GetBaudRate();
+int GetPollInterval();
 int Read_Conf();
 
 
@@ -44,13 +51,68 @@ int OpenConfiguration()
 
 }
 
+int GetPollInterval()
+{
+        memset(poll_int,0,256);
+        fseek(fconf,0,SEEK_SET);
+
+        while(!feof(fconf))
+        {
+            memset(temp_buf,0,256);
+            if(fgets(temp_buf,256,fconf)!=NULL)
+            {
+                temp_buf[strlen(temp_buf)-1]=0x0;
+                if(strcmp(temp_buf,"[POLL_INTERVAL]")==0)
+                {
+                    memset(poll_int,0,256);
+                    fgets((char *)&poll_int[0],256,fconf);
+                    bd_rate[strlen(poll_int)-1]=0x0;
+                    p_int=strtol((char *)&poll_int[0],NULL,10);
+                    sprintf(msg_to_log,"POLL INTERVAL is %d",p_int);
+                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+
+                    return TRUE;
+                }
+            }
+        }
+        clearerr(fconf);
+        return FALSE;
+}
+
+int GetBaudRate()
+{
+        memset(bd_rate,0,256);
+        fseek(fconf,0,SEEK_SET);
+
+        while(!feof(fconf))
+        {
+            memset(temp_buf,0,256);
+            if(fgets(temp_buf,256,fconf)!=NULL)
+            {
+                temp_buf[strlen(temp_buf)-1]=0x0;
+                if(strcmp(temp_buf,"[BAUDRATE]")==0)
+                {
+                    memset(bd_rate,0,256);
+                    fgets((char *)&bd_rate[0],256,fconf);
+                    bd_rate[strlen(bd_rate)-1]=0x0;
+                    baud=strtol((char *)&bd_rate[0],NULL,10);
+                    sprintf(msg_to_log,"BAUDRATE is %d",baud);
+                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+
+                    return TRUE;
+                }
+            }
+        }
+        clearerr(fconf);
+        return FALSE;
+}
+
 int GetMode()
 {
 
-  char ch;
 
-  memset(portname,0,256);
-  fseek(fconf,0,SEEK_SET);
+        memset(em_mode,0,256);
+        fseek(fconf,0,SEEK_SET);
 
         while(!feof(fconf))
         {
@@ -60,34 +122,16 @@ int GetMode()
                 temp_buf[strlen(temp_buf)-1]=0x0;
                 if(strcmp(temp_buf,"[EMULATOR_MODE]")==0)
                 {
-                    memset(portname,0,256);
-                    while(1)
+                    memset(em_mode,0,256);
+                    fgets((char *)&em_mode[0],256,fconf);
+                    em_mode[strlen(em_mode)-1]=0x0;
+                    if(strcasecmp(em_mode,"YES")==0)
                     {
-                        ch=fgetc(fconf);
-                        if((ch=='[')||(ch=='/')||feof(fconf))
-                        {
-                            if(feof(fconf))
-                                clearerr(fconf);
-                            break;
-                        }
-                    }
-                    if(ch=='/')
-                    {
-                        portname[0]='/';
-                        fgets((char *)&portname[1],256,fconf);
-                        portname[strlen(portname)-1]=0x0;
-                        printf("\nemulator mode is %s",portname);
+                        emulator_mode=TRUE;
                         return TRUE;
                     }
-                    else
-                    {
-                        return FALSE;
-                    }
+
                 }
-            }
-            else if(!feof(fconf))
-            {
-                return FALSE;
             }
         }
         clearerr(fconf);
@@ -126,6 +170,9 @@ int GetPortName()
                         portname[0]='/';
                         fgets((char *)&portname[1],256,fconf);
                         portname[strlen(portname)-1]=0x0;
+                        cport=portname;
+                        sprintf(msg_to_log,"COMPORT is %s",cport);
+                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                         return TRUE;
                     }
                     else
@@ -283,9 +330,6 @@ int GetDevIds()
 
 }
 
-
-
-
 int Read_Conf()
 {
 
@@ -294,7 +338,34 @@ int Read_Conf()
 
     if(OpenConfiguration())
     {
-            if(GetDevIds())
+            if(!GetPortName())
+            {
+                sprintf(msg_to_log,"COMPORT is not defined in Config file,Exiting");
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                return FALSE;
+            }
+
+            if(!GetBaudRate())
+            {
+                sprintf(msg_to_log,"BAUDRATE is not defined in Config file,Exiting");
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                return FALSE;
+            }
+
+            if(!GetPollInterval())
+            {
+                p_int=POLL_INTERVAL;
+                sprintf(msg_to_log,"POLL INTERVAL is not defined in Config file,Using Default Value %d milliseconds",p_int);
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+            }
+
+            if(GetMode())
+            {
+                sprintf(msg_to_log,"EMULATOR MODE STARTING");
+                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+            }
+
+            if(GetDevIds())//This may not be needed.
             {
                 for(i=0;i<no_of_dev;i++)
                 {
@@ -308,7 +379,7 @@ int Read_Conf()
 
             }
 
-            if(GetAddressList())
+            if(GetAddressList())//This needs to be included later in main program
             {
                 for(i=0;i<no_of_addr;i++)
                 {
@@ -321,13 +392,8 @@ int Read_Conf()
                 }
             }
 
-            if(GetPortName())
-            {
-                printf("\nCOMPORT is %s\n",portname);
-            }
-            GetMode();
             fclose(fconf);
 
       }
-      return FALSE;
+      return TRUE;
 }

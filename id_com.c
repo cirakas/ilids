@@ -229,7 +229,7 @@ void ShowBits(int y,int no_of_bytes)
 void  writecom(BYTE * msg, int ncount)
 {
 
-int bytes_write=0,i=0,wcount=0,count=0;
+int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
 
 
 		memset((void *)write_buf,0x0,WRITE_BUF_SIZE);
@@ -270,7 +270,8 @@ int bytes_write=0,i=0,wcount=0,count=0;
             {
                 if(dclients[i].sockfd != -1)
                 {
-                    if((bytes_write=write(dclients[i].sockfd,write_buf,count)) <= 0)
+                    bytes_write_nw=0;
+                    if((bytes_write_nw=write(dclients[i].sockfd,write_buf,count)) <= 0)
                     {
                                 sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
                                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
@@ -300,8 +301,11 @@ int bytes_write=0,i=0,wcount=0,count=0;
 		}
 		else
 		{
+		    if(!emulator_mode)
+		    {
        		 	sprintf(msg_to_log,"Error Writing to Serial Port : %s",strerror(errno));
        		 	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+		    }
 		}
 }
 
