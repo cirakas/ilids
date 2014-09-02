@@ -14,11 +14,11 @@
 
 void * nwcom();
 void shutdown_nw();
+int check_existing(struct hostent * client_params);
 
 
 extern int no_of_clients;
 int server_socket=-1,client_socket=-1;
-struct sockaddr_in server_addr,client_addr;
 struct hostent * client_info;
 
 socklen_t client_len=-1;
@@ -55,6 +55,21 @@ void shutdown_nw()
 
     FD_CLR(server_socket,&socket_set);
     close(server_socket);
+}
+
+int check_existing(struct hostent * client_params)
+{
+    int i=0;
+
+    for(i=0;i<no_of_clients;i++)
+    {
+    	if(strcmp(dclients[i].name,client_params->h_name)==0)
+    	{
+    	    return TRUE;
+    	}
+    }
+
+    return FALSE;
 }
 
 /**@brief  This function implements the network communication thread.
@@ -130,13 +145,14 @@ void * nwcom()
     	dclients[i].sockfd=-1;
     	memset(&dclients[i].client_addr,0x0,sizeof(dclients[i].client_addr));
     	memset(&dclients[i].inbuf,0x0,MAXSIZE);
-        strncpy(dclients[i].name,s_name[i],strlen(s_name[i]));
+    	memset(&dclients[i].name,0x0,MAXSIZE);
     	dclients[i].count=0;
     	dclients[i].send=FALSE;
     }
 
     FD_ZERO(&socket_set);
   	FD_SET(server_socket,&socket_set);
+
 
 	//while(1)
 	while(!ex_term)
@@ -174,94 +190,89 @@ void * nwcom()
                             log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
                             continue;
                         }
-                        else
+                        else if((client_info=gethostbyaddr((const char *)&(client_addr.sin_addr.s_addr),4,AF_INET))==NULL)
                         {
-                            if((client_info=gethostbyaddr((const char *)&(client_addr.sin_addr.s_addr),4,AF_INET))==NULL)
-                            {
+
                                 printf("\nClient %s Not found in host database,Disconnected\n",(const char *)inet_ntoa(client_addr.sin_addr));
                                 sprintf(msg_to_log,"Client %s Not found in host database,Disconnected",(const char *)inet_ntoa(client_addr.sin_addr));
                                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                                 close(client_socket);
-                            }
-                            else
-                            {
+                        }
+                        else if(check_existing(client_info))
+                        {
+                                printf("\nClient %s Already Connected\n",client_info->h_name);
+                                sprintf(msg_to_log,"Client %s Already Connected",client_info->h_name);
+                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                close(client_socket);
+                        }
+                        else
+                        {
+
                                 for(i=0;i<no_of_clients;i++)
                                 {
-                                    if(strncasecmp(dclients[i].name,client_info->h_name,strlen(client_info->h_name))==0)
-                                    {
-                                        if(dclients[i].sockfd != -1)
+                                        if(dclients[i].sockfd == -1)
                                         {
-                                            printf("\nClient %s is Disconnected\n",dclients[i].name);
-                                            sprintf(msg_to_log,"Client %s is Disconnected",dclients[i].name);
+                                            dclients[i].sockfd=client_socket;
+                                            memset(&dclients[i].client_addr,0x0,sizeof(client_addr));
+                                            memset(&dclients[i].inbuf,0x0,MAXSIZE);
+                                            memset(&dclients[i].name,0x0,MAXSIZE);
+                                            memcpy(&dclients[i].client_addr,&client_addr,sizeof(client_addr));
+                                            memcpy(&dclients[i].name,client_info->h_name,strlen(client_info->h_name));
+                                            FD_SET(dclients[i].sockfd,&socket_set);
+                                            printf("\nClient %s is Accepted\n",dclients[i].name);
+                                            sprintf(msg_to_log,"Client %s is Accepted",dclients[i].name);
                                             log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-                                            FD_CLR(dclients[i].sockfd,&socket_set);
-                                            close(dclients[i].sockfd);
-                                            dclients[i].send=FALSE;
+                                            break;
                                         }
-                                        dclients[i].sockfd=client_socket;
-                                        memset(&dclients[i].client_addr,0x0,sizeof(client_addr));
-                                        memset(&dclients[i].inbuf,0x0,MAXSIZE);
-                                        memcpy(&dclients[i].client_addr,&client_addr,sizeof(client_addr));
-                                        FD_SET(dclients[i].sockfd,&socket_set);
-                                        printf("\nClient %s is Accepted\n",client_info->h_name);
-                                        sprintf(msg_to_log,"Client %s is Accepted",client_info->h_name);
+
+                                }
+                        }
+                    }
+                    else
+                    {
+                        for(i=0;i<no_of_clients;i++)
+                        {
+                            if(dclients[i].sockfd != -1)
+                            {
+                                if(FD_ISSET(dclients[i].sockfd,&temp_set))
+                                {
+                                    bytes_read_nw=read(dclients[i].sockfd,dclients[i].inbuf,MAXSIZE);
+
+                                    if(bytes_read_nw > 0)
+                                    {
+                                        memcpy(&gl_buf[gl_count],(void *)&dclients[i].inbuf[0],bytes_read_nw);
+                                        gl_count+=bytes_read_nw;
+                                        sprintf(msg_to_log,"Read %d Bytes from NW Device",bytes_read_nw);
                                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                                     }
-
-                                }
-
-                            }
-                        }
-                        continue;
-                    }
-
-                    for(i=0;i<no_of_clients;i++)
-                    {
-                        if(dclients[i].sockfd != -1)
-                        {
-                            if(FD_ISSET(dclients[i].sockfd,&temp_set))
-                            {
-                                bytes_read_nw=read(dclients[i].sockfd,dclients[i].inbuf,MAXSIZE);
-
-                                if(bytes_read_nw > 0)
-                                {
-                                    memcpy(&gl_buf[gl_count],(void *)&dclients[i].inbuf[0],bytes_read_nw);
-                                    gl_count+=bytes_read_nw;
-
-                                    /*y=sprintf(msg_to_log,"READ DATA ");
-                                    for(x=0;x<bytes_read_nw;x++)
+                                    else
                                     {
-                                        y += sprintf(&msg_to_log[y]," %02X",dclients[i].inbuf[x]);
+                                        printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
+                                        sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
+                                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+
+                                        FD_CLR(dclients[i].sockfd,&socket_set);
+                                        close(dclients[i].sockfd);
+                                        memset(&dclients[i].client_addr,0x0,sizeof(client_addr));
+                                        memset(&dclients[i].inbuf,0x0,MAXSIZE);
+                                        memset(&dclients[i].name,0x0,MAXSIZE);
+                                        dclients[i].sockfd=-1;
+                                        dclients[i].send=FALSE;
                                     }
-                                    y += sprintf(&msg_to_log[y]," FROM NW");
-                                    log_to_file(msg_to_log,rcount_nw,DEBUG_LEVEL_DEFAULT);*/
-                                    sprintf(msg_to_log,"Read %d Bytes from NW Device",bytes_read_nw);
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                    continue;
 
                                 }
-                                else
-                                {
-                                    printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
-                                    sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
-                                    FD_CLR(dclients[i].sockfd,&socket_set);
-                                    close(dclients[i].sockfd);
-                                    memset(&dclients[i].client_addr,0x0,sizeof(client_addr));
-                                    memset(&dclients[i].inbuf,0x0,MAXSIZE);
-                                    dclients[i].sockfd=-1;
-                                    dclients[i].send=FALSE;
-                                }
-                                continue;
                             }
+
                         }
 
                     }
 
             }
+        }
+        return FALSE;
 
-	}
-	return FALSE;
 }
 
 /**@brief  This function sends data to the Clients

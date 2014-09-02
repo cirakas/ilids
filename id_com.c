@@ -278,6 +278,9 @@ int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
 
                                 FD_CLR(dclients[i].sockfd,&socket_set);
                                 close(dclients[i].sockfd);
+                                memset(&dclients[i].client_addr,0x0,sizeof(client_addr));
+                                memset(&dclients[i].inbuf,0x0,MAXSIZE);
+                                memset(&dclients[i].name,0x0,MAXSIZE);
                                 dclients[i].sockfd=-1;
                                 dclients[i].send=FALSE;
 

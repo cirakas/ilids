@@ -217,4 +217,5 @@ fd_set socket_set,temp_set;
 BYTE gl_buf[BUF_SIZE];
 int gl_count;
 int bytes_read;
+struct sockaddr_in server_addr,client_addr;
 

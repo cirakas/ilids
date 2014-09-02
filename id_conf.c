@@ -369,12 +369,12 @@ int Read_Conf()
             {
                 for(i=0;i<no_of_dev;i++)
                 {
-                    printf("\nMeter %s Device Ids are : ",dev_config[i].ename);
+                    //printf("\nMeter %s Device Ids are : ",dev_config[i].ename);
                     for(j=0;j<dev_config[i].no_of_elem;j++)
                     {
-                        printf(" %X",dev_config[i].elist[j]);
+                        //printf(" %X",dev_config[i].elist[j]);
                     }
-                    printf("\n");
+                    //printf("\n");
                 }
 
             }
@@ -383,12 +383,12 @@ int Read_Conf()
             {
                 for(i=0;i<no_of_addr;i++)
                 {
-                    printf("\nMeter %s AddressList is : ",addr_config[i].ename);
+                    //printf("\nMeter %s AddressList is : ",addr_config[i].ename);
                     for(j=0;j<addr_config[i].no_of_elem;j++)
                     {
-                        printf(" %d",addr_config[i].elist[j]);
+                        //printf(" %d",addr_config[i].elist[j]);
                     }
-                    printf("\n");
+                    //printf("\n");
                 }
             }
 
