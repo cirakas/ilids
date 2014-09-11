@@ -11,16 +11,10 @@
 
 #include "id_common.h"
 
-typedef struct
-{
-  char ename[20];
-  int elist[60];
-  int no_of_elem;
-}HWCONF;
 
-HWCONF addr_config[10];
-HWCONF dev_config[10];
-int no_of_addr;
+
+
+
 int no_of_dev;
 FILE * fconf=NULL;
 char portname[256];
@@ -32,12 +26,12 @@ char temp_buf[256];
 
 int OpenConfiguration();
 int remove_blnk_lines(char *line);
-int GetAddressList();
 int GetDevIDs();
 int GetPortName();
 int GetMode();
 int GetBaudRate();
 int GetPollInterval();
+int GetCommands();
 int Read_Conf();
 
 
@@ -205,11 +199,9 @@ int remove_blnk_lines(char *line)
   return line_len;
 }
 
-
-int GetAddressList()
+int GetCommands()
 {
-  int i=0,j=0,k=0,l=0;
-
+  int i=0,j=0,k=0,l=0,m=0;
 
 
     fseek(fconf,0,SEEK_SET);
@@ -221,9 +213,8 @@ int GetAddressList()
             {
                 if(!remove_blnk_lines(temp_buf)) continue;
 
-                if(strcmp(temp_buf,"[ADDRESSLIST]")==0)
+                if(strcmp(temp_buf,"[COMMAND_ARGUMENTS]")==0)
                 {
-                    i=0;
                     while(!feof(fconf))
                     {
                         if(fgets(temp_buf,256,fconf)!=NULL)
@@ -232,13 +223,14 @@ int GetAddressList()
                             {
                                 if(temp_buf[j]=='[')
                                 {
-                                    no_of_addr=i;
+                                    no_of_cmds=i;
                                     return TRUE;
                                 }
                             }
                             if( ! remove_blnk_lines(temp_buf) ) continue;
-
-                            memcpy(addr_config[i].ename,temp_buf,strlen(temp_buf));
+                            memset(cmd_config[i].param_name,0x0,1024);
+                            memcpy(cmd_config[i].param_name,temp_buf,strlen(temp_buf));
+                            m=0;
                             if(fgets(temp_buf,256,fconf)!=NULL)
                             {
                                 temp_buf[strlen(temp_buf)-1]=',';
@@ -246,14 +238,31 @@ int GetAddressList()
                                 {
                                     if(temp_buf[j]==',')
                                     {
-                                        addr_config[i].elist[k]= strtol((char *)&temp_buf[l],NULL,10);
+                                        m++;
+                                        switch(m)
+                                        {
+                                            case 1:
+                                                cmd_config[i].devid=strtol((char *)&temp_buf[l],NULL,10);
+                                                break;
+                                            case 2:
+                                                cmd_config[i].start_addr= strtol((char *)&temp_buf[l],NULL,10);
+                                                break;
+                                            case 3:
+                                                cmd_config[i].no_of_reg= strtol((char *)&temp_buf[l],NULL,10);
+                                                break;
+                                            case 4:
+                                                cmd_config[i].value_offset= strtol((char *)&temp_buf[l],NULL,10);
+                                                break;
+
+
+                                            default : break;
+                                        }
                                         l=j+1;
                                         k++;
 
                                     }
                                 }
                             }
-                            addr_config[i].no_of_elem=k;
                             i++;
                         }
                     }
@@ -267,6 +276,7 @@ int GetAddressList()
         clearerr(fconf);
         return FALSE;
 }
+
 
 int GetDevIds()
 {
@@ -365,6 +375,11 @@ int Read_Conf()
                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
             }
 
+            if(!GetCommands())
+            {
+                return FALSE;
+            }
+
             if(GetDevIds())//This may not be needed.
             {
                 for(i=0;i<no_of_dev;i++)
@@ -377,19 +392,6 @@ int Read_Conf()
                     //printf("\n");
                 }
 
-            }
-
-            if(GetAddressList())//This needs to be included later in main program
-            {
-                for(i=0;i<no_of_addr;i++)
-                {
-                    //printf("\nMeter %s AddressList is : ",addr_config[i].ename);
-                    for(j=0;j<addr_config[i].no_of_elem;j++)
-                    {
-                        //printf(" %d",addr_config[i].elist[j]);
-                    }
-                    //printf("\n");
-                }
             }
 
             fclose(fconf);

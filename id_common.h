@@ -136,6 +136,7 @@ extern void init_slave_params();
 
 extern int Read_Conf();
 
+
 extern char msg_to_log[256];
 extern BYTE gl_buf[BUF_SIZE];
 extern MYSQL *conn;
@@ -210,6 +211,32 @@ int current_log_level;
 
 volatile int ex_term;
 char scommand[256];
+
+
+#define MAX_CMDS 100
+
+typedef struct
+{
+  char ename[20];
+  int elist[60];
+  int no_of_elem;
+}HWCONF;
+
+typedef struct
+{
+  char param_name[1024];
+  int devid;
+  int start_addr;
+  int no_of_reg;
+  int value_offset;
+  float param_value;
+}CMDCONF;
+
+
+HWCONF dev_config[10];
+CMDCONF cmd_config[MAX_CMDS];
+
+int no_of_cmds;
 
 int no_of_clients;
 CLIENT_DETAILS dclients[MAXCLIENTS];

@@ -112,6 +112,13 @@ int main(int argc,char *argv[])
    	}
 
 
+    for(i=0;i<no_of_cmds;i++)
+    {
+        printf("\n%s:%d:%d:%d",cmd_config[i].param_name,cmd_config[i].devid,cmd_config[i].start_addr,cmd_config[i].value_offset);
+    }
+    printf("\n");
+    //exit(EXIT_FAILURE);
+
     /*for(i=1;i<argc;i++)
     {
         if(argv[i][j]=='-')

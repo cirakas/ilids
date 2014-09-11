@@ -350,7 +350,7 @@ NVALUE neg_val;
 
 void Process_ParamsA(BYTE * pktdata, int pktcount)
 {
-int i=0;
+int i=0,k=0;
 unsigned int mval=0;
 float cval=0.0;
 NVALUE neg_val;
@@ -392,21 +392,27 @@ NVALUE neg_val;
 
                         if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset))
                         {
-                            memset(querry_msg,0x0,QUERRY_MAXSIZE);
-                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params1[db_id1].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset));
                             vlist[pktdata[0]].param_valueA[db_id1]=cval;
-                            sprintf(msg_to_log,"%s",querry_msg);
-                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-
-                            onEINTR:
-                            if (mysql_query(conn,querry_msg))
+                            for(k=0;k<no_of_cmds;k++)
                             {
-                                   if(errno == EINTR)
-                                   {
-                                        goto onEINTR;
-                                   }
-                                   sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                   log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params1[db_id1].addr_off))
+                                {
+                                    memset(querry_msg,0x0,QUERRY_MAXSIZE);
+                                    sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params1[db_id1].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset));
+                                    sprintf(msg_to_log,"%s",querry_msg);
+                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+
+                                    onEINTR:
+                                    if (mysql_query(conn,querry_msg))
+                                    {
+                                           if(errno == EINTR)
+                                           {
+                                                goto onEINTR;
+                                           }
+                                           sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
+                                           log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                    }
+                                }
                             }
                         }
 
@@ -436,7 +442,7 @@ NVALUE neg_val;
 
 void Process_ParamsB(BYTE * pktdata, int pktcount)
 {
-int i=0;
+int i=0,k=0;
 unsigned int mval=0;
 float cval=0;
 
@@ -463,22 +469,29 @@ float cval=0;
 
                         if(!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset))
                         {
-                            memset(querry_msg,0x0,QUERRY_MAXSIZE);
-                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params2[db_id2].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset));
                             vlist[pktdata[0]].param_valueB[db_id2]=cval;
-                            sprintf(msg_to_log,"%s",querry_msg);
-                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-
-
-                            onEINTR:
-                            if (mysql_query(conn,querry_msg))
+                            for(k=0;k<no_of_cmds;k++)
                             {
-                                    if(errno == EINTR)
+                                if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params2[db_id2].addr_off))
+                                {
+
+                                    memset(querry_msg,0x0,QUERRY_MAXSIZE);
+                                    sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params2[db_id2].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset));
+                                    sprintf(msg_to_log,"%s",querry_msg);
+                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+
+
+                                    onEINTR:
+                                    if (mysql_query(conn,querry_msg))
                                     {
-                                        goto onEINTR;
+                                            if(errno == EINTR)
+                                            {
+                                                goto onEINTR;
+                                            }
+                                            sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
+                                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                                     }
-                                    sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                }
                             }
 
                         }
@@ -506,7 +519,7 @@ float cval=0;
 
 void Process_ParamsC(BYTE * pktdata, int pktcount)
 {
-int i=0;
+int i=0,k=0;
 unsigned int mval=0;
 float cval=0;
 
@@ -533,21 +546,29 @@ float cval=0;
 
                         if(!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset))
                         {
-                            memset(querry_msg,0x0,QUERRY_MAXSIZE);
-                            sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params3[db_id3].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset));
                             vlist[pktdata[0]].param_valueC[db_id3]=cval;
-                            sprintf(msg_to_log,"%s",querry_msg);
-                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
-                            onEINTR:
-                            if (mysql_query(conn,querry_msg))
+                            for(k=0;k<no_of_cmds;k++)
                             {
-                                    if(errno == EINTR)
+                                if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params3[db_id3].addr_off))
+                                {
+
+                                    memset(querry_msg,0x0,QUERRY_MAXSIZE);
+                                    sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params3[db_id3].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset));
+                                    sprintf(msg_to_log,"%s",querry_msg);
+                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+
+                                    onEINTR:
+                                    if (mysql_query(conn,querry_msg))
                                     {
-                                        goto onEINTR;
+                                            if(errno == EINTR)
+                                            {
+                                                goto onEINTR;
+                                            }
+                                            sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
+                                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
                                     }
-                                    sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                }
                             }
 
                         }
