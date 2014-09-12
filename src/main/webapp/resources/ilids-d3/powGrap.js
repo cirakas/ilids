@@ -9,10 +9,10 @@ d3.json(servlet, function (data) {
    });
    
    var mdvValue = mdvValue1;
-  
+   var mwidth=800;
     var main_margin = {top: 30, right: 60, bottom: 95, left: 100},
         mini_margin = {top: 345, right: 60, bottom: 20, left: 100},
-        main_width = 800 - main_margin.left - main_margin.right,
+        main_width = mwidth - main_margin.left - main_margin.right,
         main_height = 400 - main_margin.top - main_margin.bottom,
         mini_height = 400 - mini_margin.top - mini_margin.bottom;
 
@@ -28,7 +28,7 @@ d3.json(servlet, function (data) {
       .range([0, main_width]);
 
     var main_y0 = d3.scale.sqrt()
-      .range([260, 0]),
+      .range([270, 0]),
        mini_y0 = d3.scale.sqrt()
       .range([20, 0]);
 
@@ -44,7 +44,7 @@ d3.json(servlet, function (data) {
 var main_yAxisLeft = d3.svg.axis()
     .scale(main_y0)
     .orient("left")
-    .ticks(3);
+    .ticks(4);
     
 var main_line0 = d3.svg.line()
     .interpolate("linear")
@@ -55,7 +55,7 @@ var main_line0 = d3.svg.line()
     .interpolate("linear")
     .x0(main_width)
     .x(function(d) { return main_x(d.datee); })
-    .y0(350)
+    .y0(270)
     .y1(function(d) { return main_y0(d.currents); }); 
 
 var mini_line0 = d3.svg.line()
@@ -70,10 +70,10 @@ var mini_line0 = d3.svg.line()
     .y1(function(d) { return mini_y0(d.currents); }); 
 
 var svg = d3.select("#powGraph").append("svg")
-    .attr("width", main_width + main_margin.left + main_margin.right)
-    .attr("height", main_height + main_margin.top + main_margin.bottom);
     
- 
+    .attr("viewBox", "0 0 800 400");
+    
+
 var brush = d3.svg.brush()
     .x(mini_x)
     .on("brush", brush3);

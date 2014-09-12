@@ -13,6 +13,8 @@ For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap
 body {
   margin-top: 50px;
   /*font-size:10px;*/
+/*  background: url(/ilids/resources/images/bg_default.jpg);*/
+background: #fbfbfc;
 }
 
 img{
@@ -83,7 +85,8 @@ table.tablesorter thead tr th:hover {
 
 .flot-chart {
   display: block;
-  height: 400px;
+  height: auto;
+  width: 100%;
 }
 
 .flot-chart-content {
@@ -97,7 +100,7 @@ table.tablesorter thead tr th:hover {
   /* Wrappers */
 
   #wrapper {
-	padding-left: 225px;
+	padding-left: 210px;
   }
 
   #page-wrapper {
@@ -107,15 +110,15 @@ table.tablesorter thead tr th:hover {
   /* Side Nav */
 
   .side-nav {
-	margin-left: -225px;
-	left: 225px;
-	width: 225px;
+	margin-left: -210px;
+	left: 210px;
+	width: 210px;
 	position: fixed;
 	top: 50px;
 	height: 100%;
 	border-radius: 0;
 	border: none;
-	background-color: #222222;
+	background-color: #4f5b6f;
 	overflow-y: auto;
   }
 
@@ -138,28 +141,28 @@ table.tablesorter thead tr th:hover {
 	padding: 15px 15px 15px 25px;
   }
 
-/*  .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
 	color: #fff;
-	background-color: #080808;
+/*	background-color: #080808;*/
         background: url(/ilids/resources/images/menu_bg1.png);
   }
  
   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active .active_arrow,
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus .active_arrow {display: block;}*/
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus .active_arrow {display: block;}
 
   .side-nav>li>a {
-	width: 225px;
+	width: 210px;
   }
 
-/*  .navbar-inverse .navbar-nav>li>a:hover,
+  .navbar-inverse .navbar-nav>li>a:hover,
   .navbar-inverse .navbar-nav>li>a:focus {
-	background-color: #080808;
+/*	background-color: #080808;*/
         background: url(/ilids/resources/images/menu_bg1.png);
   }
   .navbar-inverse .navbar-nav>li>a .active .active_arrow,
-  .navbar-inverse .navbar-nav>li>a:focus .active_arrow{display: block;}*/
+  .navbar-inverse .navbar-nav>li>a:focus .active_arrow{display: block;}
   
   .active_arrow{
        width: 9px;
@@ -191,22 +194,23 @@ table.tablesorter thead tr th:hover {
 
 .input_{
   display: block;
-/*  background: #caf6ff;*/
-background: #effbfe;
-  width: 60%;
+/*  background: #caf6ff;
+ background: #effbfe;*/
+  width: 35%;
+  text-align: center;
 /*  height: 34px;*/
   padding: 5px 12px;
   font-size: 14px;
   line-height: 1.428571429;
   color: #555;
-  color: #07748f;
+  color: #555;
 /*  font-weight: bold;*/
   float: left;
-  margin-left: 10px;
-  //background-color: #fff;
+  margin-left: 0px;
+  background-color: #fff;
   background-image: none;
-  border: 1px solid #b0e4f1;
-  border-radius: 4px;
+  border: 1px solid #c0c0c0;
+  border-radius: 1px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
           -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -215,14 +219,29 @@ background: #effbfe;
 }
 select option{background: #fff;color: #535454;}
 
-/*.side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
+.side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
 	color: #fff;
-	background-color: #080808;
+/*	background-color: #080808;*/
         background: url(/ilids/resources/images/menu_bg1.png);
   }
   
 
   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active .active_arrow,
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus .active_arrow {display:block;}*/
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus .active_arrow {display:block;}
+  
+  
+  
+  
+  .navbar-inverse .navbar-nav>.active>a,
+  .navbar-inverse .navbar-nav>.active>a:hover.navbar-inverse .navbar-nav>.active>a:focus{color:#fff;background: url(/ilids/resources/images/menu_bg1.png);}
+  .navbar-inverse .navbar-nav>.active>a .active_arrow,
+  .navbar-inverse .navbar-nav>.active>a:focus.navbar-inverse .navbar-nav>.disabled>a .active_arrow,
+  .navbar-inverse .navbar-nav>.disabled>a:focus .active_arrow{display:block!important;}
+  
+  
+  
+  
+  
+  

@@ -169,6 +169,12 @@ input[type=submit]:active {
 .btn_1:hover,.btn_1:active{
     background: #3a3b3b;color: #d6d7d8; 
 }
+@media all and (max-width: 900px) and (min-width: 551px){
+      .container{width:80%;margin:15% auto 0;float: none;}
+}
+@media all and (max-width: 550px) and (min-width: 150px){
+      .container{width:100%;margin:15% auto 0;}
+}
 
 </style>
 

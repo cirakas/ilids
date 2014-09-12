@@ -15,7 +15,8 @@
     <title>ILIDS</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${resources}ilids-template/css/bootstrap.min.css" rel="stylesheet">
+<!--    <link href="${resources}ilids-template/css/bootstrap.min.css" rel="stylesheet">-->
+      <link href="${resources}ilids-template/css/bootstrap.css" rel="stylesheet">
     <link href="${resources}ilids-template/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     
     <!-- Add custom CSS here -->
@@ -27,15 +28,59 @@
     
 <!--    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">-->
 <style>
-    .color-menu li a{outline:none;}
-    .color-menu li{border-top: 1px solid #343434;}
+    .color-menu li a,.navbar-nav li a{outline:none!important;}
+    .color-menu li{border-top: 1px solid #384355;}
     .color-menu li:first-child{border: none;}
+    .color-menu li:last-child{border-bottom: 1px solid #384355;}
+    .color-menu li a{color:#dedfe0!important;}
     body{font: 14px sans-serif;outline: none!important;}
-    .demo-class{
-        cursor: default;
+    .view_all_bg{
+        padding-top: 8px!important;padding-bottom: 8px!important;border-radius: 0 0 2px 2px;
     }
-/*    .thead_style{background: #0093c3!important;}
-   .thead_style tr td{text-align: center!important;}*/
+    .view_all_bg:hover{
+        background: url(/ilids/resources/images/menu_bg1.png);
+        color: #fff!important;
+        border: 1px solid #02a0d4;
+    }
+    .badge_1{background: #999;}
+    .view_all_bg:hover .badge_1{background: #febb00;}
+    .modal-header_1{border-bottom: 1px solid #0093c3;background: url(/ilids/resources/images/alert_head_bg.png);color:#fff;}
+    .th_style{padding: 13px 10px 8px!important;color: #666666!important;text-align:center;
+             border: 1px solid #01a4d9!important;border-bottom: 2px solid #01a4d9!important;}
+    .th_style:hover{background: #fff!important;}
+    .dsd{table-layout: fixed; word-wrap: break-word; color:#015d7f;}
+    .dsd > tbody > tr:nth-child(2n+1) > td{background: #f4fcff!important;}
+    
+    .dsd.table-hover > tbody > tr:hover > td,
+    .dsd.table-hover > tbody > tr:hover > th {background: #fff!important;}
+    
+    .dsd.table-bordered > tbody > tr > td{border: 1px solid #94e5ff!important;}
+    
+    .msg_bg{color:#fff!important;}
+    .alert_bg{width:75%;border-radius: 30px;overflow: hidden;padding: 0;float: none;}
+    
+    
+    @media (max-width: 767px){.margin_{margin-top: -7px!important;position: relative; background: #4f5b6f;} 
+                              .bg_res{background: #4f5b6f;position: relative;float: left;width:100%;}
+                              .msg_bg{border-top: 1px solid #343434;background: none repeat scroll 0% 0% #4f5b6f;}
+                              .msg_bg:hover{background: none repeat scroll 0% 0% #4f5b6f !important;}
+                              .alert_bg{margin: 0 auto;float: none;width:80%;}
+                              .navbar-header1{float: left;width: 100%;background: #3c495e;}
+                              
+                              .side-nav>li.dropdown>ul.dropdown-menu>li>a.active{background:#4f5b6f;}
+                              
+                                .nav .open > a,
+                                .nav .open > a:hover,
+                                .nav .open > a:focus {
+                                  background: none repeat scroll 0% 0% #4f5b6f !important;
+                                  border-color: #343434;
+                                }
+                                
+                                .navbar-nav .open .dropdown-menu {background: none repeat scroll 0% 0% #4f5b6f !important;}
+                               
+                                
+    }
+    
 </style>
 
 <script type="text/javascript">
@@ -48,7 +93,7 @@
                var theTable = "<tbody id=\"alertBody\">";
       for(var j=0;j<data.length;j++){
           var currentDates=new Date(Number(data[j][2]));
-          theTable += '<tr><td>Chiller</td><td>'+data[j][5]+'</td><td>'+data[j][1]+'</td><td>'+currentDates.getDate()+'/'+(currentDates.getMonth()+1)+'/'+currentDates.getFullYear()+' '+currentDates.getHours()+':'+currentDates.getMinutes()+':'+currentDates.getSeconds()+'</td>';
+          theTable += '<tr style=""><td style="text-align:center;">Chiller</td><td style="text-align:center;">'+data[j][5]+'</td><td style="text-align:center;">'+data[j][1]+'</td><td style="text-align:center;">'+currentDates.getDate()+'/'+(currentDates.getMonth()+1)+'/'+currentDates.getFullYear()+' '+currentDates.getHours()+':'+currentDates.getMinutes()+':'+currentDates.getSeconds()+'</td>';
           theTable += '</tr>';
       }
       theTable+="</tbody>";
@@ -63,61 +108,61 @@
 
     <div id="wrapper">
 
-      <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation" style="border:none;">
+     <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation" style="border:none;height: auto; float: left;background: #3c495e;">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+        <div class="navbar-header navbar-header1">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="home" style="outline: none;font-size: 25px;color:#e8e7e7;">iLids</a>
+          <a class="navbar-brand" href="home" style="outline: none;font-size: 25px;color:#e8e7e7;color:#fff;">iLids</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <div class="collapse  navbar-collapse navbar-ex1-collapse bg_res" >
             <c:url value="/systemsettings" var="sysurl"/>
             <security:authorize access="isAuthenticated()">
-              <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;"> 
-             <c:forEach var="menuIdList" items="${menuIdList}" >
+        <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
+        <c:forEach var="menuIdList" items="${menuIdList}" >
            <c:if test="${menuIdList=='1'}">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i> User Management<div class="active_arrow"></div><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href='<c:url value="/user"/>'>Users</a></li>
-              <li><a href="<c:url value="/role"/>"> Roles</a></li>
+                  <li><a href='<c:url value="/user"/>'>&nbsp;&nbsp;&nbsp; Users</a></li>
+              <li><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
               </ul>
             </li>
             </c:if>
               <c:if test="${menuIdList==2}">
-             <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_.png"></i> System settings<div class="active_arrow"></div></a></li>
+             <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_1.png"></i>&nbsp; System settings<div class="active_arrow"></div></a></li>
                </c:if>
                <c:if test="${menuIdList==3}">
-             <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_.png"></i> Devices<div class="active_arrow"></div></a></li>
+             <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Devices<div class="active_arrow"></div></a></li>
                  </c:if>
              <c:if test="${menuIdList==4}">
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_.png"></i> Charts<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chart_1.png"></i>&nbsp; Charts<div class="active_arrow"></div></a></li>
               </c:if>
               <c:if test="${menuIdList==5}">
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_.png"></i> Alerts<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_1.png"></i>&nbsp; Alerts<div class="active_arrow"></div></a></li>
              </c:if>     
              <c:if test="${menuIdList=='6'}">
-             <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_.png"></i> E-mail/SMS settings<div class="active_arrow"></div></a></li>
+             <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_1.png"></i>&nbsp; E-mail/SMS settings<div class="active_arrow"></div></a></li>
              </c:if>  
              <c:if test="${menuIdList=='7'}">
-             <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_.png"></i> Notes<div class="active_arrow"></div></a></li>
+             <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_1.png"></i>&nbsp; Notes<div class="active_arrow"></div></a></li>
              </c:if>   
              <c:if test="${menuIdList=='8'}">
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_.png"></i> Live chat<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_1.png"></i>&nbsp; Live chat<div class="active_arrow"></div></a></li>
               </c:if>
                </c:forEach>
              </ul>
-                <ul class="nav navbar-nav navbar-right navbar-user">
+                 <ul class="nav navbar-nav navbar-right navbar-user margin_">
             <li class="dropdown messages-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge" style="background:#FB8805;"></span> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
+                <a href="#" class="dropdown-toggle msg_bg" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge" style="background:#FB8805;"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu" style="padding-bottom: 0;">
                 <li class="dropdown-header">7 New Messages</li>
                 <li class="message-preview">
                   <a href="#">
@@ -145,32 +190,32 @@
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
                   </a>
                 </li>
-                <li class="divider"></li>
-                <li><a href="#">View Inbox <span class="badge">7</span></a></li>
+                <li class="divider" style="margin-bottom: 0;"></li>
+                <li><a class="view_all_bg" style="padding-top: 10px!important;padding-bottom: 10px!important;" href="#">View Inbox <span class="badge badge_1">7</span></a></li>
               </ul>
             </li>
             <li class="dropdown alerts-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span id="alertCountId" style="color: red;">${alertCount}</span> Alerts <span id="alertId" class="badge" style="background:#FF0404;"></span> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
+                <a href="#" class="dropdown-toggle msg_bg" data-toggle="dropdown"><i class="fa fa-bell"></i> <span id="alertCountId" style="color: red;">${alertCount}</span> Alerts <span id="alertId" class="badge" style="background:#FF0404;"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu" style="padding-bottom: 0;">
 <!--            <li><a href="#">Default <span class="label label-default">Default</span></a></li>
                 <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
                 <li><a href="#">Success <span class="label label-success">Success</span></a></li>
                 <li><a href="#">Info <span class="label label-info">Info</span></a></li>-->
-                <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
-                <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
-                <li class="divider"></li>
-                <li><a href="#" onclick="latestAlertRequest();" data-toggle="modal" data-target="#myAlertModal">View All</a></li>
+                <li><a href="#">Warning <span class="label label-warning" style="margin-left: 4px;">Warning</span></a></li>
+                <li><a href="#">Danger <span class="label label-danger" style="margin-left: 10px;padding: 3px 9px;">Danger</span></a></li>
+                <li class="divider" style="margin-bottom: 0;"></li>
+                <li style=""><a class="view_all_bg" href="#" onclick="latestAlertRequest();" data-toggle="modal" data-target="#myAlertModal">View All</a></li>
               </ul>
             </li>
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <security:authentication property="principal.username" /> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
+              <a href="#" class="dropdown-toggle msg_bg" data-toggle="dropdown"><i class="fa fa-user"></i> <security:authentication property="principal.username" /> <b class="caret"></b></a>
+              <ul class="dropdown-menu" style="padding-bottom: 0;">
                 <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
                 <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-                <li class="divider"></li>
+                <li class="divider" style="margin-bottom: 0;"></li>
                   <security:authorize access="isAuthenticated()">
-                   <li><a href='<c:url value="/j_spring_security_logout"/>'><i class="fa fa-power-off"></i> Log Out</a></li>
+                   <li><a class="view_all_bg" style="padding-top: 11px!important;padding-bottom: 11px!important;" href='<c:url value="/j_spring_security_logout"/>'><i class="fa fa-power-off"></i> Log Out</a></li>
                     </security:authorize>
               </ul>
             </li>
@@ -207,4 +252,27 @@
     </div>
 </div>
       
-      <div id="page-wrapper">
+      <!-- Modal to show alerts -->    
+        <div class="modal fade" id="myAlertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog alert_bg" style="">
+                <div class="modal-content">
+                    <div class="modal-header modal-header_1">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin-right: 20px;font-size: 35px;">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel" style="text-indent:20px;">Alerts</h4>
+                    </div>
+                    <table cellpadding="0" cellspacing="0" border="0"
+                        class="table table-bordered table-hover table-striped tablesorter dsd" id="example">
+                        <thead class="thead_style">
+                                <tr style="">
+                                        <th class="th_style">Feeder <!--<i class="fa fa-sort"></i>--></th>
+                                        <th class="th_style">Data type <!--<i class="fa fa-sort"></i>--></th>
+                                        <th class="th_style">Value <!--<i class="fa fa-sort"></i>--></th>
+                                        <th class="th_style">Time <!--<i class="fa fa-sort"></i>--></th>
+                                </tr>
+                        </thead>
+                    </table>
+                 </div>
+            </div>
+        </div>
+      
+      <div id="page-wrapper" style="">
