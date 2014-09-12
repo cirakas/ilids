@@ -536,10 +536,10 @@ position: absolute;
          
          <div class="col-lg-3 drop_down_bg" style="">
              <div class="form-group form-group1" style="">
-                <select class="form-control form_new _" id="deviceList" value="" onchange="selectFunction()">
-                    <option value="17">Device1</option>
-                    <option value="18">Device2</option>
-                </select>
+                <label>select Device </label>
+                     <form:form method="post" modelAttribute="deviceModel">
+                     <form:select path="id" items="${deviceIdList}" itemLabel="name" itemValue="id" multiple="false" id="deviceList" onchange="selectFunction()"/>
+                     </form:form>
              </div>
            </div>
         </div>
