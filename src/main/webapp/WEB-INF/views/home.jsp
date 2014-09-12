@@ -32,16 +32,33 @@
   var phaseParam=getQueryVariable('phase');
   var fromDateParam=getQueryVariable('fromDate');
   var toDateParam=getQueryVariable('toDate');
+  var fromHoursParam=getQueryVariable('fromHours');
+   var fromMinutesParam=getQueryVariable('fromMinutes');
+    var toHoursParam=getQueryVariable('toHours');
+   var toMinutesParam=getQueryVariable('toMinutes');
     if(!phaseParam){
        phaseParam='06';
    }
    if(!fromDateParam){
-       fromDateParam="7/19/2014"//new Date().toLocaleDateString();
+       fromDateParam="7/20/2014"//new Date().toLocaleDateString();
    }
    if(!toDateParam){
-       toDateParam="7/19/2014"//new Date().toLocaleDateString();
+       toDateParam="7/20/2014"//new Date().toLocaleDateString();
    }
-  var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&toDate="+toDateParam;
+    if(!fromHoursParam){
+       fromHoursParam="00";
+   }
+    if(!fromMinutesParam){
+       fromMinutesParam="00";
+   }
+    if(!toHoursParam){
+       toHoursParam="23";
+   }
+    if(!toMinutesParam){
+       toMinutesParam="59";
+   }
+ 
+  var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&fromHours="+fromHoursParam+"&fromMinutes="+fromMinutesParam+"&toDate="+toDateParam+"&toHours="+toHoursParam+"&toMinutes="+toMinutesParam;
  
  switch(phaseParam){
       case '00':
@@ -113,14 +130,19 @@
     var graphType=document.getElementById("graphType").value;   
     var fromDate=document.getElementById("SelectedDate").value;
     var toDate=document.getElementById("SelectedDate1").value;
-   var d1 = new Date(fromDate)
-   var d2 = new Date(toDate)
+    var fromHours=document.getElementById("from-hours").value;
+    var fromMinutes=document.getElementById("from-minutes").value;
+     var toHours=document.getElementById("to-hours").value;
+    var toMinutes=document.getElementById("to-minutes").value;
+    var toDate=document.getElementById("SelectedDate1").value;
+   var d1 = new Date(fromDate+" "+fromHours+":"+fromMinutes+":00");
+   var d2 = new Date(toDate+" "+toHours+":"+toMinutes+":59");
     if(d2<d1){
         alert("end date should not be less than start date");
     }
     else{
     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&toDate="+toDate;
+    document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&fromHours="+fromHours+"&fromMinutes="+fromMinutes+"&toDate="+toDate+"&toHours="+toHours+"&toMinutes="+toMinutes;
     }
    }
 
@@ -342,7 +364,7 @@ position: absolute;
 }
 
 /*.power_factor_main_bg{background: #eeeded;padding: 12px;border-radius:3px;}*/
-
+.proceed_{padding:8px 10px;border-radius: 4px;background: #FB8805;border: none;color:#fff; }
 .select_bg_11,.select_bg_12{float:left!important;width:40%;}
 .from_to_bg{width: 75%;float: left;margin-top: 0px;margin-bottom: 0px;margin-bottom: 0;}
 .input_min_bg{float: left;margin-left: 5px;}
@@ -412,7 +434,7 @@ position: absolute;
                 <div class="select_bg_11" style="">
                     <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
            <div class="input_min_bg">
-             <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" onchange="selectFunction()" />      
+             <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" />      
              <div class="min_bg">
                  <select class="" id="from-hours" value="">
                     <option value="00">00</option>
@@ -459,7 +481,7 @@ position: absolute;
                   <label style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
                   
                   <div  class="input_min_bg" >
-                    <input type="text" name="SelectedDate" class=" input_" id="SelectedDate1" readonly onClick="GetDate(this);" value="" onchange="selectFunction()" />                 
+                    <input type="text" name="SelectedDate" class=" input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />                 
                     <div class="min_bg">
                             <select class="" id="to-hours" value="">
                                <option value="00">00</option>
@@ -501,8 +523,8 @@ position: absolute;
 
                   
                 </div>
-                <div class="" style="float:left;width:20%;"> 
-                    <input type="submit" value="Proceed" onClick="selectFunction()"/>
+               <div class="" style="float:left;width:15%;"> 
+                    <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
                     
                 </div>
         </div>
@@ -573,6 +595,10 @@ position: absolute;
      document.getElementById("graphType").value=phaseParam;
      document.getElementById("SelectedDate").value=fromDateParam;
      document.getElementById("SelectedDate1").value=toDateParam; 
+     document.getElementById("from-hours").value=fromHoursParam;
+     document.getElementById("from-minutes").value=fromMinutesParam; 
+     document.getElementById("to-hours").value=toHoursParam;
+     document.getElementById("to-minutes").value=toMinutesParam; 
        
   </script>
     
@@ -594,7 +620,11 @@ position: absolute;
         
         $(function() {
                 var fromDateParams=document.getElementById("SelectedDate").value;
+                var fromHoursParams=document.getElementById("from-hours").value;
+                var fromMinutesParams=document.getElementById("from-minutes").value;
                 var toDateParams=document.getElementById("SelectedDate1").value;
+                 var toHoursParams=document.getElementById("to-hours").value;
+                var toMinutesParams=document.getElementById("to-minutes").value;
                 var energyRequestUrl = "dashboardupdate/energyCost";
                 var energyValueDiv=0;
                 var alertSpan=0;
@@ -606,9 +636,9 @@ position: absolute;
 		var energyRequest = $.ajax({
 			url : energyRequestUrl,
 			type : "get",
-                        data : { "startDate":fromDateParams, "endDate":toDateParams},
+                        data : { "startDate":fromDateParams, "endDate":toDateParams,"fromHours":fromHoursParams,"fromMinutes":fromMinutesParams,"toHours":toHoursParams,"toMinutes":toMinutesParams},
                         success: function(pollData) {
-                            energyValueDiv='<p id="energyCostValue" class="announcement-text">Energy Cost: Rs.'+ Number(pollData.energyCost)+'</p>';
+                            energyValueDiv='<p id="energyCostValue" class="announcement-text" style="float:left;"><div style="float:left;margin-left:12px;">Peak cost</div><div style="float:left;margin-left:27px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.peakCost)+'</div><br/><div style="float:left;margin-left:12px;">Normal cost</div><div style="float:left;margin-left:12px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.normalCost)+'</div><br/><div style="float:left;margin-left:12px;">Off peak cost</div><div style="float:left;margin-left:2px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.offPeakCost)+'</div></p>';
                                alertSpan='<span id="alertCountId" style="color: red;">'+Number(pollData.alertCount)+'</span>';
                               $(energyValueDiv).replaceAll('#energyCostValue');
                             $(alertSpan).replaceAll('#alertCountId');

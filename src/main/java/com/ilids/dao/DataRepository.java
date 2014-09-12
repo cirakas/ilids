@@ -54,7 +54,8 @@ public class DataRepository extends AbstractGenericDao<Data> {
     public Long getAlertCount(String startDateParam, String endDateParam, double mdv) {
 	Object alertCount = 0;
 	try {
-	    alertCount = entityManager.createNativeQuery("SELECT count(id) FROM data where time > '" + startDateParam + " 00:00:01' and time < '" + endDateParam + " 23:59:59' and data>" + mdv + " and (address_map=12 or address_map=14 or address_map=16)").getSingleResult();
+	    String alertQuery="SELECT count(id) FROM data where time > '" + startDateParam + " 00:00:01' and time < '" + endDateParam + " 23:59:59' and data>" + mdv + " and (address_map=12 or address_map=14 or address_map=16)";
+	    alertCount = entityManager.createNativeQuery(alertQuery).getSingleResult();
 	    Long.valueOf(alertCount.toString());
 	} catch (Exception e) {
 	    logger.error("There is an Exception in getAlertCount method " + e.getMessage());

@@ -55,7 +55,7 @@ var main_line0 = d3.svg.line()
     .interpolate("linear")
     .x0(main_width)
     .x(function(d) { return main_x(d.datee); })
-    .y0(270)
+    .y0(280)
     .y1(function(d) { return main_y0(d.currents); }); 
 
 var mini_line0 = d3.svg.line()

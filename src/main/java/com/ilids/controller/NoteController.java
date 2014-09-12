@@ -52,5 +52,9 @@ public class NoteController {
         noteService.remove(noteId);
         return "redirect:/note/add";
     }
+       @RequestMapping(value = "/note/home", method = RequestMethod.GET)
+    public String showHome() {
+        return "/home";
+    }
 
 }
