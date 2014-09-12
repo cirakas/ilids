@@ -147,7 +147,7 @@ public class DashBoardUpdateController {
 		}
 
 		if (offPeakEnd.after(offPeakStart)) {
-		    energyCost = calculateEnergy(convertDateToString(peakStart), convertDateToString(peakEnd), 6.5);
+		    energyCost = calculateEnergy(convertDateToString(offPeakStart), convertDateToString(offPeakEnd), 6.5);
 		    offPeakCost = offPeakCost + energyCost;
 		}
 		beginCalendar.add(Calendar.DATE, 1);
@@ -188,6 +188,9 @@ public class DashBoardUpdateController {
 	    endCumilative = (Double) cumilativeData.get(1)[1];
 	}
 	energyCost = (endCumilative - startCumilative) * rate;
+	if(energyCost<0){
+	  energyCost=0;  
+	}
 	return energyCost;
     }
 
