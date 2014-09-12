@@ -36,6 +36,7 @@
    var fromMinutesParam=getQueryVariable('fromMinutes');
     var toHoursParam=getQueryVariable('toHours');
    var toMinutesParam=getQueryVariable('toMinutes');
+   var deviceParam=getQueryVariable('deviceId');
     if(!phaseParam){
        phaseParam='06';
    }
@@ -57,8 +58,11 @@
     if(!toMinutesParam){
        toMinutesParam="59";
    }
+    if(!deviceParam){
+        deviceParam='17';
+    }
  
-  var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&fromHours="+fromHoursParam+"&fromMinutes="+fromMinutesParam+"&toDate="+toDateParam+"&toHours="+toHoursParam+"&toMinutes="+toMinutesParam;
+  var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&fromHours="+fromHoursParam+"&fromMinutes="+fromMinutesParam+"&toDate="+toDateParam+"&toHours="+toHoursParam+"&toMinutes="+toMinutesParam+"&deviceId="+deviceParam;
  
  switch(phaseParam){
       case '00':
@@ -127,7 +131,8 @@
    
    function selectFunction()
    {
-    var graphType=document.getElementById("graphType").value;   
+    var graphType=document.getElementById("graphType").value;
+    var deviceId=document.getElementById("deviceList").value;
     var fromDate=document.getElementById("SelectedDate").value;
     var toDate=document.getElementById("SelectedDate1").value;
     var fromHours=document.getElementById("from-hours").value;
@@ -140,12 +145,13 @@
     if(d2<d1){
         alert("end date should not be less than start date");
     }
+    
     else{
     var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&fromHours="+fromHours+"&fromMinutes="+fromMinutes+"&toDate="+toDate+"&toHours="+toHours+"&toMinutes="+toMinutes;
+    document.location = myURL + "?phase="+graphType+"&fromDate="+fromDate+"&fromHours="+fromHours+"&fromMinutes="+fromMinutes+"&toDate="+toDate+"&toHours="+toHours+"&toMinutes="+toMinutes+"&deviceId="+deviceId;
     }
    }
-
+  
     function getQueryVariable(variable) 
     {
        var query = window.location.search.substring(1);
@@ -452,7 +458,7 @@ position: absolute;
                      <option value="12">12</option>
                      <option value="13">13</option>
                      <option value="14">14</option>
-                      <option value="15">15</option>
+                     <option value="15">15</option>
                      <option value="16">16</option>
                       <option value="17">17</option>
                       <option value="18">18</option>
@@ -527,11 +533,18 @@ position: absolute;
                     <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
                     
                 </div>
+         
+         <div class="col-lg-3 drop_down_bg" style="">
+             <div class="form-group form-group1" style="">
+                <select class="form-control form_new _" id="deviceList" value="" onchange="selectFunction()">
+                    <option value="17">Device1</option>
+                    <option value="18">Device2</option>
+                </select>
+             </div>
+           </div>
         </div>
-    
 </div> 
          
-
  <div class="row" style="margin-bottom: 0;">
           <div class="col-lg-6 graph_bg">
               <div class="panel panel-primary panel_1" style="">
@@ -599,6 +612,7 @@ position: absolute;
      document.getElementById("from-minutes").value=fromMinutesParam; 
      document.getElementById("to-hours").value=toHoursParam;
      document.getElementById("to-minutes").value=toMinutesParam; 
+     document.getElementById("deviceList").value=deviceParam;
        
   </script>
     
