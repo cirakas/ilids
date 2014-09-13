@@ -41,10 +41,10 @@
        phaseParam='06';
    }
    if(!fromDateParam){
-       fromDateParam="7/20/2014"//new Date().toLocaleDateString();
+       fromDateParam=new Date().toLocaleDateString();
    }
    if(!toDateParam){
-       toDateParam="7/20/2014"//new Date().toLocaleDateString();
+       toDateParam=new Date().toLocaleDateString();
    }
     if(!fromHoursParam){
        fromHoursParam="00";
@@ -59,7 +59,7 @@
        toMinutesParam="59";
    }
     if(!deviceParam){
-        deviceParam='17';
+        deviceParam='00';
     }
  
   var servlet = "DataAccessServlet?phase="+phaseParam+"&fromDate="+fromDateParam+"&fromHours="+fromHoursParam+"&fromMinutes="+fromMinutesParam+"&toDate="+toDateParam+"&toHours="+toHoursParam+"&toMinutes="+toMinutesParam+"&deviceId="+deviceParam;
@@ -538,7 +538,13 @@ position: absolute;
              <div class="form-group form-group1" style="">
                 <label>select Device </label>
                      <form:form method="post" modelAttribute="deviceModel">
-                     <form:select path="id" items="${deviceIdList}" itemLabel="name" itemValue="id" multiple="false" id="deviceList" onchange="selectFunction()"/>
+                         
+                         <form:select multiple="single" id="deviceList" onchange="selectFunction()" path="id" >
+   <form:option value="00" label="Nothing Selected" />
+   <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
+</form:select>
+                         
+                     <%--<form:select path="id" items="${deviceIdList}" itemLabel="name" itemValue="slaveId" multiple="false" id="deviceList" onchange="selectFunction()"/>--%>
                      </form:form>
              </div>
            </div>
