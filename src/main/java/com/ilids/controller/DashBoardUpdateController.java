@@ -10,6 +10,7 @@ import com.ilids.service.DataService;
 import com.ilids.service.SystemSettingsService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -196,10 +197,11 @@ public class DashBoardUpdateController {
 
     @RequestMapping(value = "/dashboardupdate/alertList", method = RequestMethod.POST)
     @ResponseBody
-    public List<Object[]> alertData(@RequestParam(value = "startDate", required = true) String startDate, @RequestParam(value = "endDate", required = true) String endDate) throws ParseException {
+    public List<Object[]> alertData(@RequestParam(value = "startDate", required = true) String startDate, @RequestParam(value = "endDate", required = true) String endDate,int start,int end) throws ParseException {
 	SystemSettings systemSettings = systemSettingsService.getAllSystemSettings().get(0);
 	double mdv = systemSettings.getMdv();
-	List<Object[]> alertDataList = dataService.getAllAlertData(startDate, endDate, mdv);
+        List<Object[]> alertDataList = new ArrayList<Object[]>();
+	alertDataList = dataService.getAllAlertData(startDate, endDate, mdv,start,end);
 	return alertDataList;
     }
 
