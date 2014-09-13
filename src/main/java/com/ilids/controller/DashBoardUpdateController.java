@@ -10,6 +10,7 @@ import com.ilids.service.DataService;
 import com.ilids.service.SystemSettingsService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +56,15 @@ public class DashBoardUpdateController {
     @ResponseBody
     public PollData getUpdate() {
 	pollData = ServerConfig.pollData;
+        System.out.println("---poldat--"+pollData.getAlertList().size());
+        pollData.alertListValue=null;
+        for(String alert:pollData.getAlertList()){
+             if(pollData.alertListValue==null){
+                  pollData.alertListValue="";
+             }
+            pollData.alertListValue=pollData.alertListValue+","+alert;
+        }
+        ServerConfig.pollData.setAlertList(new ArrayList<String>());
 	return pollData;
     }
 

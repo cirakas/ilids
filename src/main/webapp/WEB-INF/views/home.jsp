@@ -131,6 +131,7 @@
    
    function selectFunction()
    {
+       generatePopup();
     var graphType=document.getElementById("graphType").value;
     var deviceId=document.getElementById("deviceList").value;
     var fromDate=document.getElementById("SelectedDate").value;
@@ -164,15 +165,31 @@
       }
     }
     
+    
 </script>
 
 
 
 <script language="JavaScript" src="${resources}ilids-template/js/htmlDatePicker.js" type="text/javascript"></script>
 <link href="${resources}ilids-template/css/htmlDatePicker.css" rel="stylesheet" />
+<link rel="stylesheet" href="${resources}ilids-template/css/jquery.amaran.min.css">
+<link rel="stylesheet" href="${resources}ilids-template/css/all-themes.css">
 <script language="JavaScript" src="${resources}ilids-template/js/polling.js" type="text/javascript"></script>
-
-
+<script language="JavaScript" src="${resources}ilids-template/js/notification.js" type="text/javascript"></script>                                                           
+<script>
+   function generateNotification(content){   
+       if(content!==null){
+   if(Notification.permission !== 'granted'){
+		Notification.requestPermission();
+	}
+	n = new Notification( "Hello", {
+		body: content, 
+		icon : "star.ico"
+	});
+        	n.close();
+            }
+            }
+  </script>                                                              
 
  <style>    
 body {
