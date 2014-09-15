@@ -392,19 +392,19 @@ position: absolute;
 .select_bg_11,.select_bg_12{float:left!important;}
 .from_to_bg{width: 63%;float: left;margin-top: 0px;margin-bottom: 0px;margin-bottom: 0;padding-left: 20px;padding-right: 0!important;}
 .input_min_bg{float: left!important;margin-left: 5px;width: 200px}
-.min_bg{float:left!important;width:auto;margin-top: 6px;margin-left: 5px;}
+.min_bg{float:left!important;width:auto;margin-top: 0px;margin-left: 5px;}
 
 .form-group1{float:left!important;margin-top: 0px;margin-bottom: 0px;width: 100%;}
 .form-group2{float: left!important;width: 100%!important;}
-.drop_down_bg{width:13%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;}
-.drop_down_bg1{width:19%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;margin-right: 20px;}
+.drop_down_bg{width:16%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;}
+.drop_down_bg1{width:19%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;margin-left: 15px;}
 
 .right_bg{width: 20%;float: right;/*padding: 12px 0 12px 15px;background: #f1f2f2;*/ margin-right: 15px;}
 .graph_bg{width:77.1%;padding-right: 0;float: left;/*background: #ececeb;*/padding:0 15px;border-radius: 5px;}
-.row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 0;background: url(/ilids/resources/images/bg_default1.jpg);}
+.row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 15px;background: url(/ilids/resources/images/bg_default1.jpg);}
 
 
-@media all and (max-width: 1040px) and (min-width: 1001px){
+@media all and (max-width: 1180px) and (min-width: 1001px){
     .from_to_bg{width: 56%;}
     .input_11{margin-left: 30px;margin-top: 10px;}
     .drop_down_bg{width:20%;}
@@ -413,7 +413,7 @@ position: absolute;
 
 @media all and (max-width: 1000px) and (min-width: 768px){
     .from_to_bg{width: 100%;margin-bottom: 0px;margin-top: 15px;float: left;}
-    .drop_down_bg,.drop_down_bg1{width: 100%;margin-right: 0px;}
+    .drop_down_bg,.drop_down_bg1{width: 100%;margin-left: 0px;}
     .from_to_bg{width: 100%;padding-left: 0px;}
     .select_bg_11{float:left;width:42%;}
     .select_bg_12{float:left!important;width:42%;}
@@ -434,7 +434,7 @@ position: absolute;
 @media all and (max-width: 767px) and (min-width: 150px){
       .right_bg{float: left;width: 100%; margin-top: 50px;padding:15px 18px;margin-right: 0;}
       .graph_bg{width:100%;}
-      .drop_down_bg,.drop_down_bg1{width: 100%;margin-right: 0;}
+      .drop_down_bg,.drop_down_bg1{width: 100%;margin-left: 0;}
       .form-group1,.form-group2{width:100%!important;float: left;margin-top: 10px;}
       .proceed_bg{float: right;}
       .row_date_bg{padding-right:15px;padding-left:15px;}
@@ -464,112 +464,11 @@ position: absolute;
         
    
  <div class="row row_date_bg" style="">
-             
-     <div class="col-lg-3 from_to_bg" style="">
-                <div class="select_bg_11" style="">
-                    <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
-             <div class="input_min_bg" style="float: left;">
-             <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" />      
-             <div class="min_bg">
-                 <select class="" id="from-hours" value="">
-                    <option value="00">00</option>
-                    <option value="01">01</option>
-                      <option value="02">02</option>
-                    <option value="03">03</option>
-                      <option value="04">04</option>
-                    <option value="05">05</option>
-                      <option value="06">06</option>
-                       <option value="07">07</option>
-                    <option value="08">08</option>
-                     <option value="09">09</option>
-                     <option value="10">10</option>
-                     <option value="11">11</option>
-                     <option value="12">12</option>
-                     <option value="13">13</option>
-                     <option value="14">14</option>
-                     <option value="15">15</option>
-                     <option value="16">16</option>
-                      <option value="17">17</option>
-                      <option value="18">18</option>
-                      <option value="19">19</option>
-                       <option value="20">20</option>
-                       <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                </select>
-                 <select class="" id="from-minutes" value="">
-                    <option value="00">00</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                    <option value="59">59</option>
-                </select>
-          </div>
-       </div>
-   
-                </div>
-
-         
-                <div class="select_bg_12">
-                    <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
-                  
-                  <div  class="input_min_bg input_11" >
-                    <input type="text" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />                 
-                    <div class="min_bg">
-                            <select class="" id="to-hours" value="">
-                               <option value="00">00</option>
-                               <option value="01">01</option>
-                                 <option value="02">02</option>
-                               <option value="03">03</option>
-                                 <option value="04">04</option>
-                               <option value="05">05</option>
-                                 <option value="06">06</option>
-                                  <option value="07">07</option>
-                               <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                 <option value="15">15</option>
-                                <option value="16">16</option>
-                                 <option value="17">17</option>
-                                 <option value="18">18</option>
-                                 <option value="19">19</option>
-                                  <option value="20">20</option>
-                                  <option value="21">21</option>
-                                   <option value="22">22</option>
-                                   <option value="23">23</option>
-                           </select>
-                            <select class="" id="to-minutes" value=""  style="">
-                               <option value="00">00</option>
-                               <option value="10">10</option>
-                               <option value="20">20</option>
-                               <option value="30">30</option>
-                               <option value="40">40</option>
-                               <option value="50">50</option>
-                               <option value="59">59</option>
-                           </select>
-                    </div>
-                  </div>
-
-                  
-                </div>
-               <div class="proceed_bg" style=""> 
-                    <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
-                    
-                </div>
-         
-        </div>
      
      
      
      <div class="col-lg-3 drop_down_bg" style="padding: 0;float: left;">
-             <div class="form-group form-group1" style="float: left;">
-                
+             <div class="form-group form-group1" style="float: left;">               
                      <form:form method="post" modelAttribute="deviceModel">                         
                         <form:select cssClass="form-control" multiple="single" id="deviceList" onchange="selectFunction()" path="id" >
                             <form:option value="00" label="Nothing Selected" />
@@ -581,7 +480,7 @@ position: absolute;
      </div>
      
      
-     <div class="col-lg-3 drop_down_bg1" style="float: right;">
+     <div class="col-lg-3 drop_down_bg1" style="">
              <div class="form-group form-group1 form-group2" style="">
 <!--                <label></label>-->
                 <select class="form-control form_new" id="graphType" value="" onchange="selectFunction()">
@@ -604,6 +503,103 @@ position: absolute;
              </div>
       </div>
      
+     
+     
+             
+     <div class="col-lg-3 from_to_bg">
+            <div class="select_bg_11" style="">
+                <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
+                <div class="input_min_bg" style="float: left;">
+                    <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" />      
+                    <div class="min_bg">
+                        <select class="" id="from-hours" value="" style="height:32px;padding-left:5px;">
+                           <option value="00">00</option>
+                           <option value="01">01</option>
+                           <option value="02">02</option>
+                           <option value="03">03</option>
+                           <option value="04">04</option>
+                           <option value="05">05</option>
+                           <option value="06">06</option>
+                           <option value="07">07</option>
+                           <option value="08">08</option>
+                           <option value="09">09</option>
+                           <option value="10">10</option>
+                           <option value="11">11</option>
+                           <option value="12">12</option>
+                           <option value="13">13</option>
+                           <option value="14">14</option>
+                           <option value="15">15</option>
+                           <option value="16">16</option>
+                           <option value="17">17</option>
+                           <option value="18">18</option>
+                           <option value="19">19</option>
+                           <option value="20">20</option>
+                           <option value="21">21</option>
+                           <option value="22">22</option>
+                           <option value="23">23</option>
+                       </select>
+                       <select class="" id="from-minutes" value="" style="height:32px;padding-left:5px;">
+                           <option value="00">00</option>
+                           <option value="10">10</option>
+                           <option value="20">20</option>
+                           <option value="30">30</option>
+                           <option value="40">40</option>
+                           <option value="50">50</option>
+                           <option value="59">59</option>
+                       </select>
+                   </div>
+              </div>
+           </div>
+
+         
+           <div class="select_bg_12">
+                <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
+                <div  class="input_min_bg input_11" >
+                <input type="text" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />                 
+                <div class="min_bg">
+                        <select class="" id="to-hours" value="" style="height:32px;padding-left:5px;">
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                        <select class="" id="to-minutes" value=""  style="height:32px;padding-left:5px; ">
+                           <option value="00">00</option>
+                           <option value="10">10</option>
+                           <option value="20">20</option>
+                           <option value="30">30</option>
+                           <option value="40">40</option>
+                           <option value="50">50</option>
+                           <option value="59">59</option>
+                       </select>
+                </div>
+             </div>
+             </div>
+
+            <div class="proceed_bg" style=""> 
+                 <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
+            </div>  
+     </div>
      
 </div> 
          
@@ -630,7 +626,7 @@ position: absolute;
             <div id="energyCostPanel" class="panel panel-success success_" style="">
                      <div  class="panel-heading panel-heading1" style="background:none;border:none;width:100%;float: left;">
                              <div style="margin: 0 auto;width: 50%;"><img src="/ilids/resources/images/bulb_green1.png" style=""></div>
-                             <div id="energyCost" class="text-announce" style="float: left;">
+                             <div id="energyCost" class="text-announce" style="float: left;padding-left:12px;padding-right:12px;">
                                 <p id="energyCostValue" class="announcement-text" style="padding: 5px;"></p>
                              </div>
                      </div>
@@ -714,7 +710,11 @@ position: absolute;
 			type : "get",
                         data : { "startDate":fromDateParams, "endDate":toDateParams,"fromHours":fromHoursParams,"fromMinutes":fromMinutesParams,"toHours":toHoursParams,"toMinutes":toMinutesParams},
                         success: function(pollData) {
-                            energyValueDiv='<p id="energyCostValue" class="announcement-text" style="float:left;"><div style="float:left;margin-left:12px;">Peak cost</div><div style="float:left;margin-left:27px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.peakCost)+'</div><br/><div style="float:left;margin-left:12px;">Normal cost</div><div style="float:left;margin-left:12px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.normalCost)+'</div><br/><div style="float:left;margin-left:12px;">Off peak cost</div><div style="float:left;margin-left:2px;">: Rs.</div><div style="float:left;margin-left:3px;">'+ Number(pollData.offPeakCost)+'</div></p>';
+                            energyValueDiv='<p id="energyCostValue" class="announcement-text" style="float:left;">\n\
+                                               <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Peak cost</div><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. '+ Number(pollData.peakCost)+'</div></div><br/>\n\
+                                               <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Normal cost</div><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. '+ Number(pollData.normalCost)+'</div></div><br/>\n\
+                                               <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Off peak cost</div><div style="float:left;"><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. '+ Number(pollData.offPeakCost)+'</div></div>\n\
+                                            </p>';
                                alertSpan='<span id="alertCountId" style="color: red;">'+Number(pollData.alertCount)+'</span>';
                               $(energyValueDiv).replaceAll('#energyCostValue');
                             $(alertSpan).replaceAll('#alertCountId');
