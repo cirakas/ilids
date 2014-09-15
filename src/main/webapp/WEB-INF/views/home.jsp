@@ -131,7 +131,6 @@
    
    function selectFunction()
    {
-       generatePopup();
     var graphType=document.getElementById("graphType").value;
     var deviceId=document.getElementById("deviceList").value;
     var fromDate=document.getElementById("SelectedDate").value;
@@ -559,7 +558,7 @@ position: absolute;
                   
                 </div>
                <div class="proceed_bg" style=""> 
-                    <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
+                    <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction();"/>
                     
                 </div>
          
