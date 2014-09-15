@@ -75,54 +75,7 @@ public class DataAccessServlet extends HttpServlet {
 	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition;
         ResultSet rs = statement.executeQuery(selectQuery);
 	PrintWriter out = response.getWriter();
-        
-//           switch(addrMap){
-//////            case 0:
-//////              diffCheck=5;
-//////              break;
-//////            case 2:
-//////              diffCheck=5;
-//////              break;
-//////           case 4:
-//////              diffCheck=5;
-//////              break;     
-//////           case 6:
-//////              diffCheck=20;
-//////              break;    
-//////           case 8:
-//////              diffCheck=20;
-//////              break;
-//////           case 10:
-//////              diffCheck=20;
-//////              break;        
-//           case 12:
-//              diffCheck=(float) 0.1;
-//              break;
-//           case 14:
-//              diffCheck=3;
-//              break;    
-//           case 16:
-//              diffCheck=7;
-//              break;  
-////           case 30:
-////              diffCheck=(float) 0.1;
-////              break;  
-////           case 32:
-////              diffCheck=(float) 0.1;
-////              break;  
-////           case 34:
-////              diffCheck=(float) 0.1;
-////              break;      
-////           case 512:
-////              diffCheck=10;
-////              break;  
-////           case 514:
-////              diffCheck=10;
-////              break;      
-//           default:
-//              diffCheck=7;
-//          }
-
+ 
 	JSONArray jsonArray = new JSONArray();
 	try {
 	    /* TODO output your page here. You may use following sample code. */
@@ -133,25 +86,10 @@ public class DataAccessServlet extends HttpServlet {
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 	    while (rs.next()) {
 		datas = rs.getFloat("real_data");
-              //  float difference= Math.abs(datas-predata);
-//                if(difference<0){
-//                   difference=difference*(-1); 
-//                }
-////                if(addrMap==12 || addrMap==14){
-//                   
-//                if((difference<=7) &&(Float.floatToIntBits (predata)!=0)){
-//                    System.out.println("----dfrnc---");
-//                    datas=predata;
-//                    System.out.println("iiiii-----"+datas);
-////                }
-//                }
-               // predata=datas;
 		realDate = format.format(rs.getTimestamp("data_time"));
 		JSONObject json = new JSONObject();
 		json.put("date", realDate);
 		json.put("current", datas);
-		json.put("power", datas);
-		json.put("voltage", datas);
 		jsonArray.put(json);
 	    }
 	    out.println(jsonArray.toString());

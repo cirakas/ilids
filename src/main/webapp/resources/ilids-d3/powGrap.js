@@ -3,11 +3,11 @@
 d3.json(servlet, function (data) {
    var dateFormat = d3.time.format("%m/%d/%Y %I:%M:%S");
    var numberFormat = d3.format(".2f");
-   data.forEach(function (d) {
-        d.dateFn = dateFormat.parse(d.date);
-        d.currents = numberFormat(d.current);
-   });
-   
+//   data.forEach(function (d) {
+//        d.dateFn = dateFormat.parse(d.date);
+//        d.currents = numberFormat(d.current);
+//   });
+//  
    var mdvValue = mdvValue1;
    var mwidth=800;
     var main_margin = {top: 30, right: 60, bottom: 95, left: 100},
@@ -138,8 +138,8 @@ var mini2 = svg.append("g")
    
     
 data.forEach(function(d) {
-   d.datee = d.dateFn;
-   d.currents =+d.currents;
+   d.datee = dateFormat.parse(d.date);
+   d.currents =+numberFormat(d.current);
    d.mdvValue=+mdvValue;
 });
 
