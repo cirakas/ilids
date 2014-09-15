@@ -370,35 +370,68 @@ position: absolute;
 }
 
 /*.power_factor_main_bg{background: #eeeded;padding: 12px;border-radius:3px;}*/
+.proceed_bg{float: left;}
 .proceed_{padding:8px 10px;border-radius: 4px;background: #FB8805;border: none;color:#fff; }
-.select_bg_11,.select_bg_12{float:left!important;width:40%;}
-.from_to_bg{width: 75%;float: left;margin-top: 0px;margin-bottom: 0px;margin-bottom: 0;}
-.input_min_bg{float: left;margin-left: 5px;}
-.min_bg{float:left;width:auto;margin-top: 6px;margin-left: 5px;}
-.form-group1{float:left;margin-top: 0px;width: 100%;margin-bottom: 0px;}
-.drop_down_bg{width:20.5%;margin: 0px;margin-bottom: 0;}
+.select_bg_11,.select_bg_12{float:left!important;}
+.from_to_bg{width: 63%;float: left;margin-top: 0px;margin-bottom: 0px;margin-bottom: 0;padding-left: 20px;padding-right: 0!important;}
+.input_min_bg{float: left!important;margin-left: 5px;width: 200px}
+.min_bg{float:left!important;width:auto;margin-top: 6px;margin-left: 5px;}
+
+.form-group1{float:left!important;margin-top: 0px;margin-bottom: 0px;width: 100%;}
+.form-group2{float: left!important;width: 100%!important;}
+.drop_down_bg{width:13%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;}
+.drop_down_bg1{width:19%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;margin-right: 20px;}
+
 .right_bg{width: 20%;float: right;/*padding: 12px 0 12px 15px;background: #f1f2f2;*/ margin-right: 15px;}
 .graph_bg{width:77.1%;padding-right: 0;float: left;/*background: #ececeb;*/padding:0 15px;border-radius: 5px;}
 .row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 0;background: url(/ilids/resources/images/bg_default1.jpg);}
 
 
+@media all and (max-width: 1040px) and (min-width: 1001px){
+    .from_to_bg{width: 56%;}
+    .input_11{margin-left: 30px;margin-top: 10px;}
+    .drop_down_bg{width:20%;}
+    .to_{margin-top: 15px!important;}
+}
+
 @media all and (max-width: 1000px) and (min-width: 768px){
     .from_to_bg{width: 100%;margin-bottom: 0px;margin-top: 15px;float: left;}
-    .drop_down_bg{width: 100%;}
-    .select_bg_11{float:left;width:45%;}
-    .from_to_bg{width: 100%;}
-    .select_bg_12{float:right!important;width:45%;}
+    .drop_down_bg,.drop_down_bg1{width: 100%;margin-right: 0px;}
+    .from_to_bg{width: 100%;padding-left: 0px;}
+    .select_bg_11{float:left;width:42%;}
+    .select_bg_12{float:left!important;width:42%;}
+    .form-group1,.form-group2{width:100%!important;float: left;margin-top: 10px;}
+    .proceed_bg{float: right;}
     .input_{margin-left: 0;}
-    .input_min_bg{margin-left: 0;}
+    .input_min_bg{margin-left: 5px;}
+    .row_date_bg{padding-right:15px;padding-left:15px;}
+}
+
+
+@media all and (max-width: 898px) and (min-width: 768px){
+    .select_bg_11{float:left;width:39%;}
+    .select_bg_12{float:left!important;width:35%;}
+    .proceed_bg{float: right;margin-top: 25px;}
+    .input_min_bg{margin-left: 0px;}
 }
 @media all and (max-width: 767px) and (min-width: 150px){
       .right_bg{float: left;width: 100%; margin-top: 50px;padding:15px 18px;margin-right: 0;}
       .graph_bg{width:100%;}
-      .drop_down_bg{width: 100%;}
-      .from_to_bg{width: 100%;margin-bottom: 0px;margin-top: 15px;float: left;}     
-      .select_bg_11{width:50%;}
-      .select_bg_12{float:right!important;width:50%;}
-      .input_{width:30%;font-size: 12px;}
+      .drop_down_bg,.drop_down_bg1{width: 100%;margin-right: 0;}
+      .form-group1,.form-group2{width:100%!important;float: left;margin-top: 10px;}
+      .proceed_bg{float: right;}
+      .row_date_bg{padding-right:15px;padding-left:15px;}
+      .from_to_bg{width: 100%;margin-bottom: 0px;margin-top: 15px;float: left;padding-left: 0px;}     
+      .select_bg_11{width:40%;}
+      .select_bg_12{float:left!important;width:40%;}
+      .input_{width:40%;font-size: 13px;}
+}
+
+@media all and (max-width: 700px) and (min-width: 501px){
+    .select_bg_11{float:left;width:38%;margin-right: 15px;}
+    .select_bg_12{float:left!important;width:35%;}
+    .proceed_bg{float: right;margin-top: 25px;}
+    .input_min_bg{margin-left: 0px;}
 }
 
 @media all and (max-width: 500px) and (min-width: 150px){
@@ -406,6 +439,7 @@ position: absolute;
     .input_min_bg{margin-left: 0;width:100%;}
     .min_bg{margin-left: 5px;width:auto;}
     .select_bg_11,.select_bg_12{width:100%;}
+    .proceed_bg{float: left;margin-top: 15px;}
 }
 
  </style> 
@@ -413,33 +447,11 @@ position: absolute;
         
    
  <div class="row row_date_bg" style="">
-          <div class="col-lg-3 drop_down_bg" style="">
-             <div class="form-group form-group1" style="">
-<!--                <label></label>-->
-                <select class="form-control form_new _" id="graphType" value="" onchange="selectFunction()">
-<!--                <option value="00" style="background: #fff;">Phase1 Voltage Vs Time</option>
-                    <option value="02">Phase2 Voltage Vs Time</option>
-                    <option value="04">Phase3 Voltage Vs Time</option>-->
-                    <option value="06">Phase1 Current Vs Time</option>
-                    <option value="08">Phase2 Current Vs Time</option>
-                    <option value="10">Phase3 Current Vs Time</option>
-                    <option value="12">Phase1 Power Vs Time</option>
-                    <option value="14">Phase2 Power Vs Time</option>
-                    <option value="16">Phase3 Power Vs Time</option>
-<!--                <option value="30">Phase1 Power Factor Vs Time</option>
-                    <option value="32">Phase2 Power Factor Vs Time</option>
-                    <option value="34">Phase3 Power Factor Vs Time</option>
-                    <option value="512">Cumulative Energy kVAh Vs Time</option>
-                    <option value="514">Cumulative Energy kWh Vs Time</option>-->
-                  
-                </select>
-             </div>
-           </div>
              
      <div class="col-lg-3 from_to_bg" style="">
                 <div class="select_bg_11" style="">
                     <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
-           <div class="input_min_bg">
+             <div class="input_min_bg" style="float: left;">
              <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" />      
              <div class="min_bg">
                  <select class="" id="from-hours" value="">
@@ -484,10 +496,10 @@ position: absolute;
 
          
                 <div class="select_bg_12">
-                  <label style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
+                    <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
                   
-                  <div  class="input_min_bg" >
-                    <input type="text" name="SelectedDate" class=" input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />                 
+                  <div  class="input_min_bg input_11" >
+                    <input type="text" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />                 
                     <div class="min_bg">
                             <select class="" id="to-hours" value="">
                                <option value="00">00</option>
@@ -529,26 +541,53 @@ position: absolute;
 
                   
                 </div>
-               <div class="" style="float:left;width:15%;"> 
+               <div class="proceed_bg" style=""> 
                     <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
                     
                 </div>
          
-         <div class="col-lg-3 drop_down_bg" style="">
-             <div class="form-group form-group1" style="">
-                <label>select Device </label>
-                     <form:form method="post" modelAttribute="deviceModel">
-                         
-                         <form:select multiple="single" id="deviceList" onchange="selectFunction()" path="id" >
-   <form:option value="00" label="Nothing Selected" />
-   <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
-</form:select>
-                         
+        </div>
+     
+     
+     
+     <div class="col-lg-3 drop_down_bg" style="padding: 0;float: left;">
+             <div class="form-group form-group1" style="float: left;">
+                
+                     <form:form method="post" modelAttribute="deviceModel">                         
+                        <form:select cssClass="form-control" multiple="single" id="deviceList" onchange="selectFunction()" path="id" >
+                            <form:option value="00" label="Nothing Selected" />
+                            <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
+                        </form:select>                        
                      <%--<form:select path="id" items="${deviceIdList}" itemLabel="name" itemValue="slaveId" multiple="false" id="deviceList" onchange="selectFunction()"/>--%>
                      </form:form>
              </div>
-           </div>
-        </div>
+     </div>
+     
+     
+     <div class="col-lg-3 drop_down_bg1" style="float: right;">
+             <div class="form-group form-group1 form-group2" style="">
+<!--                <label></label>-->
+                <select class="form-control form_new" id="graphType" value="" onchange="selectFunction()">
+<!--                <option value="00" style="background: #fff;">Phase1 Voltage Vs Time</option>
+                    <option value="02">Phase2 Voltage Vs Time</option>
+                    <option value="04">Phase3 Voltage Vs Time</option>-->
+                    <option value="06">Phase1 Current Vs Time</option>
+                    <option value="08">Phase2 Current Vs Time</option>
+                    <option value="10">Phase3 Current Vs Time</option>
+                    <option value="12">Phase1 Power Vs Time</option>
+                    <option value="14">Phase2 Power Vs Time</option>
+                    <option value="16">Phase3 Power Vs Time</option>
+<!--                <option value="30">Phase1 Power Factor Vs Time</option>
+                    <option value="32">Phase2 Power Factor Vs Time</option>
+                    <option value="34">Phase3 Power Factor Vs Time</option>
+                    <option value="512">Cumulative Energy kVAh Vs Time</option>
+                    <option value="514">Cumulative Energy kWh Vs Time</option>-->
+                  
+                 </select>
+             </div>
+      </div>
+     
+     
 </div> 
          
  <div class="row" style="margin-bottom: 0;">

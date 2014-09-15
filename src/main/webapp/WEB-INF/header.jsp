@@ -129,7 +129,7 @@
         <c:forEach var="menuIdList" items="${menuIdList}" >
            <c:if test="${menuIdList=='1'}">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_1.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
               <ul class="dropdown-menu">
                   <li><a href='<c:url value="/user"/>'>&nbsp;&nbsp;&nbsp; Users</a></li>
               <li><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
