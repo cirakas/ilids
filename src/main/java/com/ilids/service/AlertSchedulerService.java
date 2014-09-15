@@ -92,9 +92,7 @@ public class AlertSchedulerService {
 		    + "<br/><br/>Thanks,"
 		    + "<br/>iLids Admin.<br/><br/><br/><div style=\"width:100%;border-top:1px solid black;font-size:13px;\"><br/>This is a system generated mail. Please do not reply to this email ID.</div></body></html>";
 	           System.out.println("New Alert added====");
-            ServerConfig.pollData.getAlertList().add("iLids system has captured an alert on " + alertDate[2] + " for " + alertDate[5] + ". <br/><br/> The measured value is " + alertDate[1] + "."
-		    + "<br/> The ideal value should be less than  " + systemSettings.getMdv() + "."
-		    + "<br/><br/> Please follow up.");
+            ServerConfig.pollData.getAlertList().add(alertDate[2].toString());
             helper.setText(htmlMsg, true);
 	    helper.setSubject("-" + alertDate[5] +" at "+alertDate[2]);
 	    helper.setFrom("admin@ilids.com");

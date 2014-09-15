@@ -177,17 +177,20 @@
 <script language="JavaScript" src="${resources}ilids-template/js/notification.js" type="text/javascript"></script>                                                           
 <script>
    function generateNotification(content){   
+       if(content && content!=='undefined'){
        if(content!==null){
    if(Notification.permission !== 'granted'){
 		Notification.requestPermission();
 	}
 	n = new Notification( "Hello", {
 		body: content, 
+                style:'color:#F5A9A9;',
 		icon : "star.ico"
 	});
         	n.close();
             }
             }
+        }
   </script>                                                              
 
  <style>    
@@ -470,7 +473,7 @@ position: absolute;
              <div class="form-group form-group1" style="float: left;">               
                      <form:form method="post" modelAttribute="deviceModel">                         
                         <form:select cssClass="form-control" multiple="single" id="deviceList" onchange="selectFunction()" path="id" >
-                            <form:option value="00" label="Nothing Selected" />
+                            <form:option value="00" label="All devices" />
                             <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
                         </form:select>                        
                      <%--<form:select path="id" items="${deviceIdList}" itemLabel="name" itemValue="slaveId" multiple="false" id="deviceList" onchange="selectFunction()"/>--%>

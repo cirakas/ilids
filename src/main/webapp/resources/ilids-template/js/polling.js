@@ -62,9 +62,11 @@ function Poll() {
 		});
 		
 		function getUpdate(pollData) {
+                if(pollData.alertListValue && pollData.alertListValue!=='undefined'){
                     if(pollData.alertListValue!=='null'){
                           generateNotification(pollData.alertListValue);
                     }
+                }  
                   
                    
          phase1Value='<div id="phase1PowerFactor"><p class="announcement-text">Power factor Phase 1: '+ Number(pollData.phase1Value)+'</p></div>';
