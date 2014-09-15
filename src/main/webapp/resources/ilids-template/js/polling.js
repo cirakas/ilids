@@ -69,7 +69,7 @@ function Poll() {
                    
          phase1Value='<div id="phase1PowerFactor"><p class="announcement-text">Power factor Phase 1: '+ Number(pollData.phase1Value)+'</p></div>';
          phase2Value='<div id="phase2PowerFactor"><p class="announcement-text">Power factor Phase 2: '+ Number(pollData.phase2Value)+'</p></div>';
-         phase3Value='<div id="phase3PowerFactor"><p class="announcement-text">Power factor Phase 3:  '+ Number(pollData.phase3Value)+'</p></div>';
+         phase3Value='<div id="phase3PowerFactor"><p class="announcement-text">Power factor Phase 3: '+ Number(pollData.phase3Value)+'</p></div>';
          if(phase1Value){
           $(phase1Value).replaceAll('#phase1PowerFactor');
             $('#phase1PowerFactorPanel').removeClass('power-factor-success');

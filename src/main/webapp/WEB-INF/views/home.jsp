@@ -131,7 +131,6 @@
    
    function selectFunction()
    {
-       generatePopup();
     var graphType=document.getElementById("graphType").value;
     var deviceId=document.getElementById("deviceList").value;
     var fromDate=document.getElementById("SelectedDate").value;
@@ -464,8 +463,107 @@ position: absolute;
         
    
  <div class="row row_date_bg" style="">
-     
-     
+
+             
+     <div class="col-lg-3 from_to_bg" style="">
+                <div class="select_bg_11" style="">
+                    <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
+             <div class="input_min_bg" style="float: left;">
+             <input type="text" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this) ;" value="" />      
+             <div class="min_bg">
+                 <select class="" id="from-hours" value="">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                      <option value="02">02</option>
+                    <option value="03">03</option>
+                      <option value="04">04</option>
+                    <option value="05">05</option>
+                      <option value="06">06</option>
+                       <option value="07">07</option>
+                    <option value="08">08</option>
+                     <option value="09">09</option>
+                     <option value="10">10</option>
+                     <option value="11">11</option>
+                     <option value="12">12</option>
+                     <option value="13">13</option>
+                     <option value="14">14</option>
+                     <option value="15">15</option>
+                     <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                       <option value="20">20</option>
+                       <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                </select>
+                 <select class="" id="from-minutes" value="">
+                    <option value="00">00</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="59">59</option>
+                </select>
+          </div>
+       </div>
+   
+                </div>
+
+         
+                <div class="select_bg_12">
+                    <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
+                  
+                  <div  class="input_min_bg input_11" >
+                    <input type="text" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />                 
+                    <div class="min_bg">
+                            <select class="" id="to-hours" value="">
+                               <option value="00">00</option>
+                                <option value="01">01</option>
+                                 <option value="02">02</option>
+                               <option value="03">03</option>
+                                 <option value="04">04</option>
+                               <option value="05">05</option>
+                                 <option value="06">06</option>
+                                  <option value="07">07</option>
+                               <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                 <option value="15">15</option>
+                                <option value="16">16</option>
+                                 <option value="17">17</option>
+                                 <option value="18">18</option>
+                                 <option value="19">19</option>
+                                  <option value="20">20</option>
+                                  <option value="21">21</option>
+                                   <option value="22">22</option>
+                                   <option value="23">23</option>
+                           </select>
+                            <select class="" id="to-minutes" value=""  style="">
+                               <option value="00">00</option>
+                               <option value="10">10</option>
+                               <option value="20">20</option>
+                               <option value="30">30</option>
+                               <option value="40">40</option>
+                               <option value="50">50</option>
+                               <option value="59">59</option>
+                           </select>
+                    </div>
+                  </div>
+
+                  
+                </div>
+               <div class="proceed_bg" style=""> 
+                    <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction();"/>
+                    
+                </div>
+         
+        </div>
      
      <div class="col-lg-3 drop_down_bg" style="padding: 0;float: left;">
              <div class="form-group form-group1" style="float: left;">               
