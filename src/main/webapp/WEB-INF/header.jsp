@@ -83,12 +83,21 @@
     
 </style>
 
+
 <script type="text/javascript">
-    function latestAlertRequest(){
+    function PreviousData(start,end){
+        if(start>0)
+            latestAlertRequest(start,end);
+        
+    }
+</script>
+
+<script type="text/javascript">
+    function latestAlertRequest(start,end){
         var fromDateAlert=document.getElementById("SelectedDate").value;
         var toDateAlert=document.getElementById("SelectedDate1").value;
         var alertUrl = "dashboardupdate/alertList";
-       $.post(alertUrl,{'startDate':fromDateAlert, 'endDate':toDateAlert},function(data) {
+       $.post(alertUrl,{'startDate':fromDateAlert, 'endDate':toDateAlert, 'start':start,'end':end},function(data) {
             // $('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
                var theTable = "<tbody id=\"alertBody\">";
       for(var j=0;j<data.length;j++){
@@ -96,9 +105,18 @@
           theTable += '<tr style=""><td style="text-align:center;">Chiller</td><td style="text-align:center;">'+data[j][5]+'</td><td style="text-align:center;">'+data[j][1]+'</td><td style="text-align:center;">'+currentDates.getDate()+'/'+(currentDates.getMonth()+1)+'/'+currentDates.getFullYear()+' '+currentDates.getHours()+':'+currentDates.getMinutes()+':'+currentDates.getSeconds()+'</td>';
           theTable += '</tr>';
       }
-      theTable+="</tbody>";
+      var link ="<ul  id =\"linkId\" class=\"pager\"> <li><a href=\"#\" onclick=\"PreviousData("+Number(start-10)+","+Number(end)+")\">Previous</a></li> <li><a href=\"#\" onclick=\"NextData("+Number(start+10)+","+Number(end)+")\">Next</a></li></ul>";
+       $(link).replaceAll("#linkId");
+        theTable+="</tbody>";
         $(theTable).replaceAll("#alertBody");
+      
        });
+    }
+</script>
+
+<script type="text/javascript">
+    function NextData(start,end){
+        latestAlertRequest(start,end);
     }
 </script>
 
@@ -129,7 +147,7 @@
         <c:forEach var="menuIdList" items="${menuIdList}" >
            <c:if test="${menuIdList=='1'}">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_1.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
               <ul class="dropdown-menu">
                   <li><a href='<c:url value="/user"/>'>&nbsp;&nbsp;&nbsp; Users</a></li>
               <li><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
@@ -204,7 +222,7 @@
                 <li><a href="#">Warning <span class="label label-warning" style="margin-left: 4px;">Warning</span></a></li>
                 <li><a href="#">Danger <span class="label label-danger" style="margin-left: 10px;padding: 3px 9px;">Danger</span></a></li>
                 <li class="divider" style="margin-bottom: 0;"></li>
-                <li style=""><a class="view_all_bg" href="#" onclick="latestAlertRequest();" data-toggle="modal" data-target="#myAlertModal">View All</a></li>
+                <li style=""><a class="view_all_bg" href="#" onclick="latestAlertRequest(1,10);" data-toggle="modal" data-target="#myAlertModal">View All</a></li>
               </ul>
             </li>
             <li class="dropdown user-dropdown">
@@ -244,9 +262,9 @@
                 </thead><tbody id="alertBody"></tbody>
                 
               </table>
-                <ul class="pager">
-                <li><a href="#">Previous</a></li>
-                <li><a href="#">Next</a></li>
+                <ul  id ="linkId" class="pager">
+                    <li id="previousId"><a href="#" onclick="PreviousData(start,end)">Previous</a></li>
+                <li><a href="#" onclick="NextData(start,end)">Next</a></li>
                 </ul>
         </div>
     </div>

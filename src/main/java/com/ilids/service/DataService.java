@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ilids.domain.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -60,10 +61,11 @@ public class DataService {
 	return true;
     }
 
-    public List<Object[]> getAllAlertData(String startDate,String endDate,double mdv) throws ParseException {
+    public List<Object[]> getAllAlertData(String startDate,String endDate,double mdv,int start,int end) throws ParseException {
 	startDate = convertToDate(startDate);
 	endDate = convertToDate(endDate);
-	List<Object[]> alertDatas = dataRepository.getAllAlertData(startDate,endDate,mdv);
+        List<Object[]> alertDatas = new ArrayList<Object[]>();
+        alertDatas = dataRepository.getAllAlertData(startDate,endDate,mdv,start,end);
 	return alertDatas;
     }
 
