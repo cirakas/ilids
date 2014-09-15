@@ -406,7 +406,7 @@ position: absolute;
 .row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 15px;background: url(/ilids/resources/images/bg_default1.jpg);}
 
 
-@media all and (max-width: 1180px) and (min-width: 1001px){
+@media all and (max-width: 1187px) and (min-width: 1001px){
     .from_to_bg{width: 56%;}
     .input_11{margin-left: 30px;margin-top: 10px;}
     .drop_down_bg{width:20%;}
