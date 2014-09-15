@@ -57,11 +57,16 @@ function Poll() {
 		// This is jQuery 1.8+
 		// callback handler that will be called on success
 		request.done(function(pollData) {
-			getUpdate(pollData);
+       		getUpdate(pollData);
       
 		});
 		
 		function getUpdate(pollData) {
+                    if(pollData.alertListValue!=='null'){
+                          generateNotification(pollData.alertListValue);
+                    }
+                  
+                   
          phase1Value='<div id="phase1PowerFactor"><p class="announcement-text">Power factor Phase 1: '+ Number(pollData.phase1Value)+'</p></div>';
          phase2Value='<div id="phase2PowerFactor"><p class="announcement-text">Power factor Phase 2: '+ Number(pollData.phase2Value)+'</p></div>';
          phase3Value='<div id="phase3PowerFactor"><p class="announcement-text">Power factor Phase 3:  '+ Number(pollData.phase3Value)+'</p></div>';
@@ -111,4 +116,10 @@ function Poll() {
 			allow = true;
 		});
 	};	
+        
+    function printBr(element, index, array) {
+        generateNotification(element);
+};
+        
+        
 };
