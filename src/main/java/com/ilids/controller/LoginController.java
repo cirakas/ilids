@@ -59,12 +59,12 @@ public class LoginController {
         model.addAttribute("users", sessionRegistry.getAllPrincipals());
 	SystemSettings systemSettings=systemSettingsService.getAllSystemSettings().get(0);
         model.addAttribute("SystemSettings", systemSettings);
-	Data phase1PowerFactor=dataService.getLatestPowerFactorValues(30);
-	Data phase2PowerFactor=dataService.getLatestPowerFactorValues(32);
-	Data phase3PowerFactor=dataService.getLatestPowerFactorValues(34);
-	model.addAttribute("phase1PowerFactor", phase1PowerFactor.getData());
-	model.addAttribute("phase2PowerFactor", phase2PowerFactor.getData());
-	model.addAttribute("phase3PowerFactor", phase3PowerFactor.getData());
+//	Data phase1PowerFactor=dataService.getLatestPowerFactorValues(30);
+//	Data phase2PowerFactor=dataService.getLatestPowerFactorValues(32);
+//	Data phase3PowerFactor=dataService.getLatestPowerFactorValues(34);
+//	model.addAttribute("phase1PowerFactor", phase1PowerFactor.getData());
+//	model.addAttribute("phase2PowerFactor", phase2PowerFactor.getData());
+//	model.addAttribute("phase3PowerFactor", phase3PowerFactor.getData());
         return "home";
     }
      @RequestMapping(value = "/getDataFromDB", method = RequestMethod.GET)

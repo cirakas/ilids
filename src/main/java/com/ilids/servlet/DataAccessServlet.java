@@ -68,8 +68,12 @@ public class DataAccessServlet extends HttpServlet {
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         start=parseFormat.format(parsePattern.parse(start));
         end=parseFormat.format(parsePattern.parse(end));
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+" and device_id="+deviceId+";";
-	ResultSet rs = statement.executeQuery(selectQuery);
+        String deviceCondition="";
+        if(!deviceId.equals("00")){
+            deviceCondition=" and device_id="+deviceId;
+        }
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition;
+        ResultSet rs = statement.executeQuery(selectQuery);
 	PrintWriter out = response.getWriter();
         
 //           switch(addrMap){
