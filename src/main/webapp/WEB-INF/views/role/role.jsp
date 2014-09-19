@@ -5,6 +5,14 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <script type="text/javascript">
     function onClickAddRoles(){
+          var frm_elements = roleModel.elements;
+          var field_type="";
+          for (var i = 0; i < frm_elements.length; i++) {
+             field_type = frm_elements[i].type.toLowerCase();
+          if(field_type==='checkbox'){
+            frm_elements[i].checked = false;
+        }
+          }
           document.getElementById('myModalLabel').innerHTML = "Add Role";
           document.getElementById('btn-save').innerHTML = "Save";
           document.getElementById('name').value = "";
@@ -28,13 +36,28 @@
                 for(var i = 0; i < menuObjectList.length; i++) {
                      document.getElementById("menuvalues"+data.menuObjectList[i]).checked = true;
                 }
-           document.getElementById('roleModel').action="saveRole/"+data.id;      
+          document.getElementById('roleModel').action="saveRole/"+data.id;      
           document.getElementById('name').value = data.name;
           document.getElementById('description').value = data.description;
           document.getElementById('myModalLabel').innerHTML = "Edit Role";
           document.getElementById('btn-save').innerHTML = "Save Changes";
           });
       }
+      
+      function vaidateCheckbox(){
+          var frm_elements = roleModel.elements;
+          var field_type="";
+          var flag = false;
+          for (var i = 0; i < frm_elements.length; i++) {
+          field_type = frm_elements[i].type.toLowerCase();
+          if(field_type==='checkbox' && frm_elements[i].checked===true)
+                 flag= true;
+         }
+         if(!flag){
+         alert('Please select atleast one option');
+         return false;
+     }
+  }
 </script>
 <div class="row">
     <div class="col-lg-12">
@@ -57,7 +80,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Add Role</h4>
             </div>     <c:url value="/saveRole" var="url" />
-            <form:form action="${url}" method="post" modelAttribute="roleModel">
+            <form:form action="${url}" method="post" modelAttribute="roleModel" onsubmit="return vaidateCheckbox()">
                 <div class="modal-body">
                     <div class="form-group"><label> Role Name: </label><form:input path="name" class="form-control required name" placeholder="Role name" required="required"/></div>
                      <div class="form-group"><label> Description: </label><form:input path="description" class="form-control required name" placeholder="Description" required="required"/></div>
