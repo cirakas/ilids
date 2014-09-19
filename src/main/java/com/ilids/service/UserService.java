@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ilids.dao.UserRepository;
 import com.ilids.domain.Role;
 import com.ilids.domain.User;
+import java.text.ParseException;
 
 @Component
 @Transactional
@@ -95,6 +96,16 @@ public class UserService {
         persist(user);
         return true;
     }
+    
+     public boolean getAllUserMailData(String mailAd) throws ParseException {
+       List<Object[]> mailIdData=userRepository.getAllUserMailData(mailAd); 
+       boolean result=false;
+       int mailSize=mailIdData.size();
+        if(!mailIdData.isEmpty()){
+            result=true;
+        }
+        return result;
+    }   
 
     public User findById(Long userId) {
         User user = userRepository.findById(userId);

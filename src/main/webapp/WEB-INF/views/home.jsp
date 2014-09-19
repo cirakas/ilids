@@ -41,10 +41,10 @@
        phaseParam='06';
    }
    if(!fromDateParam){
-       fromDateParam=new Date().toLocaleDateString();
+       fromDateParam="7/20/2014"//new Date().toLocaleDateString();;
    }
    if(!toDateParam){
-       toDateParam=new Date().toLocaleDateString();
+       toDateParam="7/20/2014"//new Date().toLocaleDateString();
    }
     if(!fromHoursParam){
        fromHoursParam="00";
@@ -470,9 +470,9 @@ position: absolute;
      
      
      <div class="col-lg-3 drop_down_bg" style="padding: 0;float: left;">
-             <div class="form-group form-group1" style="float: left;">               
+             <div class="form-group form-group1" style="float: left;" >               
                      <form:form method="post" modelAttribute="deviceModel">                         
-                        <form:select cssClass="form-control" multiple="single" id="deviceList" onchange="selectFunction()" path="id" >
+                        <form:select cssClass="form-control" multiple="single" id="deviceList" onchange="selectFunction();" path="id" >
                             <form:option value="00" label="All devices" />
                             <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
                         </form:select>                        

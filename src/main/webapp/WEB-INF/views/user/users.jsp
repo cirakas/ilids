@@ -21,6 +21,7 @@ function ajaxLink(url, params, displayComponentId) {
 
         function onClickEdituser(val){
             ajaxLink('/ilids/editUser', {'id': val}, 'viewDiv');
+            document.getElementById("btn-save").disabled = true;
         }
         function onClickAdduser(){
                document.getElementById('userModel').action="saveUser/";
@@ -30,7 +31,50 @@ function ajaxLink(url, params, displayComponentId) {
                document.getElementById('email').value="";
                document.getElementById('username').value="";
                document.getElementById('password').value="";
+               document.getElementById("btn-save").disabled = true;
+               var div1=document.getElementById("duplicateUser");
+               div1.style.display = "none";
         }
+        
+        function checkEmail() {
+    var email = document.getElementById('email');
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var div = document.getElementById("errorPost");
+   // var but = document.getElementById("btn-save");
+   var div1 = document.getElementById("duplicateUser");
+    if (!filter.test(email.value)) {
+     div.style.display = "block";
+     document.getElementById("btn-save").disabled = true;
+ }
+     if (filter.test(email.value)) {
+         $.post('/ilids/duplicateUser', {'email': email.value}, function(data) {
+                      if(data){
+                      div1.style.display = "block";
+                      document.getElementById("btn-save").disabled = true;
+                    }
+                    if(!data){
+                      div1.style.display = "none";  
+                    }
+                  });
+                  
+        div.style.display = "none";
+        document.getElementById("btn-save").disabled = false;
+    }
+ 
+    email.focus;
+    return false;
+ 
+}
+
+function confirmDelete()
+    {
+      var x = confirm("Are you sure you want to remove this User?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
+
 </script>
 <div id="viewDiv">
         <div class="row">
@@ -65,7 +109,7 @@ function ajaxLink(url, params, displayComponentId) {
    <form:form action="${url}" method="post" modelAttribute="userModel">
      <div class="modal-body">
            <div class="form-group"><label> <spring:message code="label.name" />: </label><form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
-           <div class="form-group"> <label><spring:message code="label.email" />: </label><form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required"/></div>
+           <div class="form-group"> <label><spring:message code="label.email" />: </label><form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required" onblur="checkEmail();"/></div>
            <div class="form-group"><label>Role</label><form:select class="form-control" path="roleId" items="${roles}"  itemLabel="name" itemValue="id" multiple="false" /></div>
            <div class="form-group"><label> <spring:message code="label.userName" />: </label><form:input path="username" class="form-control required userame" placeholder="username" required="required"/></div>
            <div class="form-group" id="passwordfield"> <label><spring:message code="label.password" />:</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
@@ -73,8 +117,14 @@ function ajaxLink(url, params, displayComponentId) {
      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
-        <form:button class="btn btn-primary" id="btn-save"><spring:message code="label.save" /></form:button>
+        <form:button class="btn btn-primary" id="btn-save" style="disabled:true"><spring:message code="label.save" /></form:button>
       </div>
+  <div id="errorPost" style="display:none;">
+         <p>Please provide a valid email address</p>
+  </div>
+    <div id="duplicateUser" style="display:none;">
+    <p>User already exist</p>
+  </div>       
     </form:form>
     </div>
   </div>
@@ -105,7 +155,7 @@ function ajaxLink(url, params, displayComponentId) {
                                              <td><c:url var="deleteUrl" value="/deleteUser"/>
                                               <form method="post" action="${deleteUrl}">
                                                 <input type="hidden" value="${user.id}" name="userId" />
-                                                <button id="deleteUser" class="btn btn-primary btn-danger" ><spring:message code="label.delete" /></button>
+                                                <button id="deleteUser" class="btn btn-primary btn-danger" onclick="confirmDelete();" ><spring:message code="label.delete" /></button>
 						</form>
                                             </td>
                                 </tr>

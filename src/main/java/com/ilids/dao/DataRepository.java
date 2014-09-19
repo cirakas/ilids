@@ -22,8 +22,6 @@ public class DataRepository extends AbstractGenericDao<Data> {
     }
 
     public List<Object[]> getAllAlertData(String startDate, String endDate, double mdv,int start,int end) {
-        String selectAlertData = "SELECT d.id, d.data, d.time, d.address_map, am.param_name,  am.name, d.category FROM data d INNER JOIN address_map am on d.address_map=am.off_set where d.time > '" + startDate + " 00:00:01' and d.time < '" + endDate + " 23:59:59' and d.data>" + mdv + " and (d.address_map=12 or d.address_map=14 or d.address_map=16) ORDER BY d.time DESC LIMIT " +start+ "," +end+ "";
-	       System.out.println("----selectAlertData----"+selectAlertData);
         return (List<Object[]>) entityManager.createNativeQuery("SELECT d.id, d.data, d.time, d.address_map, am.param_name,  am.name, d.category FROM data d INNER JOIN address_map am on d.address_map=am.off_set where d.time > '" + startDate + " 00:00:01' and d.time < '" + endDate + " 23:59:59' and d.data>" + mdv + " and (d.address_map=12 or d.address_map=14 or d.address_map=16) ORDER BY d.time DESC LIMIT " +start+ "," +end+ "").getResultList();
     }
 

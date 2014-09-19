@@ -31,6 +31,14 @@
               document.getElementById('systemClock').value = data.systemClock;
           });
       }
+      function confirmDelete()
+    {
+      var x = confirm("Are you sure you want to remove this Settings?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
 </script>
 <div class="row">
     <div class="col-lg-12">
@@ -64,10 +72,10 @@
             <c:url value="/saveSystemSettings" var="url" />
             <form:form action="${url}" method="post" modelAttribute="SystemSettingsModel">
                 <div class="modal-body">
-                    <div class="form-group">MDV <form:input path="mdv" class="form-control required code" data-placement="top" placeholder="mdv"/></div>
-                    <div class="form-group">Rates Per Unit <form:input path="ratesPerUnit" class="form-control required code" data-placement="top" placeholder="ratesPerUnit"/></div>
-                    <div class="form-group">Time Zone <form:input path="timeZone" class="form-control required code" data-placement="top" placeholder="timeZone"/></div>
-                    <div class="form-group">System Clock <form:input path="systemClock" class="form-control required code" data-placement="top" placeholder="systemClock"/></div>
+                    <div class="form-group">MDV <form:input path="mdv" class="form-control required code" data-placement="top" placeholder="mdv" required = "required"/></div>
+                    <div class="form-group">Rates Per Unit <form:input path="ratesPerUnit" class="form-control required code" data-placement="top" placeholder="ratesPerUnit" required = "required"/></div>
+                    <div class="form-group">Time Zone <form:input path="timeZone" class="form-control required code" data-placement="top" placeholder="timeZone" required = "required"/></div>
+                    <div class="form-group">System Clock <form:input path="systemClock" class="form-control required code" data-placement="top" placeholder="systemClock" required = "required"/></div>
 
                 </div>
                 <div class="modal-footer">
@@ -109,7 +117,7 @@
                         <td><c:url var="deleteUrl" value="/deleteSystemsettings"/>
                             <form method="post" action="${deleteUrl}">
                                 <input type="hidden" value="${systemSettings.id}" name="systemSettingsId" /> 
-                                <button id="deleteSystemsettings" class="btn btn-primary btn-danger" >delete</button>
+                                <button id="deleteSystemsettings" class="btn btn-primary btn-danger" onclick="confirmDelete();" >delete</button>
                             </form>
                         </td>
                     </tr>

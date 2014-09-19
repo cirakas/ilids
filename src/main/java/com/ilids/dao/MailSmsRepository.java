@@ -7,6 +7,9 @@
 package com.ilids.dao;
 
 import com.ilids.domain.MailSms;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +18,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MailSmsRepository extends AbstractGenericDao<MailSms> {
+    
+    public List<Object[]> getAllMailData(String mailId) {
+       // Object[] getMailAdd = null;
+        //try{
+        String selectMailIdQuery = "select * from mail_sms where mail= '"+mailId+"'";
+        return (List<Object[]>) entityManager.createNativeQuery(selectMailIdQuery).getResultList();
+    }
+    
       public MailSmsRepository() {
         super(MailSms.class);
     }

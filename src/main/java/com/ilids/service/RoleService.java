@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ilids.dao.RoleRepository;
 import com.ilids.domain.Menu;
 import com.ilids.domain.Role;
+import java.text.ParseException;
 
 @Component
 @Transactional
@@ -113,6 +114,16 @@ public class RoleService {
     public List<Object> getAllMenuIds(String userName){
 	 return roleRepository.getAllMenuIds(userName);
     }
+    
+    public boolean getAllRoleNameData(String roleName) throws ParseException {
+       List<Object[]> roleNameData=roleRepository.getAllRoleNameData(roleName); 
+       boolean result=false;
+       int roleSize=roleNameData.size();
+        if(!roleNameData.isEmpty()){
+            result=true;
+        }
+        return result;
+    }  
     
     
 }

@@ -1,4 +1,15 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<script>
+    function confirmDelete()
+    {
+      var x = confirm("Are you sure you want to remove this Note?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
+</script>
 <div class="row">
      <div class="col-lg-12">
          <h1>Add note</h1><br>
@@ -41,7 +52,7 @@
                         <td><c:url var="deleteUrl" value="/note/delete" />
 						<form action="${deleteUrl}" method="post">
 							<input type="hidden" value="${note.id}" name="noteid"/>
-							<button type="submit" class="btn btn-danger">Remove</button>
+                                                        <button type="submit" class="btn btn-danger" onclick="confirmDelete();">Remove</button>
 						</form>
                         </td>
                     </tr>

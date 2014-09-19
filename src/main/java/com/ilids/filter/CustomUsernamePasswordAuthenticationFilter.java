@@ -11,7 +11,6 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        System.out.println("login attempt from:" + request.getRemoteAddr());
         Authentication authentication = super.attemptAuthentication(request, response);
         return authentication;
     }

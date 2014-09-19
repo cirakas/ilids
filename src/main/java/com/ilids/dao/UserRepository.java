@@ -17,6 +17,13 @@ public class UserRepository extends AbstractGenericDao<User> {
         return super.runCustomQuery(entityManager.createQuery("SELECT c FROM User c WHERE c.username != 'admin'", User.class));
     }
     
+     public List<Object[]> getAllUserMailData(String mailAd) {
+       // Object[] getMailAdd = null;
+        //try{
+        String selectMailQuery = "select * from user where email= '"+mailAd+"'";
+        return (List<Object[]>) entityManager.createNativeQuery(selectMailQuery).getResultList();
+    }
+    
     public boolean checkRoleUsed(Long roleId){
 	String countQuery="SELECT COUNT(u.id) FROM User u where u.role="+roleId;
 	Long count=null;
