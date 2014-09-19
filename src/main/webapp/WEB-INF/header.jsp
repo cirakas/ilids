@@ -263,8 +263,8 @@
                 
               </table>
                 <ul  id ="linkId" class="pager">
-                    <li id="previousId"><a href="#" onclick="PreviousData(start,end)">Previous</a></li>
-                <li><a href="#" onclick="NextData(start,end)">Next</a></li>
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">Next</a></li>
                 </ul>
         </div>
     </div>
