@@ -42,13 +42,11 @@ public class AlertController {
     
     @RequestMapping(value = "/alerts", method = RequestMethod.POST)
     public String create(@Valid Alerts alerts, BindingResult errors, Model model, RedirectAttributes flash) {
-	System.out.print("-----"+alerts.getPower());
 	return "redirect:/alerts";
     }
     
      @RequestMapping(value = "/deviceUrl", method = RequestMethod.POST)
     public String devices(@Valid Devices devices, BindingResult errors, Model model, RedirectAttributes flash) {
-	System.out.print("-----"+devices.getSlaveId());
 	return "redirect:/alerts";
     }
     

@@ -20,6 +20,7 @@ import com.ilids.domain.Role;
 import com.ilids.domain.User;
 import com.ilids.service.RoleService;
 import com.ilids.service.UserService;
+import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.codehaus.jackson.map.util.JSONPObject;
@@ -139,7 +140,6 @@ public class AdminController {
     
       @RequestMapping(value = "/saveUser/{id}", method = RequestMethod.POST)
     public String editUser(@PathVariable("id") String id,@Valid User user, BindingResult errors, Model model, RedirectAttributes flash) {
-        System.out.println("Inside the edit id id------"+id);
         long userid=Long.valueOf(id);
         user.setId(userid);
        if (errors.hasErrors()) {
@@ -156,7 +156,6 @@ public class AdminController {
     
 //     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
 //    public void editUser(Model model, HttpServletRequest request) {
-//	//System.out.println("Inside the editUser------");
 //	String userId=request.getParameter("userId");
 //	if(userId!=null)
 //	    currentUserId=Long.valueOf(userId);
@@ -176,6 +175,15 @@ public class AdminController {
 	user.setRoleId(String.valueOf(user.getRole().getId()));
         return user; 
 	}
+        
+@RequestMapping(value="/duplicateUser", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean duplicateUser(@RequestParam("email") String email) throws ParseException{
+        return userService.getAllUserMailData(email);
+        
+        
+        
+    }
         
         @RequestMapping(value = "/getData", method = RequestMethod.GET)
         public @ResponseBody  JSONPObject getData(Model model) {

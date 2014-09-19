@@ -17,7 +17,10 @@
           document.getElementById('btn-save').innerHTML = "Save";
           document.getElementById('name').value = "";
           document.getElementById('description').value = "";
-          document.getElementById('roleModel').action="saveRole/";   
+          document.getElementById('roleModel').action="saveRole/";
+          //document.getElementById("btn-save").disabled = true;
+          var div = document.getElementById("duplicateRole");
+          div.style.display = "none";
     }
     function onClickEditRoles(val){
         var frm_elements = roleModel.elements;
@@ -58,6 +61,29 @@
          return false;
      }
   }
+      function roleValidate(){
+          var div = document.getElementById("duplicateRole");
+          var name = document.getElementById('name');
+          $.post('/ilids/duplicateRole', {'name': name.value}, function(data) {
+                      if(data){
+                      div.style.display = "block";
+                      document.getElementById("btn-save").disabled = true;
+                    }
+                    if(!data){
+                      div.style.display = "none"; 
+                      document.getElementById("btn-save").disabled = false;
+                    }
+                  });
+      }
+      function confirmDelete()
+    {
+      var x = confirm("Are you sure you want to remove this Role?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
+      
 </script>
 <div class="row">
     <div class="col-lg-12">
@@ -82,7 +108,7 @@
             </div>     <c:url value="/saveRole" var="url" />
             <form:form action="${url}" method="post" modelAttribute="roleModel" onsubmit="return vaidateCheckbox()">
                 <div class="modal-body">
-                    <div class="form-group"><label> Role Name: </label><form:input path="name" class="form-control required name" placeholder="Role name" required="required"/></div>
+                    <div class="form-group"><label> Role Name: </label><form:input path="name" class="form-control required name" placeholder="Role name" required="required" onblur="roleValidate();"/></div>
                      <div class="form-group"><label> Description: </label><form:input path="description" class="form-control required name" placeholder="Description" required="required"/></div>
                     <label>Menu Items</label>
                      <div class="form-group">
@@ -92,7 +118,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                     <form:button class="btn btn-primary" id="btn-save">Save</form:button>
+                     <form:button class="btn btn-primary" id="btn-save" style="disabled:true">Save</form:button>
+                    </div>
+                    <div id="duplicateRole" style="display:none;">
+                    <p>Role already exist</p> 
                     </div>
             </form:form>
         </div>
@@ -110,6 +139,7 @@
                     <th>Delete <i class="fa fa-sort"></i></th>
                 </tr>
             </thead>
+           
             <tbody>
                 <c:forEach var="role" items="${roleList}">
                     <tr>
@@ -122,10 +152,11 @@
                         <td>
                             <form method="post" action='<c:url value="/deleteRole"/>'>
                                 <input type="hidden" value="${role.id}" name="roleId" />
-                                <button id="deleteRole" class="btn btn-primary btn-danger" >delete</button>
+                                <button id="deleteRole" class="btn btn-primary btn-danger" onclick="confirmDelete();" >delete</button>
                             </form>
                         </td>
                     </tr>
+                    </div> 
                 </c:forEach>       
             </tbody>
         </table>

@@ -23,6 +23,15 @@
           document.getElementById('name').value = "";
           document.getElementById('slaveId').value = "";
       }
+        function ConfirmDelete()
+    {
+      var x = confirm("Are you sure you want to remove this device?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
+      
 </script>
 <div class="row">
     <div class="col-lg-12">
@@ -91,7 +100,7 @@
                         <td>
                             <form method="post" action='<c:url value="/deleteDevice"/>'>
                                 <input type="hidden" value="${device.id}" name="deviceId" /> 
-                                <button id="deleteDevice" class="btn btn-primary btn-danger" >delete</button>
+                                <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="ConfirmDelete();">delete</button>
                             </form>
                         </td>
                     </tr>

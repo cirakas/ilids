@@ -39,14 +39,11 @@ public class DataController {
      @ModelAttribute("DataList")
     public JSONArray getDataList() {
         JSONArray dataList= dataService.getAllData();
-        System.out.println("datalist"+dataList);
-       
         return dataList;
     }
     
     @RequestMapping(value = "data", method = RequestMethod.GET)
     public String show() {
-        System.out.println("Inside the show");
         return "/home";
     }
     

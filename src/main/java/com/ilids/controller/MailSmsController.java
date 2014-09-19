@@ -8,6 +8,7 @@ package com.ilids.controller;
 
 import com.ilids.domain.MailSms;
 import com.ilids.service.MailSmsService;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class MailSmsController{
     }
 
     Long currentMailSmsId = 0l;
-
+    
     @RequestMapping(value = "mailsms", method = RequestMethod.GET)
     public String show() {
         return "/mailsms/mailsms";
@@ -68,6 +69,15 @@ public class MailSmsController{
         }
         mailSms = mailSmsService.findById(currentMailSmsId);
         return mailSms;
+    }
+    
+    @RequestMapping(value="/duplicateMailSms", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean duplicateMailSms(@RequestParam("mail") String mail) throws ParseException{
+        return mailSmsService.getAllMailData(mail);
+        
+        
+        
     }
 
     @RequestMapping(value = "/deleteMailSms", method = RequestMethod.POST)

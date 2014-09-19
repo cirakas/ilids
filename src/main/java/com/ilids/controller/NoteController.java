@@ -33,7 +33,6 @@ public class NoteController {
 
     @RequestMapping(value = "/note/add", method = RequestMethod.GET)
     public String show() {
-        System.out.println("Inside the show");
         return "/note/add";
     }
 
@@ -54,7 +53,7 @@ public class NoteController {
     }
        @RequestMapping(value = "/note/home", method = RequestMethod.GET)
     public String showHome() {
-        return "/home";
+        return "redirect:/home";
     }
 
 }

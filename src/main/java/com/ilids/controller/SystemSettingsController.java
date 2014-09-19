@@ -40,7 +40,6 @@ public class SystemSettingsController {
 
     @RequestMapping(value = "/systemsettings", method = RequestMethod.GET)
     public String show() {
-        System.out.println("Inside the show");
         return "/systemsettings/systemsettings";
     }
 
@@ -60,7 +59,6 @@ public class SystemSettingsController {
 
     //      List<ObjectError> errorList=errors.getAllErrors();    To Print the  errors
     //      for(ObjectError objError:errorList){
-    //          System.out.println("---------"+objError.getDefaultMessage());
     //      }
     @RequestMapping(value = "/saveSystemSettings/{id}", method = RequestMethod.POST)
     public String updateSystemsettings(@PathVariable("id") String id, @Valid SystemSettings systemSettings, BindingResult errors, Model model, RedirectAttributes flash) {

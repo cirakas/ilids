@@ -8,6 +8,7 @@ package com.ilids.controller;
 import com.ilids.domain.Menu;
 import com.ilids.domain.Role;
 import com.ilids.service.RoleService;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,6 +88,15 @@ public class RoleController {
 	    flash.addFlashAttribute("deleteMessage","Can't delete the role. Role is used for a user."); 
 	}
 	return "redirect:/role";
+    }
+    
+    @RequestMapping(value="/duplicateRole", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean duplicateRole(@RequestParam("name") String name) throws ParseException{
+        return roleService.getAllRoleNameData(name);
+        
+        
+        
     }
 
 }

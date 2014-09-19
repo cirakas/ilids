@@ -31,6 +31,14 @@
               document.getElementById('systemClock').value = data.systemClock;
           });
       }
+      function confirmDelete()
+    {
+      var x = confirm("Are you sure you want to remove this Settings?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
 </script>
 <div class="row">
     <div class="col-lg-12">
@@ -109,7 +117,7 @@
                         <td><c:url var="deleteUrl" value="/deleteSystemsettings"/>
                             <form method="post" action="${deleteUrl}">
                                 <input type="hidden" value="${systemSettings.id}" name="systemSettingsId" /> 
-                                <button id="deleteSystemsettings" class="btn btn-primary btn-danger" >delete</button>
+                                <button id="deleteSystemsettings" class="btn btn-primary btn-danger" onclick="confirmDelete();" >delete</button>
                             </form>
                         </td>
                     </tr>

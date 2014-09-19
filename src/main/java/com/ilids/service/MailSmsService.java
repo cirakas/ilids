@@ -8,6 +8,7 @@ package com.ilids.service;
 
 import com.ilids.dao.MailSmsRepository;
 import com.ilids.domain.MailSms;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,13 +44,21 @@ public class MailSmsService {
         mailSmsRepository.delete(mailSms);
         return mailSms;
     }
-    
+    public boolean getAllMailData(String mailId) throws ParseException {
+       List<Object[]> mailData=mailSmsRepository.getAllMailData(mailId); 
+       boolean result=false;
+       int size=mailData.size();
+        if(!mailData.isEmpty()){
+            result=true;
+        }
+        return result;
+    }   
     public void saveMailSms(MailSms mailSms){
 	mailSmsRepository.persist(mailSms);
     }
     
      public void updateMailSms(MailSms mailSms){
 	mailSmsRepository.merge(mailSms);
-    }
+        }
 
-}
+    }

@@ -27,4 +27,11 @@ public class RoleRepository extends AbstractGenericDao<Role> {
 	return menuSelectedList;
     }
     
+    public List<Object[]> getAllRoleNameData(String roleName) {
+       // Object[] getMailAdd = null;
+        //try{
+        String selectRoleQuery = "select * from role where name= '"+roleName+"'";
+        return (List<Object[]>) entityManager.createNativeQuery(selectRoleQuery).getResultList();
+    }
+    
 }

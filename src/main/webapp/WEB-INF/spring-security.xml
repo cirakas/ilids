@@ -21,6 +21,8 @@
 			access="permitAll" />
                 <security:intercept-url pattern="/login"
 			access="permitAll" />
+                <security:intercept-url pattern="/accessdenied" 
+                        access="permitAll"/>
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/**"
@@ -57,7 +59,7 @@
 
 	<bean id="customAuthenticationFailureHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"
-		p:defaultFailureUrl="/denied" />
+		p:defaultFailureUrl="/accessdenied" />
 
 	<bean id="authenticationFilter"
 		class="com.ilids.filter.CustomUsernamePasswordAuthenticationFilter"
