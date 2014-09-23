@@ -229,11 +229,6 @@ data.forEach(function(d) {
       .attr("x1", main_width - 1) 
       .attr("x2", main_width + 1); 
 
-  // Anzeige auf der rechten Leiste
-  focus.append("line")
-      .attr("class", "y1")
-      .attr("x1", main_width - 5)
-      .attr("x2", main_width + 5);
 
   focus.append("circle")
       .attr("class", "y0")

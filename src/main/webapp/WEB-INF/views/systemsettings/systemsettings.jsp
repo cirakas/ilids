@@ -5,51 +5,58 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <script type="text/javascript">
 
-      function onClickEditsystemsettings(val) {
-          ajaxLink('/ilids/editSystemsettings', {'id': val}, 'viewDiv');
-      }
-      function onClickAddsystemsettings() {
-          document.getElementById('SystemSettingsModel').action = "saveSystemSettings/"
-          document.getElementById('myModalLabel').innerHTML = "Add SystemSettings";
-          document.getElementById('btn-save').innerHTML = "Save";
-          document.getElementById('mdv').value = "";
-          document.getElementById('ratesPerUnit').value = "";
-          document.getElementById('timeZone').value = "";
-          document.getElementById('systemClock').value = "";
+    function onClickEditsystemsettings(val) {
+        ajaxLink('/ilids/editSystemsettings', {'id': val}, 'viewDiv');
+    }
+    function onClickAddsystemsettings() {
+        document.getElementById('SystemSettingsModel').action = "saveSystemSettings/"
+        document.getElementById('myModalLabel').innerHTML = "Add SystemSettings";
+        document.getElementById('btn-save').innerHTML = "Save";
+        document.getElementById('mdv').value = "";
+        document.getElementById('ratesPerUnit').value = "";
+        document.getElementById('timeZone').value = "";
+        document.getElementById('systemClock').value = "";
 
-      }
+    }
 
-      function ajaxLink(url, params, displayComponentId) {
-          $.post(url, params, function(data) {
+    function ajaxLink(url, params, displayComponentId) {
+        $.post(url, params, function(data) {
 
-              document.getElementById('SystemSettingsModel').action = "saveSystemSettings/" + data.id;
-              document.getElementById('myModalLabel').innerHTML = "Edit SystemSettings";
-              document.getElementById('btn-save').innerHTML = "Save changes";
-              document.getElementById('mdv').value = data.mdv;
-              document.getElementById('ratesPerUnit').value = data.ratesPerUnit;
-              document.getElementById('timeZone').value = data.timeZone;
-              document.getElementById('systemClock').value = data.systemClock;
-          });
-      }
-      function confirmDelete()
+            document.getElementById('SystemSettingsModel').action = "saveSystemSettings/" + data.id;
+            document.getElementById('myModalLabel').innerHTML = "Edit SystemSettings";
+            document.getElementById('btn-save').innerHTML = "Save changes";
+            document.getElementById('mdv').value = data.mdv;
+            document.getElementById('ratesPerUnit').value = data.ratesPerUnit;
+            document.getElementById('timeZone').value = data.timeZone;
+            document.getElementById('systemClock').value = data.systemClock;
+        });
+    }
+    function confirmDelete()
     {
-      var x = confirm("Are you sure you want to remove this Settings?");
-      if (x)
-          return true;
-      else
-        return false;
+        var x = confirm("Are you sure you want to remove this Settings?");
+        if (x)
+            return true;
+        else
+            return false;
+    }
+//empty field check
+    function fieldCheck() {
+        var mdv = document.getElementById('mdv');
+        var rates = document.getElementById('ratesPerUnit');
+        var time = document.getElementById('timeZone');
+        var systemClock = document.getElementById('systemClock');
+        if (mdv.value && rates.value && time.value && systemClock.value) {
+            return true;
+        }
+        else {
+            alert("All the fields are Mandatory");
+            return false;
+        }
     }
 </script>
 <div class="row">
     <div class="col-lg-12">
         <h1>SystemSettings Management</h1>
-        <!--            <ol class="breadcrumb">
-                      <li class="active"><i class="fa fa-dashboard"></i> Users</li>
-                    </ol>-->
-        <!--            <div class="alert alert-success alert-dismissable">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Welcome to ILIDS
-                    </div>-->
     </div>
 </div><!-- /.row -->
 
@@ -70,7 +77,7 @@
                 <h4 class="modal-title" id="myModalLabel">Add SystemSettings</h4>
             </div>
             <c:url value="/saveSystemSettings" var="url" />
-            <form:form action="${url}" method="post" modelAttribute="SystemSettingsModel">
+            <form:form action="${url}" method="post" modelAttribute="SystemSettingsModel" onsubmit="return fieldCheck();">
                 <div class="modal-body">
                     <div class="form-group">MDV <form:input path="mdv" class="form-control required code" data-placement="top" placeholder="mdv" required="required"/></div>
                     <div class="form-group">Rates Per Unit <form:input path="ratesPerUnit" class="form-control required code" data-placement="top" placeholder="ratesPerUnit" required="required"/></div>
@@ -80,7 +87,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <form:button class="btn btn-primary" id="btn-save">Save changes</form:button>
+                    <form:button class="btn btn-primary" id="btn-save" disabled="false">Save changes</form:button>
                     </div>
             </form:form>
         </div>
