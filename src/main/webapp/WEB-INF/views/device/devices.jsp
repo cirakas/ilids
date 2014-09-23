@@ -4,45 +4,50 @@
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <script type="text/javascript">
-      function onClickEditDevices(val) {
-          ajaxLink('/ilids/editDevices', {'id': val}, 'viewDiv');
-      }
-      function ajaxLink(url, params, displayComponentId) {
-          $.post(url, params, function(data) {
-              document.getElementById('deviceModel').action = "saveDevice/" + data.id;
-              document.getElementById('myModalLabel').innerHTML = "Edit Device";
-              document.getElementById('btn-save').innerHTML = "Save Changes";
-              document.getElementById('name').value = data.name;
-              document.getElementById('slaveId').value = data.slaveId;
-          });
-      }
-      function onClickAddDevices() {
-          document.getElementById('deviceModel').action = "saveDevice/";
-          document.getElementById('myModalLabel').innerHTML = "Add Device";
-          document.getElementById('btn-save').innerHTML = "Save";
-          document.getElementById('name').value = "";
-          document.getElementById('slaveId').value = "";
-      }
-        function ConfirmDelete()
-    {
-      var x = confirm("Are you sure you want to remove this device?");
-      if (x)
-          return true;
-      else
-        return false;
+    function onClickEditDevices(val) {
+        ajaxLink('/ilids/editDevices', {'id': val}, 'viewDiv');
     }
-      
+    function ajaxLink(url, params, displayComponentId) {
+        $.post(url, params, function(data) {
+            document.getElementById('deviceModel').action = "saveDevice/" + data.id;
+            document.getElementById('myModalLabel').innerHTML = "Edit Device";
+            document.getElementById('btn-save').innerHTML = "Save Changes";
+            document.getElementById('name').value = data.name;
+            document.getElementById('slaveId').value = data.slaveId;
+        });
+    }
+    function onClickAddDevices() {
+        document.getElementById('deviceModel').action = "saveDevice/";
+        document.getElementById('myModalLabel').innerHTML = "Add Device";
+        document.getElementById('btn-save').innerHTML = "Save";
+        document.getElementById('name').value = "";
+        document.getElementById('slaveId').value = "";
+    }
+    function ConfirmDelete()
+    {
+        var x = confirm("Are you sure you want to remove this device?");
+        if (x)
+            return true;
+        else
+            return false;
+    }
+//empty field check
+    function fieldCheck() {
+        var deviceName = document.getElementById('name');
+        var deviceId = document.getElementById('slaveId');
+        if (deviceName.value && deviceId.value) {
+            return true;
+        }
+        else {
+            alert("Both the fields are Mandatory");
+            return false;
+        }
+    }
+
 </script>
 <div class="row">
     <div class="col-lg-12">
         <h1>Device Management</h1>
-        <!--            <ol class="breadcrumb">
-                      <li class="active"><i class="fa fa-dashboard"></i> Users</li>
-                    </ol>-->
-        <!--            <div class="alert alert-success alert-dismissable">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Welcome to ILIDS
-                    </div>-->
     </div>
 </div><!-- /.row -->
 
@@ -63,7 +68,7 @@
                 <h4 class="modal-title" id="myModalLabel">Add Device</h4>
             </div>
             <c:url value="/saveDevice" var="url" />
-            <form:form action="${url}" method="post" modelAttribute="deviceModel">
+            <form:form action="${url}" method="post" modelAttribute="deviceModel" onsubmit="return fieldCheck();">
                 <div class="modal-body">
                     <div class="form-group"><label> Device Name: </label><form:input path="name" class="form-control required name" placeholder="Device name" required="required"/></div>
                     <div class="form-group"><label> Slave Id: </label><form:input path="slaveId" class="form-control required name" placeholder="Slave Id" required="required"/></div>  

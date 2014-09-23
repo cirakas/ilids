@@ -91,7 +91,7 @@ public class LoginController {
      @RequestMapping(value = "/accessdenied", method = RequestMethod.GET)
     public String loginerror(ModelMap model,RedirectAttributes flash) {
         model.addAttribute("error", "true");
-        flash.addFlashAttribute("ErrorMessage","User does not exist!");
+        flash.addFlashAttribute("ErrorMessage","User name or Password incorrect!");
         return "redirect:/login";
     }
 

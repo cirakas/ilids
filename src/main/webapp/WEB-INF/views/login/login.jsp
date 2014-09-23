@@ -184,7 +184,7 @@ input[type=submit]:active {
       <h1>Login to iLids</h1>
       
         <form action="<c:url value='j_spring_security_check' />" method="post" class="" role="form">
-                      <div class="col-lg-6"><div style="color: tomato;">${ErrorMessage}</div></div>    
+                      <div class="col-lg-8"><div style="color: tomato;">${ErrorMessage}</div></div>    
                   <p><input type="text"  id="userName" placeholder="User name" name="j_username" required style="width:98%;margin-top: 10px;"></p>               
                   <p><input type="password"  id="password" placeholder="Password"  name="j_password" required style="width:98%;"></p>
                   <button type="submit" class="btn btn_1" style="float: right;">Sign in</button>
