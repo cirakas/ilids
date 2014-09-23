@@ -139,6 +139,8 @@ function confirmDelete()
                     <th><spring:message code="label.userName" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.email" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.enable" /> <i class="fa fa-sort"></i></th>
+                    <th><spring:message code="label.edit" /> <i class="fa fa-sort"></i></th>
+                    <th><spring:message code="label.delete" /> <i class="fa fa-sort"></i></th>
                   </tr>
                 </thead>
                 <tbody>

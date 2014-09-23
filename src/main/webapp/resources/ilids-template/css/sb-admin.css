@@ -146,7 +146,7 @@ table.tablesorter thead tr th:hover {
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
 	color: #fff;
 /*	background-color: #080808;*/
-        background: url(/ilids/resources/images/menu_bg1.png);
+        background: url(/ilids/resources/images/menu_bg2.png);
   }
  
   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active .active_arrow,
@@ -159,7 +159,7 @@ table.tablesorter thead tr th:hover {
   .navbar-inverse .navbar-nav>li>a:hover,
   .navbar-inverse .navbar-nav>li>a:focus {
 /*	background-color: #080808;*/
-        background: url(/ilids/resources/images/menu_bg1.png);
+        background: url(/ilids/resources/images/menu_bg2.png);
   }
   .navbar-inverse .navbar-nav>li>a .active .active_arrow,
   .navbar-inverse .navbar-nav>li>a:focus .active_arrow{display: block;}
@@ -224,7 +224,7 @@ select option{background: #fff;color: #535454;}
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
 	color: #fff;
 /*	background-color: #080808;*/
-        background: url(/ilids/resources/images/menu_bg1.png);
+        background: url(/ilids/resources/images/menu_bg2.png);
   }
   
 
@@ -235,13 +235,17 @@ select option{background: #fff;color: #535454;}
   
   
   .navbar-inverse .navbar-nav>.active>a,
-  .navbar-inverse .navbar-nav>.active>a:hover.navbar-inverse .navbar-nav>.active>a:focus{color:#fff;background: url(/ilids/resources/images/menu_bg1.png);}
+  .navbar-inverse .navbar-nav>.active>a:hover.navbar-inverse .navbar-nav>.active>a:focus{color:#fff;background: url(/ilids/resources/images/menu_bg2.png);}
   .navbar-inverse .navbar-nav>.active>a .active_arrow,
   .navbar-inverse .navbar-nav>.active>a:focus.navbar-inverse .navbar-nav>.disabled>a .active_arrow,
   .navbar-inverse .navbar-nav>.disabled>a:focus .active_arrow{display:block!important;}
   
   
+  .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{background: url(/ilids/resources/images/menu_bg2.png);}
   
+  .navbar-inverse .navbar-nav > .open > a{background: url(/ilids/resources/images/menu_bg2.png);}
+  .navbar-inverse .navbar-nav > .open > a .active_arrow{display:block!important;}
   
+   .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{background: url(/ilids/resources/images/menu_bg2.png);}
   
   

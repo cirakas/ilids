@@ -38,9 +38,9 @@
         padding-top: 8px!important;padding-bottom: 8px!important;border-radius: 0 0 2px 2px;
     }
     .view_all_bg:hover{
-        background: url(/ilids/resources/images/menu_bg1.png);
+        background: url(/ilids/resources/images/menu_bg2.png)!important;
         color: #fff!important;
-        border: 1px solid #02a0d4;
+        border: 1px solid #374153;
     }
     .badge_1{background: #999;}
     .view_all_bg:hover .badge_1{background: #febb00;}
