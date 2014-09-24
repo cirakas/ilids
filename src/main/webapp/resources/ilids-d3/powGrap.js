@@ -15,6 +15,9 @@ d3.json(servlet, function (data) {
         main_width = mwidth - main_margin.left - main_margin.right,
         main_height = 400 - main_margin.top - main_margin.bottom,
         mini_height = 400 - mini_margin.top - mini_margin.bottom;
+        
+  var width = $("#powGraph").width(),
+    aspect = 400 / 800;
 
     var formatDate = d3.time.format("%H:%M:%S"),
 
@@ -70,8 +73,17 @@ var mini_line0 = d3.svg.line()
     .y1(function(d) { return mini_y0(d.currents); }); 
 
 var svg = d3.select("#powGraph").append("svg")
+    .attr("preserveAspectRatio", "xMidYMid")
+    .attr("viewBox", "0 0 800 400")
+    .attr("width", width)
+    .attr("height", width * aspect);
     
-    .attr("viewBox", "0 0 800 400");
+    
+    $(window).resize(function() {
+  var width = $("#powGraph").width();
+  svg.attr("width", width);
+  svg.attr("height", width * aspect);
+});
     
 
 var brush = d3.svg.brush()

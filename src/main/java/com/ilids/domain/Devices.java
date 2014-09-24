@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ilids.domain;
 
 import java.io.Serializable;
@@ -13,19 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author cirakaspvt
- */
 @Entity
 @Table(name = "devices")
 @NamedQueries({
@@ -52,6 +45,14 @@ public class Devices implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.DATE)
     private Date createdDate;
+
+    @Transient
+    private String deviceZoneId;
+
+//join columns
+    @JoinColumn(name = "device_zone", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private DeviceZone deviceZone;
 
     public Devices() {
     }
@@ -95,6 +96,22 @@ public class Devices implements Serializable {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getDeviceZoneId() {
+        return deviceZoneId;
+    }
+
+    public void setDeviceZoneId(String deviceZoneId) {
+        this.deviceZoneId = deviceZoneId;
+    }
+
+    public DeviceZone getDeviceZone() {
+        return deviceZone;
+    }
+
+    public void setDeviceZone(DeviceZone deviceZone) {
+        this.deviceZone = deviceZone;
     }
 
     @Override
