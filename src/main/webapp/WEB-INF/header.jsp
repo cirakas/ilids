@@ -6,7 +6,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
+    <meta http-equiv="cache-control" CONTENT="public"/>
+    <meta http-equiv="cache-control" content="max-age=604800" />
+    <!--<meta http-equiv="expires" content="0" />-->
+    <meta http-equiv="expires" content="Mon, 01 Jan 2015 2:00:00 GMT">  
+    <meta http-equiv="Pragma" content="no-cache"/>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +20,8 @@
 
     <!-- Bootstrap core CSS -->
 <!--    <link href="${resources}ilids-template/css/bootstrap.min.css" rel="stylesheet">-->
-      <link href="${resources}ilids-template/css/bootstrap.css" rel="stylesheet">
+    <link href="${resources}ilids-template/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href="${resources}ilids-template/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     
     <!-- Add custom CSS here -->
