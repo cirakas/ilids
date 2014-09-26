@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta http-equiv="cache-control" CONTENT="public"/>
+        <meta http-equiv="cache-control" content="max-age=604800" />
+        <!--<meta http-equiv="expires" content="0" />-->
+        <meta http-equiv="expires" content="Mon, 01 Jan 2015 2:00:00 GMT">  
+        <meta http-equiv="Pragma" content="no-cache"/>
         <meta charset="utf-8">
         <title>ILIDS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

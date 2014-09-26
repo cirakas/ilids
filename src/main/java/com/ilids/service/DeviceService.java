@@ -1,25 +1,22 @@
 package com.ilids.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.ilids.dao.DeviceRepository;
+import com.ilids.domain.DeviceZone;
 import com.ilids.domain.Devices;
 import java.util.Date;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Component
 @Transactional
 public class DeviceService {
 
     @Autowired
-    private UserService userService;
-    @Autowired
     private DeviceRepository deviceRepository;
+    @Autowired
+    private DeviceZoneService deviceZoneService;
 
     public List<Devices> getAllDevice() {
         return deviceRepository.getAll();
@@ -51,15 +48,19 @@ public class DeviceService {
 //        return true;
 //    }
     public boolean addDevice(Devices device) {
+        Long zoneId = Long.valueOf(device.getDeviceZoneId());
+        DeviceZone devicezone = deviceZoneService.findById(zoneId);
+        device.setDeviceZone(devicezone);
         device.setCreatedDate(new Date());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         deviceRepository.persist(device);
         return true;
     }
 
     public boolean updateDevice(Devices device) {
+        Long zoneId = Long.valueOf(device.getDeviceZoneId());
+        DeviceZone devicezone = deviceZoneService.findById(zoneId);
+        device.setDeviceZone(devicezone);
         device.setCreatedDate(new Date());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         deviceRepository.merge(device);
         return true;
     }

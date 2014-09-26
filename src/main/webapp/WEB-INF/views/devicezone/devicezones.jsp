@@ -3,33 +3,32 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
 <script type="text/javascript">
-//Edit devices    
-    function onClickEditDevices(val) {
-        ajaxLink('/ilids/editDevices', {'id': val}, 'viewDiv');
-    }
-    function ajaxLink(url, params, displayComponentId) {
-        $.post(url, params, function(data) {
-            document.getElementById('deviceModel').action = "saveDevice/" + data.id;
-            document.getElementById('myModalLabel').innerHTML = "Edit Device";
-            document.getElementById('btn-save').innerHTML = "Save Changes";
-            document.getElementById('name').value = data.name;
-            document.getElementById('slaveId').value = data.slaveId;
-            document.getElementById('deviceZoneId').value = data.deviceZoneId;
-        });
-    }
-//Add devices
-    function onClickAddDevices() {
-        document.getElementById('deviceModel').action = "saveDevice/";
-        document.getElementById('myModalLabel').innerHTML = "Add Device";
+//Add device zone
+    function onClickAddDeviceZone() {
+        document.getElementById('deviceZoneModel').action = "saveDeviceZone/";
+        document.getElementById('myModalLabel').innerHTML = "Add Device Zone";
         document.getElementById('btn-save').innerHTML = "Save";
         document.getElementById('name').value = "";
-        document.getElementById('slaveId').value = "";
-        document.getElementById('deviceZoneId').value = "";
+        document.getElementById('description').value = "";
     }
 
-//Confirm delete
+//Edit device zone
+    function onClickEditDeviceZone(val) {
+        ajaxLink('/ilids/editDeviceZone', {'id': val}, 'viewDiv');
+    }
+//ajax function    
+    function ajaxLink(url, params) {
+        $.post(url, params, function(data) {
+            document.getElementById('deviceZoneModel').action = "saveDeviceZone/" + data.id;
+            document.getElementById('myModalLabel').innerHTML = "Edit Device Zone";
+            document.getElementById('btn-save').innerHTML = "Save Changes";
+            document.getElementById('name').value = data.name;
+            document.getElementById('description').value = data.description;
+        });
+    }
+
+//Function to confirm deletion
     function ConfirmDelete()
     {
         var x = confirm("Are you sure you want to remove this device?");
@@ -38,7 +37,8 @@
         else
             return false;
     }
-//empty field check
+
+//function to check empty field
     function fieldCheck() {
         var deviceName = document.getElementById('name');
         var deviceId = document.getElementById('slaveId');
@@ -54,13 +54,13 @@
 </script>
 <div class="row">
     <div class="col-lg-12">
-        <h1><spring:message code="label.deviceManagement" /></h1>
+        <h1><spring:message code="label.zoneManagement" /></h1>
     </div>
 </div><!-- /.row -->
 
 <!-- Button trigger modal -->
 <div class="row">
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddDevices()">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddDeviceZone()">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
 </div>
@@ -72,14 +72,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.addDevice" /></h4>
+                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.addTitle" /></h4>
             </div>
-            <c:url value="/saveDevice" var="url" />
-            <form:form action="${url}" method="post" modelAttribute="deviceModel" onsubmit="return fieldCheck();">
+            <c:url value="/saveDeviceZone" var="url" />
+            <form:form action="${url}" method="post" modelAttribute="deviceZoneModel" onsubmit="return fieldCheck();">
                 <div class="modal-body">
-                    <div class="form-group"><label><spring:message code="label.deviceName" /></label><form:input path="name" class="form-control required name" placeholder="Device name" required="required"/></div>
-                    <div class="form-group"><label><spring:message code="label.deviceId" /></label><form:input path="slaveId" class="form-control required name" placeholder="Slave Id" required="required"/></div>
-                    <div class="form-group"><label><spring:message code="label.zone" /></label><form:select class="form-control" path="deviceZoneId" items="${deviceZones}" itemLabel="name" itemValue="id" multiple="false" /></div>
+                    <div class="form-group"><label> <spring:message code="label.zoneName" /> </label><form:input path="name" class="form-control required name" placeholder="Device Zone name" required="required"/></div>
+                    <div class="form-group"><label> <spring:message code="label.zoneDescription" /> </label><form:input path="description" class="form-control required name" placeholder="Description" required="required"/></div>  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
@@ -95,26 +94,24 @@
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
                 <tr>
-                    <th><spring:message code="label.name" /> <i class="fa fa-sort"></i></th>
-                    <th><spring:message code="label.deviceId" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.zoneName" /> <i class="fa fa-sort"></i></th>
+                    <th><spring:message code="label.zoneDescription" /><i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.edit" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.delete" /> <i class="fa fa-sort"></i></th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="device" items="${deviceList}">
+                <c:forEach var="deviceZone" items="${deviceZoneList}">
                     <tr>
-                        <td>${device.name}</td>
-                        <td>${device.slaveId}</td>
-                        <td>${device.deviceZone.name}</td>
+                        <td>${deviceZone.name}</td>
+                        <td>${deviceZone.description}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" onclick="onClickEditDevices(${device.id})">
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" onclick="onClickEditDeviceZone(${deviceZone.id})">
                                 <spring:message code="label.edit" />
                             </button></td>
                         <td>
-                            <form method="post" action='<c:url value="/deleteDevice"/>'>
-                                <input type="hidden" value="${device.id}" name="deviceId" /> 
+                            <form method="post" action='<c:url value="/deleteDeviceZone"/>'>
+                                <input type="hidden" value="${deviceZone.id}" name="deviceZoneId" /> 
                                 <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="ConfirmDelete();"><spring:message code="label.delete" /></button>
                             </form>
                         </td>
@@ -124,4 +121,3 @@
         </table>
     </div>
 </div><!-- /.row -->
-

@@ -6,7 +6,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
+    <meta http-equiv="cache-control" CONTENT="public"/>
+    <meta http-equiv="cache-control" content="max-age=604800" />
+    <!--<meta http-equiv="expires" content="0" />-->
+    <meta http-equiv="expires" content="Mon, 01 Jan 2015 2:00:00 GMT">  
+    <meta http-equiv="Pragma" content="no-cache"/>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,7 +162,7 @@
             </li>
             </c:if>
               <c:if test="${menuIdList==2}">
-             <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_1.png"></i>&nbsp; System settings<div class="active_arrow"></div></a></li>
+             <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_1.png"></i>&nbsp; System Settings<div class="active_arrow"></div></a></li>
                </c:if>
                <c:if test="${menuIdList==3}">
              <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Devices<div class="active_arrow"></div></a></li>
@@ -170,13 +174,16 @@
              <li><a href="#"><i class=""><img src="/ilids/resources/images/alerts_1.png"></i>&nbsp; Alerts<div class="active_arrow"></div></a></li>
              </c:if>     
              <c:if test="${menuIdList=='6'}">
-             <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_1.png"></i>&nbsp; E-mail/SMS settings<div class="active_arrow"></div></a></li>
+             <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_1.png"></i>&nbsp; E-mail/SMS Settings<div class="active_arrow"></div></a></li>
              </c:if>  
              <c:if test="${menuIdList=='7'}">
              <li><a href="<c:url value="/note/add"/>"><i class=""><img src="/ilids/resources/images/notes_1.png"></i>&nbsp; Notes<div class="active_arrow"></div></a></li>
              </c:if>   
              <c:if test="${menuIdList=='8'}">
-             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_1.png"></i>&nbsp; Live chat<div class="active_arrow"></div></a></li>
+             <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_1.png"></i>&nbsp; Live Chat<div class="active_arrow"></div></a></li>
+              </c:if>
+             <c:if test="${menuIdList=='9'}">
+             <li><a href="<c:url value="/devicezones"/>"><i class=""><img src="/ilids/resources/images/chat_1.png"></i>&nbsp; Device Zone<div class="active_arrow"></div></a></li>
               </c:if>
                </c:forEach>
              </ul>

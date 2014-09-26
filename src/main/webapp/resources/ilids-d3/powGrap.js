@@ -17,7 +17,7 @@ d3.json(servlet, function (data) {
         mini_height = 400 - mini_margin.top - mini_margin.bottom;
         
   var width = $("#powGraph").width(),
-      aspect = 400 / 800;
+    aspect = 400 / 800;
 
     var formatDate = d3.time.format("%H:%M:%S"),
 
@@ -79,7 +79,7 @@ var svg = d3.select("#powGraph").append("svg")
     .attr("width", width)
     .attr("height", width * aspect);
     
-$(window).resize(function() {
+    $(window).resize(function() {
   var width = $("#powGraph").width();
   svg.attr("width", width);
   svg.attr("height", width * aspect);
@@ -241,11 +241,6 @@ data.forEach(function(d) {
       .attr("x1", main_width - 1) 
       .attr("x2", main_width + 1); 
 
-  // Anzeige auf der rechten Leiste
-  focus.append("line")
-      .attr("class", "y1")
-      .attr("x1", main_width - 5)
-      .attr("x2", main_width + 5);
 
   focus.append("circle")
       .attr("class", "y0")

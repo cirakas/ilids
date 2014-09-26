@@ -68,9 +68,9 @@ public class SystemSettingsController {
             return "/systemsettings/systemsettings";
         } else {
             if (systemSettingsService.updateSystemSettings(systemSettings)) {
-                flash.addFlashAttribute("success", "User has been successfully created.");
+                flash.addFlashAttribute("success", "Settings has been successfully created.");
             } else {
-                flash.addFlashAttribute("error", "User cannot be created.");
+                flash.addFlashAttribute("error", "Settings cannot be created.");
             }
             return "redirect:/systemsettings";
         }
