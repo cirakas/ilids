@@ -59,9 +59,10 @@ public class DashBoardUpdateController {
         pollData.alertListValue=null;
         for(String alert:pollData.getAlertList()){
              if(pollData.alertListValue==null){
-                  pollData.alertListValue="ILIDS system captured alerts on ";
-             }
-            pollData.alertListValue=pollData.alertListValue+" , "+alert;
+                  pollData.alertListValue="ILIDS system captured alerts on "+alert;
+             }else{
+		pollData.alertListValue=pollData.alertListValue+" , "+alert;
+	     }
         }
 	
 	if(pollData.getAlertList().size()>0){
