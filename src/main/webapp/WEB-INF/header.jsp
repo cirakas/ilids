@@ -16,7 +16,7 @@
 
     <!-- Bootstrap core CSS -->
 <!--    <link href="${resources}ilids-template/css/bootstrap.min.css" rel="stylesheet">-->
-      <link href="${resources}ilids-template/css/bootstrap.css" rel="stylesheet">
+    <link href="${resources}ilids-template/css/bootstrap.css" rel="stylesheet">
     <link href="${resources}ilids-template/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     
     <!-- Add custom CSS here -->
@@ -40,7 +40,7 @@
     .view_all_bg:hover{
         background: url(/ilids/resources/images/menu_bg2.png)!important;
         color: #fff!important;
-        border: 1px solid #374153;
+/*        border: 1px solid #374153;*/
     }
     .badge_1{background: #999;}
     .view_all_bg:hover .badge_1{background: #febb00;}
@@ -58,14 +58,17 @@
     
     .msg_bg{color:#fff!important;}
     .alert_bg{width:75%;border-radius: 30px;overflow: hidden;padding: 0;float: none;}
+    .main_nav{border:none!important;height: auto!important; float: left!important;background: #3c495e!important;}
     
     
-    @media (max-width: 767px){.margin_{margin-top: -7px!important;position: relative; background: #4f5b6f;} 
+    @media (max-width: 767px){.margin_{margin-top: -8px!important;position: relative; background: #4f5b6f;} 
                               .bg_res{background: #4f5b6f;position: relative;float: left;width:100%;}
-                              .msg_bg{border-top: 1px solid #343434;background: none repeat scroll 0% 0% #4f5b6f;}
+                              .msg_bg{border-bottom: 1px solid #384355;background: none repeat scroll 0% 0% #4f5b6f;}
+                              .msg_bg1{border-bottom: none;}
                               .msg_bg:hover{background: none repeat scroll 0% 0% #4f5b6f !important;}
                               .alert_bg{margin: 0 auto;float: none;width:80%;}
                               .navbar-header1{float: left;width: 100%;background: #3c495e;}
+                              .navbar-inverse{background: #0093c3;padding-bottom: 0;}
                               
                               .side-nav>li.dropdown>ul.dropdown-menu>li>a.active{background:#4f5b6f;}
                               
@@ -127,7 +130,7 @@
     <div id="wrapper">
 
      <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation" style="border:none;height: auto; float: left;background: #3c495e;">
+      <nav class="navbar navbar-inverse navbar-fixed-top main_nav"  role="navigation" style="">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header navbar-header1">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -136,11 +139,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="home" style="outline: none;font-size: 25px;color:#e8e7e7;color:#fff;">iLids</a>
+            <a class="navbar-brand" href="home" style="outline: none;font-size: 25px;color:#e8e7e7;color:#fff;">iLids</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse  navbar-collapse navbar-ex1-collapse bg_res" >
+       <div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
             <c:url value="/systemsettings" var="sysurl"/>
             <security:authorize access="isAuthenticated()">
         <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
@@ -148,9 +151,9 @@
            <c:if test="${menuIdList=='1'}">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_1.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" style="padding-bottom: 0;">
                   <li><a href='<c:url value="/user"/>'>&nbsp;&nbsp;&nbsp; Users</a></li>
-              <li><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
+                  <li style="border-bottom:none;"><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
               </ul>
             </li>
             </c:if>
@@ -177,7 +180,7 @@
               </c:if>
                </c:forEach>
              </ul>
-                 <ul class="nav navbar-nav navbar-right navbar-user margin_">
+           <ul class="nav navbar-nav navbar-right navbar-user margin_">
             <li class="dropdown messages-dropdown">
                 <a href="#" class="dropdown-toggle msg_bg" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge" style="background:#FB8805;"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu" style="padding-bottom: 0;">
@@ -226,7 +229,7 @@
               </ul>
             </li>
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle msg_bg" data-toggle="dropdown"><i class="fa fa-user"></i> <security:authentication property="principal.username" /> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle msg_bg msg_bg1" data-toggle="dropdown"><i class="fa fa-user"></i> <security:authentication property="principal.username" /> <b class="caret"></b></a>
               <ul class="dropdown-menu" style="padding-bottom: 0;">
                 <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
@@ -244,7 +247,7 @@
       
       <!-- Modal to show alerts -->
 <div class="modal fade" id="myAlertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width:750px;">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="border-bottom: 1px solid #0093c3;background:url(/ilids/resources/images/alert_head_bg.png);color:#fff;">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
