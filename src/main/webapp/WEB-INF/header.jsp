@@ -143,7 +143,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <a class="navbar-brand" href="home" style="outline: none;font-size: 25px;color:#e8e7e7;color:#fff;">iLids</a>
+          <a class="navbar-brand" href="home" style="outline: none;font-size: 25px;color:#e8e7e7;color:#fff;">iLids</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -183,11 +183,11 @@
              <li><a href="#"><i class=""><img src="/ilids/resources/images/chat_1.png"></i>&nbsp; Live Chat<div class="active_arrow"></div></a></li>
               </c:if>
              <c:if test="${menuIdList=='9'}">
-             <li><a href="<c:url value="/devicezones"/>"><i class=""><img src="/ilids/resources/images/chat_1.png"></i>&nbsp; Device Zone<div class="active_arrow"></div></a></li>
+             <li><a href="<c:url value="/devicezones"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Device Zone<div class="active_arrow"></div></a></li>
               </c:if>
                </c:forEach>
              </ul>
-           <ul class="nav navbar-nav navbar-right navbar-user margin_">
+                 <ul class="nav navbar-nav navbar-right navbar-user margin_">
             <li class="dropdown messages-dropdown">
                 <a href="#" class="dropdown-toggle msg_bg" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge" style="background:#FB8805;"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu" style="padding-bottom: 0;">
