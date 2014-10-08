@@ -126,8 +126,13 @@
             </div>     <c:url value="/saveRole" var="url" />
             <form:form action="${url}" method="post" modelAttribute="roleModel" onsubmit="return vaidateCheckbox()">
                 <div class="modal-body">
-                    <div class="form-group"><label> Role Name: </label><form:input path="name" class="form-control required name" placeholder="Role name" required="required" onblur="roleValidate();"/></div>
-                    <div class="form-group"><label> Description: </label><form:input path="description" class="form-control required name" placeholder="Description" required="required" onblur="emptyCheck();"/></div>
+                    <div id="duplicateRole" style="display:none;">
+                        <div style="color: tomato;"> 
+                            <p style="margin-top:-10px; margin-bottom:20px;">Role already exist</p>
+                    </div> 
+                    </div>
+                    <div class="form-group"><label> Role Name <span class="mandatory" style="color: red"> *</span> :</label><form:input path="name" class="form-control required name" placeholder="Role name" required="required" onblur="roleValidate();"/></div>
+                    <div class="form-group"><label> Description <span class="mandatory" style="color: red"> *</span> : </label><form:input path="description" class="form-control required name" placeholder="Description" required="required" onblur="emptyCheck();"/></div>
                     <label>Menu Items</label>
                     <div class="form-group">
 
@@ -138,9 +143,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <form:button class="btn btn-primary" id="btn-save" disabled="true">Save</form:button>
                     </div>
-                    <div id="duplicateRole" style="display:none;">
-                        <p>Role already exist</p>
-                    </div>
+                    
             </form:form>
         </div>
     </div>
@@ -170,7 +173,7 @@
                         <td>
                             <form method="post" action='<c:url value="/deleteRole"/>'>
                                 <input type="hidden" value="${role.id}" name="roleId" />
-                                <button id="deleteRole" class="btn btn-primary btn-danger" onclick="confirmDelete();" >delete</button>
+                                <button id="deleteRole" class="btn btn-primary btn-danger" onclick="return confirmDelete();" >delete</button>
                             </form>
                         </td>
                     </tr>

@@ -21,4 +21,4 @@ public final class ServerConfig {
     public static String DB_PASS = "password";
     public static PollData pollData=new PollData();
     public static long latestAlertsScheduleCheckTime= 1405535461;
-}
+    }

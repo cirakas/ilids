@@ -34,6 +34,8 @@ function ajaxLink(url, params, displayComponentId) {
                document.getElementById("btn-save").disabled = true;
                var div1=document.getElementById("duplicateUser");
                div1.style.display = "none";
+               var div2=document.getElementById('errorPost');
+               div2.style.display = "none";
         }
         
         function checkEmail() {
@@ -103,28 +105,38 @@ function confirmDelete()
     <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+       
           <h4 class="modal-title" id="myModalLabel"><spring:message code="label.addUser" /></h4>
+          
+          
+      
       </div>
+          
+            <div id="duplicateUser" style="left: 80px; display:none; color: tomato;">
+                <p style="text-indent: 20px;margin-top:10px;">User already exist</p>
+            </div>
+             <div id="errorPost" style="display:none; color: tomato;">
+                <p style="text-indent: 20px;margin-top:10px;">Please provide a valid email address</p>
+             </div>
+          
         <c:url value="/saveUser" var="url" />
    <form:form action="${url}" method="post" modelAttribute="userModel">
+     
+       
      <div class="modal-body">
-           <div class="form-group"><label> <spring:message code="label.name" />: </label><form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
-           <div class="form-group"> <label><spring:message code="label.email" />: </label><form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required" onblur="checkEmail();"/></div>
+         <div class="form-group"><label> <spring:message code="label.name" /><span class="mandatory" style="color: red"> *</span> : </label><form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
+           <div class="form-group"> <label><spring:message code="label.email" /><span class="mandatory" style="color: red"> *</span> : </label><form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required" onblur="checkEmail();"/></div>
            <div class="form-group"><label>Role</label><form:select class="form-control" path="roleId" items="${roles}"  itemLabel="name" itemValue="id" multiple="false" /></div>
-           <div class="form-group"><label> <spring:message code="label.userName" />: </label><form:input path="username" class="form-control required userame" placeholder="username" required="required"/></div>
-           <div class="form-group" id="passwordfield"> <label><spring:message code="label.password" />:</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
+           <div class="form-group"><label> <spring:message code="label.userName" /><span class="mandatory" style="color: red"> *</span> : </label><form:input path="username" class="form-control required userame" placeholder="username" required="required"/></div>
+           <div class="form-group" id="passwordfield"> <label><spring:message code="label.password" /><span class="mandatory" style="color: red"> *</span> :</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
            
      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
         <form:button class="btn btn-primary" id="btn-save" style="disabled:true"><spring:message code="label.save" /></form:button>
       </div>
-  <div id="errorPost" style="display:none;">
-         <p>Please provide a valid email address</p>
-  </div>
-    <div id="duplicateUser" style="display:none;">
-    <p>User already exist</p>
-  </div>       
+ 
+           
     </form:form>
     </div>
   </div>
@@ -157,7 +169,7 @@ function confirmDelete()
                                              <td><c:url var="deleteUrl" value="/deleteUser"/>
                                               <form method="post" action="${deleteUrl}">
                                                 <input type="hidden" value="${user.id}" name="userId" />
-                                                <button id="deleteUser" class="btn btn-primary btn-danger" onclick="confirmDelete();" ><spring:message code="label.delete" /></button>
+                                                <button id="deleteUser" class="btn btn-primary btn-danger" onclick="return confirmDelete();" ><spring:message code="label.delete" /></button>
 						</form>
                                             </td>
                                 </tr>

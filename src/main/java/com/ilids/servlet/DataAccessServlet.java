@@ -10,13 +10,11 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -81,7 +79,6 @@ public class DataAccessServlet extends HttpServlet {
 	    /* TODO output your page here. You may use following sample code. */
 	    float datas = 1;
 	    String realDate = "";
-            float predata=0;
 	    String pattern = "MM/dd/yyyy HH:mm:ss";
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 	    while (rs.next()) {

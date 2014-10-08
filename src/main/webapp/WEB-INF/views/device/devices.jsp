@@ -77,8 +77,8 @@
             <c:url value="/saveDevice" var="url" />
             <form:form action="${url}" method="post" modelAttribute="deviceModel" onsubmit="return fieldCheck();">
                 <div class="modal-body">
-                    <div class="form-group"><label><spring:message code="label.deviceName" /></label><form:input path="name" class="form-control required name" placeholder="Device name" required="required"/></div>
-                    <div class="form-group"><label><spring:message code="label.deviceId" /></label><form:input path="slaveId" class="form-control required name" placeholder="Slave Id" required="required"/></div>
+                    <div class="form-group"><label><spring:message code="label.deviceName" /><span class="mandatory" style="color: red"> *</span> :</label><form:input path="name" class="form-control required name" placeholder="Device name" required="required"/></div>
+                    <div class="form-group"><label><spring:message code="label.deviceId" /><span class="mandatory" style="color: red"> *</span> :</label><form:input path="slaveId" class="form-control required name" placeholder="Slave Id" required="required"/></div>
                     <div class="form-group"><label><spring:message code="label.zone" /></label><form:select class="form-control" path="deviceZoneId" items="${deviceZones}" itemLabel="name" itemValue="id" multiple="false" /></div>
                 </div>
                 <div class="modal-footer">
@@ -115,7 +115,7 @@
                         <td>
                             <form method="post" action='<c:url value="/deleteDevice"/>'>
                                 <input type="hidden" value="${device.id}" name="deviceId" /> 
-                                <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="ConfirmDelete();"><spring:message code="label.delete" /></button>
+                                <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="return ConfirmDelete();"><spring:message code="label.delete" /></button>
                             </form>
                         </td>
                     </tr>

@@ -63,7 +63,7 @@
                         <td><c:url var="deleteUrl" value="/note/delete" />
                             <form action="${deleteUrl}" method="post">
                                 <input type="hidden" value="${note.id}" name="noteid"/>
-                                <button type="submit" class="btn btn-danger" onclick="confirmDelete();">Remove</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirmDelete();">Remove</button>
                             </form>
                         </td>
                     </tr>
