@@ -40,15 +40,12 @@ public class RoleService {
 	return roleRepository.findByCustomField("name", name);
     }
 
-    public boolean remove(Long id) {
-	boolean result=false;
+    public boolean remove(Long id) throws Exception{
+        boolean result=false;
 	boolean countResult=userService.checkRoleUsedOrNot(id);
-	if(!countResult){
+        if(!countResult){
 	deleteRoleFromRoleMenu(id);
 	Role role = roleRepository.findById(id);
-	if (role == null) {
-	    throw new IllegalArgumentException();
-	}
 	//  device.getUser().getDevices().remove(device); //pre remove
 	roleRepository.delete(role);
 	result=true;
@@ -66,17 +63,17 @@ public class RoleService {
 	roleRepository.persist(role);
     }
 
-    public Role saveNewRole(Role role) {
+    public Role saveNewRole(Role role)throws Exception {
 	roleRepository.persist(role);
 	return role;
     }
 
-    public Role updateRole(Role role) {
+    public Role updateRole(Role role)throws Exception {
 	roleRepository.merge(role);
 	return role;
     }
 
-    public void saveMenuItems(Role role) {
+    public void saveMenuItems(Role role) throws Exception{
 
 	String deleteQuery = "delete from role_menu where role_id=" + role.getId();
 	roleRepository.executeNativeQuery(deleteQuery);
@@ -94,7 +91,7 @@ public class RoleService {
 	roleRepository.executeNativeQuery(insertQuery);
     }
 
-    public Role editRole(Long roleId) {
+    public Role editRole(Long roleId) throws Exception{
 	Role role = roleRepository.findById(roleId);
 	List<Object> menuObjectList = roleRepository.selectedRoleMenu(roleId);
 	role.setMenuObjectList(menuObjectList);
@@ -102,7 +99,7 @@ public class RoleService {
 
     }
 
-    public void deleteRoleFromRoleMenu(Long roleId) {
+    public void deleteRoleFromRoleMenu(Long roleId) throws Exception{
 	String deleteQuery = "delete from role_menu where role_id=" + roleId;
 	roleRepository.executeNativeQuery(deleteQuery);
     }

@@ -23,7 +23,7 @@
 </script>
 <div class="row">
     <div class="col-lg-12">
-        <h1>Add note</h1><br>
+        <h1><spring:message code="label.addNote" /></h1><br>
         <c:if test="${not empty success}">
             <div class="text-success" style="background: #DFF0D8;color: #3C763D;padding: 4px;border-color: #D6E9C6;width: 24%;border-radius:2px;margin:0 0 8px 60px;text-align: center; ">
                 <button type="" class="close" data-dismiss="alert" style="float: none;">×</button>

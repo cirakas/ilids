@@ -6,13 +6,17 @@
 package com.ilids.service;
 
 import com.ilids.conf.ServerConfig;
+import com.ilids.DTO.AlertValuesDTO;
+import com.ilids.dao.AlertSchedulerRepository;
 import com.ilids.dao.DataRepository;
 import com.ilids.dao.SystemSettingsRepository;
+import com.ilids.domain.Alerts;
 import com.ilids.domain.MailSms;
 import com.ilids.domain.SystemSettings;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.mail.MessagingException;
@@ -23,11 +27,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author cirakas
  */
+@Component
+@Transactional
 public class AlertSchedulerService {
 
     private static final Logger logger = LoggerFactory.getLogger(AlertSchedulerService.class);
@@ -43,6 +51,11 @@ public class AlertSchedulerService {
 
     @Autowired
     private SystemSettingsRepository systemSettingsRepository;
+    
+    @Autowired
+    AlertSchedulerRepository alertSchedulerRepository;
+    
+    SimpleDateFormat sdf=new SimpleDateFormat("dd-MMM-yyyy hh:ss:mm");
 
 //    @Autowired
 //    private MailSender mailSender;
@@ -110,5 +123,30 @@ public class AlertSchedulerService {
 	//List<User> userList=userRepository.getAll();
 	logger.info("Scheduler started to run");
 
+    }
+    
+    public List<AlertValuesDTO> getAllAlertValues(){
+        List<AlertValuesDTO> alertDTOList=new ArrayList<AlertValuesDTO>();
+        AlertValuesDTO alertValuesDTO;
+        List<Alerts> alertsList=alertSchedulerRepository.getAll();
+        if(alertsList!=null && alertsList.size()>0){
+            for(Alerts alerts: alertsList){
+                alertValuesDTO=new AlertValuesDTO();
+                alertValuesDTO.setId(alerts.getId());
+                alertValuesDTO.setDeviceId(alerts.getDeviceId());
+                alertValuesDTO.setDeviceName(alerts.getDeviceId().getName());
+                alertValuesDTO.setPower(alerts.getPower());
+                
+                alertValuesDTO.setTime(sdf.format(alerts.getTime()));
+                
+                alertDTOList.add(alertValuesDTO);
+            }
+        }
+        return alertDTOList;
+    }
+    
+    public void removeAlertFromDatabase(Long id){
+        Alerts  alert= alertSchedulerRepository.findById(id);
+        alertSchedulerRepository.delete(alert);
     }
 }

@@ -18,9 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ilids.domain.Role;
 import com.ilids.domain.User;
+import com.ilids.service.ExceptionLogService;
 import com.ilids.service.RoleService;
 import com.ilids.service.UserService;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.codehaus.jackson.map.util.JSONPObject;
@@ -39,6 +45,8 @@ public class AdminController {
     private RoleService roleService;
     @Resource(name = "sessionRegistry")
     private SessionRegistryImpl sessionRegistry;
+    @Autowired
+    ExceptionLogService exceptionLogService;
 
     @ModelAttribute("users")
     public List<User> getUsers() {
@@ -46,7 +54,9 @@ public class AdminController {
     }
     
     Long currentUserId=0l;
-
+    public String module = "";
+        
+    
 //    @ModelAttribute("userModel")
 //    public User getUser() {
 //        return new User();
@@ -87,7 +97,12 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/removeuser", method = RequestMethod.POST)
     public String removeuser(@RequestParam Long userid, Model model) {
-        userService.removeUserFromDatabase(userid);
+         try {
+                 userService.removeUserFromDatabase(userid);
+       } catch (Exception ex) {
+               exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "User removal is failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'removeuser ' ]");
+            }
         return "redirect:/admin";
     }
 
@@ -120,8 +135,21 @@ public class AdminController {
     
      @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userManagement(Model model) {
-	model.addAttribute("userModel", new User());
+        model.addAttribute("userModel", new User());
+        getModuleName();
         return "/user/users";
+    }
+    
+    public void getModuleName(){
+                Properties prop = new Properties();
+                String propFileName = "messages_en.properties";
+                InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+                try {
+                    prop.load(inputStream);
+                    module = prop.getProperty("label.userManagement");
+                } catch (IOException ex1) {
+
+                }
     }
     
       @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
@@ -129,7 +157,14 @@ public class AdminController {
 	if (errors.hasErrors()) {
            return "/user/users";
         } else {
-            if (userService.addNewUserToDatabase(user))
+            Boolean status=false;
+            try {
+                status=userService.addNewUserToDatabase(user);
+            } catch (Exception ex) {
+                exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "User creation is failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'saveUser ' ]");
+            }
+            if (status)
                 flash.addFlashAttribute("success", "User has been successfully created.");
             else
                 flash.addFlashAttribute("error", "User cannot be created.");
@@ -145,10 +180,22 @@ public class AdminController {
        if (errors.hasErrors()) {
            return "/user/users";
         } else {
-            if (userService.updateNewUserToDatabase(user))
+           Boolean status=false;
+           try {
+                status=userService.updateNewUserToDatabase(user);
+            } catch (Exception ex) {
+               exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "User updation is failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'editUser ' ]");
+            }
+           
+            if (status)
                 flash.addFlashAttribute("success", "User has been successfully created.");
             else
                 flash.addFlashAttribute("error", "User cannot be created.");
+           
+            
+            
+            
             return "redirect:/user";
         }
     }
@@ -198,7 +245,16 @@ public class AdminController {
 	
     @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
     public String deleteUser(@RequestParam Long userId, Model model) {
-        userService.removeUserFromDatabase(userId);
+        Boolean status=false;
+          try {
+               userService.removeUserFromDatabase(userId);
+               status=true;
+            } catch (Exception ex) {
+               exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "User deletion is failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'deleteUser ' ]");
+               status=true;
+            }
+          
         return "redirect:/user";
     }
 }

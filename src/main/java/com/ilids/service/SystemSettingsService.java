@@ -21,12 +21,12 @@ public class SystemSettingsService {
         return list;
     }
 
-    public SystemSettings findById(Long id) {
+    public SystemSettings findById(Long id)throws Exception {
         SystemSettings systemSettings = systemSettingsRepository.findById(id);
         return systemSettings;
     }
 
-    public SystemSettings remove(Long id) {
+    public SystemSettings remove(Long id) throws Exception{
         SystemSettings systemSettings = systemSettingsRepository.findById(id);
         if (systemSettings == null) {
             throw new IllegalArgumentException();
@@ -47,12 +47,12 @@ public class SystemSettingsService {
 //        userService.persist(user);
 //        return true;
 //    }
-    public boolean addSystemSettings(SystemSettings systemSettings) {
+    public boolean addSystemSettings(SystemSettings systemSettings)throws Exception {
         systemSettingsRepository.persist(systemSettings);
         return true;
     }
 
-    public boolean updateSystemSettings(SystemSettings systemSettings) {
+    public boolean updateSystemSettings(SystemSettings systemSettings)throws Exception {
         systemSettingsRepository.merge(systemSettings);
         return true;
     }

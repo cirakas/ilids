@@ -77,7 +77,7 @@ function confirmDelete()
 
 <div class="row">
     <div class="col-lg-12">
-        <h1>Mail and Sms Management</h1>
+        <h1><spring:message code="label.mainAndSmsManagement" /></h1>
         <!--            <ol class="breadcrumb">
                       <li class="active"><i class="fa fa-dashboard"></i> Users</li>
                     </ol>-->

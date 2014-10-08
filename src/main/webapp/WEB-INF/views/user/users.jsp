@@ -93,7 +93,7 @@ function confirmDelete()
         <!-- Button trigger modal -->
           <div class="row">
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAdduser()">
-  <span class="glyphicon glyphicon-plus"></span>
+  <span class="glyphicon glyphicbtn btn-primary btn-lgon-plus"></span>
 </button></div>
         <br/>
 
@@ -108,11 +108,11 @@ function confirmDelete()
         <c:url value="/saveUser" var="url" />
    <form:form action="${url}" method="post" modelAttribute="userModel">
      <div class="modal-body">
-           <div class="form-group"><label> <spring:message code="label.name" />: </label><form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
-           <div class="form-group"> <label><spring:message code="label.email" />: </label><form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required" onblur="checkEmail();"/></div>
-           <div class="form-group"><label>Role</label><form:select class="form-control" path="roleId" items="${roles}"  itemLabel="name" itemValue="id" multiple="false" /></div>
-           <div class="form-group"><label> <spring:message code="label.userName" />: </label><form:input path="username" class="form-control required userame" placeholder="username" required="required"/></div>
-           <div class="form-group" id="passwordfield"> <label><spring:message code="label.password" />:</label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
+         <div class="form-group"><label> <spring:message code="label.name" /> </label> <label style="color: red"> * </label> <form:input path="name" class="form-control required name" placeholder="name" required="required"/></div>
+           <div class="form-group"> <label><spring:message code="label.email" /> </label> <label style="color: red"> * </label> <form:input path="email" class="form-control required email" data-placement="top" placeholder="email" required="required" onblur="checkEmail();"/></div>
+           <div class="form-group"><label>Role</label> <label style="color: red"> * </label> <form:select class="form-control" path="roleId" items="${roles}"  itemLabel="name" itemValue="id" multiple="false" /></div>
+           <div class="form-group"><label> <spring:message code="label.userName" /> </label> <label style="color: red"> * </label> <form:input path="username" class="form-control required userame" placeholder="username" required="required"/></div>
+           <div class="form-group" id="passwordfield"> <label><spring:message code="label.password" /></label> <label style="color: red"> * </label> <form:password class="form-control required pass" path="password"  placeholder="password" required="required"/></div>
            
      </div>
       <div class="modal-footer">
@@ -132,10 +132,10 @@ function confirmDelete()
 
         <div class="row">
             <div class="table-responsive">
-              <table class="table table-bordered table-hover table-striped tablesorter">
+              <table class="table table-bordered table-hover table-striped tablesorter" >
                 <thead>
                   <tr>
-                    <th><spring:message code="label.name" /> <i class="fa fa-sort"></i></th>
+                    <th ><spring:message code="label.name" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.userName" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.email" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.enable" /> <i class="fa fa-sort"></i></th>
@@ -153,7 +153,7 @@ function confirmDelete()
                                                 </button>
                                             </td>
                                              <td><c:url var="deleteUrl" value="/deleteUser"/>
-                                              <form method="post" action="${deleteUrl}">
+                                              <form method="post" action="${deleteUrl}" >
                                                 <input type="hidden" value="${user.id}" name="userId" />
                                                 <button id="deleteUser" class="btn btn-primary btn-danger" onclick="confirmDelete();" ><spring:message code="label.delete" /></button>
 						</form>

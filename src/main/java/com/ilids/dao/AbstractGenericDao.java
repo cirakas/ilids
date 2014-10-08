@@ -36,8 +36,8 @@ public abstract class AbstractGenericDao<T> implements GenericDao<T> {
     @SuppressWarnings("unchecked")
     @Override
     public T findByCustomField(String key, String value) {
-        String queryString = "SELECT u FROM " + type.getSimpleName() + " u WHERE u." + key + " = '" + value + "'";
-        Query query = entityManager.createQuery(queryString);
+       String queryString = "SELECT u FROM " + type.getSimpleName() + " u WHERE u." + key + " = '" + value + "'";
+         Query query = entityManager.createQuery(queryString);
         return (T) query.getSingleResult();
     }
 

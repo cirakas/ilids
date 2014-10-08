@@ -10,8 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ilids.domain.SystemSettings;
+import com.ilids.domain.User;
+import com.ilids.service.ExceptionLogService;
 import com.ilids.service.SystemSettingsService;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.validation.Valid;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -35,12 +44,31 @@ public class SystemSettingsController {
     public List<SystemSettings> getSystemSettingsList() {
         return systemSettingsService.getAllSystemSettings();
     }
+    
+    @Resource(name = "sessionRegistry")
+    private SessionRegistryImpl sessionRegistry;
+    @Autowired
+    ExceptionLogService exceptionLogService;
 
     Long currentUserId = 0l;
-
+    String module="";
+     
     @RequestMapping(value = "/systemsettings", method = RequestMethod.GET)
     public String show() {
+        getModuleName();
         return "/systemsettings/systemsettings";
+    }
+    
+     public void getModuleName(){
+                Properties prop = new Properties();
+                String propFileName = "messages_en.properties";
+                InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+                try {
+                    prop.load(inputStream);
+                    module = prop.getProperty("label.systemSettingsManagement");
+                } catch (IOException ex1) {
+
+                }
     }
 
     @RequestMapping(value = "/saveSystemSettings", method = RequestMethod.POST)
@@ -48,7 +76,14 @@ public class SystemSettingsController {
         if (errors.hasErrors()) {
             return "/systemsettings/systemsettings";
         } else {
-            if (systemSettingsService.addSystemSettings(systemSettings)) {
+            boolean status=false;
+           try{
+                status=systemSettingsService.addSystemSettings(systemSettings);
+           }catch(Exception ex){
+             exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "Settings creation failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'addSystemSettings' ]");
+           }
+            if (status) {
                 flash.addFlashAttribute("success", "System settings has been successfully added.");
             } else {
                 flash.addFlashAttribute("error", "Could not add System settings.");
@@ -62,19 +97,27 @@ public class SystemSettingsController {
     //      }
     @RequestMapping(value = "/saveSystemSettings/{id}", method = RequestMethod.POST)
     public String updateSystemsettings(@PathVariable("id") String id, @Valid SystemSettings systemSettings, BindingResult errors, Model model, RedirectAttributes flash) {
-        long systemsettingsid = Long.valueOf(id);
-        systemSettings.setId(systemsettingsid);
-        if (errors.hasErrors()) {
-            return "/systemsettings/systemsettings";
-        } else {
-            if (systemSettingsService.updateSystemSettings(systemSettings)) {
-                flash.addFlashAttribute("success", "Settings has been successfully created.");
+        try{
+            long systemsettingsid = Long.valueOf(id);
+            systemSettings.setId(systemsettingsid);
+            if (errors.hasErrors()) {
+                return "/systemsettings/systemsettings";
             } else {
-                flash.addFlashAttribute("error", "Settings cannot be created.");
-            }
-            return "redirect:/systemsettings";
-        }
+                boolean status = false;
+                status = systemSettingsService.updateSystemSettings(systemSettings);
 
+                if (status) {
+                    flash.addFlashAttribute("success", "Settings has been successfully created.");
+                } else {
+                    flash.addFlashAttribute("error", "Settings cannot be created.");
+                }
+                return "redirect:/systemsettings";
+            }
+        }catch(Exception ex){
+           exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "Settings updation is failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'updateSystemsettings' ]");
+       }
+          return "/systemsettings/systemsettings";
     }
 
     @RequestMapping(value = "/editSystemsettings", method = RequestMethod.POST)
@@ -84,13 +127,23 @@ public class SystemSettingsController {
         if (id != null) {
             currentUserId = Long.valueOf(id);
         }
-        systemSettings = systemSettingsService.findById(currentUserId);
+        try {
+            systemSettings = systemSettingsService.findById(currentUserId);
+        } catch (Exception ex) {
+            exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "Settings updation is failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'editSystemsettings' ]");
+       }
         return systemSettings;
     }
 
     @RequestMapping(value = "/deleteSystemsettings", method = RequestMethod.POST)
     public String deleteSystemsettings(@RequestParam Long systemSettingsId, Model model) {
-        systemSettingsService.remove(systemSettingsId);
+       try{
+            systemSettingsService.remove(systemSettingsId);
+       }catch(Exception ex){
+           exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
+                                              "Settings deletion is failed [ Controller : ' "+this.getClass().toString()+" '@@ Method Name : 'deleteSystemsettings' ]");
+       }
         return "redirect:/systemsettings";
     }
 

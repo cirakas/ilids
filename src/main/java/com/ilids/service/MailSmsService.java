@@ -35,7 +35,7 @@ public class MailSmsService {
         return mailSmsRepository.findById(id);
     }
 
-    public MailSms remove(Long id) {
+    public MailSms remove(Long id)throws Exception {
         MailSms mailSms = mailSmsRepository.findById(id);
         if (mailSms == null) {
             throw new IllegalArgumentException();
@@ -53,11 +53,11 @@ public class MailSmsService {
         }
         return result;
     }   
-    public void saveMailSms(MailSms mailSms){
+    public void saveMailSms(MailSms mailSms)throws Exception{
 	mailSmsRepository.persist(mailSms);
     }
     
-     public void updateMailSms(MailSms mailSms){
+     public void updateMailSms(MailSms mailSms)throws Exception{
 	mailSmsRepository.merge(mailSms);
         }
 

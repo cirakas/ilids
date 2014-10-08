@@ -56,7 +56,7 @@
 </script>
 <div class="row">
     <div class="col-lg-12">
-        <h1>SystemSettings Management</h1>
+        <h1><spring:message code="label.systemSettingsManagement" /></h1>
     </div>
 </div><!-- /.row -->
 

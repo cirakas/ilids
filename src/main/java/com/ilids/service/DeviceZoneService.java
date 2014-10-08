@@ -25,17 +25,17 @@ public class DeviceZoneService {
         return deviceZoneRepository.findById(id);
     }
 
-    public boolean addDeviceZone(DeviceZone deviceZone) {
+    public boolean addDeviceZone(DeviceZone deviceZone)throws Exception {
         deviceZoneRepository.persist(deviceZone);
         return true;
     }
 
-    public boolean updateDeviceZone(DeviceZone deviceZone) {
+    public boolean updateDeviceZone(DeviceZone deviceZone)throws Exception {
         deviceZoneRepository.merge(deviceZone);
         return true;
     }
 
-    public DeviceZone remove(Long id) {
+    public DeviceZone remove(Long id) throws Exception{
         DeviceZone deviceZone = deviceZoneRepository.findById(id);
         if (deviceZone == null) {
             throw new IllegalArgumentException();

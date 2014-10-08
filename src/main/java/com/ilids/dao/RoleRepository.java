@@ -17,7 +17,7 @@ public class RoleRepository extends AbstractGenericDao<Role> {
         return super.runCustomQuery(entityManager.createQuery("SELECT c FROM Role c WHERE c.name != 'ROLE_ADMIN' AND c.name != 'ROLE_USER'", Role.class));
     }
     
-    public List<Object> selectedRoleMenu(Long roleId){
+    public List<Object> selectedRoleMenu(Long roleId)throws Exception{
 	List<Object> menuSelectedList=entityManager.createNativeQuery("select menu_id from role_menu where role_id="+roleId).getResultList();
 	return menuSelectedList;
     }

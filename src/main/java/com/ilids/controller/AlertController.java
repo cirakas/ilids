@@ -25,27 +25,55 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class AlertController {
     
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("alerts")
     public Alerts getAlerts(){
 	return new Alerts();
     }
     
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("devices")
     public Devices getDevices(){
 	return new Devices();
     }
     
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/alerts", method = RequestMethod.GET)
     public String showAlertsForm() {
         return "alerts/add";
     }
     
+    /**
+     *
+     * @param alerts
+     * @param errors
+     * @param model
+     * @param flash
+     * @return
+     */
     @RequestMapping(value = "/alerts", method = RequestMethod.POST)
     public String create(@Valid Alerts alerts, BindingResult errors, Model model, RedirectAttributes flash) {
 	return "redirect:/alerts";
     }
-    
-     @RequestMapping(value = "/deviceUrl", method = RequestMethod.POST)
+
+    /**
+     *
+     * @param devices
+     * @param errors
+     * @param model
+     * @param flash
+     * @return
+     */
+    @RequestMapping(value = "/deviceUrl", method = RequestMethod.POST)
     public String devices(@Valid Devices devices, BindingResult errors, Model model, RedirectAttributes flash) {
 	return "redirect:/alerts";
     }

@@ -12,14 +12,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ilids.domain.User;
+import com.ilids.service.ExceptionLogService;
 import com.ilids.service.UserService;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistryImpl;
 
 @Controller
 public class RegisterController {
 
+    @Resource(name = "sessionRegistry")
+    private SessionRegistryImpl sessionRegistry;
+
     @Autowired
     private UserService userService;
-
+    @Autowired
+    ExceptionLogService exceptionLogService;
+   
     @ModelAttribute("user")
     public User getUser() {
         return new User();
@@ -35,7 +49,23 @@ public class RegisterController {
         if (errors.hasErrors()) {
             return "/register/register";
         } else {
-            if (userService.addNewUserToDatabase(user))
+            Boolean status=false;
+            try {
+                status=userService.addNewUserToDatabase(user);
+            } catch (Exception ex) {
+                /*String module="";
+                Properties prop = new Properties();
+                String propFileName = "messages_en.properties";
+                InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+                try {
+                prop.load(inputStream);
+                module = prop.getProperty("label.userManagement");
+                } catch (IOException ex1) {
+                
+                }*/
+               // exceptionLogService.createLog((User)sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex ,module,"User creation is failed");
+            }
+            if (status)
                 flash.addFlashAttribute("success", "User has been successfully created.");
             else
                 flash.addFlashAttribute("error", "User cannot be created.");

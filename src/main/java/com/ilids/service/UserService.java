@@ -11,6 +11,8 @@ import com.ilids.dao.UserRepository;
 import com.ilids.domain.Role;
 import com.ilids.domain.User;
 import java.text.ParseException;
+import javax.annotation.Resource;
+import org.springframework.security.core.session.SessionRegistryImpl;
 
 @Component
 @Transactional
@@ -22,6 +24,7 @@ public class UserService {
     private RoleService roleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
 
     public List<User> getAllUsersExceptAdmin() {
         return userRepository.getAllUsersExceptAdmin();
@@ -51,18 +54,17 @@ public class UserService {
         return true;
     }
 
-    public boolean addNewUserToDatabase(User user) {
+    public boolean addNewUserToDatabase(User user)throws Exception {
 	Long roleId=Long.valueOf(user.getRoleId());
 	Role role=roleService.findById(roleId);
         Role userRole = roleService.findByName("ROLE_ADMIN");
 	user.setRole(role);
         user.addRole(userRole);
         encryptPassword(user);
-        //user.encryptPassword();
         persist(user);
         return true;
     }
- public boolean updateNewUserToDatabase(User user) {
+ public boolean updateNewUserToDatabase(User user)throws Exception {
 	Long roleId=Long.valueOf(user.getRoleId());
 	Role role=roleService.findById(roleId);
         Role userRole = roleService.findByName("ROLE_ADMIN");
@@ -78,7 +80,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
     }
 
-    public void removeUserFromDatabase(Long userId) {
+    public void removeUserFromDatabase(Long userId)throws Exception {
         userRepository.delete(findById(userId));
     }
 
@@ -116,10 +118,12 @@ public class UserService {
         return userRepository.findByCustomField(field, value);
     }
 
-    public boolean checkRoleUsedOrNot(Long roleId){
+    public boolean checkRoleUsedOrNot(Long roleId)throws Exception{
 	 return userRepository.checkRoleUsed(roleId);
     }
     
-    
+    public User getUserByUserName(String userName){
+       return userRepository.getUserByUserName(userName);
+    }
     
 }

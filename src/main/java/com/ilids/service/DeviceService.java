@@ -26,11 +26,9 @@ public class DeviceService {
         return deviceRepository.findById(id);
     }
 
-    public Devices remove(Long id) {
+    public Devices remove(Long id)throws Exception {
         Devices device = deviceRepository.findById(id);
-        if (device == null) {
-            throw new IllegalArgumentException();
-        }
+        
         //  device.getUser().getDevices().remove(device); //pre remove
         deviceRepository.delete(device);
         return device;
@@ -47,7 +45,7 @@ public class DeviceService {
 //        userService.persist(user);
 //        return true;
 //    }
-    public boolean addDevice(Devices device) {
+    public boolean addDevice(Devices device)throws Exception {
         Long zoneId = Long.valueOf(device.getDeviceZoneId());
         DeviceZone devicezone = deviceZoneService.findById(zoneId);
         device.setDeviceZone(devicezone);
@@ -56,7 +54,7 @@ public class DeviceService {
         return true;
     }
 
-    public boolean updateDevice(Devices device) {
+    public boolean updateDevice(Devices device)throws Exception {
         Long zoneId = Long.valueOf(device.getDeviceZoneId());
         DeviceZone devicezone = deviceZoneService.findById(zoneId);
         device.setDeviceZone(devicezone);

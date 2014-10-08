@@ -35,7 +35,7 @@ public class NoteService {
         return noteRepository.findById(id);
     }
 
-    public Notes remove(Long id) {
+    public Notes remove(Long id)throws Exception {
         Notes notes = noteRepository.findById(id);
         if (notes == null) {
             throw new IllegalArgumentException();
@@ -57,7 +57,7 @@ public class NoteService {
 //        return true;
 //    }
     
-    public boolean addNote(Notes notes){
+    public boolean addNote(Notes notes)throws Exception{
         notes.setCreatedDate(new Date());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName=auth.getName();

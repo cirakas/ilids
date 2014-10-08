@@ -8,13 +8,14 @@ import com.ilids.service.DataService;
 import com.ilids.service.DeviceService;
 import com.ilids.service.RoleService;
 import com.ilids.service.SystemSettingsService;
+import com.ilids.service.UserService;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.security.core.userdetails.User;
+import com.ilids.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -44,6 +45,9 @@ public class LoginController {
     @Autowired 
     private DeviceService deviceService;
     
+    @Autowired
+    private UserService userService;
+    
      @ModelAttribute("deviceModel")
     public Devices getDevices() {
         return new Devices();
@@ -53,14 +57,21 @@ public class LoginController {
     @RequestMapping("/home")
     public String welcome(Model model) {
 	ServerConfig.latestAlertsScheduleCheckTime=System.currentTimeMillis();
-	User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	List<Object> menuIdList=roleService.getAllMenuIds(user.getUsername());
+       
         List<Devices> deviceIdList = deviceService.getAllDevice();
         model.addAttribute("deviceIdList", deviceIdList);
 	model.addAttribute("menuIdList", menuIdList);
         model.addAttribute("users", sessionRegistry.getAllPrincipals());
 	SystemSettings systemSettings=systemSettingsService.getAllSystemSettings().get(0);
         model.addAttribute("SystemSettings", systemSettings);
+       
+        User loginUser=userService.getUserByUserName(user.getUsername());
+        if(loginUser!=null){
+            sessionRegistry.registerNewSession("loginUser", loginUser);
+        }
+        
 //	Data phase1PowerFactor=dataService.getLatestPowerFactorValues(30);
 //	Data phase2PowerFactor=dataService.getLatestPowerFactorValues(32);
 //	Data phase3PowerFactor=dataService.getLatestPowerFactorValues(34);
