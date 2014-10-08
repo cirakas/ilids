@@ -77,8 +77,8 @@
             <c:url value="/saveDeviceZone" var="url" />
             <form:form action="${url}" method="post" modelAttribute="deviceZoneModel" onsubmit="return fieldCheck();">
                 <div class="modal-body">
-                    <div class="form-group"><label> <spring:message code="label.zoneName" /> </label><form:input path="name" class="form-control required name" placeholder="Device Zone name" required="required"/></div>
-                    <div class="form-group"><label> <spring:message code="label.zoneDescription" /> </label><form:input path="description" class="form-control required name" placeholder="Description" required="required"/></div>  
+                    <div class="form-group"><label> <spring:message code="label.zoneName" /><span class="mandatory" style="color: red"> *</span> : </label><form:input path="name" class="form-control required name" placeholder="Device Zone name" required="required"/></div>
+                    <div class="form-group"><label> <spring:message code="label.zoneDescription" /><span class="mandatory" style="color: red"> *</span> : </label><form:input path="description" class="form-control required name" placeholder="Description" required="required"/></div>  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
@@ -112,7 +112,7 @@
                         <td>
                             <form method="post" action='<c:url value="/deleteDeviceZone"/>'>
                                 <input type="hidden" value="${deviceZone.id}" name="deviceZoneId" /> 
-                                <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="ConfirmDelete();"><spring:message code="label.delete" /></button>
+                                <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="return ConfirmDelete();"><spring:message code="label.delete" /></button>
                             </form>
                         </td>
                     </tr>

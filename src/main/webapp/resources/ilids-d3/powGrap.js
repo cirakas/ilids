@@ -72,12 +72,12 @@ var mini_line0 = d3.svg.line()
     .y0(mini_height)
     .y1(function(d) { return mini_y0(d.currents); }); 
 
+
 var svg = d3.select("#powGraph").append("svg")
     .attr("preserveAspectRatio", "xMidYMid")
     .attr("viewBox", "0 0 800 400")
     .attr("width", width)
     .attr("height", width * aspect);
-    
     
     $(window).resize(function() {
   var width = $("#powGraph").width();
