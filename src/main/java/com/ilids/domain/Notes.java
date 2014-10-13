@@ -56,46 +56,88 @@ public class Notes implements Serializable {
     @ManyToOne
     private User user;
 
+    /**
+     *
+     */
     public Notes() {
     }
     
+    /**
+     *
+     * @param note
+     */
     public Notes(String note) {
         this.note=note;
     }
 
-
+    /**
+     *
+     * @param id
+     */
     public Notes(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
 	return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNote() {
 	return note;
     }
 
+    /**
+     *
+     * @param note
+     */
     public void setNote(String note) {
 	this.note = note;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCreatedDate() {
 	return createdDate;
     }
 
+    /**
+     *
+     * @param createdDate
+     */
     public void setCreatedDate(Date createdDate) {
 	this.createdDate = createdDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUser() {
 	return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
 	this.user = user;
     }

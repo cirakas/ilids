@@ -1,8 +1,6 @@
 package com.ilids.domain;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,14 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
 import org.hibernate.validator.constraints.Email;
-
-import com.ilids.validator.Gmail;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+/**
+ *
+ * @author cirakas
+ */
 @Entity
 public class User {
 
@@ -51,114 +49,170 @@ public class User {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles = new HashSet<Role>();
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Book> books = new ArrayList<Book>();
-//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//     private List<Notes> notes = new ArrayList<Notes>();
-    public void addBook(Book book) {
-        if (book.getUser() != null)
-            throw new IllegalArgumentException();
-        books.add(book);
-        book.setUser(this);
-    }    
-//    public void addNote(Notes note) {
-//        if (note.getUser() != null)
-//            throw new IllegalArgumentException();
-//        notes.add(note);
-//        note.setUser(this);
-//    }    
-    public void removeBook(Book book) {
-        books.remove(book);
-    }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
+    /**
+     *
+     * @param role
+     */
     public void addRole(Role role) {
         roles.add(role);
     }
 
+    /**
+     *
+     * @param role
+     */
     public void removeRole(Role role) {
         roles.remove(role);
     }
 
+    /**
+     *
+     */
     public void encryptPassword() {
         password = Md5Hash.encrypt(password);
     }
 
+    /**
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     *
+     * @param enabled
+     */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set<Role> getRoles() {
         return roles;
     }
 
+    /**
+     *
+     * @param roles
+     */
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getName() {
 	return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
 	this.name = name;
     }
     
+    /**
+     *
+     * @return
+     */
     public Role getRole() {
 	return role;
     }
 
+    /**
+     *
+     * @param role
+     */
     public void setRole(Role role) {
 	this.role = role;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getRoleId() {
 	return roleId;
     }
 
+    /**
+     *
+     * @param roleId
+     */
     public void setRoleId(String roleId) {
 	this.roleId = roleId;
     }

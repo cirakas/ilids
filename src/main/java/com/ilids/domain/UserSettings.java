@@ -44,49 +44,96 @@ public class UserSettings implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    /**
+     *
+     */
     public UserSettings() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public UserSettings(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
 	return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSentMail() {
 	return sentMail;
     }
 
+    /**
+     *
+     * @param sentMail
+     */
     public void setSentMail(Boolean sentMail) {
 	this.sentMail = sentMail;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getSentSms() {
 	return sentSms;
     }
 
+    /**
+     *
+     * @param sentSms
+     */
     public void setSentSms(Boolean sentSms) {
 	this.sentSms = sentSms;
     }
 
+    /**
+     *
+     * @return
+     */
     public Charts getChart() {
 	return chart;
     }
 
+    /**
+     *
+     * @param chart
+     */
     public void setChart(Charts chart) {
 	this.chart = chart;
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUser() {
 	return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
 	this.user = user;
     }

@@ -28,8 +28,8 @@
         <task:scheduled ref="alertSchedulerService" method="dbUpdateCheck" fixed-delay="60000" />
     </task:scheduled-tasks>
     
-    <beans:bean id="powerFactorSchedulerService" class="com.ilids.service.PowerFactorSchedulerService"></beans:bean>
-    <beans:bean id="alertSchedulerService" class="com.ilids.service.AlertSchedulerService"></beans:bean>
+    <beans:bean id="powerFactorSchedulerService" class="com.ilids.service.impl.PowerFactorSchedulerServiceImpl"></beans:bean>
+    <beans:bean id="alertSchedulerService" class="com.ilids.service.impl.AlertSchedulerServiceImpl"></beans:bean>
     
     <!-- SET default mail properties -->
     <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

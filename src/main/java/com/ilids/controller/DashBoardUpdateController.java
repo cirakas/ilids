@@ -3,11 +3,12 @@
  */
 package com.ilids.controller;
 
+import com.ilids.IService.DataService;
+import com.ilids.IService.SystemSettingsService;
 import com.ilids.conf.ServerConfig;
 import com.ilids.domain.PollData;
 import com.ilids.domain.SystemSettings;
-import com.ilids.service.DataService;
-import com.ilids.service.SystemSettingsService;
+import com.ilids.service.impl.SystemSettingsServiceImpl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +43,10 @@ public class DashBoardUpdateController {
 
     PollData pollData;
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/dashboardupdate/subscribe" + "", method = RequestMethod.GET)
     @ResponseBody
     public String start() {
@@ -51,6 +56,7 @@ public class DashBoardUpdateController {
 
     /**
      * hold on to server resources
+     * @return 
      */
     @RequestMapping(value = "/dashboardupdate/polldata", method = RequestMethod.GET)
     @ResponseBody
@@ -193,6 +199,14 @@ public class DashBoardUpdateController {
 	return pollData;
     }
 
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     * @param rate
+     * @return
+     * @throws ParseException
+     */
     public double calculateEnergy(String startDate, String endDate, double rate) throws ParseException {
 	double startCumilative = 0;
 	double endCumilative = 0;
@@ -209,6 +223,15 @@ public class DashBoardUpdateController {
 	return energyCost;
     }
 
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     * @param start
+     * @param end
+     * @return
+     * @throws ParseException
+     */
     @RequestMapping(value = "/dashboardupdate/alertList", method = RequestMethod.POST)
     @ResponseBody
     public List<Object[]> alertData(@RequestParam(value = "startDate", required = true) String startDate, @RequestParam(value = "endDate", required = true) String endDate,int start,int end) throws ParseException {
@@ -219,6 +242,12 @@ public class DashBoardUpdateController {
 	return alertDataList;
     }
 
+    /**
+     *
+     * @param dateValue
+     * @return
+     * @throws ParseException
+     */
     public Date convertToDate(String dateValue) throws ParseException {
 	String dateFormat = "MM/dd/yyyy HH:mm:ss";
 	String toDateFormat = "yyyy-MM-dd HH:mm:ss";
@@ -228,12 +257,24 @@ public class DashBoardUpdateController {
 	return parseFormat.parse(dateValue);
     }
 
+    /**
+     *
+     * @param dateValue
+     * @return
+     * @throws ParseException
+     */
     public Date convertToDateSameFormat(String dateValue) throws ParseException {
 	String toDateFormat = "yyyy-MM-dd HH:mm:ss";
 	SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
 	return parseFormat.parse(dateValue);
     }
 
+    /**
+     *
+     * @param dateValue
+     * @return
+     * @throws ParseException
+     */
     public String convertDateToString(Date dateValue) throws ParseException {
 	String toDateFormat = "yyyy-MM-dd HH:mm:ss";
 	SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);

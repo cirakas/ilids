@@ -59,13 +59,28 @@ public class AddressMap implements Serializable {
     @Column(name = "multi_factor")
     private double multiFactor;
 
+    /**
+     *
+     */
     public AddressMap() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public AddressMap(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param id
+     * @param offSet
+     * @param paramName
+     * @param wordLength
+     * @param multiFactor
+     */
     public AddressMap(Long id, long offSet, String paramName, long wordLength, double multiFactor) {
         this.id = id;
         this.offSet = offSet;
@@ -74,42 +89,82 @@ public class AddressMap implements Serializable {
         this.multiFactor = multiFactor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getOffSet() {
         return offSet;
     }
 
+    /**
+     *
+     * @param offSet
+     */
     public void setOffSet(long offSet) {
         this.offSet = offSet;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getParamName() {
         return paramName;
     }
 
+    /**
+     *
+     * @param paramName
+     */
     public void setParamName(String paramName) {
         this.paramName = paramName;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getWordLength() {
         return wordLength;
     }
 
+    /**
+     *
+     * @param wordLength
+     */
     public void setWordLength(long wordLength) {
         this.wordLength = wordLength;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getMultiFactor() {
         return multiFactor;
     }
 
+    /**
+     *
+     * @param multiFactor
+     */
     public void setMultiFactor(double multiFactor) {
         this.multiFactor = multiFactor;
     }

@@ -51,49 +51,96 @@ public class SystemSettings implements Serializable {
     @Column(name = "system_clock")
     private String systemClock;
 
+    /**
+     *
+     */
     public SystemSettings() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public SystemSettings(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getMdv() {
         return mdv;
     }
 
+    /**
+     *
+     * @param mdv
+     */
     public void setMdv(Double mdv) {
         this.mdv = mdv;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getRatesPerUnit() {
         return ratesPerUnit;
     }
 
+    /**
+     *
+     * @param ratesPerUnit
+     */
     public void setRatesPerUnit(Double ratesPerUnit) {
         this.ratesPerUnit = ratesPerUnit;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTimeZone() {
         return timeZone;
     }
 
+    /**
+     *
+     * @param timeZone
+     */
     public void setTimeZone(String timeZone) {
         this.timeZone = timeZone;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSystemClock() {
         return systemClock;
     }
 
+    /**
+     *
+     * @param systemClock
+     */
     public void setSystemClock(String systemClock) {
         this.systemClock = systemClock;
     }

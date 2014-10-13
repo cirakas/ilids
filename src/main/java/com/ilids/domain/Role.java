@@ -12,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ *
+ * @author cirakas
+ */
 @Entity
 @Table(name = "role")
 public class Role implements Serializable {
@@ -31,42 +35,82 @@ public class Role implements Serializable {
     @Transient
     private List<Object> menuObjectList;
 
+    /**
+     *
+     * @return
+     */
     public List<Object> getMenuObjectList() {
 	return menuObjectList;
     }
 
+    /**
+     *
+     * @param menuObjectList
+     */
     public void setMenuObjectList(List<Object> menuObjectList) {
 	this.menuObjectList = menuObjectList;
     }
 
+    /**
+     *
+     * @return
+     */
     public String[] getMenuvalues() {
         return menuvalues;
     }
 
+    /**
+     *
+     * @param menuvalues
+     */
     public void setMenuvalues(String[] menuvalues) {
         this.menuvalues = menuvalues;
     }
    
+    /**
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }

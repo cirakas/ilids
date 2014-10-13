@@ -47,38 +47,74 @@ public class MailSms implements Serializable {
     @Column(name = "sms")
     private String sms;
 
+    /**
+     *
+     */
     public MailSms() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public MailSms(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @param id
+     * @param mail
+     */
     public MailSms(Long id, String mail) {
 	this.id = id;
 	this.mail = mail;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
 	return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMail() {
 	return mail;
     }
 
+    /**
+     *
+     * @param mail
+     */
     public void setMail(String mail) {
 	this.mail = mail;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSms() {
 	return sms;
     }
 
+    /**
+     *
+     * @param sms
+     */
     public void setSms(String sms) {
 	this.sms = sms;
     }

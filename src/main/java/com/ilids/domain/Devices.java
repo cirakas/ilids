@@ -19,6 +19,10 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author cirakas
+ */
 @Entity
 @Table(name = "devices")
 @NamedQueries({
@@ -54,62 +58,122 @@ public class Devices implements Serializable {
     @ManyToOne(optional = false)
     private DeviceZone deviceZone;
 
+    /**
+     *
+     */
     public Devices() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Devices(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param id
+     * @param slaveId
+     */
     public Devices(Long id, long slaveId) {
         this.id = id;
         this.slaveId = slaveId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getSlaveId() {
         return slaveId;
     }
 
+    /**
+     *
+     * @param slaveId
+     */
     public void setSlaveId(long slaveId) {
         this.slaveId = slaveId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCreatedDate() {
         return createdDate;
     }
 
+    /**
+     *
+     * @param createdDate
+     */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDeviceZoneId() {
         return deviceZoneId;
     }
 
+    /**
+     *
+     * @param deviceZoneId
+     */
     public void setDeviceZoneId(String deviceZoneId) {
         this.deviceZoneId = deviceZoneId;
     }
 
+    /**
+     *
+     * @return
+     */
     public DeviceZone getDeviceZone() {
         return deviceZone;
     }
 
+    /**
+     *
+     * @param deviceZone
+     */
     public void setDeviceZone(DeviceZone deviceZone) {
         this.deviceZone = deviceZone;
     }

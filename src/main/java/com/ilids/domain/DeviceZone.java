@@ -13,6 +13,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author cirakas
+ */
 @Entity
 @Table(name = "device_zone")
 @NamedQueries({
@@ -36,33 +40,64 @@ public class DeviceZone implements Serializable {
     @Column(name = "description")
     private String description;
 
+    /**
+     *
+     */
     public DeviceZone() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public DeviceZone(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }

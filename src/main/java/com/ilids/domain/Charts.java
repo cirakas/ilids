@@ -56,47 +56,91 @@ public class Charts implements Serializable {
     @OneToMany(mappedBy = "chart", fetch = FetchType.LAZY)
     private Collection<UserSettings> userSettingsCollection;
 
+    /**
+     *
+     */
     public Charts() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Charts(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @param id
+     * @param name
+     */
     public Charts(Long id, String name) {
 	this.id = id;
 	this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
 	return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
 	return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
 	this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getChartKey() {
 	return chartKey;
     }
 
+    /**
+     *
+     * @param chartKey
+     */
     public void setChartKey(String chartKey) {
 	this.chartKey = chartKey;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<UserSettings> getUserSettingsCollection() {
 	return userSettingsCollection;
     }
 
+    /**
+     *
+     * @param userSettingsCollection
+     */
     public void setUserSettingsCollection(Collection<UserSettings> userSettingsCollection) {
 	this.userSettingsCollection = userSettingsCollection;
     }

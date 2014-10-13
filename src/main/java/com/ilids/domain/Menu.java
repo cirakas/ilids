@@ -29,26 +29,52 @@ public class Menu implements Serializable {
     private String name;
     @Column (name = "description",length = 1000)
     private String description;
+
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void SetName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @param description
+     * @return
+     */
     public String getDescription(String description) {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }

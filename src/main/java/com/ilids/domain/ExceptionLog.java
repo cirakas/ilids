@@ -35,7 +35,10 @@ public class ExceptionLog implements Serializable{
      private Date occuringTime;
      private String exceptionType;
 
-     
+    /**
+     *
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -43,52 +46,96 @@ public class ExceptionLog implements Serializable{
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name="user_name")
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name="issue_caused_module")
     public String getIssueCausedModule() {
         return issueCausedModule;
     }
 
+    /**
+     *
+     * @param issueCausedModule
+     */
     public void setIssueCausedModule(String issueCausedModule) {
         this.issueCausedModule = issueCausedModule;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name="exception_remark")
     public String getExceptionRemark() {
         return exceptionRemark;
     }
 
+    /**
+     *
+     * @param exceptionRemark
+     */
     public void setExceptionRemark(String exceptionRemark) {
         this.exceptionRemark = exceptionRemark;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name="issue_occured_time")
     @Temporal(TemporalType.TIMESTAMP)
     public Date getOccuringTime() {
         return occuringTime;
     }
 
+    /**
+     *
+     * @param occuringTime
+     */
     public void setOccuringTime(Date occuringTime) {
         this.occuringTime = occuringTime;
     }
     
+    /**
+     *
+     * @return
+     */
     @Column(name="exception_type")
     public String getExceptionType() {
         return exceptionType;
     }
 
+    /**
+     *
+     * @param exceptionType
+     */
     public void setExceptionType(String exceptionType) {
         this.exceptionType = exceptionType;
     }

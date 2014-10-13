@@ -3,7 +3,17 @@ package com.ilids.domain;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ *
+ * @author cirakas
+ */
 public class Md5Hash {
+
+    /**
+     *
+     * @param param
+     * @return
+     */
     public static String encrypt(String param) {
 
         MessageDigest md = null;

@@ -61,55 +61,111 @@ public class Data implements Serializable {
     @JoinColumn(name = "address_map", referencedColumnName = "off_set", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private AddressMap addressMap;
+
+    /**
+     *
+     */
     public Data() {
     }
 
+    /**
+     *
+     * @param id
+     */
     public Data(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @param id
+     * @param data
+     * @param voltage
+     * @param current
+     * @param time
+     */
     public Data(Long id, double data, double voltage, double current, Date time) {
 	this.id = id;
 	this.data = data;
 	this.time = time;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
 	return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
 	this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getData() {
 	return data;
     }
 
+    /**
+     *
+     * @param data
+     */
     public void setData(double data) {
 	this.data = data;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getTime() {
 	return time;
     }
 
+    /**
+     *
+     * @param time
+     */
     public void setTime(Date time) {
 	this.time = time;
     }
 
+    /**
+     *
+     * @return
+     */
     public Devices getDeviceId() {
 	return deviceId;
     }
 
+    /**
+     *
+     * @param deviceId
+     */
     public void setDeviceId(Devices deviceId) {
 	this.deviceId = deviceId;
     }
     
+    /**
+     *
+     * @return
+     */
     public AddressMap getAddressMap() {
         return addressMap;
     }
 
+    /**
+     *
+     * @param addressMap
+     */
     public void setAddressMap(AddressMap addressMap) {
         this.addressMap = addressMap;
     }

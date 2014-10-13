@@ -1,5 +1,8 @@
 package com.ilids.controller;
 
+import com.ilids.IService.DeviceService;
+import com.ilids.IService.DeviceZoneService;
+import com.ilids.IService.ExceptionLogService;
 import com.ilids.domain.DeviceZone;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,23 +14,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ilids.domain.Devices;
 import com.ilids.domain.User;
-import com.ilids.service.DeviceService;
-import com.ilids.service.DeviceZoneService;
-import com.ilids.service.ExceptionLogService;
-import com.ilids.service.ExceptionLoggerAlertService;
+import com.ilids.service.impl.DeviceServiceImpl;
+import com.ilids.service.impl.DeviceZoneServiceImpl;
+import com.ilids.service.impl.ExceptionLogServiceImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ *
+ * @author cirakas
+ */
 @Controller
 public class DeviceController {
 
@@ -41,16 +44,24 @@ public class DeviceController {
     private DeviceZoneService deviceZoneService;
     
     @Autowired
-    ExceptionLogService exceptionLogService;
+    private ExceptionLogService exceptionLogService;
     
 
     String module="";
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("deviceModel")
     public Devices getDevices() {
         return new Devices();
     }
 
+    /**
+     *
+     * @return
+     */
     @ModelAttribute("deviceList")
     public List<Devices> getDeviceList() {
         
@@ -60,20 +71,32 @@ public class DeviceController {
         return deviceService.getAllDevice();
     }
 
-    //list of zones   
-    @ModelAttribute("deviceZones")
+    //list of zones
+
+    /**
+     *
+     * @return
+     */
+        @ModelAttribute("deviceZones")
     public List<DeviceZone> getDeviceZone() {
         return deviceZoneService.getAllDeviceZone();
     }
 
     Long currentUserId = 0l;
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "devices", method = RequestMethod.GET)
     public String show() {
         getModuleName();
         return "/device/devices";
     }
     
+    /**
+     *
+     */
     public void getModuleName(){
                 Properties prop = new Properties();
                 String propFileName = "messages_en.properties";
@@ -86,8 +109,17 @@ public class DeviceController {
                 }
     }
 
-//Add device    
-    @RequestMapping(value = "saveDevice", method = RequestMethod.POST)
+//Add device
+
+    /**
+     *
+     * @param device
+     * @param errors
+     * @param model
+     * @param flash
+     * @return
+     */
+        @RequestMapping(value = "saveDevice", method = RequestMethod.POST)
     public String addDevice(@Valid Devices device, BindingResult errors, Model model, RedirectAttributes flash) {
         try{
            //if (errors.hasErrors()) {
@@ -111,8 +143,15 @@ public class DeviceController {
         return "/device/devices";
     }
 
-//Update device    
-    @RequestMapping(value = "saveDevice/{id}", method = RequestMethod.POST)
+//Update device
+
+    /**
+     *
+     * @param device
+     * @param flash
+     * @return
+     */
+        @RequestMapping(value = "saveDevice/{id}", method = RequestMethod.POST)
     public String updateDevice(Devices device, RedirectAttributes flash) {
         try{
             boolean status=false;
@@ -129,8 +168,14 @@ public class DeviceController {
         return "redirect:/devices";
     }
 
-//Edit device    
-    @RequestMapping(value = "/editDevices", method = RequestMethod.POST)
+//Edit device
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+        @RequestMapping(value = "/editDevices", method = RequestMethod.POST)
     @ResponseBody
     public Devices editDevices(@RequestParam("id") String id) {
         Devices devices = new Devices();
@@ -142,8 +187,14 @@ public class DeviceController {
         return devices;
     }
 
-//Delete device    
-    @RequestMapping(value = "/deleteDevice", method = RequestMethod.POST)
+//Delete device
+
+    /**
+     *
+     * @param deviceId
+     * @return
+     */
+        @RequestMapping(value = "/deleteDevice", method = RequestMethod.POST)
     public String delete(@RequestParam("deviceId") Long deviceId) {
         try {
             deviceService.remove(deviceId);
