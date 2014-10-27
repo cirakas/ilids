@@ -13,8 +13,10 @@ import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -72,7 +74,7 @@ public class DataAccessServlet extends HttpServlet {
         if(!deviceId.equals("00")){
             deviceCondition=" and device_id="+deviceId;
         }
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition;
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+" ORDER BY time "+deviceCondition;
         ResultSet rs = statement.executeQuery(selectQuery);
 	PrintWriter out = response.getWriter();
  
@@ -82,32 +84,28 @@ public class DataAccessServlet extends HttpServlet {
 	    float datas = 1;
 	    String realDate = "";
 	    String pattern = "MM/dd/yyyy HH:mm:ss";
+            DecimalFormat df = new DecimalFormat("#.##");
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 	    while (rs.next()) {
 		datas = rs.getFloat("real_data");
 		realDate = format.format(rs.getTimestamp("data_time"));
 		JSONObject json = new JSONObject();
-		json.put("date", realDate);
-		json.put("current", datas);
+		json.put("date", realDate);               
+		json.put("current", df.format(rs.getFloat("real_data")));
 		jsonArray.put(json);
 	    }
 	    out.println(jsonArray.toString());
-	    if (rs != null) {
-		rs.close();
-	    }
-	    if (connection != null) {
-		connection.close();
-	    }
+	    
 	} catch (Exception e) {
 	    e.printStackTrace();
 	} finally {
 	    out.close();
-	    if (connection != null) {
-		connection.close();
-	    }
-	    if (rs != null) {
+            if (rs != null) {
 		rs.close();
 	    }
+	    if (connection != null) {
+		connection.close();
+	    }	    
 	}
     }
     

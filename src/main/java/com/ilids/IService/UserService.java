@@ -64,7 +64,7 @@ public interface UserService {
      * @param userId
      * @throws Exception
      */
-    public void removeUserFromDatabase(Long userId) throws Exception;
+    public User removeUserFromDatabase(Long userId) throws Exception;
 
     /**
      *
@@ -92,7 +92,7 @@ public interface UserService {
      * @return
      * @throws ParseException
      */
-    public boolean getAllUserMailData(String mailAd) throws ParseException;
+    public boolean getAllUserMailData(String mailAd,long id) throws ParseException;
 
     /**
      *

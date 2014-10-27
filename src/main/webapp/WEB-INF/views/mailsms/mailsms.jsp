@@ -20,6 +20,8 @@
         document.getElementById("btn-save").disabled = true;
         var div = document.getElementById("errorPost");
         div.style.display = "none";
+        var div1 = document.getElementById("duplicateMailPost");
+        div1.style.display = "none";
     }
     function onClickAddMailSms() {
         document.getElementById('mailSmsModel').action = "saveMailSms/";
@@ -151,7 +153,7 @@
                         <td>
                             <form method="post" action='<c:url value="/deleteMailSms"/>'>
                                 <input type="hidden" value="${mailSms.id}" name="mailsmsId" /> 
-                                <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="confirmDelete();">delete</button>
+                                <button id="deleteDevice" class="btn btn-primary btn-danger" onclick="return confirmDelete();">delete</button>
                             </form>
                         </td>
                     </tr>

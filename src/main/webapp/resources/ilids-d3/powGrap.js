@@ -2,13 +2,8 @@
 
 d3.json(servlet, function (data) {
    var dateFormat = d3.time.format("%m/%d/%Y %I:%M:%S");
-   var numberFormat = d3.format(".2f");
-//   data.forEach(function (d) {
-//        d.dateFn = dateFormat.parse(d.date);
-//        d.currents = numberFormat(d.current);
-//   });
-//  
-   var mdvValue = mdvValue1;
+   //var numberFormat = d3.format(".2f");
+   //var mdvValue = mdvValue1;
    var mwidth=800;
     var main_margin = {top: 30, right: 60, bottom: 95, left: 100},
         mini_margin = {top: 345, right: 60, bottom: 20, left: 100},
@@ -21,9 +16,8 @@ d3.json(servlet, function (data) {
 
     var formatDate = d3.time.format("%H:%M:%S"),
 
-        parseDate = formatDate.parse,
-        bisectDate = d3.bisector(function(d) { return d.datee; }).left,
-        formatOutput0 = function(d) { return formatDate(d.datee) + " - "  + d.currents; };
+        bisectDate = d3.bisector(function(d) { return dateFormat.parse(d.date); }).left,
+        formatOutput0 = function(d) { return formatDate(dateFormat.parse(d.date)) + " - "  + +d.current; };
        
     var main_x = d3.time.scale()
       .range([0, main_width]),
@@ -51,26 +45,26 @@ var main_yAxisLeft = d3.svg.axis()
     
 var main_line0 = d3.svg.line()
     .interpolate("linear")
-    .x(function(d) { return main_x(d.datee); })
-    .y(function(d) { return main_y0(d.currents); });
+    .x(function(d) { return main_x(dateFormat.parse(d.date)); })
+    .y(function(d) { return main_y0(+d.current); });
     
     var mainarea = d3.svg.area()
     .interpolate("linear")
     .x0(main_width)
-    .x(function(d) { return main_x(d.datee); })
+    .x(function(d) { return main_x(dateFormat.parse(d.date)); })
     .y0(280)
-    .y1(function(d) { return main_y0(d.currents); }); 
+    .y1(function(d) { return main_y0(+d.current); }); 
 
 var mini_line0 = d3.svg.line()
     .interpolate("linear")
-    .x(function(d) { return mini_x(d.datee); })
-    .y(function(d) { return mini_y0(d.currents); });
+    .x(function(d) { return mini_x(dateFormat.parse(d.date)); })
+    .y(function(d) { return mini_y0(+d.current); });
     
    var miniarea = d3.svg.area()
     .interpolate("linear")
-    .x(function(d) { return mini_x(d.datee); })
+    .x(function(d) { return mini_x(dateFormat.parse(d.date)); })
     .y0(mini_height)
-    .y1(function(d) { return mini_y0(d.currents); }); 
+    .y1(function(d) { return mini_y0(+d.current); }); 
 
 
 var svg = d3.select("#powGraph").append("svg")
@@ -136,9 +130,9 @@ var main = svg.append("g")
 var mini = svg.append("g")
     .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");
     
-var valueline2 = d3.svg.line()
-    .x(function(d) { return main_x(d.datee); })
-    .y(function(d) { return main_y0(mdvValue); });
+//var valueline2 = d3.svg.line()
+//    .x(function(d) { return main_x(dateFormat.parse(d.date)); })
+//    .y(function(d) { return main_y0(mdvValue); });
     
 var main1 = svg.append("g")
     .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");   
@@ -149,14 +143,8 @@ var mini2 = svg.append("g")
     .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");    
    
     
-data.forEach(function(d) {
-   d.datee = dateFormat.parse(d.date);
-   d.currents =+numberFormat(d.current);
-   d.mdvValue=+mdvValue;
-});
-
-  main_x.domain([data[0].datee, data[data.length - 1].datee]);
-  main_y0.domain(d3.extent(data, function(d) { return d.currents; }));
+  main_x.domain([dateFormat.parse(data[0].date), dateFormat.parse(data[data.length - 1].date)]);
+  main_y0.domain(d3.extent(data, function(d) { return +d.current; }));
   mini_x.domain(main_x.domain());
   mini_y0.domain(main_y0.domain());
   
@@ -267,11 +255,12 @@ data.forEach(function(d) {
         i = bisectDate(data, x0, 1),
         d0 = data[i - 1],
         d1 = data[i],
-        d = x0 - d0.datee > d1.datee - x0 ? d1 : d0;
-    focus.select("circle.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.currents) + ")");
-    focus.select("text.y0").attr("transform", "translate(" + main_x(d.datee) + "," + main_y0(d.currents) + ")").text(formatOutput0(d));
-    focus.select(".x").attr("transform", "translate(" + main_x(d.datee) + ",0)");
-    focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(d.currents) + ")").attr("x2", main_width + main_x(d.datee));
+        d = x0 - dateFormat.parse(d0.date) > dateFormat.parse(d1.date) - x0 ? d1 : d0;
+var pdatee = dateFormat.parse(d.date);
+    focus.select("circle.y0").attr("transform", "translate(" + main_x(pdatee) + "," + main_y0(+d.current) + ")");
+    focus.select("text.y0").attr("transform", "translate(" + main_x(pdatee) + "," + main_y0(+d.current) + ")").text(formatOutput0(d));
+    focus.select(".x").attr("transform", "translate(" + main_x(pdatee) + ",0)");
+    focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(+d.current) + ")").attr("x2", main_width + main_x(pdatee));
   }
 
 function brush3() {

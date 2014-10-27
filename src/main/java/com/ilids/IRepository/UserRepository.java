@@ -25,7 +25,7 @@ public interface UserRepository extends GenericRepository<User>{
      * @param mailAd
      * @return
      */
-    public List<Object[]> getAllUserMailData(String mailAd);
+    public List<Object[]> getAllUserMailData(String mailAd,long id);
 
     /**
      *

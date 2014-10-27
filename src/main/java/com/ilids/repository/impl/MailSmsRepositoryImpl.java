@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailSmsRepositoryImpl extends GenericRepositoryImpl<MailSms> implements MailSmsRepository{
     
-    public List<Object[]> getAllMailData(String mailId) {
+    public List<Object[]> getAllMailData(String mailId,long id) {
        // Object[] getMailAdd = null;
         //try{
-        String selectMailIdQuery = "select * from mail_sms where mail= '"+mailId+"'";
+        String selectMailIdQuery = "select * from mail_sms where mail= '"+mailId+"' and id!='"+id+"'";
         return (List<Object[]>) entityManager.createNativeQuery(selectMailIdQuery).getResultList();
     }
 

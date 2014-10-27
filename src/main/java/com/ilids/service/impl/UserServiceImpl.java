@@ -91,8 +91,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void removeUserFromDatabase(Long userId) throws Exception {
-	userRepository.delete(findById(userId));
+    public User removeUserFromDatabase(Long userId) throws Exception {
+	 User user = userRepository.findById(userId);
+        if (user == null) {
+            throw new IllegalArgumentException();
+        }
+        userRepository.delete(user);
+        return user;
     }
 
     @Override
@@ -114,10 +119,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean getAllUserMailData(String mailAd) throws ParseException {
-	List<Object[]> mailIdData = userRepository.getAllUserMailData(mailAd);
+    public boolean getAllUserMailData(String mailAd,long id) throws ParseException {
+	List<Object[]> mailIdData = userRepository.getAllUserMailData(mailAd,id);
 	boolean result = false;
-	int mailSize = mailIdData.size();
 	if (!mailIdData.isEmpty()) {
 	    result = true;
 	}

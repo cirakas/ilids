@@ -95,7 +95,7 @@ function confirmDelete()
         <!-- Button trigger modal -->
           <div class="row">
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAdduser()">
-  <span class="glyphicon glyphicbtn btn-primary btn-lgon-plus"></span>
+  <span class="glyphicon glyphicon-plus"></span>
 </button></div>
         <br/>
 
@@ -167,10 +167,10 @@ function confirmDelete()
                                                 </button>
                                             </td>
                                              <td><c:url var="deleteUrl" value="/deleteUser"/>
-                                              <form method="post" action="${deleteUrl}" >
-                                                <input type="hidden" value="${user.id}" name="userId" />
-                                                <button id="deleteUser" class="btn btn-primary btn-danger" onclick="return confirmDelete();" ><spring:message code="label.delete" /></button>
-						</form>
+                                               <form method="post" action='<c:url value="/deleteUser"/>'>
+                                <input type="hidden" value="${user.id}" name="userId" /> 
+                                <button id="deleteUser" class="btn btn-primary btn-danger" onclick="return confirmDelete();">delete</button>
+                            </form>
                                             </td>
                                 </tr>
                     </c:forEach>

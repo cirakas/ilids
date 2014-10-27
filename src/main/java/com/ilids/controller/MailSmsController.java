@@ -66,8 +66,10 @@ public class MailSmsController {
     public List<MailSms> getDeviceList() {
 	return mailSmsService.getAllMailSmsList();
     }
+    MailSms mailSmsModel=null;
 
     Long currentMailSmsId = 0l;
+    Long smsId=0l;
     String module = "";
 
     /**
@@ -76,6 +78,7 @@ public class MailSmsController {
      */
     @RequestMapping(value = "mailsms", method = RequestMethod.GET)
     public String show() {
+        smsId=0l;
 	getModuleName();
 	return "/mailsms/mailsms";
     }
@@ -94,6 +97,12 @@ public class MailSmsController {
 
 	}
     }
+    
+    @ModelAttribute("mailSmsModel")
+    public MailSms getMailSms() {
+        return new MailSms();
+    }
+
 
     /**
      *
@@ -142,6 +151,7 @@ public class MailSmsController {
 	    currentMailSmsId = Long.valueOf(id);
 	}
 	mailSms = mailSmsService.findById(currentMailSmsId);
+        smsId=mailSms.getId();
 	return mailSms;
     }
 
@@ -154,7 +164,7 @@ public class MailSmsController {
     @RequestMapping(value = "/duplicateMailSms", method = RequestMethod.POST)
     @ResponseBody
     public boolean duplicateMailSms(@RequestParam("mail") String mail) throws ParseException {
-	return mailSmsService.getAllMailData(mail);
+	return mailSmsService.getAllMailData(mail,smsId);
 
     }
 

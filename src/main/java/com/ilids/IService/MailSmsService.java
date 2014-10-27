@@ -42,7 +42,7 @@ public interface MailSmsService {
      * @return
      * @throws ParseException
      */
-    public boolean getAllMailData(String mailId) throws ParseException;
+    public boolean getAllMailData(String mailId,long id) throws ParseException;
 
     /**
      *

@@ -19,5 +19,5 @@ public interface MailSmsRepository extends GenericRepository<MailSms>{
      * @param mailId
      * @return
      */
-    public List<Object[]> getAllMailData(String mailId);
+    public List<Object[]> getAllMailData(String mailId,long id);
 }

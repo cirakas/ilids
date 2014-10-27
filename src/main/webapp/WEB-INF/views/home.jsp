@@ -41,10 +41,10 @@
         phaseParam = '06';
     }
     if (!fromDateParam) {
-        fromDateParam = "7/20/2014"//new Date().toLocaleDateString();
+        fromDateParam = new Date().toLocaleDateString();//"7/20/2014"
     }
     if (!toDateParam) {
-        toDateParam = "7/20/2014"//new Date().toLocaleDateString();
+        toDateParam = new Date().toLocaleDateString();//"7/20/2014"
     }
     if (!fromHoursParam) {
         fromHoursParam = "00";
@@ -148,7 +148,7 @@
         }
         else {
             document.cookie = "phase=" + graphType + " " + "start=" + fromDate + " " + "end=" + toDate + " " + "frHours=" + fromHours + " " + "frMinutes=" + fromMinutes + " " + "tHours=" + toHours + " " + "tMinutes=" + toMinutes;
-            alert("cookiesss" + document.cookie);
+            document.cookie = "cname=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
             var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
             document.location = myURL + "?phase=" + graphType + "&fromDate=" + fromDate + "&fromHours=" + fromHours + "&fromMinutes=" + fromMinutes + "&toDate=" + toDate + "&toHours=" + toHours + "&toMinutes=" + toMinutes + "&deviceId=" + deviceId;
         }
@@ -168,7 +168,8 @@
 
     function readCookie(cname) {
         var name = cname + "=";
-        var ca = document.cookie.split(" ");
+        var doc = document.cookie.split(";");
+        var ca = doc[0].split(" ");
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
             while (c.charAt(0) === ' ')

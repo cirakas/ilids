@@ -283,3 +283,41 @@ ALTER TABLE `user`
 ALTER TABLE `user_settings`
   ADD CONSTRAINT `FK588616171161D1BA` FOREIGN KEY (`user`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FK_CHARTS_USER` FOREIGN KEY (`chart`) REFERENCES `charts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- indexing on table data
+--
+CREATE INDEX amtime ON data (address_map,time);
+
+CREATE INDEX idx_all ON data (time,data,address_map,id);
+
+CREATE INDEX idx_three_param ON data (address_map,data,time);
+
+CREATE INDEX idx_deviceid_param ON data (time,device_id,data);
+
+--
+-- indexing on table user
+--
+
+CREATE INDEX idx_mail_id ON user (email,id);
+
+CREATE INDEX idx_role_id ON user (id,role);
+
+--
+-- indexing on table mail_sms
+--
+
+CREATE INDEX idx_mailid ON mail_sms (id,mail);
+
+--
+-- indexing on table Role
+--
+
+CREATE INDEX idx_role ON Role (name);
+
+--
+-- indexing on table role_menu
+--
+
+CREATE INDEX idx_roleid ON role_menu (menu_id,role_id); 
+

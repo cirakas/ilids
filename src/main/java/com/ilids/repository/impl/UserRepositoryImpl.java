@@ -34,10 +34,10 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
      * @param mailAd
      * @return
      */
-    public List<Object[]> getAllUserMailData(String mailAd) {
+    public List<Object[]> getAllUserMailData(String mailAd,long id) {
        // Object[] getMailAdd = null;
         //try{
-        String selectMailQuery = "select * from user where email= '"+mailAd+"'";
+        String selectMailQuery = "select * from user where email= '"+mailAd+"' and id!='"+id+"'";
         return (List<Object[]>) entityManager.createNativeQuery(selectMailQuery).getResultList();
     }
     
