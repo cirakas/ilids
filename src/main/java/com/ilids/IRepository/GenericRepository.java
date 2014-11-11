@@ -16,7 +16,14 @@ public interface GenericRepository<T> {
      * @return
      */
     List<T> getAll();
-
+    
+    /**
+     *
+     * @param col
+     * @param order
+     * @return
+     */
+    List<T> getAllSorted(String col,String order); 
     /**
      *
      * @param query

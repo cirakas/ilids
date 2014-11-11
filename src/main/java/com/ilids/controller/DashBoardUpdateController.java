@@ -3,9 +3,11 @@
  */
 package com.ilids.controller;
 
+import com.ilids.IService.AddressMapsService;
 import com.ilids.IService.DataService;
 import com.ilids.IService.SystemSettingsService;
 import com.ilids.conf.ServerConfig;
+import com.ilids.domain.AddressMaps;
 import com.ilids.domain.PollData;
 import com.ilids.domain.SystemSettings;
 import com.ilids.service.impl.SystemSettingsServiceImpl;
@@ -40,6 +42,9 @@ public class DashBoardUpdateController {
 
     @Autowired
     private SystemSettingsService systemSettingsService;
+    
+    @Autowired
+    private AddressMapsService addressMapsService;
 
     PollData pollData;
 

@@ -185,6 +185,9 @@
              <c:if test="${menuIdList=='9'}">
              <li><a href="<c:url value="/devicezones"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Device Zone<div class="active_arrow"></div></a></li>
               </c:if>
+             <c:if test="${menuIdList=='10'}">
+             <li><a href="<c:url value="/addressmap"/>"><i class=""><img src=""></i>&nbsp; Address Map<div class="active_arrow"></div></a></li>
+              </c:if>
                </c:forEach>
              </ul>
                  <ul class="nav navbar-nav navbar-right navbar-user margin_">

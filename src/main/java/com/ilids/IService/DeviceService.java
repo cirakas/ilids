@@ -19,7 +19,7 @@ public interface DeviceService {
      * @return
      */
     public List<Devices> getAllDevice();
-
+    public List<Devices> getAllDevice(String col,String order);
     /**
      *
      * @param id
