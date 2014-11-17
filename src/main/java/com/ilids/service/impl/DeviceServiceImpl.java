@@ -73,4 +73,9 @@ public class DeviceServiceImpl implements DeviceService{
 	deviceRepository.merge(device);
 	return true;
     }
+
+    @Override
+    public List<Devices> getAllUsedDevices() {
+        return deviceRepository.getAllUsedDevices();
+    }
 }

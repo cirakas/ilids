@@ -10,7 +10,7 @@
     }
     function onClickAddsystemsettings() {
         document.getElementById('SystemSettingsModel').action = "saveSystemSettings/"
-        document.getElementById('myModalLabel').innerHTML = "Add SystemSettings";
+        document.getElementById('myModalLabel_systemSettings').innerHTML = "Add SystemSettings";
         document.getElementById('btn-save').innerHTML = "Save";
         document.getElementById('mdv').value = "";
         document.getElementById('ratesPerUnit').value = "";
@@ -23,7 +23,7 @@
         $.post(url, params, function(data) {
 
             document.getElementById('SystemSettingsModel').action = "saveSystemSettings/" + data.id;
-            document.getElementById('myModalLabel').innerHTML = "Edit SystemSettings";
+            document.getElementById('myModalLabel_systemSettings').innerHTML = "Edit SystemSettings";
             document.getElementById('btn-save').innerHTML = "Save changes";
             document.getElementById('mdv').value = data.mdv;
             document.getElementById('ratesPerUnit').value = data.ratesPerUnit;
@@ -74,7 +74,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add SystemSettings</h4>
+                <h4 class="modal-title" id="myModalLabel_systemSettings">Add SystemSettings</h4>
             </div>
             <c:url value="/saveSystemSettings" var="url" />
             <form:form action="${url}" method="post" modelAttribute="SystemSettingsModel" onsubmit="return fieldCheck();">

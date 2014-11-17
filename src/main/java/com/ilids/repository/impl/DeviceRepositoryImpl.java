@@ -4,6 +4,7 @@ import com.ilids.IRepository.DeviceRepository;
 import org.springframework.stereotype.Component;
 
 import com.ilids.domain.Devices;
+import java.util.List;
 
 /**
  *
@@ -14,6 +15,11 @@ public class DeviceRepositoryImpl extends GenericRepositoryImpl<Devices> impleme
 
     DeviceRepositoryImpl() {
         super(Devices.class);
+    }
+
+    @Override
+    public List<Devices> getAllUsedDevices() {
+       return (List<Devices>)entityManager.createQuery("select d from Devices d where d.used=1").getResultList();
     }
 
 }

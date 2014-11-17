@@ -93,13 +93,14 @@ public class DashBoardUpdateController {
      * @param toHours
      * @param toMinutes
      * @param endDate
+     * @param deviceId
      * @return
      * @throws java.text.ParseException
      */
     @RequestMapping(value = "/dashboardupdate/energyCost", method = RequestMethod.GET)
     @ResponseBody
 
-    public PollData energyCost(@RequestParam(value = "startDate", required = true) String startDate, @RequestParam(value = "fromHours", required = true) String fromHours, @RequestParam(value = "fromMinutes", required = true) String fromMinutes, @RequestParam(value = "endDate", required = true) String endDate, @RequestParam(value = "toHours", required = true) String toHours, @RequestParam(value = "toMinutes", required = true) String toMinutes) throws ParseException {
+    public PollData energyCost(@RequestParam(value = "startDate", required = true) String startDate, @RequestParam(value = "fromHours", required = true) String fromHours, @RequestParam(value = "fromMinutes", required = true) String fromMinutes, @RequestParam(value = "endDate", required = true) String endDate, @RequestParam(value = "toHours", required = true) String toHours, @RequestParam(value = "toMinutes", required = true) String toMinutes, @RequestParam(value = "deviceId", required = true) String deviceId) throws ParseException {
 	double startCumilative = 0;
 	double endCumilative = 0;
 	double peakCost = 0;
@@ -107,7 +108,7 @@ public class DashBoardUpdateController {
 	double offPeakCost = 0;
 	double energyCost = 0;
 	double mdv = 100;
-	logger.info("Calculating energy cost");
+	logger.info("Calculating energy cost   DDDDDDDDd"+deviceId);
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat formatterWithTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String fromDateTime = startDate + " " + fromHours + ":" + fromMinutes + ":01";
@@ -158,22 +159,22 @@ public class DashBoardUpdateController {
 		}
 
 		if (offPeakEndMrng.after(offPeakStartMrng)) {
-		    energyCost = calculateEnergy(convertDateToString(offPeakStartMrng), convertDateToString(offPeakEndMrng), 5.525);
+		    energyCost = calculateEnergy(convertDateToString(offPeakStartMrng), convertDateToString(offPeakEndMrng), 5.525, deviceId);
 		}
 		offPeakCost = offPeakCost + energyCost;
 
 		if (normalEnd.after(normalStart)) {
-		    energyCost = calculateEnergy(convertDateToString(normalStart), convertDateToString(normalEnd), 6.5);
+		    energyCost = calculateEnergy(convertDateToString(normalStart), convertDateToString(normalEnd), 6.5, deviceId);
 		}
 		normalCost = normalCost + energyCost;
 
 		if (peakEnd.after(peakStart)) {
-		    energyCost = calculateEnergy(convertDateToString(peakStart), convertDateToString(peakEnd), 9.1);
+		    energyCost = calculateEnergy(convertDateToString(peakStart), convertDateToString(peakEnd), 9.1, deviceId);
 		    peakCost = peakCost + energyCost;
 		}
 
 		if (offPeakEnd.after(offPeakStart)) {
-		    energyCost = calculateEnergy(convertDateToString(offPeakStart), convertDateToString(offPeakEnd), 6.5);
+		    energyCost = calculateEnergy(convertDateToString(offPeakStart), convertDateToString(offPeakEnd), 6.5, deviceId);
 		    offPeakCost = offPeakCost + energyCost;
 		}
 		beginCalendar.add(Calendar.DATE, 1);
@@ -212,14 +213,23 @@ public class DashBoardUpdateController {
      * @return
      * @throws ParseException
      */
-    public double calculateEnergy(String startDate, String endDate, double rate) throws ParseException {
+    public double calculateEnergy(String startDate, String endDate, double rate,String deviceId) throws ParseException {
 	double startCumilative = 0;
 	double endCumilative = 0;
 	double energyCost = 0;
-	List<Object[]> cumilativeData = dataService.getCumilativeEnergy(startDate, endDate, true);
+	List<Object[]> cumilativeData = dataService.getCumilativeEnergy(startDate, endDate, true,deviceId);
 	if (cumilativeData.size() > 0 && cumilativeData.get(0) != null && cumilativeData.get(0) != null) {
+            if(cumilativeData.get(0)[1]!=null){
 	    startCumilative = (Double) cumilativeData.get(0)[1];
-	    endCumilative = (Double) cumilativeData.get(1)[1];
+            }else{
+            startCumilative = 0;  
+            }
+            if(cumilativeData.get(1)[1]!=null){
+                 endCumilative = (Double) cumilativeData.get(1)[1];
+            }else{
+                 endCumilative = 0;
+            }
+            
 	}
 	energyCost = (endCumilative - startCumilative) * rate;
 	if(energyCost<0){

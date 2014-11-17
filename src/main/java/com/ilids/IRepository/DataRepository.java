@@ -37,9 +37,10 @@ public interface DataRepository extends GenericRepository<Data>{
      * @param startDateParam
      * @param endDateParam
      * @param startFlag
+     * @param deviceId
      * @return
      */
-    public List<Object[]> getCumilativeEnergy(String startDateParam, String endDateParam, boolean startFlag);
+    public List<Object[]> getCumilativeEnergy(String startDateParam, String endDateParam, boolean startFlag, String deviceId);
 
     /**
      *

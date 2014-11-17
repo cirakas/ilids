@@ -17,6 +17,7 @@
             document.getElementById('name').value = data.name;
             document.getElementById('slaveId').value = data.slaveId;
             document.getElementById('deviceZoneId').value = data.deviceZoneId;
+            document.getElementById('used').value = data.used;
         });
     }
 //Add devices
@@ -27,6 +28,7 @@
         document.getElementById('name').value = "";
         document.getElementById('slaveId').value = "";
         document.getElementById('deviceZoneId').value = "";
+         document.getElementById('used').value=0;
     }
 
 //Confirm delete
@@ -80,6 +82,7 @@
                     <div class="form-group"><label><spring:message code="label.deviceName" /><span class="mandatory" style="color: red"> *</span> :</label><form:input path="name" class="form-control required name" placeholder="Device name" required="required"/></div>
                     <div class="form-group"><label><spring:message code="label.deviceId" /><span class="mandatory" style="color: red"> *</span> :</label><form:input path="slaveId" class="form-control required name" placeholder="Slave Id" required="required"/></div>
                     <div class="form-group"><label><spring:message code="label.zone" /></label><form:select class="form-control" path="deviceZoneId" items="${deviceZones}" itemLabel="name" itemValue="id" multiple="false" /></div>
+                    <div class="form-group"><label><spring:message code="label.used" /></label><form:select class="form-control" path="used" id="used" multiple="false" ><form:option label="NO" value="0"></form:option><form:option label="YES" value="1"></form:option></form:select></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
@@ -98,6 +101,7 @@
                     <th><spring:message code="label.name" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.deviceId" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.zoneName" /> <i class="fa fa-sort"></i></th>
+                     <th><spring:message code="label.used" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.edit" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.delete" /> <i class="fa fa-sort"></i></th>
                 </tr>
@@ -108,6 +112,7 @@
                         <td>${device.name}</td>
                         <td>${device.slaveId}</td>
                         <td>${device.deviceZone.name}</td>
+                        <td>${device.used==1?'YES':'NO'}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" onclick="onClickEditDevices(${device.id})">
                                 <spring:message code="label.edit" />

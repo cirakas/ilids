@@ -51,9 +51,9 @@ public class MailSmsServiceImpl implements MailSmsService{
     @Override
     public boolean getAllMailData(String mailId,long id) throws ParseException {
        List<Object[]> mailData=mailSmsRepository.getAllMailData(mailId,id); 
-       boolean result=false;
+       boolean result=true;
         if(!mailData.isEmpty()){
-            result=true;
+            result = false;
         }
         return result;
     }   

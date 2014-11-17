@@ -321,3 +321,9 @@ CREATE INDEX idx_role ON Role (name);
 
 CREATE INDEX idx_roleid ON role_menu (menu_id,role_id); 
 
+--
+-- alter table devices to add the column 'used'
+--
+
+ALTER TABLE devices ADD COLUMN used SMALLINT(1)  NOT NULL DEFAULT 0;
+

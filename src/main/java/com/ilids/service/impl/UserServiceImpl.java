@@ -121,10 +121,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean getAllUserMailData(String mailAd,long id) throws ParseException {
 	List<Object[]> mailIdData = userRepository.getAllUserMailData(mailAd,id);
-	boolean result = false;
-	if (!mailIdData.isEmpty()) {
-	    result = true;
-	}
+        boolean result = true;
+        if (!mailIdData.isEmpty()) {
+            result = false;
+        }
 	return result;
     }
 

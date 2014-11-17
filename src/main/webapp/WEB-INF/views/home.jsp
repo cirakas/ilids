@@ -488,7 +488,6 @@
         <div class="form-group form-group1" style="float: left;" >               
             <form:form method="post" modelAttribute="deviceModel">                         
                 <form:select cssClass="form-control" multiple="single" id="deviceList" onchange="selectFunction();" path="id" >
-                    <form:option value="00" label="All devices" />
                     <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
                 </form:select>                        
                 <%--<form:select path="id" items="${deviceIdList}" itemLabel="name" itemValue="slaveId" multiple="false" id="deviceList" onchange="selectFunction()"/>--%>
@@ -714,6 +713,7 @@
         var toDateParams = document.getElementById("SelectedDate1").value;
         var toHoursParams = document.getElementById("to-hours").value;
         var toMinutesParams = document.getElementById("to-minutes").value;
+        var deviceId = document.getElementById("deviceList").value;
         var energyRequestUrl = "dashboardupdate/energyCost";
         var energyValueDiv = 0;
         var alertSpan = 0;
@@ -725,7 +725,7 @@
         var energyRequest = $.ajax({
             url: energyRequestUrl,
             type: "get",
-            data: {"startDate": fromDateParams, "endDate": toDateParams, "fromHours": fromHoursParams, "fromMinutes": fromMinutesParams, "toHours": toHoursParams, "toMinutes": toMinutesParams},
+            data: {"startDate": fromDateParams, "endDate": toDateParams, "fromHours": fromHoursParams, "fromMinutes": fromMinutesParams, "toHours": toHoursParams, "toMinutes": toMinutesParams,"deviceId":deviceId},
             success: function(pollData) {
                 energyValueDiv = '<p id="energyCostValue" class="announcement-text" style="float:left;">\n\
                                                <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Peak cost</div><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.peakCost) + '</div></div><br/>\n\

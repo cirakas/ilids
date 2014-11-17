@@ -11,13 +11,13 @@
             document.getElementById('mailSmsModel').action = "saveMailSms/" + data.id;
             document.getElementById('mail').value = data.mail;
             document.getElementById('sms').value = data.sms;
+            document.getElementById('myModalLabel_mail_sms').innerHTML='Edit Mail and Sms';
         });
     }
 
 
     function onClickEditMailSms(val) {
         ajaxLink('/ilids/editMailSms', {'id': val}, 'viewDiv');
-        document.getElementById("btn-save").disabled = true;
         var div = document.getElementById("errorPost");
         div.style.display = "none";
         var div1 = document.getElementById("duplicateMailPost");
@@ -27,7 +27,7 @@
         document.getElementById('mailSmsModel').action = "saveMailSms/";
         document.getElementById('mail').value = "";
         document.getElementById('sms').value = "";
-        document.getElementById("btn-save").disabled = true;
+        document.getElementById('myModalLabel_mail_sms').innerHTML='Add Mail and Sms';
         var div = document.getElementById("errorPost");
         div.style.display = "none";
         var div1 = document.getElementById("duplicateMailPost");
@@ -35,31 +35,30 @@
 
     }
 
-    function checkEmail() {
-
-
+     function checkEmail() {
         var email = document.getElementById('mail');
-
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var div = document.getElementById("errorPost");
         var div1 = document.getElementById("duplicateMailPost");
-
+        var val = true;
+        
         if (!filter.test(email.value)) {
             div.style.display = "block";
-            document.getElementById("btn-save").disabled = true;
+            div1.style.display = "none";
+            val = false;
         }
-        if (filter.test(email.value)) {
+        if (val) {
             $.post('/ilids/duplicateMailSms', {'mail': email.value}, function(data) {
-                if (data) {
-                    div1.style.display = "block";
-                    document.getElementById("btn-save").disabled = true;
-                }
                 if (!data) {
+                   div1.style.display = "block";
+                   val = false;
+                }
+                if (data) {
                     div1.style.display = "none";
+                    document.getElementById("mailSmsModel").submit();
                 }
             });
             div.style.display = "none";
-            document.getElementById("btn-save").disabled = false;
         }
         email.focus;
         return false;
@@ -104,10 +103,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add Mail and Sms</h4>
+                <h4 class="modal-title" id="myModalLabel_mail_sms">Add Mail and Sms</h4>
             </div>
             <c:url value="/saveMailSms" var="url" />
-            <form:form action="${url}" method="post" modelAttribute="mailSmsModel" >
+            <form:form action="${url}" method="post" modelAttribute="mailSmsModel" onsubmit="return checkEmail();">
                 <div id="errorPost" style="display:none;">
                     <div style="color: tomato;"> <p style="text-indent: 20px;margin-top:10px;">Please provide a valid email address</p>
                     </div></div>
@@ -115,12 +114,12 @@
                     <div style="color: tomato;">   <p style="text-indent: 20px;margin-top:10px;">  E-mail id already exist</p>
                     </div>   </div> 
                 <div class="modal-body">
-                    <div class="form-group"><label> E-mail <span class="mandatory" style="color: red"> *</span> : </label><form:input onblur="checkEmail();" path="mail" class="form-control required name" placeholder="E-mail id" required="required"/></div>
-                    <div class="form-group"><label> Mobile No <span class="mandatory" style="color: red"> *</span> : </label><form:input path="sms" class="form-control required name" placeholder="Mobile no" required="required"/></div>  
+                    <div class="form-group"><label> E-mail <span class="mandatory" style="color: red"> *</span> : </label><form:input path="mail" class="form-control required name" placeholder="E-mail id" required="required"/></div>
+                    <div class="form-group"><label> Mobile No : </label><form:input path="sms" class="form-control required name" placeholder="Mobile no" /></div>  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <form:button class="btn btn-primary"  id="btn-save" style="disabled:false" >Save changes</form:button>
+                    <form:button class="btn btn-primary"  id="btn-save" >Save changes</form:button>
                     </div>
 
 

@@ -9210,9 +9210,9 @@ d3 = function() {
     return d.getDate() != 1;
   } ], [ d3_time_format("%a %d"), function(d) {
     return d.getDay() && d.getDate() != 1;
-  } ], [ d3_time_format("%I %p"), function(d) {
+  } ], [ d3_time_format("%H:%M"), function(d) {
     return d.getHours();
-  } ], [ d3_time_format("%I:%M"), function(d) {
+  } ], [ d3_time_format("%H:%M"), function(d) {
     return d.getMinutes();
   } ], [ d3_time_format(":%S"), function(d) {
     return d.getSeconds();
@@ -9238,9 +9238,9 @@ d3 = function() {
     return d.getUTCDate() != 1;
   } ], [ d3_time_formatUtc("%a %d"), function(d) {
     return d.getUTCDay() && d.getUTCDate() != 1;
-  } ], [ d3_time_formatUtc("%I %p"), function(d) {
+  } ], [ d3_time_formatUtc("%H %p"), function(d) {
     return d.getUTCHours();
-  } ], [ d3_time_formatUtc("%I:%M"), function(d) {
+  } ], [ d3_time_formatUtc("%H:%M"), function(d) {
     return d.getUTCMinutes();
   } ], [ d3_time_formatUtc(":%S"), function(d) {
     return d.getUTCSeconds();

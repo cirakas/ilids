@@ -69,10 +69,11 @@ public interface DataService {
      * @param startDateValue
      * @param endDateValue
      * @param startFlag
+     * @param deviceId
      * @return
      * @throws ParseException
      */
-    public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag) throws ParseException;
+    public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag, String deviceId) throws ParseException;
 
     /**
      *

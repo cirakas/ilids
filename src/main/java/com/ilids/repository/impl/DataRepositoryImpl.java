@@ -38,17 +38,25 @@ public class DataRepositoryImpl  extends GenericRepositoryImpl<Data> implements 
         return powerData;
     }
 
-    public List<Object[]> getCumilativeEnergy(String startDateParam, String endDateParam, boolean startFlag) {
+    public List<Object[]> getCumilativeEnergy(String startDateParam, String endDateParam, boolean startFlag, String deviceId) {
         List<Object[]> cumialtiveDataList = new ArrayList<Object[]>();
         Object[] startCumilative = null;
         Object[] endCumilative = null;
+        long devicesId=Long.valueOf(deviceId);
         try {
-            startCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time > '" + startDateParam + "' and address_map=512 order by id asc limit 1 ").getSingleResult();
-            endCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time < '" + endDateParam + "' and address_map=512 order by id desc limit 1 ").getSingleResult();
+            startCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time > '" + startDateParam + "' and time < '" + endDateParam + "' and device_id="+devicesId+" and address_map=512 order by id asc limit 1 ").getSingleResult();
         } catch (NoResultException e) {
             // e.printStackTrace();
             logger.error("There is an Exception in getCumilativeEnergy method for the date between " + startDateParam + " and " + endDateParam + "message" + e.getMessage());
         }
+        
+         try {
+            endCumilative = (Object[]) entityManager.createNativeQuery("SELECT id,data,time,address_map FROM data where time > '" + startDateParam + "' and time < '" + endDateParam + "' and device_id="+devicesId+" and address_map=512 order by id desc limit 1 ").getSingleResult();
+        } catch (NoResultException e) {
+            // e.printStackTrace();
+            logger.error("There is an Exception in getCumilativeEnergy method for the date between " + startDateParam + " and " + endDateParam + "message" + e.getMessage());
+        }
+        
         cumialtiveDataList.add(0, startCumilative);
         cumialtiveDataList.add(1, endCumilative);
         return cumialtiveDataList;
@@ -91,4 +99,4 @@ public class DataRepositoryImpl  extends GenericRepositoryImpl<Data> implements 
 //    public List<Data> getAllData() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-}
+    }

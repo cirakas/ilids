@@ -18,11 +18,13 @@
         document.getElementById('name').value = "";
         document.getElementById('description').value = "";
         document.getElementById('roleModel').action = "saveRole/";
-        document.getElementById("btn-save").disabled = true;
+        //document.getElementById("btn-save").disabled = true;
         var div = document.getElementById("duplicateRole");
         div.style.display = "none";
     }
     function onClickEditRoles(val) {
+        var div = document.getElementById("duplicateRole");
+        div.style.display = "none";
         var frm_elements = roleModel.elements;
         var field_type = "";
         for (var i = 0; i < frm_elements.length; i++) {
@@ -47,12 +49,22 @@
         });
     }
     
-//check box validate
-    function vaidateCheckbox() {
+//role and check box validate
+    function vaidateRoleCheckbox() {
+        var val = true;
+        var div = document.getElementById('duplicateRole');
+        var name = document.getElementById('name');
         var frm_elements = roleModel.elements;
         var field_type = "";
         var flag = false;
-        for (var i = 0; i < frm_elements.length; i++) {
+        $.post('/ilids/duplicateRole', {'name': name.value}, function(data) {
+            if (!data) {
+                div.style.display = "block";
+                val = false;
+            }
+            if (data) {
+                div.style.display = "none";
+                for (var i = 0; i < frm_elements.length; i++) {
             field_type = frm_elements[i].type.toLowerCase();
             if (field_type === 'checkbox' && frm_elements[i].checked === true) {
                 flag = true;
@@ -64,23 +76,16 @@
             alert('Please select atleast one option');
             return false;
         }
-    }
-    
- //role duplicate check
-    function roleValidate() {
-        var div = document.getElementById('duplicateRole');
-        var name = document.getElementById('name');
-        $.post('/ilids/duplicateRole', {'name': name.value}, function(data) {
-            if (data) {
-                div.style.display = "block";
-                document.getElementById('btn-save').disabled = true;
-            }
-            if (!data) {
-                div.style.display = "none";
+                
+                document.getElementById("roleModel").submit();
 
             }
         });
+        
+        return false;
+        
     }
+    
 //empty field check
     function emptyCheck() {
         var desc = document.getElementById('description');
@@ -124,14 +129,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Add Role</h4>
             </div>     <c:url value="/saveRole" var="url" />
-            <form:form action="${url}" method="post" modelAttribute="roleModel" onsubmit="return vaidateCheckbox()">
+            <form:form action="${url}" method="post" modelAttribute="roleModel" onsubmit="return vaidateRoleCheckbox()">
                 <div class="modal-body">
                     <div id="duplicateRole" style="display:none;">
                         <div style="color: tomato;"> 
                             <p style="margin-top:-10px; margin-bottom:20px;">Role already exist</p>
                     </div> 
                     </div>
-                    <div class="form-group"><label> Role Name <span class="mandatory" style="color: red"> *</span> :</label><form:input path="name" class="form-control required name" placeholder="Role name" required="required" onblur="roleValidate();"/></div>
+                    <div class="form-group"><label> Role Name <span class="mandatory" style="color: red"> *</span> :</label><form:input path="name" class="form-control required name" placeholder="Role name" required="required" /></div>
                     <div class="form-group"><label> Description <span class="mandatory" style="color: red"> *</span> : </label><form:input path="description" class="form-control required name" placeholder="Description" required="required" onblur="emptyCheck();"/></div>
                     <label>Menu Items</label>
                     <div class="form-group">
@@ -141,7 +146,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <form:button class="btn btn-primary" id="btn-save" disabled="true">Save</form:button>
+                    <form:button class="btn btn-primary" id="btn-save" >Save</form:button>
                     </div>
                     
             </form:form>
@@ -154,10 +159,10 @@
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
                 <tr>
-                    <th>Role Name <i class="fa fa-sort"></i></th>
-                    <th>Description <i class="fa fa-sort"></i></th>
-                    <th>Edit <i class="fa fa-sort"></i></th>
-                    <th>Delete <i class="fa fa-sort"></i></th>
+                    <th>Role Name <form method="post" class="header" action='<c:url value="/sortDat/name"/>'> <button id="sort" class="fa fa-sort"  style="background: none;border:none;float: left;"> </button></form></th>
+                    <th>Description </th>
+                    <th>Edit </th>
+                    <th>Delete </th>
                 </tr>
             </thead>
 

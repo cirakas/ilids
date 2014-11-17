@@ -49,6 +49,7 @@ public class RoleController {
     ExceptionLogService exceptionLogService;
 
     String module = "";
+    Long roleId;
 
     /**
      *
@@ -56,6 +57,7 @@ public class RoleController {
      */
     @RequestMapping(value = "role", method = RequestMethod.GET)
     public String show() {
+        roleId = 0l;
 	getModuleName();
 	return "/role/role";
     }
@@ -118,6 +120,7 @@ public class RoleController {
 	}
 	try {
 	    role = roleService.editRole(currentUserId);
+            roleId = role.getId();
 	} catch (Exception ex) {
 	    exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
 		    "Role updation is failed [ Controller : ' " + this.getClass().toString() + " '@@ Method Name : 'editRoles' ]");
@@ -198,7 +201,7 @@ public class RoleController {
     @RequestMapping(value = "/duplicateRole", method = RequestMethod.POST)
     @ResponseBody
     public boolean duplicateRole(@RequestParam("name") String name) throws ParseException {
-	return roleService.getAllRoleNameData(name);
+	return roleService.getAllRoleNameData(name , roleId);
 
     }
 

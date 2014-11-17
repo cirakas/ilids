@@ -49,7 +49,9 @@ public class Devices implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.DATE)
     private Date createdDate;
-
+    @Column(name = "used", columnDefinition="SMALLINT(1)  NOT NULL DEFAULT 0", length = 1, nullable = false)
+    private Short used; 
+    
     @Transient
     private String deviceZoneId;
 
@@ -71,6 +73,7 @@ public class Devices implements Serializable {
     public Devices(Long id) {
         this.id = id;
     }
+    
 
     /**
      *
@@ -176,6 +179,15 @@ public class Devices implements Serializable {
      */
     public void setDeviceZone(DeviceZone deviceZone) {
         this.deviceZone = deviceZone;
+    }
+    
+    
+    public Short getUsed() {
+        return used;
+    }
+
+    public void setUsed(Short used) {
+        this.used = used;
     }
 
     @Override

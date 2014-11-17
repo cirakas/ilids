@@ -24,18 +24,18 @@ d3.json(servlet, function (data) {
        mini_x = d3.time.scale()
       .range([0, main_width]);
 
-    var main_y0 = d3.scale.sqrt()
+    var main_y0 = d3.scale.linear()
       .range([270, 0]),
-       mini_y0 = d3.scale.sqrt()
+       mini_y0 = d3.scale.linear()
       .range([20, 0]);
 
    var main_xAxis = d3.svg.axis()
     .scale(main_x)
-    .tickFormat(d3.time.format("%H:%M"))
+    //.tickFormat(d3.time.format("%H:%M"))
     .orient("bottom"),
     mini_xAxis = d3.svg.axis()
     .scale(mini_x)
-    .tickFormat(d3.time.format("%H:%M"))
+    //.tickFormat(d3.time.format("%H:%M"))
     .orient("bottom");
 
 var main_yAxisLeft = d3.svg.axis()

@@ -35,10 +35,10 @@ public class RoleRepositoryImpl extends GenericRepositoryImpl<Role> implements R
 	return menuSelectedList;
     }
     
-    public List<Object[]> getAllRoleNameData(String roleName) {
+    public List<Object[]> getAllRoleNameData(String roleName , Long id) {
        // Object[] getMailAdd = null;
         //try{
-        String selectRoleQuery = "select * from role where name= '"+roleName+"'";
+        String selectRoleQuery = "select * from role where name= '"+roleName+"' and id!= '"+id+"'";
         return (List<Object[]>) entityManager.createNativeQuery(selectRoleQuery).getResultList();
     }
     

@@ -72,7 +72,7 @@ public class LoginController {
 	org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	List<Object> menuIdList=roleService.getAllMenuIds(user.getUsername());
 
-        List<Devices> deviceIdList = deviceService.getAllDevice();
+        List<Devices> deviceIdList = deviceService.getAllUsedDevices();
         model.addAttribute("deviceIdList", deviceIdList);
 	model.addAttribute("menuIdList", menuIdList);
         model.addAttribute("users", sessionRegistry.getAllPrincipals());

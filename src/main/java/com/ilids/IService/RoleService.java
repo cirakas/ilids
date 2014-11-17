@@ -119,6 +119,6 @@ public interface RoleService {
      * @return
      * @throws ParseException
      */
-    public boolean getAllRoleNameData(String roleName) throws ParseException;
+    public boolean getAllRoleNameData(String roleName , Long id) throws ParseException;
 
 }

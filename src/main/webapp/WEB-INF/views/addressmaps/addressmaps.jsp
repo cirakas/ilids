@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <script type="text/javascript">
     function EditAddressMap(val){
        ajaxLink('/ilids/EditAddressMap', {'id': val}, 'viewDiv');
@@ -40,12 +41,16 @@
        var offSet = document.getElementById('offSet').value;
        var minValue = document.getElementById('minValue').value;
        var maxValue = document.getElementById('maxValue').value;
+        var multiFact = document.getElementById('multiFactor').value;
         if(isNaN(wordLength)) {
             alert('Word Length should be a number');
         return false;
     }
         else if(isNaN(offSet)){
             alert('offSet should be a number');
+        return false;
+    } else if(isNaN(multiFact)){
+            alert('Multi Factor should be a number');
         return false;
     }
         else if(isNaN(minValue)){
@@ -136,7 +141,7 @@
                 <td>${addressmaps.name}</td>
                 <td>${addressmaps.minValue}</td>
                 <td>${addressmaps.maxValue}</td>
-                <td>${addressmaps.paramName}</td>
+                <td>${fn:substring(addressmaps.paramName,0,40)}</td>
                 <td>${addressmaps.offSet}</td>
                 <td>${addressmaps.wordLength}</td>
                 <td>${addressmaps.multiFactor}</td>

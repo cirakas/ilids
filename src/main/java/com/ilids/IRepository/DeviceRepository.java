@@ -7,11 +7,14 @@
 package com.ilids.IRepository;
 
 import com.ilids.domain.Devices;
+import java.util.List;
 
 /**
  *
  * @author cirakas
  */
 public interface DeviceRepository extends GenericRepository<Devices>{
+    
+    public List<Devices> getAllUsedDevices();
     
 }

@@ -171,6 +171,9 @@ public class AlertSchedulerServiceImpl implements AlertSchedulerService{
         FileSystemResource res = new FileSystemResource(new File("D:\\logo.jpg"));
 
         if (!device.isEmpty()) {
+            
+            logger.info("There is a breakage in the connection. Sending mail to the mail");
+            
             mailSmsList = mailSmsService.getAllMailSmsList();
             mimeMessage = mailSender.createMimeMessage();
             helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
@@ -181,7 +184,7 @@ public class AlertSchedulerServiceImpl implements AlertSchedulerService{
                     + "<br/>iLids Admin.<br/><br/><br/><div style=\"width:100%;border-top:1px solid black;font-size:13px;\"><br/>This is a system generated mail. Please do not reply to this email ID.</div></body></html>";
             helper.setText(htmlMsg, true);
             helper.setSubject("Connection Lost");
-            helper.setFrom("admin@ilids.com");
+            helper.setFrom("cirakas@cirakas.com");
 
             for (MailSms mailsms : mailSmsList) {
                 helper.setTo(mailsms.getMail());

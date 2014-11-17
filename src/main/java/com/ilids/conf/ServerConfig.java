@@ -22,7 +22,7 @@ public final class ServerConfig {
     /**
      *
      */
-    public static String DB_NAME = "ilidsdemo";
+    public static String DB_NAME = "ilidskims_nov";
 
     /**
      *

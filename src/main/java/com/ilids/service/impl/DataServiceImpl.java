@@ -83,10 +83,10 @@ public class DataServiceImpl implements DataService{
     }
 
     @Override
-    public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag) throws ParseException {
+    public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag, String deviceId) throws ParseException {
 	//startDateValue = convertToDate(startDateValue);
 	//endDateValue = convertToDate(endDateValue);
-	List<Object[]> cumilativeDataList = dataRepository.getCumilativeEnergy(startDateValue, endDateValue, startFlag);
+	List<Object[]> cumilativeDataList = dataRepository.getCumilativeEnergy(startDateValue, endDateValue, startFlag, deviceId);
 	return cumilativeDataList;
     }
 

@@ -23,7 +23,7 @@ public interface GenericRepository<T> {
      * @param order
      * @return
      */
-    List<T> getAllSorted(String col,String order); 
+   // List<T> getAllSorted(String col,String order); 
     /**
      *
      * @param query

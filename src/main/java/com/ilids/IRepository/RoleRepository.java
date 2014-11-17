@@ -40,6 +40,6 @@ public interface RoleRepository extends GenericRepository<Role>{
      * @param roleName
      * @return
      */
-    public List<Object[]> getAllRoleNameData(String roleName);
+    public List<Object[]> getAllRoleNameData(String roleName , Long id);
 
 }

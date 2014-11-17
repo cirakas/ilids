@@ -134,12 +134,12 @@ public class RoleServiceImpl implements RoleService{
     }
     
     @Override
-    public boolean getAllRoleNameData(String roleName) throws ParseException {
-       List<Object[]> roleNameData=roleRepository.getAllRoleNameData(roleName); 
-       boolean result=false;
+    public boolean getAllRoleNameData(String roleName , Long id) throws ParseException {
+       List<Object[]> roleNameData=roleRepository.getAllRoleNameData(roleName , id); 
+       boolean result=true;
        int roleSize=roleNameData.size();
         if(!roleNameData.isEmpty()){
-            result=true;
+            result=false;
         }
         return result;
     }  

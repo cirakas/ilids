@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,8 +74,11 @@ public class DataAccessServlet extends HttpServlet {
         String deviceCondition="";
         if(!deviceId.equals("00")){
             deviceCondition=" and device_id="+deviceId;
+        }else{
+             deviceCondition=" and device_id=0";
         }
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+" ORDER BY time "+deviceCondition;
+        
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
         ResultSet rs = statement.executeQuery(selectQuery);
 	PrintWriter out = response.getWriter();
  

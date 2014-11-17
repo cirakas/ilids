@@ -7,7 +7,7 @@
 //Add device zone
     function onClickAddDeviceZone() {
         document.getElementById('deviceZoneModel').action = "saveDeviceZone/";
-        document.getElementById('myModalLabel').innerHTML = "Add Device Zone";
+        document.getElementById('myModalLabel_device_zone').innerHTML = "Add Device Zone";
         document.getElementById('btn-save').innerHTML = "Save";
         document.getElementById('name').value = "";
         document.getElementById('description').value = "";
@@ -21,7 +21,7 @@
     function ajaxLink(url, params) {
         $.post(url, params, function(data) {
             document.getElementById('deviceZoneModel').action = "saveDeviceZone/" + data.id;
-            document.getElementById('myModalLabel').innerHTML = "Edit Device Zone";
+            document.getElementById('myModalLabel_device_zone').innerHTML = "Edit Device Zone";
             document.getElementById('btn-save').innerHTML = "Save Changes";
             document.getElementById('name').value = data.name;
             document.getElementById('description').value = data.description;
@@ -72,13 +72,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.addTitle" /></h4>
+                <h4 class="modal-title" id="myModalLabel_device_zone"><spring:message code="label.addTitle" /></h4>
             </div>
             <c:url value="/saveDeviceZone" var="url" />
             <form:form action="${url}" method="post" modelAttribute="deviceZoneModel" onsubmit="return fieldCheck();">
                 <div class="modal-body">
                     <div class="form-group"><label> <spring:message code="label.zoneName" /><span class="mandatory" style="color: red"> *</span> : </label><form:input path="name" class="form-control required name" placeholder="Device Zone name" required="required"/></div>
-                    <div class="form-group"><label> <spring:message code="label.zoneDescription" /><span class="mandatory" style="color: red"> *</span> : </label><form:input path="description" class="form-control required name" placeholder="Description" required="required"/></div>  
+                    <div class="form-group"><label> <spring:message code="label.zoneDescription" /> : </label><form:input path="description" class="form-control required name" placeholder="Description" /></div>  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>

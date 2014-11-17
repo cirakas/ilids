@@ -19,7 +19,7 @@ public interface DeviceService {
      * @return
      */
     public List<Devices> getAllDevice();
-    public List<Devices> getAllDevice(String col,String order);
+    //public List<Devices> getAllDevice(String col,String order);
     /**
      *
      * @param id
@@ -50,4 +50,10 @@ public interface DeviceService {
      * @throws Exception
      */
     public boolean updateDevice(Devices device) throws Exception;
+    
+     /**
+     *
+     * @return
+     */
+    public List<Devices> getAllUsedDevices();
 }
