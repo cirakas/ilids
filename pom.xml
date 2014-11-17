@@ -19,8 +19,8 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.3.0.Final</version>
 		</dependency>
-
-                 <dependency>
+                
+                <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.9</version>
@@ -202,6 +202,11 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>3.6.9.Final</version>
 		</dependency>
+                <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-ehcache</artifactId>
+                        <version>3.6.2.Final</version>
+                    </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
