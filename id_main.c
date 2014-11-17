@@ -216,11 +216,11 @@ int main(int argc,char *argv[])
 
 
 
-    //if(daemon(1,0)==0) NW COM not happening when enabling this mode
-    //{
-        //sprintf(msg_to_log,"Entering Daemon Mode");
-        //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-    //}
+    if(daemon(1,0)==0) //NW COM not happening when enabling this mode
+    {
+        sprintf(msg_to_log,"Entering Daemon Mode");
+        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+    }
 
 	while(!ex_term)
    	{

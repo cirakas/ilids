@@ -18,7 +18,7 @@ MYSQL *conn;
 char *server = SERVER_LOCAL_IP;
 char *user = "comserver";
 char *password = "compass";
-char *database = "ilids";
+char *database = "ilids_nov";
 
 /**@brief  This function closes the mysql database connection
 

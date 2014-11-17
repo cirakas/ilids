@@ -380,7 +380,7 @@ NVALUE neg_val;
                         }
                         sprintf(msg_to_log,"%s -> %.2f",params1[db_id1].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(params1[db_id1].offset==1)
+                        if(params1[db_id1].offset==1)//Here 1 specified so as to not apply this condition to powerfactor(whose value will be less than 1).This whole line Not commented here because paramsA seems reasonable for 1% change.For paramsB and C,commented this to currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))
                             {
@@ -393,9 +393,9 @@ NVALUE neg_val;
                         if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset))
                         {
                             vlist[pktdata[0]].param_valueA[db_id1]=cval;
-                            for(k=0;k<no_of_cmds;k++)
+                            //for(k=0;k<no_of_cmds;k++)//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                             {
-                                if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params1[db_id1].addr_off))
+                                //if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params1[db_id1].addr_off))//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                                 {
                                     memset(querry_msg,0x0,QUERRY_MAXSIZE);
                                     sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,params1[db_id1].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset));
@@ -457,7 +457,7 @@ float cval=0;
                         cval=(float )(params2[db_id2].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params2[db_id2].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(params2[db_id2].offset==1)
+                        /*if(params2[db_id2].offset==1) //commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))
                             {
@@ -465,14 +465,14 @@ float cval=0;
                                 sprintf(msg_to_log,"Offset is %.2f",params2[db_id2].offset);
                                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                             }
-                        }
+                        }*/
 
                         if(!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset))
                         {
                             vlist[pktdata[0]].param_valueB[db_id2]=cval;
-                            for(k=0;k<no_of_cmds;k++)
+                            //for(k=0;k<no_of_cmds;k++)//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                             {
-                                if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params2[db_id2].addr_off))
+                                //if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params2[db_id2].addr_off))//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                                 {
 
                                     memset(querry_msg,0x0,QUERRY_MAXSIZE);
@@ -534,7 +534,7 @@ float cval=0;
                         cval=(float )(params3[db_id3].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params3[db_id3].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(params3[db_id3].offset==1)
+                        /*if(params3[db_id3].offset==1) //commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))
                             {
@@ -542,15 +542,15 @@ float cval=0;
                                 sprintf(msg_to_log,"Offset is %.2f",params3[db_id3].offset);
                                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                             }
-                        }
+                        }*/
 
                         if(!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset))
                         {
                             vlist[pktdata[0]].param_valueC[db_id3]=cval;
 
-                            for(k=0;k<no_of_cmds;k++)
+                            //for(k=0;k<no_of_cmds;k++) //commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                             {
-                                if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params3[db_id3].addr_off))
+                                //if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params3[db_id3].addr_off))//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                                 {
 
                                     memset(querry_msg,0x0,QUERRY_MAXSIZE);
