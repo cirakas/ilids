@@ -93,7 +93,7 @@ void init_slave_params()
     //char *server = "192.168.1.4";
     char *user = "comserver";
     char *password = "compass";
-    char *database = "ilids";
+    char *database = "ilids_nov";
 
         conn = mysql_init(NULL);
 
@@ -116,7 +116,7 @@ void init_slave_params()
                 k=1280;
             }
             memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
-            sprintf(mquerry_msg,"select data from data where time between \"2014-07-31 13:00:00\" and \"2014-08-01 13:59:00\" and device_id=%d and address_map=%d ORDER by address_map ASC LIMIT 1",17,k);
+            sprintf(mquerry_msg,"select data from data where time between \"2014-10-29 00:00:00\" and \"2014-10-29 23:59:00\" and device_id=%d and address_map=%d ORDER by address_map ASC LIMIT 1",7,k);//take initial data from kims data for oct 28,2014 as sample data
             if(!mysql_query(conn,mquerry_msg))
             {
                 res = mysql_use_result(conn);
@@ -129,7 +129,7 @@ void init_slave_params()
                 {
                     param_list[j].p_val=0.0;
                 }
-                printf("\n%.2f : addrmap is %d",param_list[j].p_val,param_list[j].p_addr);
+                printf("\n%d  -> %.2f",param_list[j].p_addr,param_list[j].p_val);
                 mysql_free_result(res);
             }
             k+=2;
@@ -165,18 +165,22 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
     int no_of_params=0;
     int i=0,j=0,count=0,retw=0;
     int val=0;
-    slave_id=inbuf[0];
+    float fval=0.0,foff=0.0;
+
+    slave_id=inbuf[0];//get slave id from master data
+
+    srand((unsigned int)time(NULL));//generate new random seed
 
     for(i=0;i<no_of_devices;i++)
     {
         if(dev_id[i]==slave_id)
         {
-                /*printf("\n");
+                printf("\n");
                 for(i=0;i<inlen;i++)
                 {
                     printf("%X ",inbuf[i]);
                 }
-                printf("\n");*/
+                printf("\n");
 
                 cmd=inbuf[1];
 
@@ -186,8 +190,10 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
 
                             reverse_b((BYTE *)&start_addr,(BYTE *)&inbuf[2],2);
                             reverse_b((BYTE *)&no_of_regs,(BYTE *)&inbuf[4],2);
-                            //printf("\nstart addr is %d\n",start_addr);
-                            //printf("\nnregs is %d\n",no_of_regs);
+                            //no of regs means no of words since each reg is 1 word ie:2 bytes, so in response msg,contents of each register will be encoded as 2 bytes.
+                            printf("\nstart addr is %d\n",start_addr);
+                            printf("\nnregs is %d\n",no_of_regs);
+                            //return;
                             //no of params =40
                             //no of regs to read 80
                             //no of bytes 160
@@ -197,17 +203,32 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                 count=0;
                                 if(param_list[i].p_addr==start_addr)
                                 {
+                                    //below 3 lines fills the header of slave response
                                     out_buf[j++]=slave_id;
                                     out_buf[j++]=cmd;
-                                    out_buf[j++]=no_of_regs*2;
-                                    no_of_params=no_of_regs/2;
+                                    out_buf[j++]=no_of_regs*2;//this is confusing but seen to be correct,this field indicates the no of bytes,hence no of regs*2,master sends it this way
+                                    no_of_params=no_of_regs/2;//this is confusing,but correct by checking master-slave comm,this indicates actual no of params,since each param is 2 bytes(or 1 word),so =no_of_regs,master sends it this way
 
+                                    //below loop fills the data starting from startaddr upto the required number of params for the slave
                                     while(count<(no_of_params))
                                     {
-                                        val=(int ) (((float )(param_list[i].p_val)/(float )(param_list[i].mf)) +0.5);
-                                        printf("\nval=%d : %f : addrmap is %d",val,param_list[i].p_val,param_list[i].p_addr);
-                                        val=val+param_list[i].offset;
-                                        param_list[i].p_val=(float )(val * (float )param_list[i].mf);
+
+                                        printf("\nparamval=%f,",param_list[i].p_val);
+                                        if(!compare_float(param_list[i].p_val,0,0.1))//if param.val != 0
+                                        {
+                                            fval=(float )(param_list[i].p_val / (float )param_list[i].mf);
+                                            val=floor(fval);
+                                            foff=(float)rand()/(float)(RAND_MAX/param_list[i].offset);//generate a random number between 0 and param_list[i].offset
+                                            //float x = (float)rand()/(float)(RAND_MAX/a);
+                                            param_list[i].p_val=param_list[i].p_val+foff;
+                                        }
+                                        else
+                                        {
+                                            val=0;
+                                        }
+
+                                        printf("val=%d, paramval=%f, addrmap is %d",val,param_list[i].p_val,param_list[i].p_addr);
+
                                         //val=val + (0.01 * val);
                                         //param_list[i].p_val =(float )((param_list[i].p_val) + (((float)rand()/(float)(RAND_MAX)) * (2*param_list[i].offset)));
                                         //val=val+2;
@@ -227,6 +248,7 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                         printf("%X ",out_buf[k]);
                                     }
                                     printf("\n");*/
+                                    //return;
 
                                     if(clientfd>0)
                                     {

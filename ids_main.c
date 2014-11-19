@@ -78,8 +78,8 @@ int main(int argc,char * argv[])
         log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
         fwritefd=-1;
         fverify=-1;
-        paddr="3306";
-        saddr="10.0.1.20";
+        paddr="1388";//default server port
+        saddr="127.0.0.1";//default server address
         no_of_devices=0;
 
         for(i=1;i<argc;i++)
@@ -90,16 +90,16 @@ int main(int argc,char * argv[])
                 {
                     case 's':
                     saddr=(char *)&argv[i][j+3];
-                    printf("\nServer Address is %s\n",saddr);
+
                     break;
 
                     case 'p':
                     paddr=(char *)&argv[i][j+3];
-                    printf("\nPort Address is %s\n",paddr);
+
                     break;
 
                     case 'd':
-                    get_slave_idys(((char *)&argv[i][j+3]),strlen(((char *)&argv[i][j+3])));
+                    get_slave_idys(((char *)&argv[i][j+3]),strlen(((char *)&argv[i][j+3])));//store slaveids in dev_id[] list
                     break;
 
                     default:
@@ -126,6 +126,8 @@ int main(int argc,char * argv[])
     sprintf(msg_to_log,"Port Address is %s",paddr);
     log_to_file(msg_to_log,strlen(msg_to_log));
 
+    printf("\nServer Address is %s\n",saddr);
+    printf("\nPort Address is %s\n",paddr);
     j=0;
     j+=sprintf(&msg_to_log[j],"Device Addresses to be Emulated are ");
     printf("\nDevice Addresses to be Emulated are  ");
@@ -138,8 +140,10 @@ int main(int argc,char * argv[])
     log_to_file(msg_to_log,j);
     printf("\n");
 
-    init_slave_params();
-    //exit(0);
+
+    //below line is commented,because initial values for params are set while structure is declared
+    //init_slave_params();//set initial values for all params from kims database
+
 
 
         clientfd=-1;
@@ -155,6 +159,8 @@ int main(int argc,char * argv[])
         log_to_file(msg_to_log,strlen(msg_to_log));
 
         printf("\nConnected to Server\n");
+
+
         FD_ZERO(&socket_set);
         FD_SET(clientfd,&socket_set);
 

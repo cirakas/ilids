@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <arpa/inet.h>
+#include <math.h>
 #include <mysql.h>
 #include <pthread.h>
 
