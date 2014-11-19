@@ -82,7 +82,7 @@ void init_slave_params()
 
             }
             //printf("\nval is %.2f : addr is %d ",vlist[i].param_valueB[j],k);
-            k+=2;
+            k+=2;//need to check addr=addr+2 for all maxparamsB
 
         }
         k=addr_MAXPARAMS_C;
@@ -109,7 +109,7 @@ void init_slave_params()
 
             }
             //printf("\nval is %.2f : addr is %d ",vlist[i].param_valueC[j],k);
-            k+=2;
+            k+=2;//need to check addr=addr+2 for all maxparamsC
 
         }
     }
@@ -132,18 +132,18 @@ void intitialize_poll_packet()
 {
     int i=0,j=0;
 
-    for(i=0;i<MAXSLAVE;i++)
+    for(i=0;i<MAXSLAVE;i++)//init poll packets for each slave
     {
         {
-            sdev[i].ppkt[0]=(BYTE *)calloc(POLL_PKT_SIZE ,1);
-            sdev[i].ppkt[1]=(BYTE *)calloc(POLL_PKT_SIZE,1);
-            sdev[i].ppkt[2]=(BYTE *)calloc(POLL_PKT_SIZE,1);
+            sdev[i].ppkt[0]=(BYTE *)calloc(POLL_PKT_SIZE ,1);//allocate space 3 poll packets for each slave
+            sdev[i].ppkt[1]=(BYTE *)calloc(POLL_PKT_SIZE,1);//allocate space 3 poll packets for each slave
+            sdev[i].ppkt[2]=(BYTE *)calloc(POLL_PKT_SIZE,1);//allocate space 3 poll packets for each slave
             for(j=0;j<3;j++)
             {
-                sdev[i].ppkt[j][0]=i+1;
-                sdev[i].ppkt[j][1]=Read_Holding_Registers;
+                sdev[i].ppkt[j][0]=i+1;//set slave id for the 3 poll pkts
+                sdev[i].ppkt[j][1]=Read_Holding_Registers;//set cmd for the 3 poll pkts
             }
-            sdev[i].ppkt[0][2]=HiByte(addr_MAXPARAMS_A);
+            sdev[i].ppkt[0][2]=HiByte(addr_MAXPARAMS_A);//set start addr and no.of words in each poll pkt
             sdev[i].ppkt[0][3]=LoByte(addr_MAXPARAMS_A);
             sdev[i].ppkt[0][4]=HiByte(nwrds_MAXPARAMS_A);
             sdev[i].ppkt[0][5]=LoByte(nwrds_MAXPARAMS_A);

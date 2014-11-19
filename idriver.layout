@@ -16,8 +16,8 @@
 	<File name="id_log.c" open="1" top="0" tabpos="4">
 		<Cursor position="1715" topLine="85" />
 	</File>
-	<File name="id_main.c" open="1" top="0" tabpos="5">
-		<Cursor position="6239" topLine="216" />
+	<File name="id_main.c" open="1" top="1" tabpos="5">
+		<Cursor position="5914" topLine="201" />
 	</File>
 	<File name="id_net.c" open="1" top="0" tabpos="1">
 		<Cursor position="3824" topLine="78" />
@@ -25,13 +25,13 @@
 	<File name="id_pkt.c" open="1" top="0" tabpos="6">
 		<Cursor position="1071" topLine="0" />
 	</File>
-	<File name="id_proto.c" open="1" top="1" tabpos="11">
-		<Cursor position="12376" topLine="238" />
+	<File name="id_proto.c" open="1" top="0" tabpos="11">
+		<Cursor position="12599" topLine="376" />
 	</File>
 	<File name="id_sig.c" open="1" top="0" tabpos="7">
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="idriver.conf" open="1" top="0" tabpos="10">
-		<Cursor position="330" topLine="12" />
+		<Cursor position="226" topLine="12" />
 	</File>
 </CodeBlocks_layout_file>

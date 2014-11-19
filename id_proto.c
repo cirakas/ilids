@@ -30,6 +30,7 @@ void Process_ParamsRand(BYTE * pktdata, int pktcount);
 
 
 char querry_msg[QUERRY_MAXSIZE];
+//In the following 3 lines,each ParamsA,B,C values initialiased(addr,name,nwords,multiplcn,value,offset).Offset maybe adjusted to suit each param.Initially all offset set to 1 other than powerfactor which is set to 0.1
 PARAM_DETAILS params1[MAXPARAMS_A]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.01,0.0,1},{2,"Y_Phase_Voltage_4W_BY_Voltage_3W",2,0.01,0.0,1},{4,"B_Phase_Voltage_4W",2,0.01,0.0,1},{6,"R_Phase_Current_4W_R_Current_3W",2,0.001,0.0,1},{8,"Y_Phase_Current_4W_B_Current_3W",2,0.001,0.0,1},{10,"B_Phase_Current_4W",2,0.001,0.0,1},{12,"Active_Power_R_Phase_4W_RY_Active_Power_3W",2,0.0001,0.0,1},{14,"Active_Power_Y_Phase_4W_BY_Active_Power_3W",2,0.0001,0.0,1},{16,"Active_Power_B_Phase_4W",2,0.0001,0.0,1},{18,"Reactive_Power_R_Phase_4W_RY_Reactive_Power_3W",2,0.0001,0.0,1},{20,"Reactive_Power_Y_Phase_4W_BY_Reactive_Power_3W",2,0.0001,0.0,1},{22,"Reactive_Power_B_Phase_4W",2,0.0001,0.0,1},{24,"Apparent_Power_R_Phase_4W_RY_Apparent_Power_3W",2,0.0001,0.0,1},{26,"Apparent_Power_Y_Phase_4W_BY_Apparent_Power_3W",2,0.0001,0.0,1},{28,"Apparent_Power_B_Phase_4W",2,0.0001,0.0,1},{30,"Power_Factor_R_Phase_4W_Power_Factor_R_Phase_3W",2,0.001,0.0,0.1},{32,"Power_Factor_Y_Phase_4W_Power_Factor_B_Phase_3W",2,0.001,0.0,0.1},{34,"Power_Factor_B_Phase_4W",2,0.001,0.0,0.1},{36,"Total_Active_Power",2,0.0001,0.0,1},{38,"Total_Reactive_Power",2,0.0001,0.0,1},{40,"Total_Apparent_Power",2,0.0001,0.0,1},{42,"Total_Power_Factor",2,0.001,0.0,1},{44,"Line_Frequency",2,0.01,0.0,1},{46,"Phase_Sequence",2,1,0.0,1}};
 PARAM_DETAILS params2[MAXPARAMS_B]={{512,"Cumulative_energy_forward_kVAh",2,0.01,0.0,1},{514,"Cumulative_energy_forward_kWh",2,0.01,0.0,1},{516,"Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,1},{518,"Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,1},{520,"Cumulative_energy_reverse_kVAh",2,0.01,0.0,1},{522,"Cumulative_energy_reverse_kWh",2,0.01,0.0,1},{524,"Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,1},{526,"Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,1},{528,"Backup_1_Cumulative_energy_forward_kVAh",2,0.01,0.0,1},{530,"Backup_1_Cumulative_energy_forward_kWh",2,0.01,0.0,1},{532,"Backup_1_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,1},{534,"Backup_1_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,1},{536,"Backup_1_Cumulative_energy_reverse_kVAh",2,0.01,0.0,1},{538,"Backup_1_Cumulative_energy_reverse_kWh",2,0.01,0.0,1},{540,"Backup_1_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,1},{542,"Backup_1_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,1},{544,"Backup_2_Cumulative_energy_forward_kVAh",2,0.01,0.0,1},{546,"Backup_2_Cumulative_energy_forward_kWh",2,0.01,0.0,1},{548,"Backup_2_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,1},{550,"Backup_2_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,1},{552,"Backup_2_Cumulative_energy_reverse_kVAh",2,0.01,0.0,1},{554,"Backup_2_Cumulative_energy_reverse_kWh",2,0.01,0.0,1},{556,"Backup_2_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,1},{558,"Backup_2_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,1},{560,"Backup_3_Cumulative_energy_forward_kVAh",2,0.01,0.0,1},{562,"Backup_3_Cumulative_energy_forward_kWh",2,0.01,0.0,1},{564,"Backup_3_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,1},{566,"Backup_3_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,1},{568,"Backup_3_Cumulative_energy_reverse_kVAh",2,0.01,0.0,1},{570,"Backup_3_Cumulative_energy_reverse_kWh",2,0.01,0.0,1},{572,"Backup_3_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,1},{574,"Backup_3_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,1},{576,"Backup_4_Cumulative_energy_forward_kVAh",2,0.01,0.0,1},{578,"Backup_4_Cumulative_energy_forward_kWh",2,0.01,0.0,1},{580,"Backup_4_Cumulative_energy_forward_kVArh_lag",2,0.01,0.0,1},{582,"Backup_4_Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,1},{584,"Backup_4_Cumulative_energy_reverse_kVAh",2,0.01,0.0,1},{586,"Backup_4_Cumulative_energy_reverse_kWh",2,0.01,0.0,1},{588,"Backup_4_Cumulative_energy_reverse_kVArh_lag",2,0.01,0.0,1},{590,"Backup_4_Cumulative_energy_reverse_kVArh_lead",2,0.01,0.0,1}};
 PARAM_DETAILS params3[MAXPARAMS_C]={{1280,"Reset_MD1",2,0.01,0.0,1},{1282,"Reset_MD2",2,0.01,0.0,1},{1284,"Reset_MD3",2,0.01,0.0,1},{1286,"Backup_1_MD1",2,0.01,0.0,1},{1288,"Backup_1_MD2",2,0.01,0.0,1},{1290,"Backup_1_MD3",2,0.01,0.0,1},{1292,"Backup_2_MD1",2,0.01,0.0,1},{1294,"Backup_2_MD2",2,0.01,0.0,1},{1296,"Backup_2_MD3",2,0.01,0.0,1},{1298,"Backup_3_MD1",2,0.01,0.0,1},{1300,"Backup_3_MD2",2,0.01,0.0,1},{1302,"Backup_3_MD3",2,0.01,0.0,1},{1304,"Backup_4_MD1",2,0.01,0.0,1},{1306,"Backup_4_MD2",2,0.01,0.0,1},{1308,"Backup_4_MD3",2,0.01,0.0,1}};//,{1536,"Backup_1_reset_date_time_&_type",4,1,0.0,1},{1540,"Backup_2_reset_date_time_&_type",4,1,0.0,1},{1544,"Backup_3_reset_date_time_&_type",4,1,0.0,1},{1548,"Backup_4_reset_date_time_&_type",4,1,0.0,1},{1792,"Reset_Cumulative_MD1",2,0.01,0.0,1},{1794,"Reset_Cumulative_MD2",2,0.01,0.0,1},{1796,"Reset_Cumulative_MD3",2,0.01,0.0,1},{1872,"RD1_elapsed_time",3,0.01,0.0,1},{1875,"RD2_elapsed_time",3,0.01,0.0,1},{1878,"RD3_elapsed_time",3,0.01,0.0,1},{1920,"Anomaly_string_Format:_MSB_A_all_other_bytes_must_be_0xFF_Faults_are_indicated_by_digits_AENRXD_E–_flash_code_corruption_N_EEPROM_setup_corruption_R_RTC_corruption_XD_exception_illegal_opcode",8,1,0.0,1},{1928,"Reset_count_Format:_00_to_99_0x0063",1,1,0.0,1},{1929,"Com.count_no._of_times_meter_programmed_via_front_panel_Format_00_to_99_0x0063",1,1,0.0,1},{1930,"CT_Tapping_0x0001_1A_tappin_0x0005_5A_tapping",1,1,0.0,1},{1931,"Reserved_READ_AND_WRITE_PARAMETERS_Real_time_clock_RTC",1,1,0.0,1},{256,"Current_Time_Year_Month_Format:YYMM_BCD",1,1,0.0,1},{257,"Current_Time_Date_Day_Format:DTDY_BCD",1,1,0.0,1},{258,"Current_Time_Hour_Minute_Format:HHMM_BCD",1,1,0.0,1},{259,"Current_Time_econd_Format:SS00_BCD",1,1,0.0,1},{2048,"CT_Primary",1,1,0.0,1},{2049,"CT_Secondary",1,1,0.0,1},{2050,"PT_Primary",1,1,0.0,1},{2051,"PT_Secondary",1,1,0.0,1},{2128,"Reset_type_days_and_Lockout_days_1st_word_Reset_time_HH_MM_hour_min_2nd_word",2,1,0.0,1},{2160,"Setting_for_MD1",2,1,0.0,1},{2162,"Setting_for_MD2",2,1,0.0,1},{2164,"Setting_for_MD3",2,1,0.0,1},{2304,"Method_of_energy_calculation_Lead=Lead_Lead=UPF",1,1,0.0,1},{2305,"Meter_direction_Unidirectional_Bidirectional",1,1,0.0,1}};
@@ -362,7 +363,7 @@ NVALUE neg_val;
                         //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
                         //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
-                        if(pktdata[i]==0xFF)
+                        if(pktdata[i]==0xFF)//negative value condition,not sure this will be reached
                         {
                             neg_val.bval[0]=pktdata[i+3];
                             neg_val.bval[1]=pktdata[i+2];
@@ -380,9 +381,9 @@ NVALUE neg_val;
                         }
                         sprintf(msg_to_log,"%s -> %.2f",params1[db_id1].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(params1[db_id1].offset==1)//Here 1 specified so as to not apply this condition to powerfactor(whose value will be less than 1).This whole line Not commented here because paramsA seems reasonable for 1% change.For paramsB and C,commented this to currect cumulative energy field where 1% change from prev val,gives only very very few values.
+                        if(params1[db_id1].offset==1)//Setting of offset value based on present value.Here 1 specified so as to not apply this condition to powerfactor(whose value will be less than 1).This whole line Not commented here because paramsA seems reasonable for 1% change.For paramsB and C,commented this to currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
-                            if(!compare_float(cval,0,1))
+                            if(!compare_float(cval,0,1))//if only present val not 0
                             {
                                 params1[db_id1].offset=(float )(0.01 * cval);
                                 sprintf(msg_to_log,"Offset is %.2f",params1[db_id1].offset);
@@ -390,9 +391,9 @@ NVALUE neg_val;
                             }
                         }
 
-                        if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset))
+                        if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset))//This may need modifn as vlist contains vals from a previous kims db as set in init_slave_params, done for emulator testing.This should work okay also without modifn.
                         {
-                            vlist[pktdata[0]].param_valueA[db_id1]=cval;
+                            vlist[pktdata[0]].param_valueA[db_id1]=cval;//vlist set to present value
                             //for(k=0;k<no_of_cmds;k++)//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                             {
                                 //if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params1[db_id1].addr_off))//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
@@ -416,7 +417,7 @@ NVALUE neg_val;
                             }
                         }
 
-                        i+=4;
+                        i+=4;//2 words,so 4 bytes
                         db_id1++;
                         if(db_id1==MAXPARAMS_A)
                         {
@@ -457,7 +458,7 @@ float cval=0;
                         cval=(float )(params2[db_id2].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params2[db_id2].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        /*if(params2[db_id2].offset==1) //commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
+                        /*if(params2[db_id2].offset==1) //setting of offset commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))
                             {
@@ -467,9 +468,9 @@ float cval=0;
                             }
                         }*/
 
-                        if(!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset))
+                        if(!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2],params2[db_id2].offset))//This may need modifn as vlist contains vals from a previous kims db as set in init_slave_params, done for emulator testing.This should work okay also without modifn.
                         {
-                            vlist[pktdata[0]].param_valueB[db_id2]=cval;
+                            vlist[pktdata[0]].param_valueB[db_id2]=cval;//vlist set to present value
                             //for(k=0;k<no_of_cmds;k++)//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                             {
                                 //if((cmd_config[k].devid==pktdata[0])&&(cmd_config[k].start_addr==params2[db_id2].addr_off))//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
@@ -496,7 +497,7 @@ float cval=0;
 
                         }
 
-                        i+=4;
+                        i+=4;//2 words ,so 4 bytes
                         db_id2++;
                         if(db_id2==MAXPARAMS_B)
                         {
@@ -534,7 +535,7 @@ float cval=0;
                         cval=(float )(params3[db_id3].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",params3[db_id3].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        /*if(params3[db_id3].offset==1) //commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
+                        /*if(params3[db_id3].offset==1) //setting of offset commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))
                             {
@@ -544,9 +545,9 @@ float cval=0;
                             }
                         }*/
 
-                        if(!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset))
+                        if(!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3],params3[db_id3].offset))//This may need modifn as vlist contains vals from a previous kims db as set in init_slave_params, done for emulator testing.This should work okay also without modifn.
                         {
-                            vlist[pktdata[0]].param_valueC[db_id3]=cval;
+                            vlist[pktdata[0]].param_valueC[db_id3]=cval;//vlist set to present value.
 
                             //for(k=0;k<no_of_cmds;k++) //commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter
                             {
@@ -573,6 +574,7 @@ float cval=0;
 
                         }
 
+                        //The following cases done,because for paramsC,the length of each param varies differently.
                         if(db_id3>14 && db_id3<19)
                         {
                             i+=8;

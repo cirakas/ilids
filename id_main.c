@@ -112,11 +112,11 @@ int main(int argc,char *argv[])
    	}
 
 
-    for(i=0;i<no_of_cmds;i++)
-    {
-        printf("\n%s:%d:%d:%d",cmd_config[i].param_name,cmd_config[i].devid,cmd_config[i].start_addr,cmd_config[i].value_offset);
-    }
-    printf("\n");
+    //for(i=0;i<no_of_cmds;i++)
+    //{
+    //    printf("\n%s:%d:%d:%d",cmd_config[i].param_name,cmd_config[i].devid,cmd_config[i].start_addr,cmd_config[i].value_offset);
+    //}
+    //printf("\n");
     //exit(EXIT_FAILURE);
 
     /*for(i=1;i<argc;i++)
@@ -216,11 +216,11 @@ int main(int argc,char *argv[])
 
 
 
-    if(daemon(1,0)==0) //NW COM not happening when enabling this mode
-    {
-        sprintf(msg_to_log,"Entering Daemon Mode");
-        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-    }
+    //if(daemon(1,0)==0) //NW COM not happening when enabling this mode
+    //{
+    //    sprintf(msg_to_log,"Entering Daemon Mode");
+    //    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+    //}
 
 	while(!ex_term)
    	{
