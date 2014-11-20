@@ -78,7 +78,10 @@ public class DataAccessServlet extends HttpServlet {
              deviceCondition=" and device_id=0";
         }
         
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
+	String selectQuery = "SELECT time as data_time , data as real_data FROM data_3m_1 WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
+        
+        System.out.println("--------"+selectQuery);
+        
         ResultSet rs = statement.executeQuery(selectQuery);
 	PrintWriter out = response.getWriter();
  

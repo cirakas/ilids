@@ -159,7 +159,7 @@
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
                 <tr>
-                    <th>Role Name <form method="post" class="header" action='<c:url value="/sortDat/name"/>'> <button id="sort" class="fa fa-sort"  style="background: none;border:none;float: left;"> </button></form></th>
+                    <th>Role Name  <i class="fa fa-sort"></i></th>
                     <th>Description </th>
                     <th>Edit </th>
                     <th>Delete </th>

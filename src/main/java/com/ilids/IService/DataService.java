@@ -6,6 +6,7 @@
 package com.ilids.IService;
 
 import com.ilids.domain.Data;
+import com.ilids.domain.PollData;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public interface DataService {
      * @return
      * @throws ParseException
      */
-    public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag, String deviceId) throws ParseException;
+    public PollData getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag, String deviceId) throws ParseException;
 
     /**
      *

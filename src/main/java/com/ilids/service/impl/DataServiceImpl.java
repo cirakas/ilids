@@ -2,14 +2,17 @@ package com.ilids.service.impl;
 
 import com.ilids.IRepository.DataRepository;
 import com.ilids.IService.DataService;
+import com.ilids.conf.ServerConfig;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.ilids.domain.Data;
+import com.ilids.domain.PollData;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -83,11 +86,43 @@ public class DataServiceImpl implements DataService{
     }
 
     @Override
-    public List<Object[]> getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag, String deviceId) throws ParseException {
+    public PollData getCumilativeEnergy(String startDateValue, String endDateValue, boolean startFlag, String deviceId) throws ParseException {
 	//startDateValue = convertToDate(startDateValue);
 	//endDateValue = convertToDate(endDateValue);
 	List<Object[]> cumilativeDataList = dataRepository.getCumilativeEnergy(startDateValue, endDateValue, startFlag, deviceId);
-	return cumilativeDataList;
+        PollData pollData = ServerConfig.pollData;
+//        pollData.normalCost = ((Double)cumilativeDataList.get(0)[3]).doubleValue();
+//        pollData.peakCost = ((Double)cumilativeDataList.get(1)[3]).doubleValue();
+//        pollData.offPeakCost = ((Double)cumilativeDataList.get(2)[3]).doubleValue();
+//        System.out.println("normalCost---" + pollData.normalCost);
+//        System.out.println("peakCost---" + pollData.peakCost);
+//        System.out.println("offPeakCost---" + pollData.offPeakCost);
+        
+//        for( int i =0 ; i < cumilativeDataList.size() ; i++ ){
+//            System.out.println("--dv---" + cumilativeDataList.get(i));
+//            
+//           if(cumilativeDataList.get()[3] == 1){
+//               
+//           }
+//        }
+        pollData.normalCost=0;
+        pollData.peakCost =0;
+         pollData.offPeakCost=0;
+        for(Object[] o : cumilativeDataList) {
+            int zoneId = ((Integer)o[1]).intValue();
+            if(zoneId == 1){
+                pollData.normalCost = ((Double)o[3]).doubleValue();
+               
+            }
+            else if(zoneId == 2){
+                pollData.peakCost = ((Double)o[3]).doubleValue();
+            }
+            else{
+                pollData.offPeakCost = ((Double)o[3]).doubleValue();
+            }
+        }
+        
+	return pollData;
     }
 
     @Override

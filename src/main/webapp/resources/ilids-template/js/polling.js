@@ -31,7 +31,7 @@ function Poll() {
 					allow = false;
 					getUpdate();
 				}
-			}, 500000);
+			}, 5000);
 		});
 		
 		// callback handler that will be called on failure

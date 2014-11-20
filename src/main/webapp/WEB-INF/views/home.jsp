@@ -5,6 +5,9 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <script type="text/javascript">
+    
+    var devices = '${deviceIdList}' ;
+    alert(devices);
 //    var _gaq = _gaq || [];
 //    _gaq.push(['_setAccount', 'UA-33628816-1']);
 //    _gaq.push(['_trackPageview']);
@@ -36,7 +39,8 @@
     var fromMinutesParam = readCookie('frMinutes');
     var toHoursParam = readCookie('tHours');
     var toMinutesParam = readCookie('tMinutes');
-    var deviceParam = getQueryVariable('deviceId');
+    var deviceParam = readCookie('deviceId');
+
     if (!phaseParam) {
         phaseParam = '06';
     }
@@ -59,7 +63,7 @@
         toMinutesParam = "59";
     }
     if (!deviceParam) {
-        deviceParam = '00';
+        deviceParam = '0';
     }
 
     var servlet = "DataAccessServlet?phase=" + phaseParam + "&fromDate=" + fromDateParam + "&fromHours=" + fromHoursParam + "&fromMinutes=" + fromMinutesParam + "&toDate=" + toDateParam + "&toHours=" + toHoursParam + "&toMinutes=" + toMinutesParam + "&deviceId=" + deviceParam;
@@ -130,10 +134,12 @@
     }
 
 
+
+
     function selectFunction()
     {
         var graphType = document.getElementById("graphType").value;
-        var deviceId = document.getElementById("deviceList").value;
+        var device = document.getElementById("deviceList").value;
         var fromDate = document.getElementById("SelectedDate").value;
         var toDate = document.getElementById("SelectedDate1").value;
         var fromHours = document.getElementById("from-hours").value;
@@ -143,14 +149,15 @@
         var toDate = document.getElementById("SelectedDate1").value;
         var d1 = new Date(fromDate + " " + fromHours + ":" + fromMinutes + ":00");
         var d2 = new Date(toDate + " " + toHours + ":" + toMinutes + ":59");
+
         if (d2 < d1) {
             alert("end date should not be less than start date");
         }
         else {
-            document.cookie = "phase=" + graphType + " " + "start=" + fromDate + " " + "end=" + toDate + " " + "frHours=" + fromHours + " " + "frMinutes=" + fromMinutes + " " + "tHours=" + toHours + " " + "tMinutes=" + toMinutes;
+            document.cookie = "phase=" + graphType + " " + "start=" + fromDate + " " + "end=" + toDate + " " + "frHours=" + fromHours + " " + "frMinutes=" + fromMinutes + " " + "tHours=" + toHours + " " + "tMinutes=" + toMinutes + " " + "deviceId=" + device + " ";
             document.cookie = "cname=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
             var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
-            document.location = myURL + "?phase=" + graphType + "&fromDate=" + fromDate + "&fromHours=" + fromHours + "&fromMinutes=" + fromMinutes + "&toDate=" + toDate + "&toHours=" + toHours + "&toMinutes=" + toMinutes + "&deviceId=" + deviceId;
+            document.location = myURL + "?phase=" + graphType + "&fromDate=" + fromDate + "&fromHours=" + fromHours + "&fromMinutes=" + fromMinutes + "&toDate=" + toDate + "&toHours=" + toHours + "&toMinutes=" + toMinutes + "&deviceId=" + device;
         }
     }
 
@@ -303,7 +310,11 @@
         fill-opacity: .125;
         shape-rendering: crispEdges;
     } 
-
+    rect.pane {
+        cursor: move;
+        fill: none;
+        pointer-events: all;
+    }
 
     .axis path {
         fill: none;
@@ -416,7 +427,7 @@
     .drop_down_bg{width:16%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;}
     .drop_down_bg1{width:19%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;margin-left: 15px;}
 
-    .right_bg{width: 20%;float: right;/*padding: 12px 0 12px 15px;background: #f1f2f2;*/ margin-right: 15px;}
+    .right_bg{width: 21%;float: right;/*padding: 12px 0 12px 15px;background: #f1f2f2;*/ margin-right: 15px;}
     .graph_bg{width:77.1%;padding-right: 0;float: left;/*background: #ececeb;*/padding:0 15px;border-radius: 5px;}
     .row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 15px;background: url(/ilids/resources/images/bg_default1.jpg);}
 
@@ -487,7 +498,8 @@
     <div class="col-lg-3 drop_down_bg" style="padding: 0;float: left;">
         <div class="form-group form-group1" style="float: left;" >               
             <form:form method="post" modelAttribute="deviceModel">                         
-                <form:select cssClass="form-control" multiple="single" id="deviceList" onchange="selectFunction();" path="id" >
+                <form:select cssClass="form-control" multiple="single" id="deviceList"  path="id" >
+                    <%--<form:option  label="SELECT DEVICE" value="00" />--%>
                     <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
                 </form:select>                        
                 <%--<form:select path="id" items="${deviceIdList}" itemLabel="name" itemValue="slaveId" multiple="false" id="deviceList" onchange="selectFunction()"/>--%>
@@ -499,12 +511,12 @@
     <div class="col-lg-3 drop_down_bg1" style="">
         <div class="form-group form-group1 form-group2" style="">
             <!--                <label></label>-->
-            <select class="form-control form_new" id="graphType" value="" onchange="selectFunction()">
+            <select class="form-control form_new" id="graphType" value="" >
                 <!--                <option value="00" style="background: #fff;">Phase1 Voltage Vs Time</option>
                                     <option value="02">Phase2 Voltage Vs Time</option>
                                     <option value="04">Phase3 Voltage Vs Time</option>-->
-                <option value="06">Phase1 Current Vs Time</option>
-                <option value="08">Phase2 Current Vs Time</option>
+                <option value="6">Phase1 Current Vs Time</option>
+                <option value="8">Phase2 Current Vs Time</option>
                 <option value="10">Phase3 Current Vs Time</option>
                 <option value="12">Phase1 Power Vs Time</option>
                 <option value="14">Phase2 Power Vs Time</option>
@@ -678,17 +690,7 @@
 
 
 
-<script type="text/javascript">
-    document.getElementById("graphType").value = phaseParam;
-    document.getElementById("SelectedDate").value = fromDateParam;
-    document.getElementById("SelectedDate1").value = toDateParam;
-    document.getElementById("from-hours").value = fromHoursParam;
-    document.getElementById("from-minutes").value = fromMinutesParam;
-    document.getElementById("to-hours").value = toHoursParam;
-    document.getElementById("to-minutes").value = toMinutesParam;
-    document.getElementById("deviceList").value = deviceParam;
 
-</script>
 
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>-->
@@ -706,38 +708,70 @@
         poll.start(startUrl, pollUrl);
     });
 
-    $(function() {
-        var fromDateParams = document.getElementById("SelectedDate").value;
-        var fromHoursParams = document.getElementById("from-hours").value;
-        var fromMinutesParams = document.getElementById("from-minutes").value;
-        var toDateParams = document.getElementById("SelectedDate1").value;
-        var toHoursParams = document.getElementById("to-hours").value;
-        var toMinutesParams = document.getElementById("to-minutes").value;
-        var deviceId = document.getElementById("deviceList").value;
-        var energyRequestUrl = "dashboardupdate/energyCost";
-        var energyValueDiv = 0;
-        var alertSpan = 0;
-        if (energyRequest) {
-            energyRequest.abort(); // abort any pending request
-        }
+                $(function() {
+                    var fromDateParams = document.getElementById("SelectedDate").value;
+                    var fromHoursParams = document.getElementById("from-hours").value;
+                    var fromMinutesParams = document.getElementById("from-minutes").value;
+                    var toDateParams = document.getElementById("SelectedDate1").value;
+                    var toHoursParams = document.getElementById("to-hours").value;
+                    var toMinutesParams = document.getElementById("to-minutes").value;
+                    var deviceId = document.getElementById("deviceList").value;
+                    var energyRequestUrl = "dashboardupdate/energyCost";
+                    var energyValueDiv = 0;
+                    var alertSpan = 0;
+                    if (energyRequest) {
+                        energyRequest.abort(); // abort any pending request
+                    }
 
-        // fire off the request to MatchUpdateController
-        var energyRequest = $.ajax({
-            url: energyRequestUrl,
-            type: "get",
-            data: {"startDate": fromDateParams, "endDate": toDateParams, "fromHours": fromHoursParams, "fromMinutes": fromMinutesParams, "toHours": toHoursParams, "toMinutes": toMinutesParams,"deviceId":deviceId},
-            success: function(pollData) {
-                energyValueDiv = '<p id="energyCostValue" class="announcement-text" style="float:left;">\n\
-                                               <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Peak cost</div><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.peakCost) + '</div></div><br/>\n\
-                                               <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Normal cost</div><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.normalCost) + '</div></div><br/>\n\
+                    // fire off the request to MatchUpdateController
+                    var energyRequest = $.ajax({
+                        url: energyRequestUrl,
+                        type: "get",
+                        data: {"startDate": fromDateParams, "endDate": toDateParams, "fromHours": fromHoursParams, "fromMinutes": fromMinutesParams, "toHours": toHoursParams, "toMinutes": toMinutesParams, "deviceId": deviceId},
+                        success: function(pollData) {
+                            energyValueDiv = '<p id="energyCostValue" class="announcement-text" style="float:left;">\n\
+                                               <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Peak cost</div><div style="float:left;margin-left:2px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.peakCost) + '</div></div><br/>\n\
+                                               <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Normal cost</div><div style="float:left;margin-left:2px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.normalCost) + '</div></div><br/>\n\
                                                <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Off peak cost</div><div style="float:left;"><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.offPeakCost) + '</div></div>\n\
                                             </p>';
-                alertSpan = '<span id="alertCountId" style="color: red;">' + Number(pollData.alertCount) + '</span>';
-                $(energyValueDiv).replaceAll('#energyCostValue');
-                $(alertSpan).replaceAll('#alertCountId');
+                            alertSpan = '<span id="alertCountId" style="color: red;">' + Number(pollData.alertCount) + '</span>';
+                            $(energyValueDiv).replaceAll('#energyCostValue');
+                            $(alertSpan).replaceAll('#alertCountId');
 
+                        }
+                    });
+                });
+
+</script>
+<script type="text/javascript">                                                           
+    document.getElementById("SelectedDate").value = fromDateParam;
+    document.getElementById("SelectedDate1").value = toDateParam;
+    document.getElementById("from-hours").value = fromHoursParam;
+    document.getElementById("from-minutes").value = fromMinutesParam;
+    document.getElementById("to-hours").value = toHoursParam;
+    document.getElementById("to-minutes").value = toMinutesParam;
+    var index = 0;
+
+    if (deviceParam != 0) {
+        var deviceArray = document.getElementById('deviceList').options;
+        for (var i = 0; i < deviceArray.length; i++) {
+            if (deviceArray[i].value === deviceParam) {
+                break;
             }
-        });
-    });
-
+            index++;
+        }
+    }
+    document.getElementById("deviceList").selectedIndex = index;
+    index = 0;
+    if (phaseParam != 0) {
+        var graphTypeArray = document.getElementById('graphType').options;
+        for (var i = 0; i < graphTypeArray.length; i++) {
+            if (graphTypeArray[i].value === phaseParam) {
+                break;
+            }
+            index++;
+        }
+    }
+    document.getElementById("graphType").selectedIndex = index;
+    
 </script>

@@ -1352,11 +1352,11 @@ d3 = function() {
       var target = this, event_ = event.of(target, arguments), eventTarget = d3.event.target, dragged = 0, w = d3.select(d3_window).on(mousemove, moved).on(mouseup, ended), l = location(d3.mouse(target)), dragRestore = d3_event_dragSuppress();
       d3_selection_interrupt.call(target);
       zoomstarted(event_);
-      function moved() {
-        dragged = 1;
-        translateTo(d3.mouse(target), l);
-        zoomed(event_);
-      }
+//      function moved() {
+//        dragged = 1;
+//        translateTo(d3.mouse(target), l);
+//        zoomed(event_);
+//      }
       function ended() {
         w.on(mousemove, d3_window === target ? mousewheelreset : null).on(mouseup, null);
         dragRestore(dragged && d3.event.target === eventTarget);
@@ -9204,9 +9204,9 @@ d3 = function() {
   }
   var d3_time_scaleSteps = [ 1e3, 5e3, 15e3, 3e4, 6e4, 3e5, 9e5, 18e5, 36e5, 108e5, 216e5, 432e5, 864e5, 1728e5, 6048e5, 2592e6, 7776e6, 31536e6 ];
   var d3_time_scaleLocalMethods = [ [ d3_time.second, 1 ], [ d3_time.second, 5 ], [ d3_time.second, 15 ], [ d3_time.second, 30 ], [ d3_time.minute, 1 ], [ d3_time.minute, 5 ], [ d3_time.minute, 15 ], [ d3_time.minute, 30 ], [ d3_time.hour, 1 ], [ d3_time.hour, 3 ], [ d3_time.hour, 6 ], [ d3_time.hour, 12 ], [ d3_time.day, 1 ], [ d3_time.day, 2 ], [ d3_time.week, 1 ], [ d3_time.month, 1 ], [ d3_time.month, 3 ], [ d3_time.year, 1 ] ];
-  var d3_time_scaleLocalFormats = [ [ d3_time_format("%Y"), d3_true ], [ d3_time_format("%B"), function(d) {
+  var d3_time_scaleLocalFormats = [ [ d3_time_format("%Y"), d3_true ], [ d3_time_format("%b %d"), function(d) {
     return d.getMonth();
-  } ], [ d3_time_format("%b %d"), function(d) {
+  } ], [ d3_time_format("%a %d"), function(d) {
     return d.getDate() != 1;
   } ], [ d3_time_format("%a %d"), function(d) {
     return d.getDay() && d.getDate() != 1;
