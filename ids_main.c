@@ -160,17 +160,23 @@ int main(int argc,char * argv[])
 
         printf("\nConnected to Server\n");
 
+        fcntl(clientfd, F_SETFL, fcntl(clientfd, F_GETFL, 0) | O_NONBLOCK);
 
-        FD_ZERO(&socket_set);
-        FD_SET(clientfd,&socket_set);
 
         while(1)
         {
             timeout.tv_sec=1;
             timeout.tv_usec=0;
+            FD_ZERO(&socket_set);
+            FD_SET(clientfd,&socket_set);
             temp_set=socket_set;
 
             result=select(clientfd+1,&temp_set,NULL,NULL,&timeout);
+            if(result==0)
+            {
+                continue;
+            }
+
             if(result<0)
             {
                 if(errno == EINTR)
@@ -184,13 +190,18 @@ int main(int argc,char * argv[])
                 exit(EXIT_FAILURE);
             }
 
-            if(result >= 0)
+            if(result > 0)
             {
                 if(FD_ISSET(clientfd,&temp_set))
                 {
                     memset(temp_buf,0x0,MAXSIZE);
                     if((retn=read(clientfd,temp_buf,MAXSIZE)) <= 0)
                     {
+                        if(errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
+                        {
+                            continue;
+                        }
+
                         perror("Read");
                         printf("\nClient closing connection\n");
                         FD_CLR(clientfd,&socket_set);
@@ -200,6 +211,7 @@ int main(int argc,char * argv[])
                     }
                     else
                     {
+                        //printf("\nREAD DATA\n");
                         rcount=sprintf(msg_to_log,"READ DATA ");
                         for(k=0;k<retn;k++)
                         {

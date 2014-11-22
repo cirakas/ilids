@@ -38,8 +38,8 @@ PARAM_DETAILS param_list[MAX_PARAMS]={{0,"R_Phase_Voltage_4W_RY_Voltage_3W",2,0.
 {18,"Reactive_Power_R_Phase_4W_RY_Reactive_Power_3W",2,0.0001,24.09,5},{20,"Reactive_Power_Y_Phase_4W_BY_Reactive_Power_3W",2,0.0001,24.66,5},\
 {22,"Reactive_Power_B_Phase_4W",2,0.0001,22.5,5},{24,"Apparent_Power_R_Phase_4W_RY_Apparent_Power_3W",2,0.0001,54.72,5},\
 {26,"Apparent_Power_Y_Phase_4W_BY_Apparent_Power_3W",2,0.0001,59.97,5},{28,"Apparent_Power_B_Phase_4W",2,0.0001,56.59,5},\
-{30,"Power_Factor_R_Phase_4W_Power_Factor_R_Phase_3W",2,0.001,0.0,0.1},{32,"Power_Factor_Y_Phase_4W_Power_Factor_B_Phase_3W",2,0.001,0.0,0.1},\
-{34,"Power_Factor_B_Phase_4W",2,0.001,0.0,0.1},{36,"Total_Active_Power",2,0.0001,149.39,5},{38,"Total_Reactive_Power",2,0.0001,73.83,5},\
+{30,"Power_Factor_R_Phase_4W_Power_Factor_R_Phase_3W",2,0.001,0.70,0.05},{32,"Power_Factor_Y_Phase_4W_Power_Factor_B_Phase_3W",2,0.001,0.80,0.05},\
+{34,"Power_Factor_B_Phase_4W",2,0.001,0.90,0.05},{36,"Total_Active_Power",2,0.0001,149.39,5},{38,"Total_Reactive_Power",2,0.0001,73.83,5},\
 {40,"Total_Apparent_Power",2,0.0001,164.75,5},{42,"Total_Power_Factor",2,0.001,0.0,5},{44,"Line_Frequency",2,0.01,0.0,5},{46,"Phase_Sequence",2,1,0.0,5},\
 {512,"Cumulative_energy_forward_kVAh",2,0.01,2942067.75,5},{514,"Cumulative_energy_forward_kWh",2,0.01,215155.39,5},{516,"Cumulative_energy_forward_kVArh_lag",2,0.01,7868760,5},\
 {518,"Cumulative_energy_forward_kVArh_lead",2,0.01,0.0,5},{520,"Cumulative_energy_reverse_kVAh",2,0.01,0.0,5},{522,"Cumulative_energy_reverse_kWh",2,0.01,0.0,5},\

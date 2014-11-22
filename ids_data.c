@@ -82,7 +82,7 @@ int compare_float(float f1, float f2,float precision)
  }
 
 
-void init_slave_params()
+void init_slave_params()//this is not called now
 {
     int j=0,k=0;
     char mquerry_msg[QUERRY_MAXSIZE];
@@ -129,7 +129,7 @@ void init_slave_params()
                 {
                     param_list[j].p_val=0.0;
                 }
-                printf("\n%d  -> %.2f",param_list[j].p_addr,param_list[j].p_val);
+                //printf("\n%d  -> %.2f",param_list[j].p_addr,param_list[j].p_val);
                 mysql_free_result(res);
             }
             k+=2;
@@ -165,7 +165,8 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
     int no_of_params=0;
     int i=0,j=0,count=0,retw=0;
     int val=0;
-    float fval=0.0,foff=0.0;
+    float fval=0.0,foff=0.0,nval=0.0;
+    useconds_t usec=100000;
 
     slave_id=inbuf[0];//get slave id from master data
 
@@ -175,7 +176,7 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
     {
         if(dev_id[i]==slave_id)
         {
-                printf("\n");
+                printf("\n\n");
                 for(i=0;i<inlen;i++)
                 {
                     printf("%X ",inbuf[i]);
@@ -191,8 +192,8 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                             reverse_b((BYTE *)&start_addr,(BYTE *)&inbuf[2],2);
                             reverse_b((BYTE *)&no_of_regs,(BYTE *)&inbuf[4],2);
                             //no of regs means no of words since each reg is 1 word ie:2 bytes, so in response msg,contents of each register will be encoded as 2 bytes.
-                            printf("\nstart addr is %d\n",start_addr);
-                            printf("\nnregs is %d\n",no_of_regs);
+                            //printf("\nstart addr is %d\n",start_addr);
+                            //printf("\nnregs is %d\n",no_of_regs);
                             //return;
                             //no of params =40
                             //no of regs to read 80
@@ -213,21 +214,24 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                     while(count<(no_of_params))
                                     {
 
-                                        printf("\nparamval=%f,",param_list[i].p_val);
+                                        //printf("\nparamval=%f,",param_list[i].p_val);
                                         if(!compare_float(param_list[i].p_val,0,0.1))//if param.val != 0
                                         {
-                                            fval=(float )(param_list[i].p_val / (float )param_list[i].mf);
-                                            val=floor(fval);
                                             foff=(float)rand()/(float)(RAND_MAX/param_list[i].offset);//generate a random number between 0 and param_list[i].offset
+                                            nval=param_list[i].p_val+foff;
+                                            fval=(float )(nval / (float )param_list[i].mf);
+                                            val=floor(fval);
+
                                             //float x = (float)rand()/(float)(RAND_MAX/a);
-                                            param_list[i].p_val=param_list[i].p_val+foff;
+                                            //param_list[i].p_val=param_list[i].p_val+foff; //coomented,otherwise value will keep on increasing
                                         }
                                         else
                                         {
                                             val=0;
                                         }
 
-                                        printf("val=%d, paramval=%f, addrmap is %d",val,param_list[i].p_val,param_list[i].p_addr);
+                                        //printf("val=%d, paramval=%f, addrmap is %d",val,param_list[i].p_val,param_list[i].p_addr);
+                                        printf("\n%d->%.2f",param_list[i].p_addr,nval);
 
                                         //val=val + (0.01 * val);
                                         //param_list[i].p_val =(float )((param_list[i].p_val) + (((float)rand()/(float)(RAND_MAX)) * (2*param_list[i].offset)));
@@ -252,8 +256,14 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
 
                                     if(clientfd>0)
                                     {
+                                        wagain:
                                         if((retw=write(clientfd,out_buf,j+1)) <= 0)
                                         {
+                                            if(errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
+                                            {
+                                                usleep(usec);
+                                                goto wagain;
+                                            }
                                             //sprintf(msg_to_log,"NW Error %s,Disconnecting",strerror(errno));
                                             //log_to_file(msg_to_log,strlen(msg_to_log));
                                             perror("Write");
@@ -264,6 +274,7 @@ void prepare_slave_data(BYTE *inbuf,int inlen)
                                         }
                                         else
                                         {
+                                            //printf("\nWRITTEN DATA\n");
                                             wcount=sprintf(msg_to_log,"WRITTEN DATA ");
                                             for(k=0;k<retw;k++)
                                             {

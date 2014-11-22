@@ -4,7 +4,6 @@ int new_log_file;
 int log_mode;
 int flog;
 mode_t umask_access_mode;
-pthread_mutex_t LMutex;
 
 void open_log();
 void log_to_file(char * log_msg,int log_count);
@@ -79,7 +78,6 @@ char * formatted_time;
 char curr_hour[6],mid_night[6]="00:00";
 char * format = "::";
 
-        pthread_mutex_lock(&LMutex);
 
         curtime = time(NULL);
         formatted_time = ctime((const time_t *)&curtime);
@@ -102,7 +100,6 @@ char * format = "::";
         {
                 new_log_file =0;
         }
-        pthread_mutex_unlock(&LMutex);
 
 }
 
