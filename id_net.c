@@ -240,6 +240,7 @@ void * nwcom()
 
                                     if(bytes_read_nw > 0)
                                     {
+                                        //printf("\nREAD DATA\n");
                                         memcpy(&gl_buf[gl_count],(void *)&dclients[i].inbuf[0],bytes_read_nw);
                                         gl_count+=bytes_read_nw;
                                         sprintf(msg_to_log,"Read %d Bytes from NW Device",bytes_read_nw);
@@ -247,6 +248,10 @@ void * nwcom()
                                     }
                                     else
                                     {
+                                        if(errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
+                                        {
+                                            continue;
+                                        }
                                         printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
                                         sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
                                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);

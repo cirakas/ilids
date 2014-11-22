@@ -34,7 +34,8 @@ void init_slave_params()
         k=addr_MAXPARAMS_A;
         for(j=0;j<MAXPARAMS_A;j++)
         {
-            memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
+            vlist[i].param_valueA[j]=0.0;//set to 0 initially instead of filling it with sample values from kims db
+            /*memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
             sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
             if(!mysql_query(conn,mquerry_msg))
             {
@@ -54,14 +55,16 @@ void init_slave_params()
                 vlist[i].param_valueA[j]=0.0;
 
             }
+
             //printf("\nval is %.2f : addr is %d ",vlist[i].param_valueA[j],k);
-            k+=2;
+            //k+=2;*/
 
         }
         k=addr_MAXPARAMS_B;
         for(j=0;j<MAXPARAMS_B;j++)
         {
-            memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
+            vlist[i].param_valueB[j]=0.0;
+            /*memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
             sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
             if(!mysql_query(conn,mquerry_msg))
             {
@@ -82,13 +85,14 @@ void init_slave_params()
 
             }
             //printf("\nval is %.2f : addr is %d ",vlist[i].param_valueB[j],k);
-            k+=2;//need to check addr=addr+2 for all maxparamsB
+            k+=2;//need to check addr=addr+2 for all maxparamsB*/
 
         }
         k=addr_MAXPARAMS_C;
         for(j=0;j<MAXPARAMS_C;j++)
         {
-            memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
+            vlist[i].param_valueC[j]=0.0;
+            /*memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
             sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
             if(!mysql_query(conn,mquerry_msg))
             {
@@ -109,7 +113,7 @@ void init_slave_params()
 
             }
             //printf("\nval is %.2f : addr is %d ",vlist[i].param_valueC[j],k);
-            k+=2;//need to check addr=addr+2 for all maxparamsC
+            k+=2;//need to check addr=addr+2 for all maxparamsC*/
 
         }
     }

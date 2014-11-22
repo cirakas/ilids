@@ -381,7 +381,8 @@ NVALUE neg_val;
                         }
                         sprintf(msg_to_log,"%s -> %.2f",params1[db_id1].pname,cval);
                         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
-                        if(params1[db_id1].offset==1)//Setting of offset value based on present value.Here 1 specified so as to not apply this condition to powerfactor(whose value will be less than 1).This whole line Not commented here because paramsA seems reasonable for 1% change.For paramsB and C,commented this to currect cumulative energy field where 1% change from prev val,gives only very very few values.
+                        //Note Nov22,2014: Below all offset are currently set to 1 except powerfactor whose offset is set to 0.1.Later this should be adjusted while initialising for each type of parameters.
+                        /*if(params1[db_id1].offset==1)//This is commented now for ParamA type params also.Each type of params can be varied differently by setting the offset accordingly while initialising the structure.//Setting of offset value based on present value.Here 1 specified so as to not apply this condition to powerfactor(whose value will be less than 1).This whole line Not commented here because paramsA seems reasonable for 1% change.For paramsB and C,commented this to currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))//if only present val not 0
                             {
@@ -389,9 +390,9 @@ NVALUE neg_val;
                                 sprintf(msg_to_log,"Offset is %.2f",params1[db_id1].offset);
                                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                             }
-                        }
+                        }*/
 
-                        if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset))//This may need modifn as vlist contains vals from a previous kims db as set in init_slave_params, done for emulator testing.This should work okay also without modifn.
+                        if(!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1],params1[db_id1].offset))
                         {
                             vlist[pktdata[0]].param_valueA[db_id1]=cval;//vlist set to present value
                             //for(k=0;k<no_of_cmds;k++)//commented to temporarily disable the updation of db based on params given in config file,but instead update all params from meter

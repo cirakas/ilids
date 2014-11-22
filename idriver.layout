@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="id_com.c" open="1" top="0" tabpos="2">
-		<Cursor position="468" topLine="10" />
+		<Cursor position="7652" topLine="280" />
 	</File>
 	<File name="id_common.h" open="1" top="0" tabpos="8">
 		<Cursor position="4214" topLine="214" />
@@ -16,17 +16,17 @@
 	<File name="id_log.c" open="1" top="0" tabpos="4">
 		<Cursor position="1715" topLine="85" />
 	</File>
-	<File name="id_main.c" open="1" top="1" tabpos="5">
-		<Cursor position="5914" topLine="201" />
+	<File name="id_main.c" open="1" top="0" tabpos="5">
+		<Cursor position="5914" topLine="171" />
 	</File>
 	<File name="id_net.c" open="1" top="0" tabpos="1">
-		<Cursor position="3824" topLine="78" />
+		<Cursor position="4892" topLine="182" />
 	</File>
 	<File name="id_pkt.c" open="1" top="0" tabpos="6">
-		<Cursor position="1071" topLine="0" />
+		<Cursor position="439" topLine="17" />
 	</File>
-	<File name="id_proto.c" open="1" top="0" tabpos="11">
-		<Cursor position="12599" topLine="376" />
+	<File name="id_proto.c" open="1" top="1" tabpos="11">
+		<Cursor position="21839" topLine="411" />
 	</File>
 	<File name="id_sig.c" open="1" top="0" tabpos="7">
 		<Cursor position="0" topLine="0" />

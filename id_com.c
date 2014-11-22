@@ -273,6 +273,10 @@ int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
                     bytes_write_nw=0;
                     if((bytes_write_nw=write(dclients[i].sockfd,write_buf,count)) <= 0)
                     {
+                                if(errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
+                                {
+                                     continue;
+                                }
                                 sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
                                 log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
