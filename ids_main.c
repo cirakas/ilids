@@ -75,7 +75,6 @@ int main(int argc,char * argv[])
 
         servlen=0;
         bufindex=0;
-        log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
         fwritefd=-1;
         fverify=-1;
         paddr="1388";//default server port
@@ -118,7 +117,7 @@ int main(int argc,char * argv[])
         exit(0);
     }
 
-    open_log();
+    //open_log();
     sprintf(msg_to_log,"Device Emulation Started");
     log_to_file(msg_to_log,strlen(msg_to_log));
     sprintf(msg_to_log,"Server Address is %s",saddr);

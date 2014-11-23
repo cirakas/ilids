@@ -33,12 +33,12 @@ fd_set socket_set,temp_set;
 BYTE temp_buf[MAXSIZE];
 int bufindex;
 char cmd_str[256];
-int log_mode;
 int fwritefd,fverify;
 char * paddr;
 char * saddr;
 int dev_id[32];
 int no_of_devices;
+
 
 
 extern void open_log();

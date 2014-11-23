@@ -1,66 +1,18 @@
 #include "ids_common.h"
 
-int new_log_file;
-int log_mode;
-int flog;
-mode_t umask_access_mode;
-
-void open_log();
-void log_to_file(char * log_msg,int log_count);
-
-/**@brief  This function opens/creates the log file for logging
-
-           Function: open_log
-
-           Purpose:  Opens the log file for logging.
-
-           Returns:  None
-*/
-
-void open_log()
-{
-char log_name[26];
-char append_date[11];
-FILE  * current_date;
-int mod_ret=0;
+#define LNSIZE 200
 
 
-        current_date = popen("date -I","r");
-        fgets(append_date,11,current_date);
-        pclose(current_date);
-        if(strlen(append_date) < 3)
-        {
-                current_date = popen("date -I","r");
-                fgets(append_date,11,current_date);
-                pclose(current_date);
-        }
-        else
-        {
-                log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
-                umask_access_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
-                umask(umask_access_mode);
-
-                sprintf(log_name,"idevice_log_%s",append_date);
-                flog=open(log_name,O_CREAT | O_RDWR | O_APPEND);
-                if(flog < 0)
-                {
-                       printf("\nError creating log file: %s",strerror(errno));
-                }
-                else
-                {
-                        mod_ret = fchmod(flog,log_mode);
-                        if(mod_ret < 0)
-                        {
-                               printf("\nerror setting mode for logfile %s\n",strerror(errno));
-                        }
-
-                        new_log_file = 1;
-                }
-
-        }
+int lfile=-1;
+char *fmtdate="idevice_log_%Y-%m-%d %n%H:%M:%S :: ";
+time_t t;
+struct tm *tmp;
+struct stat st;
+int log_mode=S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
+char outstr[LNSIZE];
+char lname[LNSIZE];
 
 
-}
 
 /**@brief  This function logs messages to the log file
 
@@ -73,34 +25,38 @@ int mod_ret=0;
 
 void log_to_file(char * log_msg,int log_count)
 {
-time_t curtime;
-char * formatted_time;
-char curr_hour[6],mid_night[6]="00:00";
-char * format = "::";
 
 
-        curtime = time(NULL);
-        formatted_time = ctime((const time_t *)&curtime);
-        memcpy(curr_hour,&formatted_time[11],5);
-        curr_hour[5]=0;
+                   t = time(NULL);
+                   tmp = localtime(&t);
+                   if (tmp == NULL)
+                   {
+                       perror("localtime");
+                       exit(EXIT_FAILURE);
+                   }
 
-        write(flog,"\n",1);
-        write(flog,formatted_time,strlen(formatted_time) -1);
-        write(flog,format,strlen(format));
-        write(flog,log_msg,log_count);
+                   memset(outstr,0x0,LNSIZE);
+                   if (strftime(outstr, sizeof(outstr), fmtdate, tmp) == 0)
+                   {
+                       fprintf(stderr, "strftime returned 0");
+                       exit(EXIT_FAILURE);
+                   }
 
+                   memset(lname,0x0,LNSIZE);
+                   lname[22]='\0';
+                   strncpy(lname,outstr,22);
 
-        if((strcmp(curr_hour,mid_night)==0)&&(!new_log_file))
-        {
-                close(flog);
-                open_log();
+                   if((stat(lname,&st)==-1)||(lfile==-1))
+                   {
+                       if(lfile!=-1)
+                       {
+                           close(lfile);
+                       }
+                       lfile=open(lname,O_CREAT|O_RDWR|O_APPEND|O_NONBLOCK,log_mode);//int open(const char *pathname, int flags, mode_t mode);
+                   }
 
-        }
-        if((strcmp(curr_hour,mid_night) != 0)&&(new_log_file))
-        {
-                new_log_file =0;
-        }
-
+                   write(lfile,&outstr[23],strlen(&outstr[23]));
+                   write(lfile,log_msg,log_count);
 }
 
 
