@@ -136,8 +136,6 @@ extern void init_slave_params();
 
 extern int Read_Conf();
 
-
-extern char msg_to_log[256];
 extern BYTE gl_buf[BUF_SIZE];
 extern MYSQL *conn;
 
@@ -246,3 +244,4 @@ int gl_count;
 int bytes_read;
 struct sockaddr_in server_addr,client_addr;
 
+char msg_to_log[256];

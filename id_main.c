@@ -33,9 +33,6 @@ extern void initcom();
 extern void Signal_exitsignal();
 extern void Signal_sigio_signal();
 
-extern int log_mode;
-extern mode_t umask_access_mode;
-
 pthread_attr_t TH_ATTR;
 pthread_t th_read;
 pthread_t th_nw;
@@ -81,12 +78,7 @@ int main(int argc,char *argv[])
         }
         pclose(cmd);
     }
-
-    log_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
-	umask_access_mode = S_IREAD | S_IWRITE | S_IRGRP | S_IROTH;
-	umask(umask_access_mode);
 	pthread_mutex_init(&LMutex, NULL);
-   	open_log();
 
    	sprintf(msg_to_log,"**************************************");
    	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
