@@ -151,7 +151,7 @@ typedef struct
     float offset;
 }PARAM_DETAILS;
 
-typedef struct
+/*typedef struct
 {
     int active;
     int chk_count;
@@ -159,11 +159,27 @@ typedef struct
     float param_valueA[MAXPARAMS_A];
     float param_valueB[MAXPARAMS_B];
     float param_valueC[MAXPARAMS_C];
-}SLAVE_STAT_LIST;
+}SLAVE_STAT_LIST;*/
+
+typedef struct
+{
+    int active;
+    int chk_count;
+    int reset_chk_count;
+    PARAM_DETAILS param_valueA[MAXPARAMS_A];
+    PARAM_DETAILS param_valueB[MAXPARAMS_B];
+    PARAM_DETAILS param_valueC[MAXPARAMS_C];
+}SLAVE_DETAILS;
 
 WORD scondition;
-SLAVE_STAT_LIST vlist[MAXSLAVE];
+SLAVE_DETAILS vlist[MAXSLAVE];
 int db_id1,db_id2,db_id3;
+
+//In the following 3 lines,each ParamsA,B,C values initialiased(addr,name,nwords,multiplcn,value,offset).Offset maybe adjusted to suit each param.Initially all offset set to 1 other than powerfactor which is set to 0.1
+extern PARAM_DETAILS params1[MAXPARAMS_A];
+extern PARAM_DETAILS params2[MAXPARAMS_B];
+extern PARAM_DETAILS params3[MAXPARAMS_C];
+extern PARAM_DETAILS params1rand[MAXPARAMS_A];
 
 typedef struct
 {
@@ -211,7 +227,7 @@ volatile int ex_term;
 char scommand[256];
 
 
-#define MAX_CMDS 100
+#define MAX_CONF_PARAMS 100
 
 typedef struct
 {
@@ -232,7 +248,7 @@ typedef struct
 
 
 HWCONF dev_config[10];
-CMDCONF cmd_config[MAX_CMDS];
+CMDCONF config_param[MAX_CONF_PARAMS];
 
 int no_of_cmds;
 
