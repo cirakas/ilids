@@ -43,7 +43,6 @@
 #define TRUE 1
 #define FALSE 0
 
-#define BAUDRATE B9600
 #define BUF_SIZE 1024
 #define READ_BUF_SIZE 512
 #define WRITE_BUF_SIZE 512
@@ -105,6 +104,7 @@ extern void log_to_file(char * log_msg,int log_count,int log_level);
 extern void da_wait(int nsecs,int nmsecs);
 
 extern void  writecom(BYTE * msg, int ncount);
+extern int  baud;
 
 extern int db_start();
 extern void db_close();
@@ -244,11 +244,11 @@ typedef struct
   int no_of_reg;
   int value_offset;
   float param_value;
-}CMDCONF;
+}PARAMCONF;
 
 
 HWCONF dev_config[10];
-CMDCONF config_param[MAX_CONF_PARAMS];
+PARAMCONF config_param[MAX_CONF_PARAMS];
 
 int no_of_cmds;
 

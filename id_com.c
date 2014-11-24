@@ -62,7 +62,7 @@ void initcom()
        	fcntl(fport, O_NONBLOCK,0);
        	tcgetattr(fport,&old_port_attrib);
        	bzero(&new_port_attrib, sizeof(new_port_attrib));
-       	new_port_attrib.c_cflag = BAUDRATE |  CS8 | CLOCAL | CREAD;
+       	new_port_attrib.c_cflag = baud |  CS8 | CLOCAL | CREAD;
 
        	new_port_attrib.c_oflag = 0;
         tcflush(fport, TCIOFLUSH);
@@ -91,9 +91,9 @@ void closecom(void)
             return;
         }
 
-        tcflush(fport, TCIOFLUSH);
-        tcsetattr(fport,TCSANOW,&old_port_attrib);
-    	close(fport);
+        //tcflush(fport, TCIOFLUSH);
+        //tcsetattr(fport,TCSANOW,&old_port_attrib);
+    	//close(fport);
         pthread_mutex_destroy(&IOMutex);
 }
 

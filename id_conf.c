@@ -20,8 +20,8 @@ FILE * fconf=NULL;
 char portname[256];
 char em_mode[256];
 char bd_rate[256];
+int  baud=B9600;
 char poll_int[256];
-int  baud=0;
 char temp_buf[256];
 
 
@@ -81,7 +81,7 @@ int GetPollInterval()
         return FALSE;
 }
 
-int GetBaudRate()//value is read,but not used in program
+int GetBaudRate()
 {
         memset(bd_rate,0,256);
         fseek(fconf,0,SEEK_SET);
@@ -100,6 +100,16 @@ int GetBaudRate()//value is read,but not used in program
                     baud=strtol((char *)&bd_rate[0],NULL,10);
                     sprintf(msg_to_log,"BAUDRATE is %d",baud);
                     log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                    switch(baud)
+                    {
+                        case 2400:baud=B2400;break;
+                        case 4800:baud=B4800;break;
+                        case 9600:baud=B9600;break;
+                        case 19200:baud=B19200;break;
+                        case 38400:baud=B38400;break;
+                        default:baud=B9600;break;
+                    }
+
 
                     return TRUE;
                 }

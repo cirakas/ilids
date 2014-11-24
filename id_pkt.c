@@ -30,7 +30,8 @@ void init_slave_params()
 
         for(j=0;j<MAXPARAMS_A;j++)
         {
-            vlist[i].param_valueA[j]=params1[j];//0.0;//set to 0 initially instead of filling it with sample values from kims db
+            vlist[i].param_valueA[j]=params1[j];
+            vlist[i].param_valueA[j].val=0.0;//set to 0 initially instead of filling it with sample values from kims db
             /*memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
             sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
             if(!mysql_query(conn,mquerry_msg))
@@ -59,6 +60,7 @@ void init_slave_params()
         for(j=0;j<MAXPARAMS_B;j++)
         {
             vlist[i].param_valueB[j]=params2[j];
+            vlist[i].param_valueB[j].val=0.0;//set to 0 initially instead of filling it with sample values from kims db
             /*memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
             sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
             if(!mysql_query(conn,mquerry_msg))
@@ -86,6 +88,7 @@ void init_slave_params()
         for(j=0;j<MAXPARAMS_C;j++)
         {
             vlist[i].param_valueC[j]=params3[j];
+            vlist[i].param_valueC[j].val=0.0;//set to 0 initially instead of filling it with sample values from kims db
             /*memset(mquerry_msg,0x0,QUERRY_MAXSIZE);
             sprintf(mquerry_msg,"SELECT data  FROM data  WHERE device_id=%d and address_map=%d ORDER BY id DESC  LIMIT 1",i,k);
             if(!mysql_query(conn,mquerry_msg))
