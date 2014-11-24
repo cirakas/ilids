@@ -198,6 +198,9 @@
 <link rel="stylesheet" href="${resources}ilids-d3/css/jquery-ui.css">
 <!--<link rel="stylesheet" href="${resources}ilids-d3/css/style.css">-->
 <script src="${resources}ilids-d3/js/jquery-1.10.2.js"></script>
+<script>
+    var jq = jQuery.noConflict();
+</script>
 <script type="text/javascript" src="${resources}ilids-d3/js/jquery-ui.js"></script>
 
 
@@ -539,12 +542,12 @@
 
 
 
-    <div class="col-lg-3 from_to_bg">
-        <div class="select_bg_11" style="">
+    <div class="col-lg-3 from_to_bg"><div style="float: right">
+        <div class="select_bg_11" >
             <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
             <div class="input_min_bg" style="float: left;">
                 <!--<input type="button" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this);" value="" />-->      
-                <input type="text" name="SelectedDate" id="SelectedDate" readonly value="">
+                <input type="text" class=" input_"  name="SelectedDate" id="SelectedDate" readonly value="">
                 <div class="min_bg">
                     <select class="" id="from-hours" value="" style="height:32px;padding-left:5px;">
                         <option value="00">00</option>
@@ -590,7 +593,7 @@
             <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
             <div  class="input_min_bg input_11" >
                 <!--<input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />-->                 
-               <input type="text" name="SelectedDate" id="SelectedDate1" readonly value="">
+               <input type="text" class=" input_" name="SelectedDate" id="SelectedDate1" readonly value="">
                 <div class="min_bg">
                     <select class="" id="to-hours" value="" style="height:32px;padding-left:5px;">
                         <option value="00">00</option>
@@ -633,7 +636,8 @@
 
         <div class="proceed_bg" style=""> 
             <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
-        </div>  
+        </div> 
+        </div>
     </div>
 
 </div> 
@@ -709,14 +713,14 @@
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>-->
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    jq(document).ready(function() {
         var startUrl = "dashboardupdate/subscribe";
         var pollUrl = "dashboardupdate/polldata";
         var poll = new Poll();
         poll.start(startUrl, pollUrl);
     });
 
-                $(function() {
+                jq(function() {
                     var fromDateParams = document.getElementById("SelectedDate").value;
                     var fromHoursParams = document.getElementById("from-hours").value;
                     var fromMinutesParams = document.getElementById("from-minutes").value;
@@ -743,8 +747,8 @@
                                                <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Off peak cost</div><div style="float:left;"><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.offPeakCost) + '</div></div>\n\
                                             </p>';
                             alertSpan = '<span id="alertCountId" style="color: red;">' + Number(pollData.alertCount) + '</span>';
-                            $(energyValueDiv).replaceAll('#energyCostValue');
-                            $(alertSpan).replaceAll('#alertCountId');
+                            jq(energyValueDiv).replaceAll('#energyCostValue');
+                            jq(alertSpan).replaceAll('#alertCountId');
 
                         }
                     });
@@ -782,21 +786,12 @@
     }
     document.getElementById("graphType").selectedIndex = index;
     
-    $(function() {
-        $( "#SelectedDate" ).datepicker();
-        $( "#SelectedDate1" ).datepicker({
-            defaultDate: "+1w",
-            numberOfMonths: 1,
-            //minDate: $( "#SelectedDate" ).datepicker( "option", "defaultDate" ),
-            onSelect: function(selectedDate) {
-                //var option = this.id == "from" ? "minDate" : "maxDate",
-//                var fromDate = $("SelectedDate").data("datepicker"),
-//                    date = $.datepicker.parseDate(instance.settings.dateFormat 
-//                    || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-//                dates.not(this).datepicker("option", option, date);
-                alert("here")
+    jq(function() {
+        jq( "#SelectedDate" ).datepicker({
+            onSelect: function(selectedDate) {                
+                jq( "#SelectedDate1" ).datepicker("option", "minDate", selectedDate);
             }
         });
-
+        jq( "#SelectedDate1" ).datepicker({minDate: toDateParam});
   });
 </script>
