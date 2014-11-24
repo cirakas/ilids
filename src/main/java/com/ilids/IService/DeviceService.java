@@ -56,4 +56,9 @@ public interface DeviceService {
      * @return
      */
     public List<Devices> getAllUsedDevices();
+    
+   // public List<Devices> getUsedSlaveId();
+
+    public Long getFirstDevice();
+    
 }

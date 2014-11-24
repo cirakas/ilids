@@ -6,8 +6,6 @@
 
 <script type="text/javascript">
     
-    var devices = '${deviceIdList}' ;
-    alert(devices);
 //    var _gaq = _gaq || [];
 //    _gaq.push(['_setAccount', 'UA-33628816-1']);
 //    _gaq.push(['_trackPageview']);
@@ -149,7 +147,6 @@
         var toDate = document.getElementById("SelectedDate1").value;
         var d1 = new Date(fromDate + " " + fromHours + ":" + fromMinutes + ":00");
         var d2 = new Date(toDate + " " + toHours + ":" + toMinutes + ":59");
-
         if (d2 < d1) {
             alert("end date should not be less than start date");
         }
@@ -196,8 +193,16 @@
 <link rel="stylesheet" href="${resources}ilids-template/css/jquery.amaran.min.css">
 <link rel="stylesheet" href="${resources}ilids-template/css/all-themes.css">
 <script language="JavaScript" src="${resources}ilids-template/js/polling.js" type="text/javascript"></script>
-<script language="JavaScript" src="${resources}ilids-template/js/notification.js" type="text/javascript"></script>                                                           
+<script language="JavaScript" src="${resources}ilids-template/js/notification.js" type="text/javascript"></script>  
+
+<link rel="stylesheet" href="${resources}ilids-d3/css/jquery-ui.css">
+<!--<link rel="stylesheet" href="${resources}ilids-d3/css/style.css">-->
+<script src="${resources}ilids-d3/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="${resources}ilids-d3/js/jquery-ui.js"></script>
+
+
 <script>
+
     function generateNotification(content) {
         if (content && content !== 'undefined') {
             if (content !== null) {
@@ -498,7 +503,7 @@
     <div class="col-lg-3 drop_down_bg" style="padding: 0;float: left;">
         <div class="form-group form-group1" style="float: left;" >               
             <form:form method="post" modelAttribute="deviceModel">                         
-                <form:select cssClass="form-control" multiple="single" id="deviceList"  path="id" >
+                <form:select cssClass="form-control" multiple="single" id="deviceList"  path="id"  onchange="selectFunction();">
                     <%--<form:option  label="SELECT DEVICE" value="00" />--%>
                     <form:options items="${deviceIdList}" itemLabel="name" itemValue="slaveId" />
                 </form:select>                        
@@ -511,7 +516,7 @@
     <div class="col-lg-3 drop_down_bg1" style="">
         <div class="form-group form-group1 form-group2" style="">
             <!--                <label></label>-->
-            <select class="form-control form_new" id="graphType" value="" >
+            <select class="form-control form_new" id="graphType" value="" onchange="selectFunction();" >
                 <!--                <option value="00" style="background: #fff;">Phase1 Voltage Vs Time</option>
                                     <option value="02">Phase2 Voltage Vs Time</option>
                                     <option value="04">Phase3 Voltage Vs Time</option>-->
@@ -538,7 +543,8 @@
         <div class="select_bg_11" style="">
             <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
             <div class="input_min_bg" style="float: left;">
-                <input type="button" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this);" value="" />      
+                <!--<input type="button" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this);" value="" />-->      
+                <input type="text" name="SelectedDate" id="SelectedDate" readonly value="">
                 <div class="min_bg">
                     <select class="" id="from-hours" value="" style="height:32px;padding-left:5px;">
                         <option value="00">00</option>
@@ -583,7 +589,8 @@
         <div class="select_bg_12">
             <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
             <div  class="input_min_bg input_11" >
-                <input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />                 
+                <!--<input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />-->                 
+               <input type="text" name="SelectedDate" id="SelectedDate1" readonly value="">
                 <div class="min_bg">
                     <select class="" id="to-hours" value="" style="height:32px;padding-left:5px;">
                         <option value="00">00</option>
@@ -695,7 +702,8 @@
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>-->
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dc.js"></script>-->
-<script type="text/javascript" src="${resources}ilids-d3/js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="${resources}ilids-d3/js/jquery.min.js"></script>-->
+<!--<script type="text/javascript" src="${resources}ilids-d3/js/jquery-1.10.2.js"></script>-->
 <!--<script type="text/javascript" src="${resources}ilids-d3/graph.js"></script>-->
 <script type="text/javascript" src="${resources}ilids-d3/powGrap.js"></script>
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>-->
@@ -774,4 +782,21 @@
     }
     document.getElementById("graphType").selectedIndex = index;
     
+    $(function() {
+        $( "#SelectedDate" ).datepicker();
+        $( "#SelectedDate1" ).datepicker({
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            //minDate: $( "#SelectedDate" ).datepicker( "option", "defaultDate" ),
+            onSelect: function(selectedDate) {
+                //var option = this.id == "from" ? "minDate" : "maxDate",
+//                var fromDate = $("SelectedDate").data("datepicker"),
+//                    date = $.datepicker.parseDate(instance.settings.dateFormat 
+//                    || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+//                dates.not(this).datepicker("option", option, date);
+                alert("here")
+            }
+        });
+
+  });
 </script>

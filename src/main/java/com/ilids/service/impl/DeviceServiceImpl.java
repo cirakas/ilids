@@ -78,4 +78,9 @@ public class DeviceServiceImpl implements DeviceService{
     public List<Devices> getAllUsedDevices() {
         return deviceRepository.getAllUsedDevices();
     }
+    
+     @Override
+    public Long getFirstDevice() {
+        return deviceRepository.getFirstDevice();
+    }
 }

@@ -179,10 +179,12 @@ input[type=submit]:active {
 </style>
 
 <script type = "text/javascript">
-    
+ var devices = '${firstSlaveId}' ;
+ //var dd = devices[1];
+ //alert(devices);   
  var date = new Date();
  var dformat = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
- document.cookie = "phase=" + "6" + " " + "start=" + dformat + " " + "end=" + dformat + " " + "frHours=" + "00" + " " + "frMinutes=" + "00" + " " + "tHours=" + "23" + " " + "tMinutes=" + "59" + " " + "deviceId=" + "7";
+ document.cookie = "phase=" + "6" + " " + "start=" + dformat + " " + "end=" + dformat + " " + "frHours=" + "00" + " " + "frMinutes=" + "00" + " " + "tHours=" + "23" + " " + "tMinutes=" + "59" + " " + "deviceId=" + devices;
  document.cookie = "cname=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     
 </script>
@@ -197,9 +199,13 @@ input[type=submit]:active {
                   <p><input type="text"  id="userName" placeholder="User name" name="j_username" required style="width:98%;margin-top: 10px;"></p>               
                   <p><input type="password"  id="password" placeholder="Password"  name="j_password" required style="width:98%;"></p>
                   <button type="submit" class="btn btn_1" style="float: right;">Sign in</button>
-                  
-                  
         </form>
+              
+                  <%--<c:forEach items="${slaveIdList}" var="slaveIdList">--%>     
+                  <%--</c:forEach>--%>
+                  <c:url value="/slaveId" var="url" />
+                  <%--<form:form action="${url}" method="post" modelAttribute="modelAdd">--%>
+                 <%--</form:form>--%>
       </div>
   </section>
 

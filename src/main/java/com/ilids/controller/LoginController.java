@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.core.session.SessionRegistryImpl;
 import com.ilids.domain.User;
+import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -71,7 +72,7 @@ public class LoginController {
 	ServerConfig.latestAlertsScheduleCheckTime=System.currentTimeMillis();
 	org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	List<Object> menuIdList=roleService.getAllMenuIds(user.getUsername());
-
+        List<Long> slaveIdList = new ArrayList<Long>();
         List<Devices> deviceIdList = deviceService.getAllUsedDevices();
         model.addAttribute("deviceIdList", deviceIdList);
 	model.addAttribute("menuIdList", menuIdList);
@@ -96,7 +97,7 @@ public class LoginController {
 //	model.addAttribute("phase3PowerFactor", phase3PowerFactor.getData());
         return "home";
     }
-
+    
     /**
      *
      * @return
@@ -111,7 +112,9 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLoginForm() {
+    public String showLoginForm(Model model) {
+        Long slaveId = deviceService.getFirstDevice();
+        model.addAttribute("firstSlaveId", slaveId);
         return "login/login";
     }
 

@@ -1352,11 +1352,11 @@ d3 = function() {
       var target = this, event_ = event.of(target, arguments), eventTarget = d3.event.target, dragged = 0, w = d3.select(d3_window).on(mousemove, moved).on(mouseup, ended), l = location(d3.mouse(target)), dragRestore = d3_event_dragSuppress();
       d3_selection_interrupt.call(target);
       zoomstarted(event_);
-//      function moved() {
-//        dragged = 1;
-//        translateTo(d3.mouse(target), l);
-//        zoomed(event_);
-//      }
+      function moved() {
+        dragged = 1;
+        translateTo(d3.mouse(target), l);
+        zoomed(event_);
+      }
       function ended() {
         w.on(mousemove, d3_window === target ? mousewheelreset : null).on(mouseup, null);
         dragRestore(dragged && d3.event.target === eventTarget);
@@ -1459,7 +1459,7 @@ d3 = function() {
     }
     return d3.rebind(zoom, event, "on");
   };
-  var d3_behavior_zoomInfinity = [ 0, Infinity ];
+  var d3_behavior_zoomInfinity = [ 1, Infinity ];
   var d3_behavior_zoomDelta, d3_behavior_zoomWheel = "onwheel" in d3_document ? (d3_behavior_zoomDelta = function() {
     return -d3.event.deltaY * (d3.event.deltaMode ? 120 : 1);
   }, "wheel") : "onmousewheel" in d3_document ? (d3_behavior_zoomDelta = function() {
