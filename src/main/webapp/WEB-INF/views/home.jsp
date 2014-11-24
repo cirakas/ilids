@@ -423,13 +423,13 @@
     .proceed_bg{float: left;}
     .proceed_{padding:7px 10px;border-radius: 4px;background: #efba16;border:none; border-bottom: 2px solid #daa911;color:#fff; }
     .select_bg_11,.select_bg_12{float:left!important;}
-    .from_to_bg{width: 63%;float: left;margin-top: 0px;margin-bottom: 0px;margin-bottom: 0;padding-left: 20px;padding-right: 0!important;}
+    .from_to_bg{float: left;margin-top: 0px;margin-bottom: 0px;margin-bottom: 0;padding-left: 20px;padding-right: 0!important;}
     .input_min_bg{float: left!important;margin-left: 5px;width: 200px}
     .min_bg{float:left!important;width:auto;margin-top: 0px;margin-left: 5px;}
 
     .form-group1{float:left!important;margin-top: 0px;margin-bottom: 0px;width: 100%;}
     .form-group2{float: left!important;width: 100%!important;}
-    .drop_down_bg{width:16%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;}
+    .drop_down_bg{width:17%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;}
     .drop_down_bg1{width:19%;margin: 0px;margin-bottom: 0;float: right;padding: 0;float: left;margin-left: 15px;}
 
     .right_bg{width: 21%;float: right;/*padding: 12px 0 12px 15px;background: #f1f2f2;*/ margin-right: 15px;}
@@ -437,14 +437,14 @@
     .row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 15px;background: url(/ilids/resources/images/bg_default1.jpg);}
 
 
-    @media all and (max-width: 1187px) and (min-width: 1001px){
+    @media all and (max-width: 1200px) and (min-width: 1001px){
         .from_to_bg{width: 56%;}
         .input_11{margin-left: 30px;margin-top: 10px;}
         .drop_down_bg{width:20%;}
         .to_{margin-top: 15px!important;}
     }
 
-    @media all and (max-width: 1000px) and (min-width: 768px){
+    @media all and (max-width: 1000px) and (min-width: 770px){
         .from_to_bg{width: 100%;margin-bottom: 0px;margin-top: 15px;float: left;}
         .drop_down_bg,.drop_down_bg1{width: 100%;margin-left: 0px;}
         .from_to_bg{width: 100%;padding-left: 0px;}
@@ -455,6 +455,7 @@
         .input_{margin-left: 0;}
         .input_min_bg{margin-left: 5px;}
         .row_date_bg{padding-right:15px;padding-left:15px;}
+        .right_bg{width: 20%;}
     }
 
 
@@ -464,7 +465,7 @@
         .proceed_bg{float: right;margin-top: 25px;}
         .input_min_bg{margin-left: 0px;}
     }
-    @media all and (max-width: 767px) and (min-width: 150px){
+    @media all and (max-width: 769px) and (min-width: 150px){
         .right_bg{float: left;width: 100%; margin-top: 50px;padding:15px 18px;margin-right: 0;}
         .graph_bg{width:100%;}
         .drop_down_bg,.drop_down_bg1{width: 100%;margin-left: 0;}
@@ -520,7 +521,7 @@
                 <!--                <option value="00" style="background: #fff;">Phase1 Voltage Vs Time</option>
                                     <option value="02">Phase2 Voltage Vs Time</option>
                                     <option value="04">Phase3 Voltage Vs Time</option>-->
-                <option value="6">Phase1 Current Vs Time</option>
+                <option value="6">Phase1 Current Vs Time </option>
                 <option value="8">Phase2 Current Vs Time</option>
                 <option value="10">Phase3 Current Vs Time</option>
                 <option value="12">Phase1 Power Vs Time</option>
@@ -539,12 +540,13 @@
 
 
 
-    <div class="col-lg-3 from_to_bg">
+    <div class=" from_to_bg">
+        
         <div class="select_bg_11" style="">
             <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
             <div class="input_min_bg" style="float: left;">
                 <!--<input type="button" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this);" value="" />-->      
-                <input type="text" name="SelectedDate" id="SelectedDate" readonly value="">
+                <input type="text" class=" input_"  name="SelectedDate" id="SelectedDate" readonly value="">
                 <div class="min_bg">
                     <select class="" id="from-hours" value="" style="height:32px;padding-left:5px;">
                         <option value="00">00</option>
@@ -590,7 +592,7 @@
             <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
             <div  class="input_min_bg input_11" >
                 <!--<input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />-->                 
-               <input type="text" name="SelectedDate" id="SelectedDate1" readonly value="">
+               <input type="text" class=" input_" name="SelectedDate" id="SelectedDate1" readonly value="">
                 <div class="min_bg">
                     <select class="" id="to-hours" value="" style="height:32px;padding-left:5px;">
                         <option value="00">00</option>
