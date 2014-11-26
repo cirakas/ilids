@@ -467,7 +467,7 @@
     .bulb_{margin: 0 auto;width: 130px;}
 
 
-@media all and (max-width: 1280px) and (min-width: 1100px){
+@media all and (max-width: 1280px) and (min-width: 1120px){
     .right_bg{float: right;width: 30%;padding:0px 16px;margin-right: 0;}
     .graph_bg{width:70%;}
 
@@ -490,7 +490,7 @@
         
 }
 
-    @media all and (max-width: 1099px) and (min-width: 768px){
+    @media all and (max-width: 1119px) and (min-width: 768px){
         .graph_bg{width:100%;}
         .right_bg{float: right;width: 100%;padding:0px 16px;margin-top: 20px;margin-right:0px;}
         
