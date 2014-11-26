@@ -198,6 +198,9 @@
 <link rel="stylesheet" href="${resources}ilids-d3/css/jquery-ui.css">
 <!--<link rel="stylesheet" href="${resources}ilids-d3/css/style.css">-->
 <script src="${resources}ilids-d3/js/jquery-1.10.2.js"></script>
+<script>
+    var jq = jQuery.noConflict();
+</script>
 <script type="text/javascript" src="${resources}ilids-d3/js/jquery-ui.js"></script>
 
 
@@ -352,7 +355,7 @@
         width: 220px;
         padding: 5px 0;
         text-align: center;
-        color: #fff;
+/*        color: #fff;*/
     }
     .power-factor-panel{
         margin-left: 4px;
@@ -364,13 +367,57 @@
         font-size: 14px;
         font-weight: bold;
         /*    border:1px solid #14a164;*/
-        background-image: linear-gradient(#88C149, #73A839 60%, #699934);
-        border-bottom: 1px solid #59822C;
+        background-image: linear-gradient(#2bc2ba, #27beb6 60%, #1FB5AD);
+/*        background:#1FB5AD;*/
+        border-bottom: 2px solid #14a199;
         filter: none;
     }
     .announce_text_11{word-break:break-all;}
-    .panel-heading1{padding-left: 0;padding-right: 0;padding-bottom: 0;}
+    .panel-heading1{padding: 0;}
 
+    
+
+    .graph_heading{
+        /*   background-color: #f6b54e!important;*/
+        border-color: #d98b12!important;
+        /*   background: url(/ilids/resources/images/graph_head_bg.png);*/
+        background: #4cbdbb!important;border: none;
+        background: #3399eb!important;
+        background-image: linear-gradient(#54B4EB, #2FA4E7 60%, #1D9CE5)!important;
+        border-bottom: 1px solid #178ACC!important;
+        filter: none;
+    }
+    #graph33 {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+
+    .power_factor_bg{padding: 9px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
+                     /*border-left: 3px solid #be7611;*/ background: #e6ad2d;
+                     background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;
+                     border-bottom: 1px solid #bb581a;filter: none;
+                     background: #fff6bf !important;
+                     border: 1px solid #ffd840;
+                     color: #9E7540;
+                     box-shadow: 0px 0px 5px #fbee9c inset;
+    }
+    .success_{width: 100%;border:1px solid #14a164;border:none!important;float: left!important;background:#79d3ac;
+                      box-shadow: 0px 0px 10px #e5e5e5;
+                      
+/*              background:#c5e4a3;*/
+                background:#fff;
+                
+                
+/*                background: url(/ilids/resources/images/right_bulb_bg.png);*/
+    }
+    
+    .image-bg{border: 1px solid #dde0e0!important;border-radius: 4px 4px 0 0;border-bottom: none!important;box-shadow: 0px 0px 5px #dfdfdf inset;
+              background-image: radial-gradient(#fff, #ebeded 50%, #fff);
+    }
+    
+    
     .panel_1{
         -webkit-transition: all 0.2s ease-in-out; /* For Safari 3.1 to 6.0 */
         -moz-transition: all 0.2s ease-in-out;
@@ -392,33 +439,6 @@
         -ms-box-shadow:0px 0px 20px #d8d9d9;
     }
 
-    .graph_heading{
-        /*   background-color: #f6b54e!important;*/
-        border-color: #d98b12!important;
-        /*   background: url(/ilids/resources/images/graph_head_bg.png);*/
-        background: #4cbdbb!important;border: none;
-        background: #3399eb!important;
-        background-image: linear-gradient(#54B4EB, #2FA4E7 60%, #1D9CE5)!important;
-        border-bottom: 1px solid #178ACC!important;
-        filter: none;
-    }
-    #graph33 {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-
-
-    .power_factor_bg{padding: 9px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
-                     /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
-                     background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;
-                     border-bottom: 1px solid #bb581a;filter: none;
-    }
-    .success_{width: 100%;border:1px solid #14a164;border:none!important;float: left!important;background:#79d3ac;
-              /*         box-shadow: 0px 0px 10px #c7c7c7;*/
-              background:#c5e4a3;
-    }
-
     /*.power_factor_main_bg{background: #eeeded;padding: 12px;border-radius:3px;}*/
     .proceed_bg{float: left;}
     .proceed_{padding:7px 10px;border-radius: 4px;background: #efba16;border:none; border-bottom: 2px solid #daa911;color:#fff; }
@@ -435,62 +455,91 @@
     .right_bg{width: 21%;float: right;/*padding: 12px 0 12px 15px;background: #f1f2f2;*/ margin-right: 15px;}
     .graph_bg{width:77.1%;padding-right: 0;float: left;/*background: #ececeb;*/padding:0 15px;border-radius: 5px;}
     .row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 15px;background: url(/ilids/resources/images/bg_default1.jpg);}
+    
+    .power-factor-warning{padding: 9px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
+                     /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
+                     background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #fe9272 !important; border: 1px solid #e0623d;
+                     filter: none;color:#9b3618!important;box-shadow: 0px 0px 5px #e46742 inset;}
+    .power-factor-success{padding: 9px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
+                     /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
+                     background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #c7d789 !important; border: 1px solid #a1b650;
+                     filter: none;color:#5e7506!important;box-shadow: 0px 0px 5px #a9bd5a inset;}
+    .bulb_{margin: 0 auto;width: 130px;}
 
 
-    @media all and (max-width: 1200px) and (min-width: 1001px){
-        .from_to_bg{width: 56%;}
-        .input_11{margin-left: 30px;margin-top: 10px;}
-        .drop_down_bg{width:20%;}
-        .to_{margin-top: 15px!important;}
-    }
+@media all and (max-width: 1280px) and (min-width: 1100px){
+    .right_bg{float: right;width: 30%;padding:0px 16px;margin-right: 0;}
+    .graph_bg{width:70%;}
 
-    @media all and (max-width: 1000px) and (min-width: 770px){
-        .from_to_bg{width: 100%;margin-bottom: 0px;margin-top: 15px;float: left;}
-        .drop_down_bg,.drop_down_bg1{width: 100%;margin-left: 0px;}
-        .from_to_bg{width: 100%;padding-left: 0px;}
-        .select_bg_11{float:left;width:42%;}
-        .select_bg_12{float:left!important;width:42%;}
-        .form-group1,.form-group2{width:100%!important;float: left;margin-top: 10px;}
-        .proceed_bg{float: right;}
+        .drop_down_bg,.drop_down_bg1{width: 15.6%;}
+        .from_to_bg{padding-left: 0px;margin-left:1%; float: left;}
+        .form-group1,.form-group2{width:100%!important;float: left;}
+        
+        
+        .input_min_bg{margin-left: 5px;float: left;width: auto;padding: 0!important;}
+        .input_{width: auto;}
+        
+        .select_bg_11{float:left;}
+        .select_bg_12{float:left;margin-left: 10px;}
+        
+        .proceed_bg{float: right;margin-left: 10px;}
         .input_{margin-left: 0;}
-        .input_min_bg{margin-left: 5px;}
+        
         .row_date_bg{padding-right:15px;padding-left:15px;}
-        .right_bg{width: 20%;}
-    }
+        .bulb_{width: 115px;}
+        
+}
 
-
-    @media all and (max-width: 898px) and (min-width: 768px){
-        .select_bg_11{float:left;width:39%;}
-        .select_bg_12{float:left!important;width:35%;}
-        .proceed_bg{float: right;margin-top: 25px;}
-        .input_min_bg{margin-left: 0px;}
-    }
-    @media all and (max-width: 769px) and (min-width: 150px){
-        .right_bg{float: left;width: 100%; margin-top: 50px;padding:15px 18px;margin-right: 0;}
+    @media all and (max-width: 1099px) and (min-width: 768px){
         .graph_bg{width:100%;}
-        .drop_down_bg,.drop_down_bg1{width: 100%;margin-left: 0;}
-        .form-group1,.form-group2{width:100%!important;float: left;margin-top: 10px;}
+        .right_bg{float: right;width: 100%;padding:0px 16px;margin-top: 20px;margin-right:0px;}
+        
+        .drop_down_bg,.drop_down_bg1{width: 48.3%;}
+        .drop_down_bg1{float: right;}
+        .from_to_bg{width: 100%;padding-left: 0px;margin-top:15px; float: left;}
+        .proceed_bg{float: right;}.input_{width:40%;}
+        .select_bg_11,.select_bg_12{float:left!important;width:43%;}    
+    }
+    @media all and (max-width: 899px) and (min-width: 768px){
+        .select_bg_11,.select_bg_12{float:left!important;width:37%;}
+        .select_bg_12{margin-left: 4%;}
+        .proceed_bg{float: right;margin-top: 28px;}
+    }
+    
+    @media all and (max-width: 767px) and (min-width: 150px){
+        .graph_bg{width:100%;}
+        .right_bg{float: right;width: 100%;padding:0px 16px;margin-top: 20px;margin-right:0px;}
+        .row_date_bg{margin-top: 15px;}
+        .drop_down_bg,.drop_down_bg1{width: 100%;}.drop_down_bg1{margin-left: 0;margin-top: 15px;}
+        .from_to_bg{width: 100%;padding-left: 0px;margin-top:15px; float: left;}
         .proceed_bg{float: right;}
-        .row_date_bg{padding-right:15px;padding-left:15px;}
-        .from_to_bg{width: 100%;margin-bottom: 0px;margin-top: 15px;float: left;padding-left: 0px;}     
-        .select_bg_11{width:40%;}
-        .select_bg_12{float:left!important;width:40%;}
-        .input_{width:40%;font-size: 13px;}
     }
-
-    @media all and (max-width: 700px) and (min-width: 501px){
-        .select_bg_11{float:left;width:38%;margin-right: 15px;}
-        .select_bg_12{float:left!important;width:35%;}
-        .proceed_bg{float: right;margin-top: 25px;}
-        .input_min_bg{margin-left: 0px;}
+    @media all and (max-width: 630px) and (min-width: 570px){
+        .select_bg_11,.select_bg_12{width:39.5%;}
+        .proceed_bg{float: right;margin-top: 30px;}
+        .input_min_bg{margin-left: 0;}
     }
-
-    @media all and (max-width: 500px) and (min-width: 150px){
-        .input_{width:50%;font-size: 12px;text-align: center;}
-        .input_min_bg{margin-left: 0;width:100%;}
-        .min_bg{margin-left: 5px;width:auto;}
+    @media all and (max-width: 569px) and (min-width: 510px){
+        .select_main_bg{width: 100%;float: left;}
+        .select_bg_11,.select_bg_12{width:44.5%;}
+        .select_bg_12{float: right!important;}
+        .input_min_bg{margin-left: 0;}
+        .proceed_bg{float: right;margin-top: 15px;width: 100%;}
+        .proceed_{width: 100% !important;}
+    }
+    @media all and (max-width: 509px) and (min-width: 150px){
         .select_bg_11,.select_bg_12{width:100%;}
-        .proceed_bg{float: left;margin-top: 15px;}
+        .select_bg_12{margin-top:15px; }
+        .input_{width:40%;font-size: 13px;text-align: center;}
+        .input_min_bg{margin-left: 5px;width:80%;}
+        .input_11{margin-left: 30px!important;}
+        .proceed_bg{float: left;margin-top: 15px;width: 100%;}
+        .proceed_{width: 100% !important;}
+    }
+    @media all and (max-width: 330px) and (min-width: 150px){
+        .input_min_bg{margin-left: 0px;width:100%;}
+        .input_11{margin-left: 0px!important;}
+        .bulb_{width: 110px;}
     }
 
 </style> 
@@ -546,9 +595,9 @@
             <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
             <div class="input_min_bg" style="float: left;">
                 <!--<input type="button" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this);" value="" />-->      
-                <input type="text" class=" input_"  name="SelectedDate" id="SelectedDate" readonly value="">
+                <input type="button" class=" input_"  name="SelectedDate" id="SelectedDate" readonly value="">
                 <div class="min_bg">
-                    <select class="" id="from-hours" value="" style="height:32px;padding-left:5px;">
+                    <select class="form-control" id="from-hours" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -574,7 +623,9 @@
                         <option value="22">22</option>
                         <option value="23">23</option>
                     </select>
-                    <select class="" id="from-minutes" value="" style="height:32px;padding-left:5px;">
+                </div>
+                <div class="min_bg">
+                    <select class="form-control" id="from-minutes" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -592,9 +643,9 @@
             <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
             <div  class="input_min_bg input_11" >
                 <!--<input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />-->                 
-               <input type="text" class=" input_" name="SelectedDate" id="SelectedDate1" readonly value="">
+               <input type="button" class=" input_" name="SelectedDate" id="SelectedDate1" readonly value="">
                 <div class="min_bg">
-                    <select class="" id="to-hours" value="" style="height:32px;padding-left:5px;">
+                    <select class="form-control" id="to-hours" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -620,7 +671,9 @@
                         <option value="22">22</option>
                         <option value="23">23</option>
                     </select>
-                    <select class="" id="to-minutes" value=""  style="height:32px;padding-left:5px; ">
+                </div>
+                <div class="min_bg">
+                    <select class="form-control" id="to-minutes" value=""  style="height:32px;padding:3px; ">
                         <option value="00">00</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -632,11 +685,11 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="proceed_bg" style=""> 
             <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
-        </div>  
-    </div>
+        </div> 
+        </div>
 
 </div> 
 
@@ -662,7 +715,9 @@
         <div class="" style="float: right;width:100%">
             <div id="energyCostPanel" class="panel panel-success success_" style="">
                 <div  class="panel-heading panel-heading1" style="background:none;border:none;width:100%;float: left;">
-                    <div style="margin: 0 auto;width: 50%;"><img src="/ilids/resources/images/bulb_green1.png" style=""></div>
+                    <div class="image-bg">
+                        <div class="bulb_"><img src="/ilids/resources/images/bulb_green1.png" style=""></div>
+                    </div>
                     <div id="energyCost" class="text-announce" style="float: left;padding-left:12px;padding-right:12px;">
                         <p id="energyCostValue" class="announcement-text" style="padding: 5px;"></p>
                     </div>
@@ -673,21 +728,21 @@
             <div id="phase1PowerFactorPanel" class="power_factor_bg">
                 <div  class="power-factor" style="border:none;width: 100%;float: left;">
                     <div id="phase1PowerFactor">
-                        <p class="announcement-text" style="">Power factor Phase1: ${phase1PowerFactor}</p>
+                        <p class="announcement-text" style="">Power factor Phase 1: ${phase1PowerFactor}</p>
                     </div>
                 </div>
             </div>
             <div id="phase2PowerFactorPanel" class="power_factor_bg"  style="">
                 <div  class="power-factor" style="border:none;width: 100%;float: left;">
                     <div id="phase2PowerFactor">
-                        <p class="announcement-text" style="">Power factor Phase2: ${phase2PowerFactor}</p>
+                        <p class="announcement-text" style="">Power factor Phase 2: ${phase2PowerFactor}</p>
                     </div>
                 </div>
             </div>   
             <div id="phase3PowerFactorPanel"  class="power_factor_bg" style="margin-bottom: 0;">
                 <div class="power-factor" style="border:none;width: 100%;float: left;">
                     <div id="phase3PowerFactor">
-                        <p class="announcement-text" style="">Power factor Phase3: ${phase3PowerFactor}</p>
+                        <p class="announcement-text" style="">Power factor Phase 3: ${phase3PowerFactor}</p>
                     </div>
                 </div>
             </div>              
@@ -711,14 +766,14 @@
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>-->
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    jq(document).ready(function() {
         var startUrl = "dashboardupdate/subscribe";
         var pollUrl = "dashboardupdate/polldata";
         var poll = new Poll();
         poll.start(startUrl, pollUrl);
     });
 
-                $(function() {
+                jq(function() {
                     var fromDateParams = document.getElementById("SelectedDate").value;
                     var fromHoursParams = document.getElementById("from-hours").value;
                     var fromMinutesParams = document.getElementById("from-minutes").value;
@@ -745,8 +800,8 @@
                                                <div style="float:left;width:100%;line-height:20px;"><div style="float:left;width:100px;text-align:left;">Off peak cost</div><div style="float:left;"><div style="float:left;margin-left:3px;text-align:left;word-break: break-all;">: Rs. ' + Number(pollData.offPeakCost) + '</div></div>\n\
                                             </p>';
                             alertSpan = '<span id="alertCountId" style="color: red;">' + Number(pollData.alertCount) + '</span>';
-                            $(energyValueDiv).replaceAll('#energyCostValue');
-                            $(alertSpan).replaceAll('#alertCountId');
+                            jq(energyValueDiv).replaceAll('#energyCostValue');
+                            jq(alertSpan).replaceAll('#alertCountId');
 
                         }
                     });
@@ -780,25 +835,16 @@
                 break;
             }
             index++;
-        }
+        } 
     }
     document.getElementById("graphType").selectedIndex = index;
     
-    $(function() {
-        $( "#SelectedDate" ).datepicker();
-        $( "#SelectedDate1" ).datepicker({
-            defaultDate: "+1w",
-            numberOfMonths: 1,
-            //minDate: $( "#SelectedDate" ).datepicker( "option", "defaultDate" ),
-            onSelect: function(selectedDate) {
-                //var option = this.id == "from" ? "minDate" : "maxDate",
-//                var fromDate = $("SelectedDate").data("datepicker"),
-//                    date = $.datepicker.parseDate(instance.settings.dateFormat 
-//                    || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-//                dates.not(this).datepicker("option", option, date);
-                alert("here")
+    jq(function() {
+        jq( "#SelectedDate" ).datepicker({
+            onSelect: function(selectedDate) {                
+                jq( "#SelectedDate1" ).datepicker("option", "minDate", selectedDate);
             }
         });
-
+        jq( "#SelectedDate1" ).datepicker({minDate: toDateParam});
   });
 </script>

@@ -26,6 +26,10 @@
     <!-- Add custom CSS here -->
     <link href="${resources}ilids-template/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="${resources}ilids-template/font-awesome/css/font-awesome.min.css">
+<!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${resources}ilids-template/css/jquery.datepick.css"> 
+    <script type="text/javascript" src="${resources}ilids-template/js/jquery.plugin.js"></script> 
+    <script type="text/javascript" src="${resources}ilids-template/js/jquery.datepick.js"></script>-->
     <!-- Page Specific CSS -->
 <!--    <link href="css/dc.css" rel="stylesheet">-->
     
