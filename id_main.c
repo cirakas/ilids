@@ -96,14 +96,15 @@ int main(int argc,char *argv[])
     gl_count=0;
     bytes_read=0;
 
+
+    init_slave_params();//This needs to be called before readconf to properly use selective update of db based on config file.
+
    	if(!Read_Conf())
    	{
    	    sprintf(msg_to_log,"Error in Config File,Exiting");
         log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
    	    exit(EXIT_FAILURE);
    	}
-
-
     //for(i=0;i<no_of_cmds;i++)
     //{
     //    printf("\n%s:%d:%d:%d",cmd_config[i].param_name,cmd_config[i].devid,cmd_config[i].start_addr,cmd_config[i].value_offset);
@@ -185,7 +186,6 @@ int main(int argc,char *argv[])
         exit(EXIT_FAILURE);
 	}
 
-	init_slave_params();
     intitialize_poll_packet();
 	Signal_exitsignal();
 	Signal_sigio_signal();

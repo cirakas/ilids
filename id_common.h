@@ -149,6 +149,7 @@ typedef struct
     float mf;
     float val;
     float offset;
+    int db_update;
 }PARAM_DETAILS;
 
 /*typedef struct
@@ -175,7 +176,7 @@ WORD scondition;
 SLAVE_DETAILS vlist[MAXSLAVE];
 int db_id1,db_id2,db_id3;
 
-//In the following 3 lines,each ParamsA,B,C values initialiased(addr,name,nwords,multiplcn,value,offset).Offset maybe adjusted to suit each param.Initially all offset set to 1 other than powerfactor which is set to 0.1
+
 extern PARAM_DETAILS params1[MAXPARAMS_A];
 extern PARAM_DETAILS params2[MAXPARAMS_B];
 extern PARAM_DETAILS params3[MAXPARAMS_C];

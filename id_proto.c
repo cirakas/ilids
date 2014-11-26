@@ -358,6 +358,10 @@ NVALUE neg_val;
 
                     for(i=3;i<(pktcount-2);)
                     {
+                        if(!vlist[pktdata[0]].param_valueA[db_id1].db_update)
+                        {
+                            goto next_paramA;
+                        }
                         //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
                         //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
 
@@ -416,6 +420,7 @@ NVALUE neg_val;
                             }
                         }
 
+                        next_paramA:
                         i+=4;//2 words,so 4 bytes
                         db_id1++;
                         if(db_id1==MAXPARAMS_A)
@@ -451,6 +456,10 @@ float cval=0;
 
                     for(i=3;i<(pktcount-2);)
                     {
+                        if(!vlist[pktdata[0]].param_valueB[db_id2].db_update)
+                        {
+                            goto next_paramB;
+                        }
                         //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
                         //log_to_file(msg_to_log,strlen(msg_to_log),3);
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
@@ -496,6 +505,7 @@ float cval=0;
 
                         }
 
+                        next_paramB:
                         i+=4;//2 words ,so 4 bytes
                         db_id2++;
                         if(db_id2==MAXPARAMS_B)
@@ -528,6 +538,10 @@ float cval=0;
 
                     for(i=3;i<(pktcount-2);)
                     {
+                        if(!vlist[pktdata[0]].param_valueC[db_id3].db_update)
+                        {
+                            goto next_paramC;
+                        }
                         //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
                         //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
@@ -573,6 +587,7 @@ float cval=0;
 
                         }
 
+                        next_paramC:
                         //The following cases done,because for paramsC,the length of each param varies differently.
                         if(db_id3>14 && db_id3<19)
                         {
