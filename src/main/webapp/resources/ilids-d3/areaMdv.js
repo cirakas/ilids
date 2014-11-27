@@ -262,6 +262,7 @@ d3.json(servlet, function(data) {
             .attr("class", "heading_top_")
             .text(yaxisTitle);//Specified in the home.jsp
     
+    
     main.append("g")
             .attr("class", "y axis axisRight")
             .attr("transform", "translate(" + main_width + ", 0)")

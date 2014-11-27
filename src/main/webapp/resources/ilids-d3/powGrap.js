@@ -13,6 +13,7 @@ d3.json(servlet, function(data) {
             main_height = 400 - main_margin.top - main_margin.bottom,
             mini_height = 400 - mini_margin.top - mini_margin.bottom;
 
+
  //   var panExtent = {x: [0, main_width], y: [main_height, 100]};
 
     var width = $("#powGraph").width(),

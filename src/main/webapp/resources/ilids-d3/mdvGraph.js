@@ -412,6 +412,7 @@ d3.json(servlet, function(data) {
 
 
 
+
     function mousemove1() {
         var x0 = main_x.invert(d3.mouse(this)[0]),
                 i = bisectDate(data, x0, 1),
