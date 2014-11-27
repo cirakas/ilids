@@ -858,6 +858,6 @@
                 jq( "#SelectedDate1" ).datepicker("option", "minDate", selectedDate);
             }
         });
-        jq( "#SelectedDate1" ).datepicker({minDate: toDateParam});
+        jq( "#SelectedDate1" ).datepicker({minDate: fromDateParam});
   });
 </script>
