@@ -69,13 +69,17 @@ function Poll() {
                 }  
                   
                    
-         phase1Value='<div id="phase1PowerFactor"><p class="announcement-text">Power factor Phase 1: '+ Number(pollData.phase1Value)+'</p></div>';
-         phase2Value='<div id="phase2PowerFactor"><p class="announcement-text">Power factor Phase 2: '+ Number(pollData.phase2Value)+'</p></div>';
-         phase3Value='<div id="phase3PowerFactor"><p class="announcement-text">Power factor Phase 3: '+ Number(pollData.phase3Value)+'</p></div>';
+         phase1Value='<div id="phase1PowerFactor"><p class="announcement-text">Power factor Phase 1: <b style="font-size:19px;">'+ Number(pollData.phase1Value)+'</b></p></div>';
+         phase2Value='<div id="phase2PowerFactor"><p class="announcement-text">Power factor Phase 2: <b style="font-size:19px;">'+ Number(pollData.phase2Value)+'</b></p></div>';
+         phase3Value='<div id="phase3PowerFactor"><p class="announcement-text">Power factor Phase 3: <b style="font-size:19px;">'+ Number(pollData.phase3Value)+'</b></p></div>';
          if(phase1Value){
           $(phase1Value).replaceAll('#phase1PowerFactor');
             $('#phase1PowerFactorPanel').removeClass('power-factor-success');
             $('#phase1PowerFactorPanel').removeClass('power-factor-warning');
+            $('#phase1PowerFactorPanel').removeClass('power_factor_bg');
+              $('#phase2PowerFactorPanel').removeClass('power_factor_bg');
+                $('#phase3PowerFactorPanel').removeClass('power_factor_bg');
+            
            if(Number(pollData.phase1Value)<.9 || Number(pollData.phase1Value)===42){
             $('#phase1PowerFactorPanel').addClass('power-factor-warning');
           }else{
@@ -86,7 +90,7 @@ function Poll() {
           $(phase2Value).replaceAll('#phase2PowerFactor');
             $('#phase2PowerFactorPanel').removeClass('power-factor-success');
             $('#phase2PowerFactorPanel').removeClass('power-factor-warning');
-          if(Number(pollData.phase1Value)<.9 || Number(pollData.phase1Value)===42){
+          if(Number(pollData.phase2Value)<.9 || Number(pollData.phase2Value)===42){
             $('#phase2PowerFactorPanel').addClass('power-factor-warning');
           }else{
             $('#phase2PowerFactorPanel').addClass('power-factor-success');
@@ -98,7 +102,7 @@ function Poll() {
            $(phase3Value).replaceAll('#phase3PowerFactor');
              $('#phase3PowerFactorPanel').removeClass('power-factor-success');
             $('#phase3PowerFactorPanel').removeClass('power-factor-warning');
-            if(Number(pollData.phase1Value)<.9 || Number(pollData.phase1Value)===42){
+            if(Number(pollData.phase3Value)<.9 || Number(pollData.phase3Value)===42){
             $('#phase3PowerFactorPanel').addClass('power-factor-warning');
           }else{
             $('#phase3PowerFactorPanel').addClass('power-factor-success');
