@@ -24,23 +24,29 @@ public class DeviceZoneServiceImpl implements DeviceZoneService{
 
     @Override
     public List<DeviceZone> getAllDeviceZone() {
-        return deviceZoneRepository.getAll();
+        List<DeviceZone> allZone = deviceZoneRepository.getAll();
+        deviceZoneRepository.close();
+        return allZone;
     }
 
     @Override
     public DeviceZone findById(Long id) {
-        return deviceZoneRepository.findById(id);
+        DeviceZone zoneId = deviceZoneRepository.findById(id);
+        deviceZoneRepository.close();
+        return zoneId;
     }
 
     @Override
     public boolean addDeviceZone(DeviceZone deviceZone)throws Exception {
         deviceZoneRepository.persist(deviceZone);
+        deviceZoneRepository.close();
         return true;
     }
 
     @Override
     public boolean updateDeviceZone(DeviceZone deviceZone)throws Exception {
         deviceZoneRepository.merge(deviceZone);
+        deviceZoneRepository.close();
         return true;
     }
 
@@ -51,6 +57,7 @@ public class DeviceZoneServiceImpl implements DeviceZoneService{
             throw new IllegalArgumentException();
         }
         deviceZoneRepository.delete(deviceZone);
+        deviceZoneRepository.close();
         return deviceZone;
     }
 

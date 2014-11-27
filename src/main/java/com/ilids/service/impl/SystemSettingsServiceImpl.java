@@ -14,7 +14,7 @@ import com.ilids.domain.SystemSettings;
  */
 @Component
 @Transactional
-public class SystemSettingsServiceImpl  implements SystemSettingsService{
+public class SystemSettingsServiceImpl implements SystemSettingsService {
 
     @Autowired
     private SystemSettingsRepository systemSettingsRepository;
@@ -22,6 +22,7 @@ public class SystemSettingsServiceImpl  implements SystemSettingsService{
     @Override
     public List<SystemSettings> getAllSystemSettings() {
         List<SystemSettings> list = systemSettingsRepository.getAll();
+        systemSettingsRepository.close();
         return list;
     }
 
@@ -32,31 +33,35 @@ public class SystemSettingsServiceImpl  implements SystemSettingsService{
      * @throws Exception
      */
     @Override
-    public SystemSettings findById(Long id)throws Exception {
+    public SystemSettings findById(Long id) throws Exception {
         SystemSettings systemSettings = systemSettingsRepository.findById(id);
+        systemSettingsRepository.close();
         return systemSettings;
     }
 
     @Override
-    public SystemSettings remove(Long id) throws Exception{
+    public SystemSettings remove(Long id) throws Exception {
         SystemSettings systemSettings = systemSettingsRepository.findById(id);
         if (systemSettings == null) {
             throw new IllegalArgumentException();
         }
         //  device.getUser().getDevices().remove(device); //pre remove
         systemSettingsRepository.delete(systemSettings);
+        systemSettingsRepository.close();
         return systemSettings;
     }
 
     @Override
-    public boolean addSystemSettings(SystemSettings systemSettings)throws Exception {
+    public boolean addSystemSettings(SystemSettings systemSettings) throws Exception {
         systemSettingsRepository.persist(systemSettings);
+        systemSettingsRepository.close();
         return true;
     }
 
     @Override
-    public boolean updateSystemSettings(SystemSettings systemSettings)throws Exception {
+    public boolean updateSystemSettings(SystemSettings systemSettings) throws Exception {
         systemSettingsRepository.merge(systemSettings);
+        systemSettingsRepository.close();
         return true;
     }
 }

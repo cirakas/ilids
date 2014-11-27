@@ -36,12 +36,16 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<Notes> getAllNotes() {
-	return noteRepository.getAll();
+        List<Notes> allNotes = noteRepository.getAll();
+        noteRepository.close();
+	return allNotes;
     }
 
     @Override
     public Notes findById(Long id) {
-	return noteRepository.findById(id);
+        Notes noteId = noteRepository.findById(id);
+        noteRepository.close();
+	return noteId;
     }
 
     @Override
@@ -52,6 +56,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 	//note.getUser().getNotes().remove(note); //pre remove
 	noteRepository.delete(notes);
+        noteRepository.close();
 	return notes;
     }
 
@@ -63,6 +68,7 @@ public class NoteServiceImpl implements NoteService {
 	User user = userService.findByCustomField("username", userName);
 	notes.setUser(user);
 	noteRepository.persist(notes);
+        noteRepository.close();
 	return true;
     }
 

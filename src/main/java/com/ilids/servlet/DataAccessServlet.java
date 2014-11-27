@@ -10,6 +10,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +46,20 @@ public class DataAccessServlet extends HttpServlet {
      * @throws java.sql.SQLException
      * @throws java.text.ParseException
      */
+    private HashMap<Integer, Integer> hashAddress = new HashMap<Integer, Integer>();
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+        hashAddress.put(6, 0);
+        hashAddress.put(8, 2);
+        hashAddress.put(10, 4);
+        hashAddress.put(12, 0);
+        hashAddress.put(14, 2);
+        hashAddress.put(16, 4);
+    }
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	 throws ServletException, IOException, SQLException, ParseException {
 	response.setContentType("application/json");
@@ -53,9 +69,7 @@ public class DataAccessServlet extends HttpServlet {
 	Connection connection = (Connection) DriverManager.getConnection(connectionUrl, dbUserName, dbPassword);
 	Statement statement = (Statement) connection.createStatement();
         String phase=request.getParameter("phase");
-        Long addressMap=Long.valueOf(phase);
-        int addrMap = Integer.valueOf(phase);
-        float diffCheck=0;
+        int addressMap = Integer.parseInt(phase);
         String start=request.getParameter("fromDate");
         String end=request.getParameter("toDate");
 	String fromHours=request.getParameter("fromHours");
@@ -65,22 +79,47 @@ public class DataAccessServlet extends HttpServlet {
 	String fromTime=fromHours+":"+fromMinutes+":00";
 	String toTime=toHours+":"+toMinutes+":59";
         String deviceId=request.getParameter("deviceId");
+        
         String dateFormat="MM/dd/yyyy";
         String toDateFormat="yyyy-MM-dd";
         SimpleDateFormat parsePattern = new SimpleDateFormat(dateFormat);
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         start=parseFormat.format(parsePattern.parse(start));
         end=parseFormat.format(parsePattern.parse(end));
-        String deviceCondition="";
-        if(!deviceId.equals("00")){
-            deviceCondition=" and device_id="+deviceId;
-        }else{
-             deviceCondition=" and device_id=0";
-        }
+                
+	//String selectQuery = "SELECT time as data_time , data as real_data FROM data_3m_1 WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
+        String selectQuery = 
+            "SELECT tab2.device_id, tab2.time, tab2.data y0_data, SUM(tab2.y1data) y1_data FROM (" +
+            "SELECT tab.device_id, tab.time , tab.data ," +
+            "CASE WHEN tab.time BETWEEN tab1.stdate AND tab1.enddate THEN tab1.ydata " +
+            "ELSE 0 END y1data FROM (" +
+            "SELECT device_id, data , time FROM data_3m_1 d" +
+            " WHERE d.device_id = " + deviceId +
+            " AND d.address_map = " + addressMap +
+            " AND d.time BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' " +
+            ") tab LEFT JOIN" +
+            "(" +
+            "" +
+            "SELECT tab2.device_id, tab2.stdate, tab2.enddate, MAX(tab2.data) ydata FROM (" +
+            "SELECT device_id, tab1.stdate, tab1.enddate, `data`  FROM data_3m_1 d, " +
+            "(" +
+            "SELECT CAST(CONCAT(tab.dt, ' ', 30min_range) AS DATETIME) stdate, " +
+            "DATE_ADD(CAST(CONCAT(tab.dt, ' ', 30min_range) AS DATETIME), INTERVAL '29:59' MINUTE_SECOND) enddate FROM (" +
+            "SELECT DISTINCT DATE(time) dt FROM data_3m_1 d " +
+            "WHERE device_id = " + deviceId +
+            " AND address_map = " + hashAddress.get(addressMap) +
+            " AND time BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' " +
+            ") tab, time_minute_range tmr WHERE tmr.30min_range IS NOT NULL" +
+            ") tab1 " +
+            "WHERE d.time BETWEEN tab1.stdate AND tab1.enddate" +
+            " AND d.device_id = " + deviceId +
+            " AND d.address_map = " + hashAddress.get(addressMap) +
+            " AND time BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' " +
+            ") tab2 GROUP BY tab2.stdate, tab2.enddate" +
+            "" +
+            ") tab1 ON (tab.device_id = tab1.device_id)" +
+            ") tab2 GROUP BY tab2.device_id, tab2.time, tab2.data";
         
-	String selectQuery = "SELECT time as data_time , data as real_data FROM data_3m_1 WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
-        
-        System.out.println("--------"+selectQuery);
         
         ResultSet rs = statement.executeQuery(selectQuery);
 	PrintWriter out = response.getWriter();
@@ -94,11 +133,16 @@ public class DataAccessServlet extends HttpServlet {
             DecimalFormat df = new DecimalFormat("#.##");
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 	    while (rs.next()) {
-		datas = rs.getFloat("real_data");
-		realDate = format.format(rs.getTimestamp("data_time"));
+		realDate = format.format(rs.getTimestamp("time"));
 		JSONObject json = new JSONObject();
 		json.put("date", realDate);               
-		json.put("current", df.format(rs.getFloat("real_data")));
+		json.put("current", df.format(rs.getFloat("y0_data")));
+                if(rs.getFloat("y1_data") == 0) {
+                    json.put("mdv", df.format(200.00F));
+                
+                } else {
+                json.put("mdv", df.format(rs.getFloat("y1_data")));
+                        }
 		jsonArray.put(json);
 	    }
 	    out.println(jsonArray.toString());
@@ -114,6 +158,40 @@ public class DataAccessServlet extends HttpServlet {
 		connection.close();
 	    }	    
 	}
+//        PrintWriter out = response.getWriter();
+//        JSONArray jsonArray = new JSONArray();
+//        JSONObject json = new JSONObject();
+//		json.put("date", "11/20/2014 12:10:10");               
+//		json.put("current", "50");
+//                json.put("mdv", "260");
+//                jsonArray.put(json);
+//                
+//                json = new JSONObject();
+//		json.put("date", "11/20/2014 12:15:10");               
+//		json.put("current", "125"); 
+//                json.put("mdv", "310");
+//		jsonArray.put(json);
+//                
+//                json = new JSONObject();
+//		json.put("date", "11/20/2014 12:25:10");               
+//		json.put("current", "35"); 
+//                json.put("mdv", "320");
+//		jsonArray.put(json);
+//                
+//                json = new JSONObject();
+//		json.put("date", "11/20/2014 12:30:10");               
+//		json.put("current", "54"); 
+//                json.put("mdv", "256");
+//		jsonArray.put(json);
+//                
+//                json = new JSONObject();
+//		json.put("date", "11/20/2014 12:36:10");               
+//		json.put("current", "60"); 
+//                json.put("mdv", "347");
+//		jsonArray.put(json);
+//                
+//                System.out.println("-- " + jsonArray.toString());
+//                out.println(jsonArray.toString());
     }
     
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

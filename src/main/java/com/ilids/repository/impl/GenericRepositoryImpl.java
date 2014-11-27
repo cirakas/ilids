@@ -74,6 +74,8 @@ public abstract class GenericRepositoryImpl<T> implements GenericRepository<T> {
         Query query = entityManager.createNativeQuery(queryString);
         return query.executeUpdate();
     }
-    
+    public void close(){
+        entityManager.close();
+    }
 
 }

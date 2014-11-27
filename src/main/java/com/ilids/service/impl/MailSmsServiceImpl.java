@@ -30,12 +30,16 @@ public class MailSmsServiceImpl implements MailSmsService{
 
     @Override
     public List<MailSms> getAllMailSmsList() {
-        return mailSmsRepository.getAll();
+        List<MailSms> allMailSms = mailSmsRepository.getAll();
+        mailSmsRepository.close();
+        return allMailSms;
     }
 
     @Override
     public MailSms findById(Long id) {
-        return mailSmsRepository.findById(id);
+        MailSms mailSmsId = mailSmsRepository.findById(id);
+        mailSmsRepository.close();
+        return mailSmsId;
     }
 
     @Override
@@ -46,6 +50,7 @@ public class MailSmsServiceImpl implements MailSmsService{
         }
         //note.getUser().getNotes().remove(note); //pre remove
         mailSmsRepository.delete(mailSms);
+        mailSmsRepository.close();
         return mailSms;
     }
     @Override
@@ -55,16 +60,19 @@ public class MailSmsServiceImpl implements MailSmsService{
         if(!mailData.isEmpty()){
             result = false;
         }
+        mailSmsRepository.close();
         return result;
     }   
     @Override
     public void saveMailSms(MailSms mailSms)throws Exception{
 	mailSmsRepository.persist(mailSms);
+        mailSmsRepository.close();
     }
     
     @Override
      public void updateMailSms(MailSms mailSms)throws Exception{
 	mailSmsRepository.merge(mailSms);
+        mailSmsRepository.close();
         }
 
     }

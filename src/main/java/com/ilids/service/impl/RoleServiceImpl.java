@@ -33,22 +33,30 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public List<Role> getAllRoles() {
-        return roleRepository.getAll();
+        List<Role> allRoles = roleRepository.getAll();
+        roleRepository.close();
+        return allRoles;
     }
 
     @Override
     public List<Role> getAllRolesExceptRestrictedOnes() {
-	return roleRepository.getAllUsersExceptRestrictedOnes();
+        List<Role> roleExceptRestricted = roleRepository.getAllUsersExceptRestrictedOnes();
+        roleRepository.close();
+	return roleExceptRestricted;
     }
 
     @Override
     public Role findById(Long id) {
-	return roleRepository.findById(id);
+        Role roleId = roleRepository.findById(id);
+        roleRepository.close();
+	return roleId;
     }
 
     @Override
     public Role findByName(String name) {
-	return roleRepository.findByCustomField("name", name);
+        Role roleName = roleRepository.findByCustomField("name", name);
+        roleRepository.close();
+	return roleName;
     }
 
     @Override
@@ -62,12 +70,14 @@ public class RoleServiceImpl implements RoleService{
 	roleRepository.delete(role);
 	result=true;
 	}
+        roleRepository.close();
 	return result;
     }
 
     @Override
     public void delete(String name) {
 	roleRepository.delete(findByName(name));
+        roleRepository.close();
     }
 
     @Override
@@ -75,17 +85,20 @@ public class RoleServiceImpl implements RoleService{
 	Role role = new Role();
 	role.setName(name);
 	roleRepository.persist(role);
+        roleRepository.close();
     }
 
     @Override
     public Role saveNewRole(Role role)throws Exception {
 	roleRepository.persist(role);
+        roleRepository.close();
 	return role;
     }
 
     @Override
     public Role updateRole(Role role)throws Exception {
 	roleRepository.merge(role);
+        roleRepository.close();
 	return role;
     }
 
@@ -106,6 +119,7 @@ public class RoleServiceImpl implements RoleService{
 	}
 	insertQuery = insertQuery + appendQuery;
 	roleRepository.executeNativeQuery(insertQuery);
+        roleRepository.close(); 
     }
 
     @Override
@@ -113,6 +127,7 @@ public class RoleServiceImpl implements RoleService{
 	Role role = roleRepository.findById(roleId);
 	List<Object> menuObjectList = roleRepository.selectedRoleMenu(roleId);
 	role.setMenuObjectList(menuObjectList);
+        roleRepository.close(); 
 	return role;
 
     }
@@ -121,16 +136,21 @@ public class RoleServiceImpl implements RoleService{
     public void deleteRoleFromRoleMenu(Long roleId) throws Exception{
 	String deleteQuery = "delete from role_menu where role_id=" + roleId;
 	roleRepository.executeNativeQuery(deleteQuery);
+        roleRepository.close(); 
     }
 
     @Override
     public List<Menu> getAllMenu() {
-	return menuService.getAllMenu();
+        List<Menu> allMenu = menuService.getAllMenu();
+        roleRepository.close();
+	return allMenu;
     }
     
     @Override
     public List<Object> getAllMenuIds(String userName){
-	 return roleRepository.getAllMenuIds(userName);
+         List<Object> allMenuId = roleRepository.getAllMenuIds(userName);
+         roleRepository.close();
+	 return allMenuId;
     }
     
     @Override
@@ -141,6 +161,7 @@ public class RoleServiceImpl implements RoleService{
         if(!roleNameData.isEmpty()){
             result=false;
         }
+        roleRepository.close();
         return result;
     }  
     

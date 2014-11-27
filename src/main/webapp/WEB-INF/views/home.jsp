@@ -5,7 +5,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <script type="text/javascript">
-    
 //    var _gaq = _gaq || [];
 //    _gaq.push(['_setAccount', 'UA-33628816-1']);
 //    _gaq.push(['_trackPageview']);
@@ -70,41 +69,50 @@
         case '00':
 //        headTitle="Phase1 Voltage vs Time";
             yaxisTitle = "Phase1 Voltage";
+            y1axisTitle = "Phase1 MDV";
             break;
 
         case '02':
 //        headTitle="Phase2 Voltage vs Time";
             yaxisTitle = "Phase2 Voltage";
+            y1axisTitle = "Phase2 MDV";
             break;
 
         case '04':
 //        headTitle="Phase3 Voltage vs Time";
             yaxisTitle = "Phase3 Voltage";
+            y1axisTitle = "Phase3 MDV";
             break;
 
-        case '06':
+        case '6':
 //        headTitle="Phase1 Current vs Time";
             yaxisTitle = "Phase1 Current";
+            y1axisTitle = "Phase1 MDV";
             break;
-        case '08':
+        case '8':
 //        headTitle="Phase2 Current vs Time";
             yaxisTitle = "Phase2 Current";
+            y1axisTitle = "Phase2 MDV";
             break;
         case '10':
 //        headTitle="Phase3 Current vs Time";
             yaxisTitle = "Phase3 Current";
+            y1axisTitle = "Phase3 MDV";
             break;
         case '12':
 //        headTitle="Phase1 Power vs Time";
             yaxisTitle = "Phase1 Power";
+            y1axisTitle = "Phase1 MDV";
             break;
         case '14':
 //        headTitle="Phase2 Power vs Time";
             yaxisTitle = "Phase2 Power";
+            y1axisTitle = "Phase2 MDV";
             break;
         case '16':
 //        headTitle="Phase3 Power vs Time";
             yaxisTitle = "Phase3 Power";
+            y1axisTitle = "Phase3 MDV";
             break;
         case '30':
             headTitle = "Phase1 Power Factor vs Time";
@@ -224,7 +232,7 @@
 </script>                                                              
 
 <style>    
-    body {
+        body {
         font: 14px sans-serif;
         outline: none!important;
     }
@@ -237,18 +245,19 @@
     }    
 
     .line {
-        stroke: #F2700D;
+        stroke: red;
         fill: none;
         stroke-width: 3;
     }
 
     .line.line1 {
-        stroke:#0D98B3;
-        stroke-width: 4;
+        stroke:#FB7B04;
+        z-index:999;
+        stroke-width: 3;
     }
 
     .line.line0 {
-        stroke:#F2700D ;
+        stroke:steelblue ;
         stroke-width: 3;
     }
 
@@ -285,7 +294,8 @@
     }
 
     .focus circle.y1 {
-        stroke: red;
+        stroke: #F2700D;
+        stroke-width: 2;
     }
 
     .focus line {
@@ -294,16 +304,17 @@
     }
 
     .focus line.y0 {
-        stroke: #015c85;
+        stroke: #ED2A37;
         stroke-dasharray: 10 7;
         stroke-width: 2;
         opacity: .8;
     }
 
     .focus line.y1 {
-        stroke: indianred;
-        stroke-dasharray: 3 3;
-        opacity: .5;
+        stroke: #F802E0;
+        stroke-dasharray: 10 7;
+        stroke-width: 2;
+        opacity: .8;
     }
     .area {
         fill: lightsteelblue;
@@ -311,10 +322,12 @@
         line-height:50%;
         fill: #97defd;
         opacity: 1;
+        z-index: -1;
     }
 
     .brush .extent {
-        stroke: #ff0;
+        stroke: yellow;
+        stroke-width: 2;
         fill-opacity: .125;
         shape-rendering: crispEdges;
     } 
@@ -709,7 +722,7 @@
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/jquery.min.js"></script>-->
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/jquery-1.10.2.js"></script>-->
 <!--<script type="text/javascript" src="${resources}ilids-d3/graph.js"></script>-->
-<script type="text/javascript" src="${resources}ilids-d3/powGrap.js"></script>
+<script type="text/javascript" src="${resources}ilids-d3/areaMdv.js"></script>
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dimple.v2.0.0.min.js"></script>-->
 
 <script type="text/javascript">

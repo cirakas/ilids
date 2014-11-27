@@ -27,6 +27,8 @@ public class MenuServiceImpl implements MenuService{
     
     @Override
     public List<Menu> getAllMenu() {
-        return menuRepository.getAll();
+        List<Menu> allMenu = menuRepository.getAll();
+        menuRepository.close();
+        return allMenu;
     }
 }

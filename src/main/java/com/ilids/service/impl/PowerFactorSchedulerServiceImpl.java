@@ -41,7 +41,7 @@ public class PowerFactorSchedulerServiceImpl implements PowerFactorSchedulerServ
             powerFactorData = dataRepository.getLatestDataList(34);
             ServerConfig.pollData.phase3Value = powerFactorData.getData();
         }
-
+            dataRepository.close();
        
 		//mailSender.send(message);
 

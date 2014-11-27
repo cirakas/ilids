@@ -13,7 +13,6 @@ import com.ilids.IService.MailSmsService;
 import com.ilids.conf.ServerConfig;
 import com.ilids.domain.ExceptionLog;
 import com.ilids.domain.MailSms;
-import com.ilids.domain.SystemSettings;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -26,12 +26,16 @@ public class DeviceServiceImpl implements DeviceService{
 
     @Override
     public List<Devices> getAllDevice() {
-	return deviceRepository.getAll();
+        List<Devices> allDevice = deviceRepository.getAll();
+        deviceRepository.close();
+	return allDevice;
     }
 
     @Override
     public Devices findById(Long id) {
-	return deviceRepository.findById(id);
+        Devices deviceId = deviceRepository.findById(id);
+        deviceRepository.close();
+	return deviceId;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class DeviceServiceImpl implements DeviceService{
 
 	//  device.getUser().getDevices().remove(device); //pre remove
 	deviceRepository.delete(device);
+        deviceRepository.close();
 	return device;
     }
 
@@ -61,6 +66,7 @@ public class DeviceServiceImpl implements DeviceService{
 	device.setDeviceZone(devicezone);
 	device.setCreatedDate(new Date());
 	deviceRepository.persist(device);
+        deviceRepository.close();
 	return true;
     }
 
@@ -71,16 +77,21 @@ public class DeviceServiceImpl implements DeviceService{
 	device.setDeviceZone(devicezone);
 	device.setCreatedDate(new Date());
 	deviceRepository.merge(device);
+        deviceRepository.close();
 	return true;
     }
 
     @Override
     public List<Devices> getAllUsedDevices() {
-        return deviceRepository.getAllUsedDevices();
+        List<Devices> usedDevices = deviceRepository.getAllUsedDevices();
+        deviceRepository.close();
+        return usedDevices;
     }
     
      @Override
     public Long getFirstDevice() {
-        return deviceRepository.getFirstDevice();
+        Long firstDevice = deviceRepository.getFirstDevice();
+        deviceRepository.close();
+        return firstDevice;
     }
 }

@@ -31,7 +31,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getAllUsersExceptAdmin() {
-	return userRepository.getAllUsersExceptAdmin();
+        List<User> allUserExceptAdmin = userRepository.getAllUsersExceptAdmin();
+        userRepository.close();
+	return allUserExceptAdmin;
     }
 
     @Override
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService{
 	} else {
 	    return false;
 	}
+        userRepository.close();
 	return true;
     }
 
@@ -57,6 +60,7 @@ public class UserServiceImpl implements UserService{
 	} else {
 	    return false;
 	}
+        userRepository.close();
 	return true;
     }
 
@@ -69,6 +73,7 @@ public class UserServiceImpl implements UserService{
 	user.addRole(userRole);
 	encryptPassword(user);
 	persist(user);
+        userRepository.close();
 	return true;
     }
 
@@ -82,12 +87,14 @@ public class UserServiceImpl implements UserService{
 	encryptPassword(user);
 	//user.encryptPassword();
 	merge(user);
+        userRepository.close();
 	return true;
     }
 
     @Override
     public void encryptPassword(User user) {
 	user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
+        userRepository.close();
     }
 
     @Override
@@ -97,6 +104,7 @@ public class UserServiceImpl implements UserService{
             throw new IllegalArgumentException();
         }
         userRepository.delete(user);
+        userRepository.close();
         return user;
     }
 
@@ -108,6 +116,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void merge(User user) {
 	userRepository.merge(user);
+        userRepository.close();
     }
 
     @Override
@@ -115,6 +124,7 @@ public class UserServiceImpl implements UserService{
 	User user = findById(userId);
 	user.setEnabled(value);
 	persist(user);
+        userRepository.close();
 	return true;
     }
 
@@ -125,28 +135,36 @@ public class UserServiceImpl implements UserService{
         if (!mailIdData.isEmpty()) {
             result = false;
         }
+        userRepository.close();
 	return result;
     }
 
     @Override
     public User findById(Long userId) {
 	User user = userRepository.findById(userId);
+        userRepository.close();
 	return user;
     }
 
     @Override
     public User findByCustomField(String field, String value) {
-	return userRepository.findByCustomField(field, value);
+        User customField = userRepository.findByCustomField(field, value);
+        userRepository.close();
+	return customField;
     }
 
     @Override
     public boolean checkRoleUsedOrNot(Long roleId) throws Exception {
-	return userRepository.checkRoleUsed(roleId);
+        boolean roleUsedOrNot = userRepository.checkRoleUsed(roleId);
+        userRepository.close();
+	return roleUsedOrNot;
     }
 
     @Override
     public User getUserByUserName(String userName) {
-	return userRepository.getUserByUserName(userName);
+        User userByUserName = userRepository.getUserByUserName(userName);
+        userRepository.close();
+	return userByUserName;
     }
 
 }

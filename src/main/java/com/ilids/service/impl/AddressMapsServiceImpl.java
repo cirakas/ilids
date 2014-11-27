@@ -28,31 +28,38 @@ public class AddressMapsServiceImpl implements AddressMapsService{
     @Override
     public AddressMaps addAddressMaps(AddressMaps addressMaps) throws Exception {
         addressMapsRepository.persist(addressMaps);
+        addressMapsRepository.close();
         return addressMaps;
         
     }
 
     @Override
     public List<AddressMaps> getAllAddressMaps() {
-        return addressMapsRepository.getAll();
+        List<AddressMaps> allAddressMap = addressMapsRepository.getAll();
+        addressMapsRepository.close();
+        return allAddressMap;
     }
 
     @Override
     public AddressMaps remove(Long addressMapsId) {
         AddressMaps addressMaps = addressMapsRepository.findById(addressMapsId);
         addressMapsRepository.delete(addressMaps);
+        addressMapsRepository.close();
         return addressMaps;
     }
 
     @Override
     public AddressMaps findById(Long id) {
-        return addressMapsRepository.findById(id);
+        AddressMaps amId = addressMapsRepository.findById(id);
+        addressMapsRepository.close();
+        return amId;
         
     }
 
     @Override
     public AddressMaps updateAddressMaps(AddressMaps addressMaps) {
          addressMapsRepository.merge(addressMaps);
+         addressMapsRepository.close();
          return addressMaps;
     }
 

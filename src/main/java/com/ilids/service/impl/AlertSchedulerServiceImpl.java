@@ -132,6 +132,8 @@ public class AlertSchedulerServiceImpl implements AlertSchedulerService{
             i++;
         }
         ServerConfig.latestAlertsScheduleCheckTime = currentDateTime;
+        dataRepository.close();
+        systemSettingsRepository.close();
     }
 
     /**
@@ -191,6 +193,7 @@ public class AlertSchedulerServiceImpl implements AlertSchedulerService{
                 mailSender.send(mimeMessage);
             }
         }
+            dataRepository.close();
     }
     
 }

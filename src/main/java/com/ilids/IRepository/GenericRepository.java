@@ -71,5 +71,7 @@ public interface GenericRepository<T> {
      * @return
      */
     int executeNativeQuery(String value);
-
+    
+    public void close();
+    
 }
