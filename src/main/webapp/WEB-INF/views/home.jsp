@@ -63,6 +63,7 @@
         deviceParam = '0';
     }
 
+
     var servlet = "DataAccessServlet?phase=" + phaseParam + "&fromDate=" + fromDateParam + "&fromHours=" + fromHoursParam + "&fromMinutes=" + fromMinutesParam + "&toDate=" + toDateParam + "&toHours=" + toHoursParam + "&toMinutes=" + toMinutesParam + "&deviceId=" + deviceParam;
 
     switch (phaseParam) {
