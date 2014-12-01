@@ -85,7 +85,6 @@ int main(int argc,char *argv[])
    	sprintf(msg_to_log,"DATA ACCESS MODULE STARTED");
    	log_to_file(msg_to_log,strlen(msg_to_log));
     ex_term=FALSE;
-    no_of_clients=MAXCLIENTS;
     emulator_mode=FALSE;
     gl_count=0;
 

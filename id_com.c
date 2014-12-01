@@ -275,7 +275,7 @@ int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
         }
         else
         {
-            for(i=0;i<no_of_clients;i++)
+            for(i=0;i<MAXCLIENTS;i++)
             {
                 if(dclients[i].sockfd != -1)
                 {

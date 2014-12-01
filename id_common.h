@@ -245,7 +245,6 @@ PARAMCONF config_param[MAX_CONF_PARAMS];
 
 int no_of_cmds;
 
-int no_of_clients;
 CLIENT_DETAILS dclients[MAXCLIENTS];
 fd_set socket_set,temp_set;
 BYTE gl_buf[BUF_SIZE];

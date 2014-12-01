@@ -17,7 +17,6 @@ void shutdown_nw();
 int check_existing(struct hostent * client_params);
 
 
-extern int no_of_clients;
 int server_socket=-1,client_socket=-1;
 struct hostent * client_info;
 
@@ -42,7 +41,7 @@ void shutdown_nw()
 {
     int i=0;
 
-    for(i=0;i<no_of_clients;i++)
+    for(i=0;i<MAXCLIENTS;i++)
     {
         if(dclients[i].sockfd!=-1)
         {
@@ -61,7 +60,7 @@ int check_existing(struct hostent * client_params)
 {
     int i=0;
 
-    for(i=0;i<no_of_clients;i++)
+    for(i=0;i<MAXCLIENTS;i++)
     {
     	if(strcmp(dclients[i].name,client_params->h_name)==0)
     	{
@@ -139,7 +138,7 @@ void * nwcom()
 		}
     }
 
-    for(i=0;i<no_of_clients;i++)
+    for(i=0;i<MAXCLIENTS;i++)
     {
     	dclients[i].sockfd=-1;
     	memset(&dclients[i].client_addr,0x0,sizeof(dclients[i].client_addr));
@@ -205,7 +204,7 @@ void * nwcom()
                         else
                         {
 
-                                for(i=0;i<no_of_clients;i++)
+                                for(i=0;i<MAXCLIENTS;i++)
                                 {
                                         if(dclients[i].sockfd == -1)
                                         {
@@ -223,11 +222,17 @@ void * nwcom()
                                         }
 
                                 }
+                                if(i==MAXCLIENTS)
+                                {
+                                    close(client_socket);
+                                    sprintf(msg_to_log,"Cannot Allocate New Clients : MAXCLIENTS REACHED");
+                                    log_to_file(msg_to_log,strlen(msg_to_log));
+                                }
                         }
                     }
                     else
                     {
-                        for(i=0;i<no_of_clients;i++)
+                        for(i=0;i<MAXCLIENTS;i++)
                         {
                             if(dclients[i].sockfd != -1)
                             {
@@ -295,7 +300,7 @@ int i=0,j=0;
 int retn=0;
 int rcount=0;
 
-	for(i=0;i<no_of_clients;i++)
+	for(i=0;i<MAXCLIENTS;i++)
   	{
 	    	if(dclients[i].sockfd != -1)
     		{
