@@ -15,7 +15,7 @@
 #include "id_common.h"
 
 
-void initcom();
+int initcom();
 void *readcom();
 void  writecom(BYTE * msg, int count);
 void closecom(void);
@@ -38,7 +38,7 @@ struct termios old_port_attrib,new_port_attrib;
            Returns:  None
 */
 
-void initcom()
+int initcom()
 {
 
    fport = open(cport,O_RDWR | O_NOCTTY | O_NONBLOCK);
@@ -49,7 +49,7 @@ void initcom()
        	printf("\nError Opening COMPORT %s:%s,  Exiting...\n",cport,strerror(errno));
        	sprintf(msg_to_log,"DATA ACCESS MODULE TERMINATED");
         log_to_file(msg_to_log,strlen(msg_to_log));
-       	exit(EXIT_FAILURE);
+        return FALSE;
    }
    else
    {
@@ -69,9 +69,9 @@ void initcom()
        	tcsetattr(fport,TCSANOW,&new_port_attrib);
 
         pthread_mutex_init(&IOMutex, NULL);
-        atexit(closecom);
 
     }
+    return TRUE;
 
 }
 
@@ -91,9 +91,10 @@ void closecom(void)
             return;
         }
 
-        //tcflush(fport, TCIOFLUSH);
-        //tcsetattr(fport,TCSANOW,&old_port_attrib);
-    	//close(fport);
+        tcflush(fport, TCIOFLUSH);
+        tcsetattr(fport,TCSANOW,&old_port_attrib);
+    	close(fport);
+
         pthread_mutex_destroy(&IOMutex);
 }
 
@@ -114,10 +115,11 @@ void * readcom()
 
 
 
-	pthread_setcancelstate (PTHREAD_CANCEL_ENABLE,NULL);
-	pthread_setcanceltype (PTHREAD_CANCEL_ASYNCHRONOUS,NULL);
+	//pthread_setcancelstate (PTHREAD_CANCEL_ENABLE,NULL);
+	//pthread_setcanceltype (PTHREAD_CANCEL_DEFERRED,NULL);
 
 	rd_timeout=READTIMEOUT;
+	bytes_read=0;
 
     FD_ZERO(&tmp_set);
 	FD_SET(fport, &tmp_set);
@@ -125,8 +127,8 @@ void * readcom()
 	s_timeout.tv_usec = rd_timeout * 1000;
 
 
-	while(!ex_term)
-	{
+        while(!ex_term)
+        {
             s_timeout.tv_sec = 0;
             s_timeout.tv_usec = rd_timeout * 1000;
             input=tmp_set;
@@ -174,6 +176,11 @@ void * readcom()
 
             }
         }
+
+        closecom();
+        sprintf(msg_to_log,"Closing READ Thread");
+        log_to_file(msg_to_log,strlen(msg_to_log));
+
         return FALSE;
 }
 

@@ -301,7 +301,7 @@ int GetParamsDetails()//values are read,but not used in program
         return FALSE;
 }
 
-int GetValidParams()//values are read,but not used in program
+int GetValidParams()
 {
     int i=0,j=0,k=0,l=0;
     int id=0;
@@ -526,9 +526,9 @@ int Read_Conf()
 
             if(!GetBaudRate())
             {
-                sprintf(msg_to_log,"BAUDRATE is not defined in Config file,Exiting");
+                baud=B9600;
+                sprintf(msg_to_log,"BAUDRATE is not defined in Config file,Using Default Value 9600");
                 log_to_file(msg_to_log,strlen(msg_to_log));
-                return FALSE;
             }
 
             if(!GetPollInterval())

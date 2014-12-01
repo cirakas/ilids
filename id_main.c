@@ -29,7 +29,7 @@
 
 extern void * readcom();
 extern void * nwcom();
-extern void initcom();
+extern int initcom();
 extern void Signal_exitsignal();
 extern void Signal_sigio_signal();
 
@@ -73,7 +73,7 @@ int main(int argc,char *argv[])
             if(atoi(ret)>=2)
             {
                 printf("%s already Running\n",(char *)&argv[0][i+1]);
-                _exit(EXIT_SUCCESS);
+                exit(EXIT_FAILURE);
             }
         }
         pclose(cmd);
@@ -86,12 +86,8 @@ int main(int argc,char *argv[])
    	log_to_file(msg_to_log,strlen(msg_to_log));
     ex_term=FALSE;
     no_of_clients=MAXCLIENTS;
-    random_mode=FALSE;
     emulator_mode=FALSE;
-    rand_time=5;
-    rand_count=0;
     gl_count=0;
-    bytes_read=0;
 
 
     init_slave_params();//This needs to be called before readconf to properly use selective update of db based on config file.
@@ -100,7 +96,7 @@ int main(int argc,char *argv[])
    	{
    	    sprintf(msg_to_log,"Error in Config File,Exiting");
         log_to_file(msg_to_log,strlen(msg_to_log));
-   	    exit(EXIT_FAILURE);
+
    	}
 
 
@@ -119,25 +115,31 @@ int main(int argc,char *argv[])
 	pthread_attr_init(&TH_ATTR);
 	pthread_attr_setdetachstate(&TH_ATTR, PTHREAD_CREATE_DETACHED);
 
-	if(emulator_mode)//enable network emulation
+	if(emulator_mode)//start emulation through network
 	{
         pthread_create(&th_nw, &TH_ATTR, nwcom,NULL);
 	}
 	else
 	{
-	    initcom();
-	    pthread_create(&th_read, &TH_ATTR, readcom,NULL);
+	    if(initcom())
+	    {
+	        pthread_create(&th_read, &TH_ATTR, readcom,NULL);
+	    }
+	    else
+	    {
+	        exit(EXIT_FAILURE);
+	    }
+
 	}
 
-	atexit(Handle_exithandler);
-
-
-
-    //if(daemon(1,0)==0) //NW COM not happening when enabling this mode
-    //{
-    //    sprintf(msg_to_log,"Entering Daemon Mode");
-    //    log_to_file(msg_to_log,strlen(msg_to_log));
-    //}
+    if(!emulator_mode) //NW COM not happening when enabling daemon mode
+    {
+        if(daemon(1,0)==0)
+        {
+            sprintf(msg_to_log,"Entering Daemon Mode");
+            log_to_file(msg_to_log,strlen(msg_to_log));
+        }
+    }
 
 	while(!ex_term)
    	{
@@ -145,17 +147,11 @@ int main(int argc,char *argv[])
 		da_wait(0,p_int*1000);
 	}
 
+    sprintf(msg_to_log,"EXIT SIGNAL RECEIVED");
+   	log_to_file(msg_to_log,strlen(msg_to_log));
 
-	if(emulator_mode)
-	{
-	    pthread_cancel(th_nw);
-	}
-	else
-	{
-	    pthread_cancel(th_read);
-	}
+	da_wait(2,0);//wait 2 seconds
 	db_close();
-
 
    	sprintf(msg_to_log,"DATA ACCESS MODULE TERMINATED");
    	log_to_file(msg_to_log,strlen(msg_to_log));

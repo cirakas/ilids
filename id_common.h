@@ -213,10 +213,7 @@ int p_int;
 int rd_timeout;
 int slave_id;
 char *cport;
-int random_mode;
 int emulator_mode;
-int rand_time;
-int rand_count;
 int current_log_level;
 
 volatile int ex_term;

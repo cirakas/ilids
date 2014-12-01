@@ -51,14 +51,12 @@ void log_to_file(char * log_msg,int log_count)
                    if (tmp == NULL)
                    {
                        perror("localtime");
-                       exit(EXIT_FAILURE);
                    }
 
                    memset(outstr,0x0,LNSIZE);
                    if (strftime(outstr, sizeof(outstr), fmtdate, tmp) == 0)
                    {
                        fprintf(stderr, "strftime returned 0");
-                       exit(EXIT_FAILURE);
                    }
 
                    memset(lname,0x0,LNSIZE);

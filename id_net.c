@@ -91,9 +91,8 @@ void * nwcom()
     unsigned short int port=SERVER_PORT;
     int bytes_read_nw=0;
 
-    pthread_setcancelstate (PTHREAD_CANCEL_ENABLE,NULL);
-	pthread_setcanceltype (PTHREAD_CANCEL_ASYNCHRONOUS,NULL);
-    atexit(shutdown_nw);
+    //pthread_setcancelstate (PTHREAD_CANCEL_ENABLE,NULL);
+	//pthread_setcanceltype (PTHREAD_CANCEL_DEFERRED,NULL);
 
 
     if((server_socket=socket(PF_INET,SOCK_STREAM,IPPROTO_TCP))==-1)
@@ -153,10 +152,8 @@ void * nwcom()
     FD_ZERO(&socket_set);
   	FD_SET(server_socket,&socket_set);
 
-
-	//while(1)
-	while(!ex_term)
-    {
+        while(!ex_term)
+        {
     		timeout.tv_sec=1;
     		timeout.tv_usec=0;
     		temp_set=socket_set;
@@ -198,13 +195,13 @@ void * nwcom()
                                 log_to_file(msg_to_log,strlen(msg_to_log));
                                 close(client_socket);
                         }
-                        else if(check_existing(client_info))
+                        /*else if(check_existing(client_info)) //Commented to allow multiple clients from same host
                         {
                                 printf("\nClient %s Already Connected\n",client_info->h_name);
                                 sprintf(msg_to_log,"Client %s Already Connected",client_info->h_name);
                                 log_to_file(msg_to_log,strlen(msg_to_log));
                                 close(client_socket);
-                        }
+                        }*/
                         else
                         {
 
@@ -276,6 +273,9 @@ void * nwcom()
 
             }
         }
+        shutdown_nw();
+        sprintf(msg_to_log,"Closing NW Thread");
+        log_to_file(msg_to_log,strlen(msg_to_log));
         return FALSE;
 
 }

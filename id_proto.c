@@ -191,34 +191,15 @@ void switch_params(BYTE * pktdata, int pktcount)
         switch(scondition)
         {
             case 0:
-            if(random_mode)
-            {
-                rand_count+=3;
-                if(rand_count > rand_time)
-                {
-                    rand_count=0;
-                    Process_ParamsRand(pktdata,pktcount);
-                }
-            }
-            else
-            {
-                Process_ParamsA(pktdata,pktcount);
-            }
-
+            Process_ParamsA(pktdata,pktcount);
             break;
 
             case 512:
-            if(!random_mode)
-            {
-                Process_ParamsB(pktdata,pktcount);
-            }
+            Process_ParamsB(pktdata,pktcount);
             break;
 
             case 1280:
-            if(!random_mode)
-            {
-                Process_ParamsC(pktdata,pktcount);
-            }
+            Process_ParamsC(pktdata,pktcount);
             break;
             default:break;
         }
