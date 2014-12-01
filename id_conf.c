@@ -70,7 +70,7 @@ int GetPollInterval()
                     bd_rate[strlen(poll_int)-1]=0x0;
                     p_int=strtol((char *)&poll_int[0],NULL,10);
                     sprintf(msg_to_log,"POLL INTERVAL is %d",p_int);
-                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                    log_to_file(msg_to_log,strlen(msg_to_log));
 
                     return TRUE;
                 }
@@ -98,7 +98,7 @@ int GetBaudRate()
                     bd_rate[strlen(bd_rate)-1]=0x0;
                     baud=strtol((char *)&bd_rate[0],NULL,10);
                     sprintf(msg_to_log,"BAUDRATE is %d",baud);
-                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                    log_to_file(msg_to_log,strlen(msg_to_log));
                     switch(baud)
                     {
                         case 2400:baud=B2400;break;
@@ -183,7 +183,7 @@ int GetPortName()
                         portname[strlen(portname)-1]=0x0;
                         cport=portname;
                         sprintf(msg_to_log,"COMPORT is %s",cport);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                        log_to_file(msg_to_log,strlen(msg_to_log));
                         return TRUE;
                     }
                     else
@@ -520,14 +520,14 @@ int Read_Conf()
             if(!GetPortName())
             {
                 sprintf(msg_to_log,"COMPORT is not defined in Config file,Exiting");
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                log_to_file(msg_to_log,strlen(msg_to_log));
                 return FALSE;
             }
 
             if(!GetBaudRate())
             {
                 sprintf(msg_to_log,"BAUDRATE is not defined in Config file,Exiting");
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                log_to_file(msg_to_log,strlen(msg_to_log));
                 return FALSE;
             }
 
@@ -535,13 +535,13 @@ int Read_Conf()
             {
                 p_int=POLL_INTERVAL;
                 sprintf(msg_to_log,"POLL INTERVAL is not defined in Config file,Using Default Value %d milliseconds",p_int);
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                log_to_file(msg_to_log,strlen(msg_to_log));
             }
 
             if(GetMode())
             {
                 sprintf(msg_to_log,"EMULATOR MODE STARTING");
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                log_to_file(msg_to_log,strlen(msg_to_log));
             }
 
             GetValidParams();

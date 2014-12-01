@@ -272,7 +272,7 @@ NVALUE neg_val;
                     for(i=3;i<(pktcount-2);)
                     {
                         sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        log_to_file(msg_to_log,strlen(msg_to_log));
 
                         if(pktdata[i]==0xFF)
                         {
@@ -283,7 +283,7 @@ NVALUE neg_val;
 
                             cval=(float )(params1rand[db_id1].mf * neg_val.wval * -1);
                             sprintf(msg_to_log,"Neg Value is %.2f",cval);
-                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                            log_to_file(msg_to_log,strlen(msg_to_log));
 
                         }
                         else
@@ -302,7 +302,7 @@ NVALUE neg_val;
                             }
                         }
                         sprintf(msg_to_log,"%s -> %.2f",params1rand[db_id1].pname,tcval);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        log_to_file(msg_to_log,strlen(msg_to_log));
                         if(!compare_float(tcval,params1rand[db_id1].val,params1rand[db_id1].offset))
                         {
                             memset(querry_msg,0x0,QUERRY_MAXSIZE);
@@ -316,7 +316,7 @@ NVALUE neg_val;
                                         goto onEINTR;
                                    }
                                    sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                   log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                   log_to_file(msg_to_log,strlen(msg_to_log));
                             }
                         }
 
@@ -363,7 +363,7 @@ NVALUE neg_val;
                             goto next_paramA;
                         }
                         //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        //log_to_file(msg_to_log,strlen(msg_to_log));
 
                         if(pktdata[i]==0xFF)//negative value condition,not sure this will be reached
                         {
@@ -374,7 +374,7 @@ NVALUE neg_val;
 
                             cval=(float )(vlist[pktdata[0]].param_valueA[db_id1].mf * neg_val.wval * -1);
                             sprintf(msg_to_log,"Neg Value is %.2f",cval);
-                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                            log_to_file(msg_to_log,strlen(msg_to_log));
                         }
                         else
                         {
@@ -382,7 +382,7 @@ NVALUE neg_val;
                             cval=(float )(vlist[pktdata[0]].param_valueA[db_id1].mf * mval);
                         }
                         sprintf(msg_to_log,"%s -> %.2f",vlist[pktdata[0]].param_valueA[db_id1].pname,cval);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        log_to_file(msg_to_log,strlen(msg_to_log));
                         //Note Nov22,2014: Below all offset are currently set to 1 except powerfactor whose offset is set to 0.1.Later this should be adjusted while initialising for each type of parameters.
                         /*if(params1[db_id1].offset==1)//This is commented now for ParamA type params also.Each type of params can be varied differently by setting the offset accordingly while initialising the structure.//Setting of offset value based on present value.Here 1 specified so as to not apply this condition to powerfactor(whose value will be less than 1).This whole line Not commented here because paramsA seems reasonable for 1% change.For paramsB and C,commented this to currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
@@ -390,7 +390,7 @@ NVALUE neg_val;
                             {
                                 params1[db_id1].offset=(float )(0.01 * cval);
                                 sprintf(msg_to_log,"Offset is %.2f",params1[db_id1].offset);
-                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                                log_to_file(msg_to_log,strlen(msg_to_log));
                             }
                         }*/
 
@@ -404,7 +404,7 @@ NVALUE neg_val;
                                     memset(querry_msg,0x0,QUERRY_MAXSIZE);
                                     sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,vlist[pktdata[0]].param_valueA[db_id1].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueA[db_id1].val,vlist[pktdata[0]].param_valueA[db_id1].offset));
                                     sprintf(msg_to_log,"%s",querry_msg);
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                                    log_to_file(msg_to_log,strlen(msg_to_log));
 
                                     onEINTR:
                                     if (mysql_query(conn,querry_msg))
@@ -414,7 +414,7 @@ NVALUE neg_val;
                                                 goto onEINTR;
                                            }
                                            sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                           log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                           log_to_file(msg_to_log,strlen(msg_to_log));
                                     }
                                 }
                             }
@@ -461,18 +461,18 @@ float cval=0;
                             goto next_paramB;
                         }
                         //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        //log_to_file(msg_to_log,strlen(msg_to_log),3);
+                        //log_to_file(msg_to_log,strlen(msg_to_log));
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
                         cval=(float )(vlist[pktdata[0]].param_valueB[db_id2].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",vlist[pktdata[0]].param_valueB[db_id2].pname,cval);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        log_to_file(msg_to_log,strlen(msg_to_log));
                         /*if(params2[db_id2].offset==1) //setting of offset commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))
                             {
                                 params2[db_id2].offset=(float )(0.01 * cval);
                                 sprintf(msg_to_log,"Offset is %.2f",params2[db_id2].offset);
-                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                                log_to_file(msg_to_log,strlen(msg_to_log));
                             }
                         }*/
 
@@ -487,7 +487,7 @@ float cval=0;
                                     memset(querry_msg,0x0,QUERRY_MAXSIZE);
                                     sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,vlist[pktdata[0]].param_valueB[db_id2].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueB[db_id2].val,vlist[pktdata[0]].param_valueB[db_id2].offset));
                                     sprintf(msg_to_log,"%s",querry_msg);
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                                    log_to_file(msg_to_log,strlen(msg_to_log));
 
 
                                     onEINTR:
@@ -498,7 +498,7 @@ float cval=0;
                                                 goto onEINTR;
                                             }
                                             sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                            log_to_file(msg_to_log,strlen(msg_to_log));
                                     }
                                 }
                             }
@@ -543,18 +543,18 @@ float cval=0;
                             goto next_paramC;
                         }
                         //sprintf(msg_to_log,"%X %X %X %X",pktdata[i],pktdata[i+1],pktdata[i+2],pktdata[i+3]);
-                        //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        //log_to_file(msg_to_log,strlen(msg_to_log));
                         reverse_b((BYTE *)&mval,(&pktdata[i]),4);
                         cval=(float )(vlist[pktdata[0]].param_valueC[db_id3].mf * mval);
                         sprintf(msg_to_log,"%s -> %.2f",vlist[pktdata[0]].param_valueC[db_id3].pname,cval);
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                        log_to_file(msg_to_log,strlen(msg_to_log));
                         /*if(params3[db_id3].offset==1) //setting of offset commented To currect cumulative energy field where 1% change from prev val,gives only very very few values.
                         {
                             if(!compare_float(cval,0,1))
                             {
                                 params3[db_id3].offset=(float )(0.01 * cval);
                                 sprintf(msg_to_log,"Offset is %.2f",params3[db_id3].offset);
-                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                                log_to_file(msg_to_log,strlen(msg_to_log));
                             }
                         }*/
 
@@ -570,7 +570,7 @@ float cval=0;
                                     memset(querry_msg,0x0,QUERRY_MAXSIZE);
                                     sprintf(querry_msg,"INSERT INTO data(device_id,data,address_map,category) VALUES (%d,%.2f,%d,%d)",pktdata[0],cval,vlist[pktdata[0]].param_valueC[db_id3].addr_off,!compare_float(cval,vlist[pktdata[0]].param_valueC[db_id3].val,vlist[pktdata[0]].param_valueC[db_id3].offset));
                                     sprintf(msg_to_log,"%s",querry_msg);
-                                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                                    log_to_file(msg_to_log,strlen(msg_to_log));
 
                                     onEINTR:
                                     if (mysql_query(conn,querry_msg))
@@ -580,7 +580,7 @@ float cval=0;
                                                 goto onEINTR;
                                             }
                                             sprintf(msg_to_log,"Error entering database values : %s: %s",strerror(errno),querry_msg);
-                                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                            log_to_file(msg_to_log,strlen(msg_to_log));
                                     }
                                 }
                             }

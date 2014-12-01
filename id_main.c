@@ -81,12 +81,9 @@ int main(int argc,char *argv[])
 	pthread_mutex_init(&LMutex, NULL);
 
    	sprintf(msg_to_log,"**************************************");
-   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+   	log_to_file(msg_to_log,strlen(msg_to_log));
    	sprintf(msg_to_log,"DATA ACCESS MODULE STARTED");
-   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-
-    rd_timeout=RTIMEOUT;
-    current_log_level=DEBUG_LEVEL_3;
+   	log_to_file(msg_to_log,strlen(msg_to_log));
     ex_term=FALSE;
     no_of_clients=MAXCLIENTS;
     random_mode=FALSE;
@@ -102,87 +99,15 @@ int main(int argc,char *argv[])
    	if(!Read_Conf())
    	{
    	    sprintf(msg_to_log,"Error in Config File,Exiting");
-        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+        log_to_file(msg_to_log,strlen(msg_to_log));
    	    exit(EXIT_FAILURE);
    	}
-    //for(i=0;i<no_of_cmds;i++)
-    //{
-    //    printf("\n%s:%d:%d:%d",cmd_config[i].param_name,cmd_config[i].devid,cmd_config[i].start_addr,cmd_config[i].value_offset);
-    //}
-    //printf("\n");
-    //exit(EXIT_FAILURE);
-
-    /*for(i=1;i<argc;i++)
-    {
-        if(argv[i][j]=='-')
-        {
-            switch(argv[i][j+1])
-            {
-                case 'p':
-                p_int=atoi(&(argv[i][j+3]));
-                break;
-
-                case 'r':
-                rd_timeout=atoi(&(argv[i][j+3]));
-                break;
-
-                case 's':
-                slave_id=atoi(&(argv[i][j+3]));
-                break;
-
-                case 'c':
-                cport=&(argv[i][j+3]);
-                break;
-
-                case 'e':
-                emulator_mode=TRUE;
-                break;
-
-                case 'i':
-                random_mode=TRUE;
-                rand_time=atoi(&(argv[i][j+3]));
-                printf("\nRandom Simulation Mode Enabled\n");
-                sprintf(msg_to_log,"Random Simulation Mode Enabled : %d",rand_time);
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-
-                break;
-
-                case 'l':
-                current_log_level=atoi(&(argv[i][j+3]));
-                sprintf(msg_to_log,"Setting Log Level to %d",current_log_level);
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-
-                break;
-
-                default:printf("\nInvalid Arguments,Using Default Values\n");
-                sprintf(msg_to_log,"Invalid Arguments,Using Default Values");
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-                p_int=POLL_INTERVAL;
-                rd_timeout=RTIMEOUT;
-                slave_id=DEFAULT_SLID;
-                cport=DEFAULT_PORT;
-                current_log_level=DEBUG_LEVEL_3;
-                break;
-            }
-
-        }
-    }
-
-
-    if(argc==1)
-    {
-        sprintf(msg_to_log,"No arguments Supplied, Using default values");
-        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
-    }*/
-
-    //sprintf(msg_to_log,"COMPORT is %s, Poll Interval is %d ms, Read Timeout is %d ms, Slave Id is %d",cport,p_int,rd_timeout,slave_id);
-    //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
 
 
 	if(!db_start())
 	{
 	    sprintf(msg_to_log,"Error Initializing MySQL Database,Exiting");
-        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+        log_to_file(msg_to_log,strlen(msg_to_log));
         exit(EXIT_FAILURE);
 	}
 
@@ -211,7 +136,7 @@ int main(int argc,char *argv[])
     //if(daemon(1,0)==0) //NW COM not happening when enabling this mode
     //{
     //    sprintf(msg_to_log,"Entering Daemon Mode");
-    //    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+    //    log_to_file(msg_to_log,strlen(msg_to_log));
     //}
 
 	while(!ex_term)
@@ -233,7 +158,7 @@ int main(int argc,char *argv[])
 
 
    	sprintf(msg_to_log,"DATA ACCESS MODULE TERMINATED");
-   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+   	log_to_file(msg_to_log,strlen(msg_to_log));
 
    	exit(EXIT_SUCCESS);
 

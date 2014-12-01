@@ -57,7 +57,7 @@
 #define POLL_INTERVAL 500
 
 
-#define RTIMEOUT 100
+#define READTIMEOUT 100
 #define DEFAULT_SLID 17
 #define DEFAULT_PORT "/dev/ttyUSB0"
 
@@ -100,7 +100,7 @@
 
 
 extern void open_log();
-extern void log_to_file(char * log_msg,int log_count,int log_level);
+extern void log_to_file(char * log_msg,int log_count);
 extern void da_wait(int nsecs,int nmsecs);
 
 extern void  writecom(BYTE * msg, int ncount);
@@ -218,11 +218,6 @@ int emulator_mode;
 int rand_time;
 int rand_count;
 int current_log_level;
-
-#define DEBUG_LEVEL_DEFAULT 0
-#define DEBUG_LEVEL_1 1
-#define DEBUG_LEVEL_2 2
-#define DEBUG_LEVEL_3 3
 
 volatile int ex_term;
 char scommand[256];

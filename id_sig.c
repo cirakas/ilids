@@ -99,7 +99,7 @@ void Handle_exithandler()
 void Handle_sigiohandler()
 {
    	sprintf(msg_to_log,"SIGIO Signal Caught");
-   	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+   	log_to_file(msg_to_log,strlen(msg_to_log));
 }
 
 /**@brief  This function implements microsecond precision sleep

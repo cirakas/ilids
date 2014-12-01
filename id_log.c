@@ -40,17 +40,11 @@ pthread_mutex_t LMutex;
 */
 
 
-void log_to_file(char * log_msg,int log_count,int log_level)
+void log_to_file(char * log_msg,int log_count)
 {
 
 
                    pthread_mutex_lock(&LMutex);
-
-                   if((log_level!=DEBUG_LEVEL_DEFAULT) && (log_level>current_log_level))
-                   {
-                        pthread_mutex_unlock(&LMutex);
-                        return ;
-                   }
 
                    t = time(NULL);
                    tmp = localtime(&t);

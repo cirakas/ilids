@@ -100,7 +100,7 @@ void * nwcom()
     {
      	perror("\nSocket Creation Error");
 		sprintf(msg_to_log,"Server Socket Creation Error");
-   		log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
+   		log_to_file(msg_to_log,strlen(msg_to_log));
      	return NULL;
     }
 	else
@@ -122,7 +122,7 @@ void * nwcom()
 			if(errno != EADDRINUSE)
 			{
 				sprintf(msg_to_log,"Bind Error %s",strerror(errno));
-   				log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
+   				log_to_file(msg_to_log,strlen(msg_to_log));
 				perror("\nBind Error ");
 				close(server_socket);
 				return FALSE;
@@ -135,7 +135,7 @@ void * nwcom()
 			perror("\nListen Error ");
 			close(server_socket);
 			sprintf(msg_to_log,"Server Listen Error");
-   			log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
+   			log_to_file(msg_to_log,strlen(msg_to_log));
 			return FALSE;
 		}
     }
@@ -169,7 +169,7 @@ void * nwcom()
                 else
                 {
                     sprintf(msg_to_log,"NW Select Error %s",strerror(errno));
-                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                    log_to_file(msg_to_log,strlen(msg_to_log));
                     continue;
                 }
 
@@ -187,7 +187,7 @@ void * nwcom()
                         if((client_socket=accept(server_socket,(struct  sockaddr  *)&client_addr,(socklen_t *)&client_len))==-1)
                         {
                             sprintf(msg_to_log,"Accept Error : %s",strerror(errno));
-                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
+                            log_to_file(msg_to_log,strlen(msg_to_log));
                             continue;
                         }
                         else if((client_info=gethostbyaddr((const char *)&(client_addr.sin_addr.s_addr),4,AF_INET))==NULL)
@@ -195,14 +195,14 @@ void * nwcom()
 
                                 printf("\nClient %s Not found in host database,Disconnected\n",(const char *)inet_ntoa(client_addr.sin_addr));
                                 sprintf(msg_to_log,"Client %s Not found in host database,Disconnected",(const char *)inet_ntoa(client_addr.sin_addr));
-                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                log_to_file(msg_to_log,strlen(msg_to_log));
                                 close(client_socket);
                         }
                         else if(check_existing(client_info))
                         {
                                 printf("\nClient %s Already Connected\n",client_info->h_name);
                                 sprintf(msg_to_log,"Client %s Already Connected",client_info->h_name);
-                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                log_to_file(msg_to_log,strlen(msg_to_log));
                                 close(client_socket);
                         }
                         else
@@ -221,7 +221,7 @@ void * nwcom()
                                             FD_SET(dclients[i].sockfd,&socket_set);
                                             printf("\nClient %s is Accepted\n",dclients[i].name);
                                             sprintf(msg_to_log,"Client %s is Accepted",dclients[i].name);
-                                            log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                            log_to_file(msg_to_log,strlen(msg_to_log));
                                             break;
                                         }
 
@@ -244,7 +244,7 @@ void * nwcom()
                                         memcpy(&gl_buf[gl_count],(void *)&dclients[i].inbuf[0],bytes_read_nw);
                                         gl_count+=bytes_read_nw;
                                         sprintf(msg_to_log,"Read %d Bytes from NW Device",bytes_read_nw);
-                                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                        log_to_file(msg_to_log,strlen(msg_to_log));
                                     }
                                     else
                                     {
@@ -254,7 +254,7 @@ void * nwcom()
                                         }
                                         printf("\nClient %s is Disconnected : %s\n",dclients[i].name,strerror(errno));
                                         sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
-                                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                        log_to_file(msg_to_log,strlen(msg_to_log));
 
                                         FD_CLR(dclients[i].sockfd,&socket_set);
                                         close(dclients[i].sockfd);
@@ -304,7 +304,7 @@ int rcount=0;
                     FD_CLR(dclients[i].sockfd,&socket_set);
                     close(dclients[i].sockfd);
                     sprintf(msg_to_log,"Write Error : Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
-                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                    log_to_file(msg_to_log,strlen(msg_to_log));
                     dclients[i].sockfd=-1;
                     dclients[i].send=FALSE;
                 }
@@ -316,7 +316,7 @@ int rcount=0;
                         rcount+=sprintf(&msg_to_log[rcount]," %02X",msg[j]);
                     }
                     rcount=rcount+sprintf(&msg_to_log[rcount]," To Client %s",dclients[i].name);
-                    log_to_file(msg_to_log,rcount,DEBUG_LEVEL_3);
+                    log_to_file(msg_to_log,rcount);
 
                 }
             }

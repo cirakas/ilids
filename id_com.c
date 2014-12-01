@@ -45,17 +45,17 @@ void initcom()
    if (fport <0)
    {
        	sprintf(msg_to_log,"Error Opening COMPORT %s:%s",cport,strerror(errno));
-       	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+       	log_to_file(msg_to_log,strlen(msg_to_log));
        	printf("\nError Opening COMPORT %s:%s,  Exiting...\n",cport,strerror(errno));
        	sprintf(msg_to_log,"DATA ACCESS MODULE TERMINATED");
-        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+        log_to_file(msg_to_log,strlen(msg_to_log));
        	exit(EXIT_FAILURE);
    }
    else
    {
 
        	sprintf(msg_to_log,"COMPORT Initialised : %s",cport);
-       	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
+       	log_to_file(msg_to_log,strlen(msg_to_log));
 
        	fcntl(fport, F_SETFL, 0);
        	fcntl(fport, F_SETOWN, getpid());
@@ -117,6 +117,8 @@ void * readcom()
 	pthread_setcancelstate (PTHREAD_CANCEL_ENABLE,NULL);
 	pthread_setcanceltype (PTHREAD_CANCEL_ASYNCHRONOUS,NULL);
 
+	rd_timeout=READTIMEOUT;
+
     FD_ZERO(&tmp_set);
 	FD_SET(fport, &tmp_set);
 	s_timeout.tv_sec = 0;
@@ -133,7 +135,7 @@ void * readcom()
                 if(errno != EINTR)
                 {
                     sprintf(msg_to_log,"Read Select Error %s",strerror(errno));
-                    log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_3);
+                    log_to_file(msg_to_log,strlen(msg_to_log));
                 }
                 continue;
         	}
@@ -161,13 +163,13 @@ void * readcom()
                         rcount += sprintf(&msg_to_log[rcount]," %02X",read_buf[i]);
                     }
                     rcount += sprintf(&msg_to_log[rcount]," FROM COMPORT %s",cport);
-                    log_to_file(msg_to_log,rcount,DEBUG_LEVEL_3);
+                    log_to_file(msg_to_log,rcount);
 
                 }
                 else
                 {
                         sprintf(msg_to_log,"Error Reading COMPORT %s",strerror(errno));
-                        log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                        log_to_file(msg_to_log,strlen(msg_to_log));
                 }
 
             }
@@ -246,12 +248,12 @@ int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
                 vlist[gl_buf[0]-1].reset_chk_count=0;
 			    switch_params(gl_buf,gl_count);
 			    //sprintf(msg_to_log,"CRC VALID FOR PREVIOUS READ PACKET");
-                //log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
+                //log_to_file(msg_to_log,strlen(msg_to_log));
 			}
 			else
 			{
 			    sprintf(msg_to_log,"CRC FAILED FOR PREVIOUS READ PACKET");
-                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_1);
+                log_to_file(msg_to_log,strlen(msg_to_log));
 			}
 			memset(gl_buf,0x0,BUF_SIZE);
 			gl_count=0;
@@ -278,7 +280,7 @@ int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
                                      continue;
                                 }
                                 sprintf(msg_to_log,"Client %s is Disconnected : %s",dclients[i].name,strerror(errno));
-                                log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+                                log_to_file(msg_to_log,strlen(msg_to_log));
 
                                 FD_CLR(dclients[i].sockfd,&socket_set);
                                 close(dclients[i].sockfd);
@@ -303,7 +305,7 @@ int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
 				wcount+=sprintf(&msg_to_log[wcount]," %02X",write_buf[i]);
 			}
 			wcount=wcount+sprintf(&msg_to_log[wcount]," TO SERIAL PORT %s",cport);
-			log_to_file(msg_to_log,wcount,DEBUG_LEVEL_3);
+			log_to_file(msg_to_log,wcount);
 
 		}
 		else
@@ -311,7 +313,7 @@ int bytes_write=0,bytes_write_nw=0,i=0,wcount=0,count=0;
 		    if(!emulator_mode)
 		    {
        		 	sprintf(msg_to_log,"Error Writing to Serial Port : %s",strerror(errno));
-       		 	log_to_file(msg_to_log,strlen(msg_to_log),DEBUG_LEVEL_DEFAULT);
+       		 	log_to_file(msg_to_log,strlen(msg_to_log));
 		    }
 		}
 }
