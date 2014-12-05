@@ -184,6 +184,7 @@ public class DeviceController {
             currentUserId = Long.valueOf(id);
         }
         devices = deviceService.findById(currentUserId);
+        devices.setDeviceZoneId(String.valueOf(devices.getDeviceZone().getId()));
         return devices;
     }
 
