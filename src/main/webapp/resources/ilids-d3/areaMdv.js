@@ -7,8 +7,8 @@ d3.json(servlet, function(data) {
     //var numberFormat = d3.format(".2f");
     //var mdvValue = mdvValue1;
     var mwidth = 1000;
-    var main_margin = {top: 30, right: 60, bottom: 95, left: 75},
-    mini_margin = {top: 345, right: 60, bottom: 20, left: 75},
+    var main_margin = {top: 30, right: 75, bottom: 95, left: 75},
+    mini_margin = {top: 345, right: 75, bottom: 20, left: 75},
     main_width = mwidth - main_margin.left - main_margin.right,
     main_height = 400 - main_margin.top - main_margin.bottom,
     mini_height = 400 - mini_margin.top - mini_margin.bottom;
@@ -255,7 +255,7 @@ d3.json(servlet, function(data) {
             .call(main_yAxisLeft)
             .append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", -65)
+            .attr("y", -60)
             .attr("dy", ".41em")
             .attr("x", -65)
             .style("text-anchor", "end")
@@ -270,9 +270,9 @@ d3.json(servlet, function(data) {
         .append("text")
             .attr("transform", "rotate(-90)")
             //.attr("transform", "translate(80,160)")
-            .attr("y", -10)
+            .attr("y", 60)
             .attr("dy", ".41em")
-            .attr("x", 20)
+            .attr("x", -65)
             .style("text-anchor", "end")
             .attr("class", "heading_top_")
             .text(y1axisTitle);

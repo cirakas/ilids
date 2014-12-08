@@ -246,19 +246,23 @@
     }    
 
     .line {
-        stroke: red;
+        stroke: green;
         fill: none;
         stroke-width: 3;
     }
 
     .line.line1 {
-        stroke:#FB7B04;
+        stroke:#e35c03;
+        stroke:#d6b014;
+        stroke:#ae4805;
         z-index:999;
-        stroke-width: 3;
+        stroke-width: 2;
     }
 
     .line.line0 {
         stroke:steelblue ;
+        stroke:#2faae1 ;
+        stroke:#3bb4ea ;
         stroke-width: 3;
     }
 
@@ -321,7 +325,8 @@
         fill: lightsteelblue;
         stroke-width: 0;
         line-height:50%;
-        fill: #97defd;
+        fill: #b2e7ff;
+        fill: #aae3fd;
         opacity: 1;
         z-index: -1;
     }
@@ -470,11 +475,11 @@
     .graph_bg{width:77.1%;padding-right: 0;float: left;/*background: #ececeb;*/padding:0 15px;border-radius: 5px;}
     .row_date_bg{background: #e8e9ea; margin: 5px 0 20px;padding: 10px 15px;background: url(/ilids/resources/images/bg_default1.jpg);}
     
-    .power-factor-warning{padding: 9px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
+    .power-factor-warning{padding: 4px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
                      /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
                      background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #fe9272 !important; border: 1px solid #e0623d;
                      filter: none;color:#9b3618!important;box-shadow: 0px 0px 5px #e46742 inset;}
-    .power-factor-success{padding: 9px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
+    .power-factor-success{padding: 4px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
                      /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
                      background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #c7d789 !important; border: 1px solid #a1b650;
                      filter: none;color:#5e7506!important;box-shadow: 0px 0px 5px #a9bd5a inset;}
