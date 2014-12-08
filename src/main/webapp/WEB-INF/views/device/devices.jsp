@@ -12,7 +12,7 @@
     function ajaxLink(url, params, displayComponentId) {
         $.post(url, params, function(data) {
             document.getElementById('deviceModel').action = "saveDevice/" + data.id;
-            document.getElementById('myModalLabel').innerHTML = "Edit Device";
+            document.getElementById('myModalLabelDevice').innerHTML = "Edit Device";
             document.getElementById('btn-save').innerHTML = "Save Changes";
             document.getElementById('name').value = data.name;
             document.getElementById('slaveId').value = data.slaveId;
@@ -23,7 +23,7 @@
 //Add devices
     function onClickAddDevices() {
         document.getElementById('deviceModel').action = "saveDevice/";
-        document.getElementById('myModalLabel').innerHTML = "Add Device";
+        document.getElementById('myModalLabelDevice').innerHTML = "Add Device";
         document.getElementById('btn-save').innerHTML = "Save";
         document.getElementById('name').value = "";
         document.getElementById('slaveId').value = "";
@@ -74,7 +74,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"><spring:message code="label.addDevice" /></h4>
+                <h4 class="modal-title" id="myModalLabelDevice"><spring:message code="label.addDevice" /></h4>
             </div>
             <c:url value="/saveDevice" var="url" />
             <form:form action="${url}" method="post" modelAttribute="deviceModel" onsubmit="return fieldCheck();">
