@@ -1,10 +1,10 @@
 package com.ilids.repository.impl;
 
 import com.ilids.IRepository.GenericRepository;
+import com.ilids.conf.EntityManagerFactoryProvider;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -17,7 +17,6 @@ public abstract class GenericRepositoryImpl<T> implements GenericRepository<T> {
     /**
      *
      */
-    @PersistenceContext
     protected EntityManager entityManager;
     private Class<T> type;
 
@@ -26,6 +25,7 @@ public abstract class GenericRepositoryImpl<T> implements GenericRepository<T> {
      * @param type
      */
     public GenericRepositoryImpl(Class<T> type) {
+        entityManager = EntityManagerFactoryProvider.getEntityManagerFactory().createEntityManager();
         this.type = type;
     }
 
@@ -75,7 +75,7 @@ public abstract class GenericRepositoryImpl<T> implements GenericRepository<T> {
         return query.executeUpdate();
     }
     public void close(){
-        entityManager.close();
+       // entityManager.close();
     }
 
 }

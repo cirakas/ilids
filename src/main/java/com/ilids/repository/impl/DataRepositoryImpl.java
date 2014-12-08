@@ -53,7 +53,7 @@ public class DataRepositoryImpl extends GenericRepositoryImpl<Data> implements D
                 + "FROM ( "
                 + "SELECT `device_id`, `data`, DATE(`time`) dtime, tzr.`start_time`, tzr.unit_price , tzr.zone_identifier "
                 + "FROM `data` d, `time_zone_range` tzr "
-                + "WHERE device_id = '" + deviceId + "' AND `address_map` = 512 AND `time` >= '" + startDateParam + "' AND `time` <= '" + endDateParam + "' "
+                + "WHERE device_id = '" + deviceId + "' AND `address_map` = 514 AND `time` >= '" + startDateParam + "' AND `time` <= '" + endDateParam + "' "
                 + "AND TIME(d.`time`) BETWEEN tzr.`start_time` AND tzr.`end_time` "
                 + ") tab GROUP BY tab.`device_id`, tab.dtime, tab.`start_time`, tab.unit_price , tab.zone_identifier "
                 + ") tab1 "

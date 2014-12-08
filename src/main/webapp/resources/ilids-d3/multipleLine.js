@@ -13,9 +13,7 @@ d3.json(servlet, function(data) {
     main_height = 400 - main_margin.top - main_margin.bottom,
     mini_height = 400 - mini_margin.top - mini_margin.bottom;
 
-var bwidth = 420,
-    barHeight = 5;
-    
+
     var width = $("#powGraph").width(),
             aspect = 400 / 1000;
 
@@ -24,15 +22,12 @@ var bwidth = 420,
                 return dateFormat(d.date);
             }).left,
             formatOutput0 = function(d) {
-                
-                return formatDate(dateFormat(d.date)) + " - " + +d.current + " duration: " + d.df;
+                return formatDate(dateFormat(d.date)) + " - " + +d.current;
             },
             
             formatOutput1 = function(d) { 
                 return formatDate(dateFormat(d.date)) + " - " + +d.mdv; 
             };
-
-
 
 
     var main_x = d3.time.scale()
@@ -75,7 +70,16 @@ var bwidth = 420,
             .scaleExtent([1, 50])
             .on("zoom", draw);     
 
-    var main_line0 = d3.svg.line()
+   
+            
+    var svg = d3.select("#powGraph").append("svg")
+            .attr("preserveAspectRatio", "xMidYMid")
+            .attr("viewBox", "0 0 1000 400")
+            .attr("width", width)
+            .attr("height", width * aspect);
+    
+    
+     var main_line0 = d3.svg.line()
             .interpolate("linear")
             .x(function(d) {
                 return main_x(dateFormat(d.date));
@@ -84,24 +88,24 @@ var bwidth = 420,
                 return main_y0(+d.current);
             });
             
-    var mainarea = d3.svg.area()
+    var main_line1 = d3.svg.line()
             .interpolate("linear")
-            .x0(main_width)
             .x(function(d) {
                 return main_x(dateFormat(d.date));
             })
-            .y0(280)
-            .y1(function(d) {
-                return main_y0(+d.current);
+            .y(function(d) {
+                return main_y0(+d.current2);
             });
             
-    var main_line1 = d3.svg.line()
-            .interpolate("linear")
-            .x(function(d) { return main_x(dateFormat(d.date)); 
-            })
-            .y(function(d) { return main_y1(+d.mdv); 
-            });   
             
+    var main_line2 = d3.svg.line()
+            .interpolate("linear")
+            .x(function(d) {
+                return main_x(dateFormat(d.date));
+            })
+            .y(function(d) {
+                return main_y0(+d.current3);
+            });        
 
     var mini_line0 = d3.svg.line()
             .interpolate("linear")
@@ -112,36 +116,23 @@ var bwidth = 420,
                 return mini_y0(+d.current);
             });
             
-    var miniarea = d3.svg.area()
+    var mini_line1 = d3.svg.line()
             .interpolate("linear")
             .x(function(d) {
                 return mini_x(dateFormat(d.date));
             })
-            .y0(mini_height)
-            .y1(function(d) {
-                return mini_y0(+d.current);
+            .y(function(d) {
+                return mini_y0(+d.current2);
             });
-            
-    var mini_line1 = d3.svg.line()
+    
+    var mini_line2 = d3.svg.line()
             .interpolate("linear")
-            .x(function(d) { return mini_x(dateFormat(d.date)); 
+            .x(function(d) {
+                return mini_x(dateFormat(d.date));
             })
-            .y(function(d) { return mini_y1(+d.mdv); 
-            });        
-
-   var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" +"hello"+ "</span>";
-  }) 
-
-    var svg = d3.select("#powGraph").append("svg")
-            .attr("preserveAspectRatio", "xMidYMid")
-            .attr("viewBox", "0 0 1000 400")
-            .attr("width", width)
-            .attr("height", width * aspect);
-    svg.call(tip);
+            .y(function(d) {
+                return mini_y0(+d.current3);
+            });
     
     svg.append("defs").append("clipPath")
             .attr("id", "clip")
@@ -196,20 +187,7 @@ var bwidth = 420,
     var mini = svg.append("g")
             .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");
     
-// var bar = svg.selectAll("g")
-//      .data(data)
-//    .enter().append("g")
-//      .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-//
-//  bar.append("rect")
-//      .attr("width", function(d) { return 20; })
-//      .attr("height", barHeight - 1);
-//
-//  bar.append("text")
-//      .attr("x", function(d) { return main_x(+d.current) - 3; })
-//      .attr("y", barHeight / 2)
-//      .attr("dy", ".35em")
-//      .text(function(d) { return +d.current; });   
+    
 
 //var valueline2 = d3.svg.line()
 //    .x(function(d) { return main_x(dateFormat.parse(d.date)); })
@@ -223,12 +201,8 @@ var bwidth = 420,
     main_y0.domain(d3.extent(data, function(d) {
         return +d.current;
     }));
-    main_y1.domain(d3.extent(data, function(d) { 
-        return +d.mdv; 
-    }));
     mini_x.domain(main_x.domain());
     mini_y0.domain(main_y0.domain());
-    mini_y1.domain(main_y1.domain());
     zoom.x(main_x);
     draw();
 
@@ -241,14 +215,15 @@ var bwidth = 420,
     main.append("path")
             .datum(data)
             .attr("clip-path", "url(#clip)")
-            .attr("class", "area")
-            .attr("d", mainarea);
+            .attr("class", "line line1")
+            .attr("d", main_line1);
     
-     main.append("path")
-      .datum(data)
-      .attr("clip-path", "url(#clip)")
-      .attr("class", "line line1")
-      .attr("d", main_line1);
+    main.append("path")
+            .datum(data)
+            .attr("clip-path", "url(#clip)")
+            .attr("class", "line line2")
+            .attr("d", main_line2);
+    
 
 
 //   main1.append("path")
@@ -284,23 +259,9 @@ var bwidth = 420,
             .attr("x", -65)
             .style("text-anchor", "end")
             .attr("class", "heading_top_")
-            .text(yaxisTitle);//Specified in the home.jsp
+            .text("Current");//Specified in the home.jsp
     
     
-    main.append("g")
-            .attr("class", "y axis axisRight")
-            .attr("transform", "translate(" + main_width + ", 0)")
-            .call(main_yAxisRight)
-        .append("text")
-            .attr("transform", "rotate(-90)")
-            //.attr("transform", "translate(80,160)")
-            .attr("y", 60)
-            .attr("dy", ".41em")
-            .attr("x", -65)
-            .style("text-anchor", "end")
-            .attr("class", "heading_top_")
-            .text(y1axisTitle);
-
 
     main.append("text")      // text label for the x axis
             .attr("x", 890)
@@ -319,18 +280,17 @@ var bwidth = 420,
             .attr("class", "line line0")
             .attr("d", mini_line0);
     
-     mini.append("path")
+    mini.append("path")
             .datum(data)
             .attr("clip-path", "url(#clip)")
-            .attr("class", "area")
-            .attr("d", miniarea);
+            .attr("class", "line line1")
+            .attr("d", mini_line1);
     
-     mini.append("path")
-      .datum(data)
-      .attr("clip-path", "url(#clip)")
-      .attr("class", "line line1")
-      .attr("d", mini_line1);
-
+    mini.append("path")
+            .datum(data)
+            .attr("clip-path", "url(#clip)")
+            .attr("class", "line line2")
+            .attr("d", mini_line2);
   
 
     mini.append("g")
@@ -341,10 +301,9 @@ var bwidth = 420,
             .attr("height", mini_height + 7);
 
     var focus = main.append("g")
-            .data(data)
             .attr("class", "focus")
-            .style("display", "none")
-            .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+            .style("display", "none");
+
     // Anzeige auf der Zeitleiste
     focus.append("line")
             .attr("class", "x")
@@ -357,10 +316,6 @@ var bwidth = 420,
             .attr("x1", main_width - 1)
             .attr("x2", main_width + 1);
 
-    focus.append("line")
-            .attr("class", "y1")
-            .attr("x1", main_width - 1)
-            .attr("x2", main_width + 1);
 
     focus.append("circle")
             .attr("class", "y0")
@@ -370,24 +325,8 @@ var bwidth = 420,
             .attr("class", "y0")
             .attr("dy", "-1em")
             .attr("dx", "-4em")
-            .style("stroke", "red");
+            .style("stroke", "black");
     
-    focus.append("circle")
-            .attr("class", "y1")
-            .attr("r", 5);
-    
-    focus.append("rect")
-      .attr("width", function(d) { return main_x(+d.current); })
-      .attr("height", barHeight - 1);
-
-    focus.append("text")
-            .attr("class", "y1")
-            .attr("y", barHeight / 2)
-            .attr("dy", "-1em")
-            .attr("dx", "-4em")
-            .attr("width", function(d) { 30; })
-            .attr("height", barHeight - 1);
-            //.style("stroke", "red");
 
 //main graph functionality-zoom
     main.append("rect")
@@ -447,12 +386,9 @@ var bwidth = 420,
 
         focus.select("circle.y0").attr("transform", "translate(" + main_x(pdatee) + "," + main_y0(+d.current) + ")");
         focus.select("text.y0").attr("transform", "translate(" + main_x(pdatee) + "," + main_y0(+d.current) + ")").text(formatOutput0(d));
-        focus.select("circle.y1").attr("transform", "translate(" + main_x(pdatee) + "," + main_y1(+d.mdv) + ")");
-        focus.select("text.y1").attr("transform", "translate(" + main_x(pdatee) + "," + main_y1(+d.mdv) + ")").text(formatOutput1(d));
         focus.select(".x").attr("transform", "translate(" + main_x(pdatee) + ",0)");
         focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(+d.current) + ")").attr("x2", main_width + main_x(pdatee));
-        focus.select(".y1").attr("transform", "translate(0, " + main_y1(+d.mdv) + ")").attr("x1", main_x(pdatee));
-        tip.show();                                        
+                                                
 
     }
 
@@ -460,8 +396,8 @@ var bwidth = 420,
     function brush3() {
         main_x.domain(brush.empty() ? mini_x.domain() : brush.extent());
         main.select(".line0").attr("d", main_line0);
-        main.select(".area").attr("d", mainarea);
         main.select(".line1").attr("d", main_line1);
+        main.select(".line2").attr("d", main_line2);
         main.select(".x.axis").call(main_xAxis);
     }
 
@@ -470,8 +406,8 @@ var bwidth = 420,
         svg.select("g.x.axis").call(main_xAxis);
         svg.select("g.y.axis").call(main_yAxisLeft);
         svg.select("path.line0").attr("d", main_line0);
-        svg.select("path.area").attr("d", mainarea);
         svg.select("path.line1").attr("d", main_line1);
+        svg.select("path.line2").attr("d", main_line2);
     }
     
 });

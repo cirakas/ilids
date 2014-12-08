@@ -18,7 +18,7 @@
 //        s.parentNode.insertBefore(ga, s);
 //    })();
 
-    (function() {
+            (function() {
         var ga = document.createElement('script');
         ga.type = 'text/javascript';
         ga.async = true;
@@ -65,55 +65,54 @@
 
 
     var servlet = "DataAccessServlet?phase=" + phaseParam + "&fromDate=" + fromDateParam + "&fromHours=" + fromHoursParam + "&fromMinutes=" + fromMinutesParam + "&toDate=" + toDateParam + "&toHours=" + toHoursParam + "&toMinutes=" + toMinutesParam + "&deviceId=" + deviceParam;
-
     switch (phaseParam) {
         case '00':
 //        headTitle="Phase1 Voltage vs Time";
             yaxisTitle = "Phase1 Voltage";
-            y1axisTitle = "Phase1 MDV";
+            y1axisTitle = "MDV";
             break;
 
         case '02':
 //        headTitle="Phase2 Voltage vs Time";
             yaxisTitle = "Phase2 Voltage";
-            y1axisTitle = "Phase2 MDV";
+            y1axisTitle = "MDV";
             break;
 
         case '04':
 //        headTitle="Phase3 Voltage vs Time";
             yaxisTitle = "Phase3 Voltage";
-            y1axisTitle = "Phase3 MDV";
+            y1axisTitle = "MDV";
             break;
 
         case '6':
 //        headTitle="Phase1 Current vs Time";
-            yaxisTitle = "Phase1 Current";
-            y1axisTitle = "Phase1 MDV";
+            yaxisTitle = "Phase1 Current (A)";
+            y1axisTitle = "MDV";
             break;
         case '8':
 //        headTitle="Phase2 Current vs Time";
-            yaxisTitle = "Phase2 Current";
-            y1axisTitle = "Phase2 MDV";
+            yaxisTitle = "Phase2 Current (A)";
+            y1axisTitle = "MDV";
             break;
         case '10':
 //        headTitle="Phase3 Current vs Time";
-            yaxisTitle = "Phase3 Current";
-            y1axisTitle = "Phase3 MDV";
+            yaxisTitle = "Phase3 Current (A)";
+            y1axisTitle = "MDV";
             break;
         case '12':
 //        headTitle="Phase1 Power vs Time";
-            yaxisTitle = "Phase1 Power";
-            y1axisTitle = "Phase1 MDV";
+            yaxisTitle = "Phase1 Power (W)";
+            y1axisTitle = "MDV";
             break;
         case '14':
 //        headTitle="Phase2 Power vs Time";
-            yaxisTitle = "Phase2 Power";
-            y1axisTitle = "Phase2 MDV";
+            yaxisTitle = "Phase2 Power (W)";
+            y1axisTitle = "MDV";
             break;
         case '16':
 //        headTitle="Phase3 Power vs Time";
-            yaxisTitle = "Phase3 Power";
-            y1axisTitle = "Phase3 MDV";
+            yaxisTitle = "Phase3 Power (W)";
+            y1axisTitle = "MDV";
             break;
         case '30':
             headTitle = "Phase1 Power Factor vs Time";
@@ -153,7 +152,6 @@
         var fromMinutes = document.getElementById("from-minutes").value;
         var toHours = document.getElementById("to-hours").value;
         var toMinutes = document.getElementById("to-minutes").value;
-        var toDate = document.getElementById("SelectedDate1").value;
         var d1 = new Date(fromDate + " " + fromHours + ":" + fromMinutes + ":00");
         var d2 = new Date(toDate + " " + toHours + ":" + toMinutes + ":59");
         if (d2 < d1) {
@@ -266,7 +264,7 @@
         stroke-width: 3;
     }
 
-    .line.line3 {
+    .line.line2 {
         stroke:#FFCC00 ;
         stroke-width: 4;
     }
@@ -283,6 +281,38 @@
         stroke: #FF0000;
         stroke-width: 4; 
     }
+    
+    .d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+    
+    .main rect {
+    fill: steelblue;
+}
 
     .overlay {
         fill: none;
@@ -296,11 +326,37 @@
     .focus circle.y0 {
         stroke: #F2700D;
         stroke-width: 2;
+        
     }
 
     .focus circle.y1 {
         stroke: #F2700D;
         stroke-width: 2;
+    }
+    
+    
+    .focus text.y0 {
+    border: 1px dotted #000000; 
+    outline:1; 
+    font: 16px sans-serif;
+    height:25px; 
+    width: 275px; 
+    }
+    
+    .focus text.y1 {
+    stroke: #0B6121;
+    stroke-width: 1;
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 4px;				
+    font: 16px sans-serif;		
+    background: green;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;
+    opacity: yellow;
     }
 
     .focus line {
@@ -341,6 +397,7 @@
         cursor: move;
         fill: none;
         pointer-events: all;
+        
     }
 
     .axis path {
@@ -365,7 +422,26 @@
         font-weight: bold;
     }
 
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
 
+
+
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
 
 
     .power-factor{
@@ -776,6 +852,7 @@
 
 
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
+<script type="text/javascript" src="${resources}ilids-d3/js/d3.tip.v0.6.3.js"></script>
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/crossfilter.js"></script>-->
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/dc.js"></script>-->
 <!--<script type="text/javascript" src="${resources}ilids-d3/js/jquery.min.js"></script>-->

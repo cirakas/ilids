@@ -184,9 +184,9 @@ input[type=submit]:active {
  //alert(devices);   
  var date = new Date();
  var dformat = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
- document.cookie = "phase=" + "6" + " " + "start=" + dformat + " " + "end=" + dformat + " " + "frHours=" + "00" + " " + "frMinutes=" + "00" + " " + "tHours=" + "23" + " " + "tMinutes=" + "59" + " " + "deviceId=" + devices;
+ document.cookie = "phase=" + "6" + " " + "start=" + dformat + " " + "end=" + dformat + " " + "frHours=" + "00" + " " + "frMinutes=" + "00" + " " + "tHours=" + "23" + " " + "tMinutes=" + "59" + " " + "deviceId=" + devices+ " " ;
  document.cookie = "cname=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    
+ 
 </script>
 
  <security:authorize access="isAnonymous()">   
