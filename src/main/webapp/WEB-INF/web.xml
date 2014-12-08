@@ -29,6 +29,10 @@
         <servlet-name>PowerFactorNotificationServlet</servlet-name>
         <servlet-class>com.ilids.servlet.PowerFactorNotificationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChartDataServlet</servlet-name>
+        <servlet-class>com.ilids.servlet.ChartDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>appServlet</servlet-name>
         <url-pattern>/</url-pattern>
@@ -48,6 +52,10 @@
     <servlet-mapping>
         <servlet-name>PowerFactorNotificationServlet</servlet-name>
         <url-pattern>/PowerFactorNotificationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChartDataServlet</servlet-name>
+        <url-pattern>/ChartDataServlet</url-pattern>
     </servlet-mapping>
     <jsp-config>
         <jsp-property-group>

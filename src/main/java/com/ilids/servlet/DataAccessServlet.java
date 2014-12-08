@@ -100,25 +100,25 @@ public class DataAccessServlet extends HttpServlet {
             ") tab LEFT JOIN" +
             "(" +
             "" +
-            "SELECT tab2.device_id, tab2.stdate, tab2.enddate, MAX(tab2.data) ydata FROM (" +
+            "SELECT tab2.device_id, tab2.stdate, tab2.enddate, ((MAX(tab2.data) - MIN(tab2.data)) * 2) ydata FROM (" +
             "SELECT device_id, tab1.stdate, tab1.enddate, `data`  FROM data_3m_1 d, " +
             "(" +
             "SELECT CAST(CONCAT(tab.dt, ' ', 30min_range) AS DATETIME) stdate, " +
             "DATE_ADD(CAST(CONCAT(tab.dt, ' ', 30min_range) AS DATETIME), INTERVAL '29:59' MINUTE_SECOND) enddate FROM (" +
             "SELECT DISTINCT DATE(time) dt FROM data_3m_1 d " +
             "WHERE device_id = " + deviceId +
-            " AND address_map = " + hashAddress.get(addressMap) +
+            " AND address_map = 512 " +
             " AND time BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' " +
             ") tab, time_minute_range tmr WHERE tmr.30min_range IS NOT NULL" +
             ") tab1 " +
             "WHERE d.time BETWEEN tab1.stdate AND tab1.enddate" +
             " AND d.device_id = " + deviceId +
-            " AND d.address_map = " + hashAddress.get(addressMap) +
+            " AND d.address_map = 512 " +
             " AND time BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' " +
             ") tab2 GROUP BY tab2.stdate, tab2.enddate" +
             "" +
             ") tab1 ON (tab.device_id = tab1.device_id)" +
-            ") tab2 GROUP BY tab2.device_id, tab2.time, tab2.data";
+            ") tab2 GROUP BY tab2.device_id, tab2.time, tab2.data ORDER BY tab2.time";
         
         
         ResultSet rs = statement.executeQuery(selectQuery);
@@ -128,24 +128,92 @@ public class DataAccessServlet extends HttpServlet {
 	try {
 	    /* TODO output your page here. You may use following sample code. */
 	    float datas = 1;
-	    String realDate = "";
-	    String pattern = "MM/dd/yyyy HH:mm:ss";
+            Date prevDate = null;
+            Date nextDate = null;
+	    Date realDate = null;
+            String date1 = "";
+            long diff;
+            long diffSeconds = 0;
+            long diffMinutes = 0;
+            long diffHours = 0;
+            String diffSec ="";
+            String diffMin = "";
+            String diffHou = "";
+	   // String pattern = "MM/dd/yyyy HH:mm:ss";
             DecimalFormat df = new DecimalFormat("#.##");
-	    SimpleDateFormat format = new SimpleDateFormat(pattern);
+	    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	    while (rs.next()) {
-		realDate = format.format(rs.getTimestamp("time"));
+                realDate = rs.getTimestamp("time");
+                //System.out.println("djklsd---sck--" + realDate);
+                if(rs.getRow() == 1) {
+                    prevDate = realDate;
+                }
 		JSONObject json = new JSONObject();
-		json.put("date", realDate);               
+		json.put("date", format.format(realDate));
+                json.put("pd", format.format(prevDate));                
 		json.put("current", df.format(rs.getFloat("y0_data")));
-                if(rs.getFloat("y1_data") == 0) {
-                    json.put("mdv", df.format(200.00F));
-                
-                } else {
                 json.put("mdv", df.format(rs.getFloat("y1_data")));
-                        }
+                try {
+                    if(rs.next()){
+                        nextDate = rs.getTimestamp("time");
+                        System.out.println("---curr date--" + realDate);
+                        System.out.println("--next date--" + nextDate);
+                        rs.previous();
+                    } 
+                    
+                diff = nextDate.getTime() - realDate.getTime();
+                    System.out.println("-- dd  --- " + diff);
+                diffSeconds = diff / 1000 % 60;
+                diffMinutes = diff / (60 * 1000) % 60;         
+                diffHours = diff / (60 * 60 * 1000) % 60; 
+                if(diffSeconds < 10) {
+                    System.out.println("---diffSeconds--" + diffSeconds);
+                    diffSec = "0" + diffSeconds;
+                    System.out.println("dfscnd--" + diffSec);
+                }
+                else{
+                    diffSec = Long.toString(diffSeconds);
+                    System.out.println("dfscnd--" + diffSec);
+                }
+                
+                 if(diffMinutes < 10) {
+                    System.out.println("---diffMinutes--" + diffMinutes);
+                    diffMin = "0" + diffMinutes;
+                    System.out.println("diffMin--" + diffMin);
+                }
+                 
+                 else{
+                    diffMin = Long.toString(diffMinutes);
+                    System.out.println("diffMin--" + diffMin);
+                }
+                
+                 if(diffHours < 10) {
+                    System.out.println("---diffHours--" + diffHours);
+                    diffHou = "0" + diffHours;
+                    System.out.println("diffHou--" + diffHou);
+                }
+                 
+                 else{
+                    diffHou = Long.toString(diffHours);
+                    System.out.println("diffHou--" + diffHou);
+                }
+                
+                date1=diffHou+":"+diffMin+":"+diffSec;
+                System.out.println("--difff----" + date1);
+                
+                } catch(SQLException sqe) {}
+                json.put("nd", format.format(nextDate));	
+                json.put("df",date1);	
 		jsonArray.put(json);
+                prevDate = realDate;
+                
+                
+                
 	    }
 	    out.println(jsonArray.toString());
+            System.out.println("----json---" + jsonArray.toString());
+            
+           
 	    
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -156,7 +224,8 @@ public class DataAccessServlet extends HttpServlet {
 	    }
 	    if (connection != null) {
 		connection.close();
-	    }	    
+	    } 
+            
 	}
 //        PrintWriter out = response.getWriter();
 //        JSONArray jsonArray = new JSONArray();
