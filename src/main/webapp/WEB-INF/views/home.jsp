@@ -244,19 +244,23 @@
     }    
 
     .line {
-        stroke: red;
+        stroke: green;
         fill: none;
         stroke-width: 3;
     }
 
     .line.line1 {
-        stroke:#FB7B04;
+        stroke:#e35c03;
+        stroke:#d6b014;
+        stroke:#ae4805;
         z-index:999;
-        stroke-width: 3;
+        stroke-width: 2;
     }
 
     .line.line0 {
         stroke:steelblue ;
+        stroke:#2faae1 ;
+        stroke:#3bb4ea ;
         stroke-width: 3;
     }
 
@@ -377,7 +381,8 @@
         fill: lightsteelblue;
         stroke-width: 0;
         line-height:50%;
-        fill: #97defd;
+        fill: #b2e7ff;
+        fill: #aae3fd;
         opacity: 1;
         z-index: -1;
     }

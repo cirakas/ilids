@@ -615,10 +615,11 @@ div.tooltip {
 </div>
 
 <tbody>
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
+<script src="${resources}ilids-d3/js/highcharts_1.js"></script>
 <!--<script src="http://code.highcharts.com/stock/highstock.js"></script>-->
 <script src="https://rawgithub.com/RolandBanguiran/highstock-zoom-out-selection/master/zoomout-selection.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<!--<script src="http://code.highcharts.com/modules/exporting.js"></script>-->
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
 <script type="text/javascript" src="${resources}ilids-d3/highchartLine.js"></script>
 
