@@ -13,8 +13,8 @@ d3.json(servlet, function(data) {
     main_height = 400 - main_margin.top - main_margin.bottom,
     mini_height = 400 - mini_margin.top - mini_margin.bottom;
 
-var bwidth = 420,
-    barHeight = 5;
+//var bwidth = 420,
+//    barHeight = 5;
     
     var width = $("#powGraph").width(),
             aspect = 400 / 1000;
@@ -72,7 +72,7 @@ var bwidth = 420,
             .on("brush", brush3);
         
     var zoom = d3.behavior.zoom()
-            .scaleExtent([1, 50])
+            .scaleExtent([1, 100])
             .on("zoom", draw);     
 
     var main_line0 = d3.svg.line()
@@ -129,19 +129,19 @@ var bwidth = 420,
             .y(function(d) { return mini_y1(+d.mdv); 
             });        
 
-   var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" +"hello"+ "</span>";
-  }) 
+//   var tip = d3.tip()
+//  .attr('class', 'd3-tip')
+//  .offset([-10, 0])
+//  .html(function(d) {
+//    return "<strong>Frequency:</strong> <span style='color:red'>" +"hello"+ "</span>";
+//  }) 
 
     var svg = d3.select("#powGraph").append("svg")
             .attr("preserveAspectRatio", "xMidYMid")
             .attr("viewBox", "0 0 1000 400")
             .attr("width", width)
             .attr("height", width * aspect);
-    svg.call(tip);
+//    svg.call(tip);
     
     svg.append("defs").append("clipPath")
             .attr("id", "clip")
@@ -236,7 +236,9 @@ var bwidth = 420,
             .datum(data)
             .attr("clip-path", "url(#clip)")
             .attr("class", "line line0")
-            .attr("d", main_line0);
+            .attr("d", main_line0)
+            
+            
     
     main.append("path")
             .datum(data)
@@ -272,7 +274,7 @@ var bwidth = 420,
     main.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + main_height + ")")
-            .call(main_xAxis);
+            .call(main_xAxis)
 
     main.append("g")
             .attr("class", "y axis axisLeft")
@@ -343,8 +345,8 @@ var bwidth = 420,
     var focus = main.append("g")
             .data(data)
             .attr("class", "focus")
-            .style("display", "none")
-            .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+            .style("display", "none");
+          //  .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
     // Anzeige auf der Zeitleiste
     focus.append("line")
             .attr("class", "x")
@@ -376,17 +378,17 @@ var bwidth = 420,
             .attr("class", "y1")
             .attr("r", 5);
     
-    focus.append("rect")
-      .attr("width", function(d) { return main_x(+d.current); })
-      .attr("height", barHeight - 1);
+//    focus.append("rect")
+//      .attr("width", function(d) { return main_x(+d.current); })
+//      .attr("height", barHeight - 1);
 
     focus.append("text")
             .attr("class", "y1")
-            .attr("y", barHeight / 2)
+           // .attr("y", barHeight / 2)
             .attr("dy", "-1em")
-            .attr("dx", "-4em")
-            .attr("width", function(d) { 30; })
-            .attr("height", barHeight - 1);
+            .attr("dx", "-4em");
+          //  .attr("width", function(d) { 30; })
+           // .attr("height", barHeight - 1);
             //.style("stroke", "red");
 
 //main graph functionality-zoom
@@ -412,7 +414,12 @@ var bwidth = 420,
             .on("touchmove.zoom", null)
             .on("touchend.zoom", null)
             .on("end.zoom", null)
-            .on("MozMousePixelScroll.zoom", null)
+            .on("MozMousePixelScroll.zoom", null);
+//    .on('mousedown', function(d){
+//        svg.attr("x",  main_x(dateFormat(d.date)));
+//        svg.attr("y",  main_y0(+d.current));
+//        tip.show();
+//            });
            // .on("wheel.zoom", null);
 
 
@@ -452,7 +459,6 @@ var bwidth = 420,
         focus.select(".x").attr("transform", "translate(" + main_x(pdatee) + ",0)");
         focus.select(".y0").attr("transform", "translate(" + main_width * -1 + ", " + main_y0(+d.current) + ")").attr("x2", main_width + main_x(pdatee));
         focus.select(".y1").attr("transform", "translate(0, " + main_y1(+d.mdv) + ")").attr("x1", main_x(pdatee));
-        tip.show();                                        
 
     }
 
