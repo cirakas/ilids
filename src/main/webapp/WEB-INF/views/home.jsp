@@ -698,7 +698,7 @@
             <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
             <div class="input_min_bg" style="float: left;">
                 <!--<input type="button" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this);" value="" />-->      
-                <input type="button" class=" input_"  name="SelectedDate" id="SelectedDate" readonly value="">
+                <input type="text" class=" input_"  name="SelectedDate" id="SelectedDate" readonly value="">
                 <div class="min_bg">
                     <select class="form-control" id="from-hours" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>
@@ -746,7 +746,7 @@
             <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
             <div  class="input_min_bg input_11" >
                 <!--<input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />-->                 
-               <input type="button" class=" input_" name="SelectedDate" id="SelectedDate1" readonly value="">
+               <input type="text" class=" input_" name="SelectedDate" id="SelectedDate1" readonly value="">
                 <div class="min_bg">
                     <select class="form-control" id="to-hours" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>

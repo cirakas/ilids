@@ -56,23 +56,53 @@ public abstract class GenericRepositoryImpl<T> implements GenericRepository<T> {
 
     @Override
     public void persist(T t) {
+        entityManager.getTransaction().begin();
+        try{
         entityManager.persist(t);
+        entityManager.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(T t) {
+        entityManager.getTransaction().begin();
+        try{
         entityManager.remove(t);
+        entityManager.getTransaction().commit();
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+        }
     }
 
     @Override
     public T merge(T t) {
-        return entityManager.merge(t);
+         T ts=null;
+       entityManager.getTransaction().begin();
+        try{
+        ts= entityManager.merge(t);
+        entityManager.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return ts;
     }
     
     @Override
     public int executeNativeQuery(String queryString){
+        int result=0;
+        entityManager.getTransaction().begin();
+        try{
         Query query = entityManager.createNativeQuery(queryString);
-        return query.executeUpdate();
+        result=query.executeUpdate();
+        entityManager.getTransaction().commit();
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        return result;
     }
     public void close(){
        // entityManager.close();

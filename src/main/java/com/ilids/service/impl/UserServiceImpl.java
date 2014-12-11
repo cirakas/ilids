@@ -72,7 +72,8 @@ public class UserServiceImpl implements UserService{
 	user.setRole(role);
 	user.addRole(userRole);
 	encryptPassword(user);
-	persist(user);
+	//persist(user);
+        userRepository.merge(user);
         userRepository.close();
 	return true;
     }
