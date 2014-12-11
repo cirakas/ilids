@@ -15,13 +15,35 @@
         s.parentNode.insertBefore(ga, s);
     })();
     
-    var fromDateParams = getQueryVariable('fromDate');
-    var toDateParams = getQueryVariable('toDate');
-    var fromHoursParams = getQueryVariable('fromHours');
-    var fromMinutesParams = getQueryVariable('fromMinutes');
-    var toHoursParams = getQueryVariable('toHours');
-    var toMinutesParams = getQueryVariable('toMinutes');
-    var deviceParams = getQueryVariable('deviceId');
+    var phaseParams;
+    var fromDateParams;
+    var toDateParams;
+    var fromHoursParams;
+    var fromMinutesParams;
+    var toHoursParams;
+    var toMinutesParams;
+    var deviceParams;
+    <%
+    String phValue = request.getParameter("fromDate");
+    if( phValue == null || "".equals(phValue)) {%>
+    phaseParams = readCookie('phase');
+    fromDateParams = readCookie('start');
+    toDateParams = readCookie('end');
+    fromHoursParams = readCookie('frHours');
+    fromMinutesParams = readCookie('frMinutes');
+    toHoursParams = readCookie('tHours');
+    toMinutesParams = readCookie('tMinutes');
+    deviceParams = readCookie('deviceId');
+    <%} else {%>
+    phaseParams = "<%=request.getParameter("")%>";
+    fromDateParams ="<%=request.getParameter("fromDate")%>";
+    toDateParams = "<%=request.getParameter("toDate")%>";
+    fromHoursParams ="<%=request.getParameter("fromHours")%>";
+    fromMinutesParams = "<%=request.getParameter("fromMinutes")%>";
+    toHoursParams ="<%=request.getParameter("toHours")%>";
+    toMinutesParams ="<%=request.getParameter("toMinutes")%>";
+    deviceParams = "<%=request.getParameter("deviceId")%>";
+   <%}%>
     
     if (!fromDateParams) {
         fromDateParams = new Date().toLocaleDateString();//"7/20/2014"
@@ -81,19 +103,19 @@
         }
     }
 
-//    function readCookie(cnames) {
-//        var names = cnames + "=";
-//        var docs = document.cookie.split(";");
-//        var cas = docs[0].split(" ");
-//        for (var i = 0; i < cas.length; i++) {
-//            var cs = cas[i];
-//            while (cs.charAt(0) === ' ')
-//                cs = cs.substring(1);
-//            if (cs.indexOf(names) !== -1)
-//                return cs.substring(names.length, cs.length);
-//        }
-//        return cs;
-//    }
+    function readCookie(cnames) {
+        var names = cnames + "=";
+        var docs = document.cookie.split(";");
+        var cas = docs[0].split(" ");
+        for (var i = 0; i < cas.length; i++) {
+            var cs = cas[i];
+            while (cs.charAt(0) === ' ')
+                cs = cs.substring(1);
+            if (cs.indexOf(names) !== -1)
+                return cs.substring(names.length, cs.length);
+        }
+        return cs;
+    }
     
     
  </script>   
@@ -497,7 +519,7 @@ div.tooltip {
             <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
             <div class="input_min_bg" style="float: left;">
                 <!--<input type="button" name="SelectedDate" class=" input_" id="SelectedDate" readonly onClick="GetDate(this);" value="" />-->      
-                <input type="button" class=" input_"  name="SelectedDates" id="SelectedDates" readonly value="">
+                <input type="text" class=" input_"  name="SelectedDates" id="SelectedDates" readonly value="">
                 <div class="min_bg">
                     <select class="form-control" id="from-hourss" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>
@@ -545,7 +567,7 @@ div.tooltip {
             <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
             <div  class="input_min_bg input_11" >
                 <!--<input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />-->                 
-               <input type="button" class=" input_" name="SelectedDates1" id="SelectedDates1" readonly value="">
+               <input type="text" class=" input_" name="SelectedDates1" id="SelectedDates1" readonly value="">
                 <div class="min_bg">
                     <select class="form-control" id="to-hourss" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>
