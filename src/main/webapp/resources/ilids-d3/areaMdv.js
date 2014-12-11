@@ -99,7 +99,7 @@ d3.json(servlet, function(data) {
             .interpolate("linear")
             .x(function(d) { return main_x(dateFormat(d.date)); 
             })
-            .y(function(d) { return main_y1(+d.mdv); 
+            .y(function(d) { return main_y1(+d.mdv);
             });   
             
 
