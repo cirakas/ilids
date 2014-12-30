@@ -79,21 +79,55 @@ public class DataAccessServlet extends HttpServlet {
 	String fromTime=fromHours+":"+fromMinutes+":00";
 	String toTime=toHours+":"+toMinutes+":59";
         String deviceId=request.getParameter("deviceId");
-        
         String dateFormat="MM/dd/yyyy";
         String toDateFormat="yyyy-MM-dd";
         SimpleDateFormat parsePattern = new SimpleDateFormat(dateFormat);
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         start=parseFormat.format(parsePattern.parse(start));
         end=parseFormat.format(parsePattern.parse(end));
-                
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String st = start + " " + fromTime;
+        Date dt1 = formatter.parse(st);
+        System.out.println("date st==--" + formatter.format(dt1));
+        String ed = end + " " + toTime;
+        Date dt2 = formatter.parse(ed);
+        long dff = dt2.getTime() - dt1.getTime();
+        System.out.println("---long --" + dff);
+        long dSeconds = dff / 1000 % 60;
+        System.out.println("dsecond--" + dSeconds);
+        long dMinutes = dff / (60 * 1000) % 60;
+        System.out.println("dmin--" + dMinutes);
+        long dHours = dff / (60 * 60 * 1000);
+        System.out.println("dhrs--" + dHours);
+        int dInDays = (int) ((dt2.getTime() - dt1.getTime()) / (1000 * 60 * 60 * 24));
+        System.out.println("ddys--" + dInDays);  
+        String tabName = "";
+        
+        if(dInDays > 365){
+            tabName = "3hours_data";
+        }
+        else if(dInDays > 151 && dInDays < 365 ){
+            tabName = "2hours_data";
+        }
+        else if(dInDays > 30 && dInDays < 151){
+            tabName = "1hour_data";
+        }
+        else if(dInDays < 30 && dInDays > 1){
+            System.out.println("---30 days---");
+            tabName = "30min_data";
+        }
+        else{
+            System.out.println("---1 day---");
+            tabName = "data_3m_1";
+        }
+        
 	//String selectQuery = "SELECT time as data_time , data as real_data FROM data_3m_1 WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
         String selectQuery = 
             "SELECT tab2.device_id, tab2.time, tab2.data y0_data, SUM(tab2.y1data) y1_data FROM (" +
             "SELECT tab.device_id, tab.time , tab.data ," +
             "CASE WHEN tab.time BETWEEN tab1.stdate AND tab1.enddate THEN tab1.ydata " +
             "ELSE 0 END y1data FROM (" +
-            "SELECT device_id, data , time FROM data_3m_1 d" +
+            "SELECT device_id, data , time FROM "+tabName+" d  " +
             " WHERE d.device_id = " + deviceId +
             " AND d.address_map = " + addressMap +
             " AND d.time BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' " +
@@ -101,11 +135,11 @@ public class DataAccessServlet extends HttpServlet {
             "(" +
             "" +
             "SELECT tab2.device_id, tab2.stdate, tab2.enddate, ((MAX(tab2.data) - MIN(tab2.data)) * 2) ydata FROM (" +
-            "SELECT device_id, tab1.stdate, tab1.enddate, `data`  FROM data_3m_1 d, " +
+            "SELECT device_id, tab1.stdate, tab1.enddate, `data`  FROM "+tabName+" d, " +
             "(" +
             "SELECT CAST(CONCAT(tab.dt, ' ', 30min_range) AS DATETIME) stdate, " +
             "DATE_ADD(CAST(CONCAT(tab.dt, ' ', 30min_range) AS DATETIME), INTERVAL '29:59' MINUTE_SECOND) enddate FROM (" +
-            "SELECT DISTINCT DATE(time) dt FROM data_3m_1 d " +
+            "SELECT DISTINCT DATE(time) dt FROM "+tabName+" d " +
             "WHERE device_id = " + deviceId +
             " AND address_map = 512 " +
             " AND time BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' " +
@@ -144,7 +178,7 @@ public class DataAccessServlet extends HttpServlet {
 	    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	    while (rs.next()) {
                 realDate = rs.getTimestamp("time");
-                //System.out.println("djklsd---sck--" + realDate);
+              //  System.out.println("djklsd---sck--" + realDate);
                 if(rs.getRow() == 1) {
                     prevDate = realDate;
                 }
@@ -156,50 +190,50 @@ public class DataAccessServlet extends HttpServlet {
                 try {
                     if(rs.next()){
                         nextDate = rs.getTimestamp("time");
-                        System.out.println("---curr date--" + realDate);
-                        System.out.println("--next date--" + nextDate);
+                        //System.out.println("---curr date--" + realDate);
+                       // System.out.println("--next date--" + nextDate);
                         rs.previous();
                     } 
                     
                 diff = nextDate.getTime() - realDate.getTime();
-                    System.out.println("-- dd  --- " + diff);
+                    //System.out.println("-- dd  --- " + diff);
                 diffSeconds = diff / 1000 % 60;
                 diffMinutes = diff / (60 * 1000) % 60;         
                 diffHours = diff / (60 * 60 * 1000) % 60; 
                 if(diffSeconds < 10) {
-                    System.out.println("---diffSeconds--" + diffSeconds);
+                    //System.out.println("---diffSeconds--" + diffSeconds);
                     diffSec = "0" + diffSeconds;
-                    System.out.println("dfscnd--" + diffSec);
+                    //System.out.println("dfscnd--" + diffSec);
                 }
                 else{
                     diffSec = Long.toString(diffSeconds);
-                    System.out.println("dfscnd--" + diffSec);
+                    //System.out.println("dfscnd--" + diffSec);
                 }
                 
                  if(diffMinutes < 10) {
-                    System.out.println("---diffMinutes--" + diffMinutes);
+                    //System.out.println("---diffMinutes--" + diffMinutes);
                     diffMin = "0" + diffMinutes;
-                    System.out.println("diffMin--" + diffMin);
+                    //System.out.println("diffMin--" + diffMin);
                 }
                  
                  else{
                     diffMin = Long.toString(diffMinutes);
-                    System.out.println("diffMin--" + diffMin);
+                    //System.out.println("diffMin--" + diffMin);
                 }
                 
                  if(diffHours < 10) {
-                    System.out.println("---diffHours--" + diffHours);
+                   // System.out.println("---diffHours--" + diffHours);
                     diffHou = "0" + diffHours;
-                    System.out.println("diffHou--" + diffHou);
+                   // System.out.println("diffHou--" + diffHou);
                 }
                  
                  else{
                     diffHou = Long.toString(diffHours);
-                    System.out.println("diffHou--" + diffHou);
+                    //System.out.println("diffHou--" + diffHou);
                 }
                 
                 date1=diffHou+":"+diffMin+":"+diffSec;
-                System.out.println("--difff----" + date1);
+                //System.out.println("--difff----" + date1);
                 
                 } catch(SQLException sqe) {}
                 json.put("nd", format.format(nextDate));	
@@ -211,7 +245,7 @@ public class DataAccessServlet extends HttpServlet {
                 
 	    }
 	    out.println(jsonArray.toString());
-            System.out.println("----json---" + jsonArray.toString());
+            //System.out.println("----json---" + jsonArray.toString());
             
            
 	    

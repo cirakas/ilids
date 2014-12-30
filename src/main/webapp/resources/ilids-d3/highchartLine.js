@@ -21,20 +21,41 @@ jq.getJSON(servlet1, function (data) {
     
     jq('#powGraph').highcharts({
         chart: {
+             events: {
+            load: function(){
+            this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
+         }
+     },
             type: 'spline',
             zoomType: 'x'
+           
+            
            // enableDoubleClickZoomTo: true
             //eventType: "mouseWheel"
         },
         
         
-        plotOptions: {
-                candlestick: {
-                    dataGrouping: {
-                        enabled: false   
-                    }
-                }
-            },
+        
+//                candlestick: {
+//                    dataGrouping: {
+//                        enabled: false   
+//                    }
+//                }
+                    plotOptions: {
+                        series: {
+                            stickyTracking: false,
+                            events: {
+                                click: function(evt) {
+                                    this.chart.myTooltip.refresh(evt.point, evt);
+                                },
+                                mouseOut: function() {
+                                    this.chart.myTooltip.hide();
+                                }                       
+                            }           
+                        }
+                    },
+
+            
               rangeSelector : {
                 buttons: [{
                     type: 'hour',
@@ -83,14 +104,17 @@ jq.getJSON(servlet1, function (data) {
             title: {
                 text: 'Current (A)'
             },
-            min: 0
+            min: 70,
+			tickInterval: 15
         },
         tooltip: {
-            
+            enabled: false,
 //            crosshairs: true,
 //                shared: true,
             headerFormat: '<b>{series.name}</b><br>',
-            pointFormat: '{point.x:%e. %b %Hhrs}: {point.y:.2f} A'
+            pointFormat: '{point.x:%e. %b %Hhrs}: {point.y:.2f} A',
+			followPointer: false,  // this is already the default, it's just to stress what's said in commit comments and make code "speak"
+			followTouchMove: false,
         },
         
         
@@ -98,13 +122,16 @@ jq.getJSON(servlet1, function (data) {
             
             name: 'Phase1 Current',
             
-            data: dataset1
+            data: dataset1,
+			enableMouseTracking: false
         }, {
             name: 'Phase2 Current',
-            data: dataset2
+            data: dataset2,
+			enableMouseTracking: false
         }, {
             name: 'Phase3 Current',
-            data: dataset3
+            data: dataset3,
+			enableMouseTracking: false
         }
         
     
