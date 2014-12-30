@@ -18,7 +18,7 @@ public class oneHourInterval {
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/ilidskims_nov14";
+    static final String DB_URL = "jdbc:mysql://192.168.1.50:3306/ilidskims_nov14";
 
     // Database credentials
     static final String USER = "root";
@@ -33,6 +33,21 @@ public class oneHourInterval {
      */
     @SuppressWarnings("unchecked")
     public static void main(String[] args) throws InterruptedException, ClassNotFoundException, SQLException {
+       String ipdate;
+        if(args.length == 0){
+            ipdate = "CURRENT_DATE()";
+        }
+        else{
+            ipdate = args[0];
+            System.out.println("Date you entered is: " + ipdate );
+        }
+        
+         oneHourInterval obj = new oneHourInterval();
+         obj.query(ipdate);
+    } 
+    
+    @SuppressWarnings("unchecked")
+    private void query(String idate) throws InterruptedException, ClassNotFoundException, SQLException {
         Connection conn = null;
         // Declare PreparedStatement Objects
         PreparedStatement deviceStmt = null;
@@ -84,7 +99,7 @@ public class oneHourInterval {
                 + "\n"
                 + "SELECT tab.*,`1hr_range`, DATE_ADD(`1hr_range`, INTERVAL '59:59' MINUTE_SECOND) enddate FROM (\n"
                 + "\n"
-                + "SELECT '2014-11-15' cd) tab ,`time_minute_range` WHERE `1hr_range` IS NOT NULL) tab1\n"
+                + "SELECT "+idate+" cd) tab ,`time_minute_range` WHERE `1hr_range` IS NOT NULL) tab1\n"
                 + "WHERE `1hr_range` BETWEEN tab1.1hr_range AND tab1.enddate) tab2 ) \n"
                 + "tab3 \n"
                 + "WHERE d.time BETWEEN tab3.stdate AND tab3.enddate AND d.device_id = ? AND d.address_map = ?) \n"
