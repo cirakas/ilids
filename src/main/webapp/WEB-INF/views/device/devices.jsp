@@ -3,6 +3,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
+
+
 
 <script type="text/javascript">
 //Edit devices    
@@ -28,7 +32,7 @@
         document.getElementById('name').value = "";
         document.getElementById('slaveId').value = "";
         document.getElementById('deviceZoneId').value = "";
-         document.getElementById('used').value=0;
+        document.getElementById('used').value = 0;
     }
 
 //Confirm delete
@@ -55,13 +59,13 @@
 
 </script>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" style="padding-left: 235px;">
         <h1><spring:message code="label.deviceManagement" /></h1>
     </div>
 </div><!-- /.row -->
 
 <!-- Button trigger modal -->
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-top: 30px;">
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddDevices()">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
@@ -83,9 +87,9 @@
                     <div class="form-group"><label><spring:message code="label.deviceId" /><span class="mandatory" style="color: red"> *</span> :</label><form:input path="slaveId" class="form-control required name" placeholder="Slave Id" required="required"/></div>
                     <div class="form-group"><label><spring:message code="label.zone" /></label><form:select class="form-control" path="deviceZoneId" items="${deviceZones}" itemLabel="name" itemValue="id" multiple="false" /></div>
                     <div class="form-group"><label><spring:message code="label.used" /></label><form:select class="form-control" path="used" id="used" multiple="false" ><form:option label="NO" value="0"></form:option><form:option label="YES" value="1"></form:option></form:select></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.close" /></button>
                     <form:button class="btn btn-primary" id="btn-save"><spring:message code="label.saveChanges" /></form:button>
                     </div>
             </form:form>
@@ -93,7 +97,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-right: 20px; padding-top: 0px">
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
@@ -101,7 +105,7 @@
                     <th><spring:message code="label.name" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.deviceId" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.zoneName" /> <i class="fa fa-sort"></i></th>
-                     <th><spring:message code="label.used" /> <i class="fa fa-sort"></i></th>
+                    <th><spring:message code="label.used" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.edit" /> <i class="fa fa-sort"></i></th>
                     <th><spring:message code="label.delete" /> <i class="fa fa-sort"></i></th>
                 </tr>
@@ -129,4 +133,30 @@
         </table>
     </div>
 </div><!-- /.row -->
+<div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
+    <c:url value="/systemsettings" var="sysurl"/>
+    <security:authorize access="isAuthenticated()">
+        <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
+            <c:forEach var="menuIdList" items="${menuIdList}" >
+                <c:if test="${menuIdList=='1'}">
+                    <li><a href="<c:url value="/energy"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Dashboard<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='3'}">
+                    <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Devices<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='9'}">
+                    <li><a href="<c:url value="/devicezones"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Device Zone<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='7'}">
+                    <li><a href="<c:url value="/add"/>"><i class=""><img src="/ilids/resources/images/notes_1.png"></i>&nbsp; Notes<div class="active_arrow"></div></a></li>
+                            </c:if>   
 
+
+                <c:if test="${menuIdList=='10'}">
+                    <li><a href="<c:url value="/charts"/>"><i class=""><img src="/ilids/resources/images/chart_1.png"></i>&nbsp; Charts<div class="active_arrow"></div></a></li>
+                            </c:if>
+
+            </c:forEach>
+        </ul>
+    </security:authorize>
+</div>

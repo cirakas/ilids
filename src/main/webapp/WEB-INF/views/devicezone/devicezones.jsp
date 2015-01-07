@@ -3,6 +3,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
+
+
+
 <script type="text/javascript">
 //Add device zone
     function onClickAddDeviceZone() {
@@ -53,13 +58,13 @@
 
 </script>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" style="padding-left: 235px;">
         <h1><spring:message code="label.zoneManagement" /></h1>
     </div>
 </div><!-- /.row -->
 
 <!-- Button trigger modal -->
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-top: 30px;">
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddDeviceZone()">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
@@ -89,7 +94,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-right: 20px;">
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
@@ -121,3 +126,30 @@
         </table>
     </div>
 </div><!-- /.row -->
+<div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
+    <c:url value="/systemsettings" var="sysurl"/>
+    <security:authorize access="isAuthenticated()">
+        <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
+            <c:forEach var="menuIdList" items="${menuIdList}" >
+                <c:if test="${menuIdList=='1'}">
+                    <li><a href="<c:url value="/energy"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Dashboard<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='3'}">
+                    <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Devices<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='9'}">
+                    <li><a href="<c:url value="/devicezones"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Device Zone<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='7'}">
+                    <li><a href="<c:url value="/add"/>"><i class=""><img src="/ilids/resources/images/notes_1.png"></i>&nbsp; Notes<div class="active_arrow"></div></a></li>
+                            </c:if>   
+
+
+                <c:if test="${menuIdList=='10'}">
+                    <li><a href="<c:url value="/charts"/>"><i class=""><img src="/ilids/resources/images/chart_1.png"></i>&nbsp; Charts<div class="active_arrow"></div></a></li>
+                            </c:if>
+
+            </c:forEach>
+        </ul>
+    </security:authorize>
+</div>

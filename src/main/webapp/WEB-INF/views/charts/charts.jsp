@@ -3,10 +3,56 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
+
+<div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
+    <c:url value="/systemsettings" var="sysurl"/>
+    <security:authorize access="isAuthenticated()">
+        <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
+            <c:forEach var="menuIdList" items="${menuIdList}" >
+                <c:if test = "${selection == 'EMeter'}">
+                    <c:if test="${menuIdList=='1'}">
+                        <li><a href="<c:url value="/energy"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Dashboard<div class="active_arrow"></div></a></li>
+                                </c:if>
+                                <c:if test="${menuIdList=='3'}">
+                        <li><a href="<c:url value="/devices"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Devices<div class="active_arrow"></div></a></li>
+                                </c:if>
+                                <c:if test="${menuIdList=='9'}">
+                        <li><a href="<c:url value="/devicezones"/>"><i class=""><img src="/ilids/resources/images/mbl_1.png"></i>&nbsp; Device Zone<div class="active_arrow"></div></a></li>
+                                </c:if>
+                                <c:if test="${menuIdList=='7'}">
+                        <li><a href="<c:url value="/add"/>"><i class=""><img src="/ilids/resources/images/notes_1.png"></i>&nbsp; Notes<div class="active_arrow"></div></a></li>
+                                </c:if>   
+
+
+                    <c:if test="${menuIdList=='10'}">
+                        <li><a href="<c:url value="/charts"/>"><i class=""><img src="/ilids/resources/images/chart_1.png"></i>&nbsp; Charts<div class="active_arrow"></div></a></li>
+                                </c:if>
+                            </c:if>
+
+                <c:if test = "${selection == 'TMeter'}">
+                    <c:if test="${menuIdList=='2'}">
+                        <li><a href="<c:url value="/thermal"/>"><i class=""><img src="/ilids/resources/images/notes_1.png"></i>&nbsp; Dashboard<div class="active_arrow"></div></a></li>
+                                </c:if>  
+                                <c:if test="${menuIdList=='7'}">
+                        <li><a href="<c:url value="/add"/>"><i class=""><img src="/ilids/resources/images/notes_1.png"></i>&nbsp; Notes<div class="active_arrow"></div></a></li>
+                                </c:if>   
+
+
+                    <c:if test="${menuIdList=='10'}">
+                        <li><a href="<c:url value="/charts"/>"><i class=""><img src="/ilids/resources/images/chart_1.png"></i>&nbsp; Charts<div class="active_arrow"></div></a></li>
+                                </c:if>
+                            </c:if>
+
+            </c:forEach>
+        </ul>
+    </security:authorize>
+</div>
 
 <script type="text/javascript">
 
-(function() {
+    (function() {
         var ga = document.createElement('script');
         ga.type = 'text/javascript';
         ga.async = true;
@@ -14,7 +60,7 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
-    
+
     var phaseParams;
     var fromDateParams;
     var toDateParams;
@@ -24,27 +70,82 @@
     var toMinutesParams;
     var deviceParams;
     <%
-    String phValue = request.getParameter("fromDate");
-    if( phValue == null || "".equals(phValue)) {%>
-    phaseParams = readCookie('phase');
-    fromDateParams = readCookie('start');
-    toDateParams = readCookie('end');
-    fromHoursParams = readCookie('frHours');
-    fromMinutesParams = readCookie('frMinutes');
-    toHoursParams = readCookie('tHours');
-    toMinutesParams = readCookie('tMinutes');
-    deviceParams = readCookie('deviceId');
+        String admap = request.getParameter("phase");
+        String divId = request.getParameter("deviceId");
+        String fromDt = request.getParameter("fromDate");
+        String fromHr = request.getParameter("fromHours");
+        String fromMin = request.getParameter("fromMinutes");
+        String toDt = request.getParameter("toDate");
+        String toHr = request.getParameter("toHours");
+        String toMin = request.getParameter("toMinutes");
+        Cookie[] cookies = request.getCookies();
+        //String phValue = request.getParameter("fromDate");
+        if (fromDt == null || divId == null) {
+            if (cookies != null) {
+                System.out.println("cookie not null----length" + cookies.length);
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("amap")) {
+                        admap = cookie.getValue();
+                        System.out.println("admap---" + admap);
+                    }
+                    if (cookie.getName().equals("did")) {
+                        divId = cookie.getValue();
+                        System.out.println("divId---" + divId);
+                    }
+
+                    if (cookie.getName().equals("fDate")) {
+                        fromDt = cookie.getValue();
+                        System.out.println("fromDt---" + fromDt);
+                    }
+
+                    if (cookie.getName().equals("fHour")) {
+                        fromHr = cookie.getValue();
+                        System.out.println("fromHr---" + fromHr);
+                    }
+
+                    if (cookie.getName().equals("fMin")) {
+                        fromMin = cookie.getValue();
+                        System.out.println("fromMin---" + toMin);
+                    }
+
+                    if (cookie.getName().equals("toDt")) {
+                        toDt = cookie.getValue();
+                        System.out.println("toDt---" + toDt);
+                    }
+
+                    if (cookie.getName().equals("toHr")) {
+                        toHr = cookie.getValue();
+                        System.out.println("toHr---" + toHr);
+                    }
+
+                    if (cookie.getName().equals("toMin")) {
+                        toMin = cookie.getValue();
+                        System.out.println("toMin---" + toMin);
+                    }
+
+                }
+            }
+
+    %>
+    //var phaseParam = "<%=admap%>";
+    fromDateParams = "<%=fromDt%>";
+    toDateParams = "<%=toDt%>";
+    fromHoursParams = "<%=fromHr%>";
+    fromMinutesParams = "<%=fromMin%>";
+    toHoursParams = "<%=toHr%>";
+    toMinutesParams = "<%=toMin%>";
+    deviceParams = "<%=divId%>";
     <%} else {%>
-    phaseParams = "<%=request.getParameter("")%>";
-    fromDateParams ="<%=request.getParameter("fromDate")%>";
+    // phaseParams = "<%=request.getParameter("")%>";
+    fromDateParams = "<%=request.getParameter("fromDate")%>";
     toDateParams = "<%=request.getParameter("toDate")%>";
-    fromHoursParams ="<%=request.getParameter("fromHours")%>";
+    fromHoursParams = "<%=request.getParameter("fromHours")%>";
     fromMinutesParams = "<%=request.getParameter("fromMinutes")%>";
-    toHoursParams ="<%=request.getParameter("toHours")%>";
-    toMinutesParams ="<%=request.getParameter("toMinutes")%>";
+    toHoursParams = "<%=request.getParameter("toHours")%>";
+    toMinutesParams = "<%=request.getParameter("toMinutes")%>";
     deviceParams = "<%=request.getParameter("deviceId")%>";
-   <%}%>
-    
+    <%}%>
+
     if (!fromDateParams) {
         fromDateParams = new Date().toLocaleDateString();//"7/20/2014"
     }
@@ -68,9 +169,9 @@
     }
 
     var servlet1 = "ChartDataServlet?fromDates=" + fromDateParams + "&fromHourss=" + fromHoursParams + "&fromMinutess=" + fromMinutesParams + "&toDates=" + toDateParams + "&toHourss=" + toHoursParams + "&toMinutess=" + toMinutesParams + "&deviceIds=" + deviceParams;
-     function selectFunction()
+    function selectFunction()
     {
-      
+
         var devices = document.getElementById("deviceLists").value;
         var fromDates = document.getElementById("SelectedDates").value;
         var toDates = document.getElementById("SelectedDates1").value;
@@ -84,13 +185,13 @@
             alert("end date should not be less than start date");
         }
         else {
-          //  document.cookie = "phase=" + "6" + " " + "start=" + fromDates + " " + "end=" + toDates + " " + "frHours=" + "00" + " " + "frMinutes=" + "00" + " " + "tHours=" + "23" + " " + "tMinutes=" + "59" + " " + "deviceId=" + devices+ " " + "starts=" + fromDates + " " + "ends=" + toDates + " " + "frHourss=" + fromHourss + " " + "frMinutess=" + fromMinutess + " " + "tHourss=" + toHourss + " " + "tMinutess=" + toMinutess + " " + "deviceIds=" + devices;
-         //   document.cookie = "cnames=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            //  document.cookie = "phase=" + "6" + " " + "start=" + fromDates + " " + "end=" + toDates + " " + "frHours=" + "00" + " " + "frMinutes=" + "00" + " " + "tHours=" + "23" + " " + "tMinutes=" + "59" + " " + "deviceId=" + devices+ " " + "starts=" + fromDates + " " + "ends=" + toDates + " " + "frHourss=" + fromHourss + " " + "frMinutess=" + fromMinutess + " " + "tHourss=" + toHourss + " " + "tMinutess=" + toMinutess + " " + "deviceIds=" + devices;
+            //   document.cookie = "cnames=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
             var myURL1 = window.location.protocol + "//" + window.location.host + window.location.pathname;
             document.location = myURL1 + "?fromDate=" + fromDates + "&fromHours=" + fromHourss + "&fromMinutes=" + fromMinutess + "&toDate=" + toDates + "&toHours=" + toHourss + "&toMinutes=" + toMinutess + "&deviceId=" + devices;
         }
     }
-    
+
     function getQueryVariable(variable)
     {
         var query = window.location.search.substring(1);
@@ -116,11 +217,11 @@
         }
         return cs;
     }
-    
-    
- </script>   
- 
- <script language="JavaScript" src="${resources}ilids-template/js/htmlDatePicker.js" type="text/javascript"></script>
+
+
+</script>   
+
+<script language="JavaScript" src="${resources}ilids-template/js/htmlDatePicker.js" type="text/javascript"></script>
 <link href="${resources}ilids-template/css/htmlDatePicker.css" rel="stylesheet" />
 <link rel="stylesheet" href="${resources}ilids-template/css/jquery.amaran.min.css">
 <link rel="stylesheet" href="${resources}ilids-template/css/all-themes.css">
@@ -137,7 +238,7 @@
 
 
 <style>    
-        body {
+    body {
         font: 14px sans-serif;
         outline: none!important;
     }
@@ -196,27 +297,27 @@
     .focus circle.y0 {
         stroke: #F2700D;
         stroke-width: 2;
-        
+
     }
 
     .focus circle.y1 {
         stroke: #F2700D;
         stroke-width: 2;
     }
-    
+
     .focus text.y0 {
         stroke: red;
         stroke-width: 2;
-         position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 28px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: green;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;
+        position: absolute;			
+        text-align: center;			
+        width: 60px;					
+        height: 28px;					
+        padding: 2px;				
+        font: 12px sans-serif;		
+        background: green;	
+        border: 0px;		
+        border-radius: 8px;			
+        pointer-events: none;
     }
 
     .focus line {
@@ -256,7 +357,7 @@
         cursor: move;
         fill: none;
         pointer-events: all;
-        
+
     }
 
     .axis path {
@@ -281,26 +382,26 @@
         font-weight: bold;
     }
 
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 28px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
-}
+    div.tooltip {	
+        position: absolute;			
+        text-align: center;			
+        width: 60px;					
+        height: 28px;					
+        padding: 2px;				
+        font: 12px sans-serif;		
+        background: lightsteelblue;	
+        border: 0px;		
+        border-radius: 8px;			
+        pointer-events: none;			
+    }
 
 
 
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
+    .d3-tip.n:after {
+        margin: -1px 0 0 0;
+        top: 100%;
+        left: 0;
+    }
 
 
     .power-factor{
@@ -309,7 +410,7 @@ div.tooltip {
         width: 220px;
         padding: 5px 0;
         text-align: center;
-/*        color: #fff;*/
+        /*        color: #fff;*/
     }
     .power-factor-panel{
         margin-left: 4px;
@@ -322,14 +423,14 @@ div.tooltip {
         font-weight: bold;
         /*    border:1px solid #14a164;*/
         background-image: linear-gradient(#2bc2ba, #27beb6 60%, #1FB5AD);
-/*        background:#1FB5AD;*/
+        /*        background:#1FB5AD;*/
         border-bottom: 2px solid #14a199;
         filter: none;
     }
     .announce_text_11{word-break:break-all;}
     .panel-heading1{padding: 0;}
 
-    
+
 
     .graph_heading{
         /*   background-color: #f6b54e!important;*/
@@ -358,20 +459,20 @@ div.tooltip {
                      box-shadow: 0px 0px 5px #fbee9c inset;
     }
     .success_{width: 100%;border:1px solid #14a164;border:none!important;float: left!important;background:#79d3ac;
-                      box-shadow: 0px 0px 10px #e5e5e5;
-                      
-/*              background:#c5e4a3;*/
-                background:#fff;
-                
-                
-/*                background: url(/ilids/resources/images/right_bulb_bg.png);*/
+              box-shadow: 0px 0px 10px #e5e5e5;
+
+              /*              background:#c5e4a3;*/
+              background:#fff;
+
+
+              /*                background: url(/ilids/resources/images/right_bulb_bg.png);*/
     }
-    
+
     .image-bg{border: 1px solid #dde0e0!important;border-radius: 4px 4px 0 0;border-bottom: none!important;box-shadow: 0px 0px 5px #dfdfdf inset;
               background-image: radial-gradient(#fff, #ebeded 50%, #fff);
     }
-    
-    
+
+
     .panel_1{
         -webkit-transition: all 0.2s ease-in-out; /* For Safari 3.1 to 6.0 */
         -moz-transition: all 0.2s ease-in-out;
@@ -409,47 +510,47 @@ div.tooltip {
     .right_bg{width: 21%;float: right;/*padding: 12px 0 12px 15px;background: #f1f2f2;*/ margin-right: 15px;}
     .graph_bg{width:77.1%;padding-right: 0;float: left;/*background: #ececeb;*/padding:0 15px;border-radius: 5px;}
     .row_date_bg{ margin: 5px 0 20px;padding: 10px 15px;
-/*                background: #e8e9ea; background: url(/ilids/resources/images/bg_default1.jpg);*/
+                  /*                background: #e8e9ea; background: url(/ilids/resources/images/bg_default1.jpg);*/
     }
-    
+
     .power-factor-warning{padding: 4px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
-                     /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
-                     background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #fe9272 !important; border: 1px solid #e0623d;
-                     filter: none;color:#9b3618!important;box-shadow: 0px 0px 5px #e46742 inset;}
+                          /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
+                          background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #fe9272 !important; border: 1px solid #e0623d;
+                          filter: none;color:#9b3618!important;box-shadow: 0px 0px 5px #e46742 inset;}
     .power-factor-success{padding: 4px 0;/*background: #ee6369;*/margin-left: 0;margin-bottom: 8px;width: 100%;float: left;border:none;border-radius:3px!important;
-                     /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
-                     background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #c7d789 !important; border: 1px solid #a1b650;
-                     filter: none;color:#5e7506!important;box-shadow: 0px 0px 5px #a9bd5a inset;}
+                          /*border-left: 3px solid #be7611;*/ background: #e6ad2d;color: #f00!important;
+                          background-image: linear-gradient(#f98d49, #e0722c 70%, #c76120)!important;background: #c7d789 !important; border: 1px solid #a1b650;
+                          filter: none;color:#5e7506!important;box-shadow: 0px 0px 5px #a9bd5a inset;}
     .bulb_{margin: 0 auto;width: 130px;}
 
 
-@media all and (max-width: 1280px) and (min-width: 1120px){
-    .right_bg{float: right;width: 30%;padding:0px 16px;margin-right: 0;}
-    .graph_bg{width:70%;}
+    @media all and (max-width: 1280px) and (min-width: 1120px){
+        .right_bg{float: right;width: 30%;padding:0px 16px;margin-right: 0;}
+        .graph_bg{width:70%;}
 
         .drop_down_bg,.drop_down_bg1{width: 15.6%;}
         .from_to_bg{padding-left: 0px;margin-left:1%; float: left;}
         .form-group1,.form-group2{width:100%!important;float: left;}
-        
-        
+
+
         .input_min_bg{margin-left: 5px;float: left;width: auto;padding: 0!important;}
         .input_{width: auto;}
-        
+
         .select_bg_11{float:left;}
         .select_bg_12{float:left;margin-left: 10px;}
-        
+
         .proceed_bg{float: right;margin-left: 10px;}
         .input_{margin-left: 0;}
-        
+
         .row_date_bg{padding-right:15px;padding-left:15px;}
         .bulb_{width: 115px;}
-        
-}
+
+    }
 
     @media all and (max-width: 1119px) and (min-width: 768px){
         .graph_bg{width:100%;}
         .right_bg{float: right;width: 100%;padding:0px 16px;margin-top: 20px;margin-right:0px;}
-        
+
         .drop_down_bg,.drop_down_bg1{width: 48.3%;}
         .drop_down_bg1{float: right;}
         .from_to_bg{width: 100%;padding-left: 0px;margin-top:15px; float: left;}
@@ -461,7 +562,7 @@ div.tooltip {
         .select_bg_12{margin-left: 4%;}
         .proceed_bg{float: right;margin-top: 28px;}
     }
-    
+
     @media all and (max-width: 767px) and (min-width: 150px){
         .graph_bg{width:100%;}
         .right_bg{float: right;width: 100%;padding:0px 16px;margin-top: 20px;margin-right:0px;}
@@ -499,10 +600,10 @@ div.tooltip {
     }
 
 </style> 
- 
- 
-    <div class="row row_date_bg" style="">
-        
+
+
+<div class="row row_date_bg" style="width:100%; padding-left: 230px;">
+
     <div class="col-lg-3 drop_down_bg" style="padding: 0;float: left;">
         <div class="form-group form-group1" style="float: left;" >               
             <form:form method="post" modelAttribute="deviceModel">                         
@@ -514,9 +615,9 @@ div.tooltip {
             </form:form>
         </div>
     </div> 
-        
- <div class=" from_to_bg">
-        
+
+    <div class=" from_to_bg">
+
         <div class="select_bg_11" style="">
             <label style="color:#5c5b5b;float: left;margin-top: 9px;">FROM</label>
             <div class="input_min_bg" style="float: left;">
@@ -569,7 +670,7 @@ div.tooltip {
             <label class="to_" style="color:#5c5b5b;float: left;margin-top: 9px;">TO</label>
             <div  class="input_min_bg input_11" >
                 <!--<input type="button" name="SelectedDate" class="input_" id="SelectedDate1" readonly onClick="GetDate(this);" value=""  />-->                 
-               <input type="text" class=" input_" name="SelectedDates1" id="SelectedDates1" readonly value="">
+                <input type="text" class=" input_" name="SelectedDates1" id="SelectedDates1" readonly value="">
                 <div class="min_bg">
                     <select class="form-control" id="to-hourss" value="" style="height:32px;padding:3px;">
                         <option value="00">00</option>
@@ -611,16 +712,16 @@ div.tooltip {
                 </div>
             </div>
         </div>
-        
+
         <div class="proceed_bg" style=""> 
             <input type="submit" class="proceed_" value="Proceed" onClick="selectFunction()"/>
         </div> 
-        </div>       
-        
-     
- </div>
+    </div>       
 
-<div class="row" style="margin-bottom: 0;">
+
+</div>
+
+<div class="row" style="margin-bottom: 0;padding-left: 235px;">
     <div class="col-lg-6 graph_bg">
         <div class="panel panel-primary panel_1" style="">
             <div class="panel-heading graph_heading">
@@ -639,7 +740,7 @@ div.tooltip {
 </div>
 
 <tbody>
-<!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
+    <!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
 <script src="${resources}ilids-d3/js/highcharts_1.js"></script>
 <!--<script src="http://code.highcharts.com/stock/highstock.js"></script>-->
 <script src="https://rawgithub.com/RolandBanguiran/highstock-zoom-out-selection/master/zoomout-selection.js"></script>
@@ -647,7 +748,7 @@ div.tooltip {
 <script type="text/javascript" src="${resources}ilids-d3/js/d3.js" charset="utf-8"></script>
 <script type="text/javascript" src="${resources}ilids-d3/highchartLine.js"></script>
 
-<script type="text/javascript">      
+<script type="text/javascript">
     document.getElementById("SelectedDates").value = fromDateParams;
     document.getElementById("SelectedDates1").value = toDateParams;
     document.getElementById("from-hourss").value = fromHoursParams;
@@ -667,14 +768,14 @@ div.tooltip {
     }
     document.getElementById("deviceLists").selectedIndex = index;
     index = 0;
-    
+
     jq(function() {
-        jq( "#SelectedDates" ).datepicker({
-            onSelect: function(selectedDates) {                
-                jq( "#SelectedDates1" ).datepicker("option", "minDate", selectedDates);
+        jq("#SelectedDates").datepicker({
+            onSelect: function(selectedDates) {
+                jq("#SelectedDates1").datepicker("option", "minDate", selectedDates);
             }
         });
-        jq( "#SelectedDates1" ).datepicker({minDate: fromDateParams});
-  });
-  //alert(Date.UTC(2014,11,15,00,03,26,00));
+        jq("#SelectedDates1").datepicker({minDate: fromDateParams});
+    });
+    //alert(Date.UTC(2014,11,15,00,03,26,00));
 </script>

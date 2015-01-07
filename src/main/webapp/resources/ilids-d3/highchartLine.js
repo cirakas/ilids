@@ -123,15 +123,15 @@ jq.getJSON(servlet1, function (data) {
             name: 'Phase1 Current',
             
             data: dataset1,
-			enableMouseTracking: false
+			enableMouseTracking: true
         }, {
             name: 'Phase2 Current',
             data: dataset2,
-			enableMouseTracking: false
+			enableMouseTracking: true
         }, {
             name: 'Phase3 Current',
             data: dataset3,
-			enableMouseTracking: false
+			enableMouseTracking: true
         }
         
     

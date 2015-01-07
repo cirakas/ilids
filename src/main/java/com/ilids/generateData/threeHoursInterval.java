@@ -148,7 +148,6 @@ public class threeHoursInterval {
                     while (selectResult.next()) {
 
                         sdate3 = selectResult.getTimestamp(("stdate"));
-                        System.out.println("dddddddddd--" + sdate3);
                         //stdate = format.format(sdate);
                         edate3 = selectResult.getTimestamp(("enddate"));
                         //enddate = format.format(edate);
@@ -157,7 +156,6 @@ public class threeHoursInterval {
                         maxDat3 = df.format(selectResult.getFloat("maxdat"));
                         minDat3 = df.format(selectResult.getFloat("mindat"));
                         avg3 = df.format(selectResult.getFloat("avgdata"));
-                        System.out.println("hhhh--" + deviceId3);
 
                         updateStmt.setString(1, maxDat3);
                         updateStmt.setTimestamp(2, sdate3);
@@ -166,7 +164,6 @@ public class threeHoursInterval {
                         updateStmt.setTimestamp(5, sdate3);
                         updateStmt.setInt(6, 0);
                         int rows = updateStmt.executeUpdate();
-                        System.out.println("rowsss---" + rows);
 
                         updateStmt.setString(1, minDat3);
                         updateStmt.setTimestamp(2, sdate3);
@@ -175,7 +172,6 @@ public class threeHoursInterval {
                         updateStmt.setTimestamp(5, sdate3);
                         updateStmt.setInt(6, 1);
                         int rows2 = updateStmt.executeUpdate();
-                        System.out.println("rowsss2---" + rows2);
 
                         updateStmt.setString(1, avg3);
                         updateStmt.setTimestamp(2, sdate3);
@@ -184,7 +180,6 @@ public class threeHoursInterval {
                         updateStmt.setTimestamp(5, sdate3);
                         updateStmt.setInt(6, 2);
                         int rows3 = updateStmt.executeUpdate();
-                        System.out.println("rowsss1---" + rows3);
 
                         if (rows == 0) {
                             insertStmt.setInt(1, deviceId3);//deviceId1
@@ -193,7 +188,6 @@ public class threeHoursInterval {
                             insertStmt.setInt(4, addressMap3);//addressMap
                             insertStmt.setInt(5, 0);
                             int rowss1 = insertStmt.executeUpdate();
-                            System.out.println("insert3--" + rowss1);
                         }
 
                         if (rows2 == 0) {
@@ -203,7 +197,6 @@ public class threeHoursInterval {
                             insertStmt.setInt(4, addressMap3);//addressMap
                             insertStmt.setInt(5, 1);
                             int rowss2 = insertStmt.executeUpdate();
-                            System.out.println("insert3--" + rowss2);
                         }
 
                         if (rows3 == 0) {
@@ -213,7 +206,6 @@ public class threeHoursInterval {
                             insertStmt.setInt(4, addressMap3);//addressMap
                             insertStmt.setInt(5, 2);
                             int rowss3 = insertStmt.executeUpdate();
-                            System.out.println("insert3--" + rowss3);
                         }
 
                     } //while (selectResult.next()) {

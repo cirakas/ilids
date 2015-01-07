@@ -21,6 +21,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,32 +36,21 @@ public class ChartDataServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ParseException {
-        System.out.println("---inside the servlet---");
         response.setContentType("application/json");
-        System.out.println("------dd--------");
         String connectionUrl = ServerConfig.DB_TYPE + "//" + ServerConfig.DB_HOSTNAME + ":" + ServerConfig.DB_PORT + "/" + ServerConfig.DB_NAME;
-        System.out.println("---conn url----" + connectionUrl);
         String dbUserName = ServerConfig.DB_USERNAME;
-        System.out.println("---dbUserName----" + dbUserName);
         String dbPassword = ServerConfig.DB_PASS;
-        System.out.println("---dbPassword----" + dbPassword);
-        
+
         Connection connection = (Connection) DriverManager.getConnection(connectionUrl, dbUserName, dbPassword);
-        System.out.println("-connection--" + connection);
         Statement statement = (Statement) connection.createStatement();
-        System.out.println("-statement--" + statement);
-        String start = request.getParameter("fromDates");
-        System.out.println("startd date" + start);
-        String end = request.getParameter("toDates");
-        System.out.println("end date" + end);
+        String start1 = request.getParameter("fromDates");
+        String end1 = request.getParameter("toDates");
         String fromHours = request.getParameter("fromHourss");
         String fromMinutes = request.getParameter("fromMinutess");
         String toHours = request.getParameter("toHourss");
         String toMinutes = request.getParameter("toMinutess");
         String fromTime = fromHours + ":" + fromMinutes + ":00";
         String toTime = toHours + ":" + toMinutes + ":59";
-        System.out.println("--from time--" + fromTime);
-        System.out.println("--to time--" + toTime);
 
         String deviceId = request.getParameter("deviceIds");
 
@@ -68,8 +58,8 @@ public class ChartDataServlet extends HttpServlet {
         String toDateFormat = "yyyy-MM-dd";
         SimpleDateFormat parsePattern = new SimpleDateFormat(dateFormat);
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
-        start = parseFormat.format(parsePattern.parse(start));
-        end = parseFormat.format(parsePattern.parse(end));
+        String start = parseFormat.format(parsePattern.parse(start1));
+        String end = parseFormat.format(parsePattern.parse(end1));
 
         //String selectQuery = "SELECT time as data_time , data as real_data FROM data_3m_1 WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
         String selectQuery1
@@ -78,25 +68,21 @@ public class ChartDataServlet extends HttpServlet {
                 + "SECOND(`time`) as second FROM `data_3m_1` "
                 + "WHERE TIME BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' "
                 + "AND device_id = " + deviceId + " AND address_map = 6 ORDER BY time";
-        System.out.println("select query1---" + selectQuery1);
-        
-       
+
         String selectQuery2
                 = "SELECT device_id, address_map, data, YEAR(`time`) as year, MONTH(`time`) as month, "
                 + "DAY(`time`) as day, HOUR(`time`) as hour, MINUTE(`time`) as minute, "
                 + "SECOND(`time`) as second FROM `data_3m_1` "
                 + "WHERE TIME BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' "
                 + "AND device_id = " + deviceId + " AND address_map = 8 ORDER BY time";
-       System.out.println("select query2---" + selectQuery2);
-        
+
         String selectQuery3
                 = "SELECT device_id, address_map, data, YEAR(`time`) as year, MONTH(`time`) as month, "
                 + "DAY(`time`) as day, HOUR(`time`) as hour, MINUTE(`time`) as minute, "
                 + "SECOND(`time`) as second FROM `data_3m_1` "
                 + "WHERE TIME BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' "
                 + "AND device_id = " + deviceId + " AND address_map = 10 ORDER BY time";
-       System.out.println("select query3---" + selectQuery3);
-        
+
         PrintWriter out = response.getWriter();
 
         JSONArray jsonArray1 = new JSONArray();
@@ -106,96 +92,90 @@ public class ChartDataServlet extends HttpServlet {
         JSONArray jsonMainArray2 = new JSONArray();
         JSONArray jsonMainArray3 = new JSONArray();
         JSONObject json = new JSONObject();
-        ResultSet rs1=null;
-          ResultSet rs2=null;
-            ResultSet rs3=null;
+        ResultSet rs1 = null;
+        ResultSet rs2 = null;
+        ResultSet rs3 = null;
         try {
-            System.out.println("tryyy---");
             /* TODO output your page here. You may use following sample code. */
             // String pattern = "MM/dd/yyyy HH:mm:ss";
             DecimalFormat df = new DecimalFormat("#.##");
-           // SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-             rs1 = statement.executeQuery(selectQuery1);
+            // SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            rs1 = statement.executeQuery(selectQuery1);
             while (rs1.next()) {
-                System.out.println("---rs1--" + rs1.getInt("year"));
                 JSONObject js1 = new JSONObject();
-                js1.put("year" , rs1.getInt("year"));
-                js1.put("month" , rs1.getInt("month"));
-                js1.put("day" , rs1.getInt("day"));
-                js1.put("hour" , rs1.getInt("hour"));
-                js1.put("minute" , rs1.getInt("minute"));
-                js1.put("second" , rs1.getInt("second"));
-                js1.put("value1" , rs1.getFloat("data"));
+                js1.put("year", rs1.getInt("year"));
+                js1.put("month", rs1.getInt("month"));
+                js1.put("day", rs1.getInt("day"));
+                js1.put("hour", rs1.getInt("hour"));
+                js1.put("minute", rs1.getInt("minute"));
+                js1.put("second", rs1.getInt("second"));
+                js1.put("value1", rs1.getFloat("data"));
 //                jsonArray1 = new JSONArray();
 //                jsonArray1.put(js1);
                 //jsonArray1.put(0, rs1.getLong("time"));
                 //jsonArray1.put(0, "Date.UTC(2014,11,15,00,03,26,00)");                
                 //jsonArray1.put(1, rs1.getFloat("data"));
                 jsonMainArray1.put(js1);
-                
+
             }
             json.put("data1", jsonMainArray1);
- rs2 = statement.executeQuery(selectQuery2);
+            rs2 = statement.executeQuery(selectQuery2);
             while (rs2.next()) {
-                System.out.println(" rs2---" + rs2.getInt("year"));
                 JSONObject js2 = new JSONObject();
                 //js2.put("date2" , rs2.getLong("time"));
-                js2.put("year" , rs2.getInt("year"));
-                js2.put("month" , rs2.getInt("month"));
-                js2.put("day" , rs2.getInt("day"));
-                js2.put("hour" , rs2.getInt("hour"));
-                js2.put("minute" , rs2.getInt("minute"));
-                js2.put("second" , rs2.getInt("second"));
-                js2.put("value2" , rs2.getFloat("data"));
+                js2.put("year", rs2.getInt("year"));
+                js2.put("month", rs2.getInt("month"));
+                js2.put("day", rs2.getInt("day"));
+                js2.put("hour", rs2.getInt("hour"));
+                js2.put("minute", rs2.getInt("minute"));
+                js2.put("second", rs2.getInt("second"));
+                js2.put("value2", rs2.getFloat("data"));
 //                jsonArray2 = new JSONArray();
 //                jsonArray2.put(js2);
-               // jsonArray2.put(0, rs2.getLong("time"));
+                // jsonArray2.put(0, rs2.getLong("time"));
                 //jsonArray2.put(0, "Date.UTC(2014,11,15,00,03,26,00)"); 
                 //jsonArray2.put(1, rs2.getFloat("data"));
                 jsonMainArray2.put(js2);
-                
-                
+
             }
             json.put("data2", jsonMainArray2);
- rs3 = statement.executeQuery(selectQuery3);
+            rs3 = statement.executeQuery(selectQuery3);
             while (rs3.next()) {
-                System.out.println(" rs3---" + rs3.getInt("year"));
                 JSONObject js3 = new JSONObject();
-               // js3.put("date3" , rs3.getLong("time"));
-                
-                js3.put("year" , rs3.getInt("year"));
-                js3.put("month" , rs3.getInt("month"));
-                js3.put("day" , rs3.getInt("day"));
-                js3.put("hour" , rs3.getInt("hour"));
-                js3.put("minute" , rs3.getInt("minute"));
-                js3.put("second" , rs3.getInt("second"));
-                js3.put("value3" , rs3.getFloat("data"));
+                // js3.put("date3" , rs3.getLong("time"));
+
+                js3.put("year", rs3.getInt("year"));
+                js3.put("month", rs3.getInt("month"));
+                js3.put("day", rs3.getInt("day"));
+                js3.put("hour", rs3.getInt("hour"));
+                js3.put("minute", rs3.getInt("minute"));
+                js3.put("second", rs3.getInt("second"));
+                js3.put("value3", rs3.getFloat("data"));
 //                jsonArray3 = new JSONArray();
 //                jsonArray3.put(js3);
                 //jsonArray3.put(0, rs3.getLong("time"));
-                 //sonArray3.put(1, rs3.getFloat("data"));
+                //sonArray3.put(1, rs3.getFloat("data"));
                 jsonMainArray3.put(js3);
-               
-            }
-             json.put("data3", jsonMainArray3);
-            out.println(json.toString());
-            System.out.println("----json---" + json.toString());
 
-        }catch(SQLException sqe) {}
-         catch (Exception e) {
+            }
+            json.put("data3", jsonMainArray3);
+            out.println(json.toString());
+
+        } catch (SQLException sqe) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             out.close();
             if (rs1 != null) {
                 rs1.close();
             }
-             if (rs2 != null) {
+            if (rs2 != null) {
                 rs1.close();
             }
-              if (rs3 != null) {
+            if (rs3 != null) {
                 rs1.close();
             }
-            
+
             if (connection != null) {
                 connection.close();
             }

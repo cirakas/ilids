@@ -3,6 +3,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
+
+
+
 <script type="text/javascript">
     function onClickAddRoles() {
         var frm_elements = roleModel.elements;
@@ -48,7 +53,7 @@
             document.getElementById('btn-save').innerHTML = "Save Changes";
         });
     }
-    
+
 //role and check box validate
     function vaidateRoleCheckbox() {
         var val = true;
@@ -65,27 +70,27 @@
             if (data) {
                 div.style.display = "none";
                 for (var i = 0; i < frm_elements.length; i++) {
-            field_type = frm_elements[i].type.toLowerCase();
-            if (field_type === 'checkbox' && frm_elements[i].checked === true) {
-                flag = true;
-            }
+                    field_type = frm_elements[i].type.toLowerCase();
+                    if (field_type === 'checkbox' && frm_elements[i].checked === true) {
+                        flag = true;
+                    }
 
-        }
+                }
 
-        if (!flag) {
-            alert('Please select atleast one option');
-            return false;
-        }
-                
+                if (!flag) {
+                    alert('Please select atleast one option');
+                    return false;
+                }
+
                 document.getElementById("roleModel").submit();
 
             }
         });
-        
+
         return false;
-        
+
     }
-    
+
 //empty field check
     function emptyCheck() {
         var desc = document.getElementById('description');
@@ -109,11 +114,11 @@
 
 </script>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" style="padding-left: 235px;">
         <h1>Role Management</h1>
     </div>
 </div>
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-top: 30px;" >
     <div class="col-lg-6">
         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddRoles()">
             <span class="glyphicon glyphicon-plus"></span>
@@ -134,7 +139,7 @@
                     <div id="duplicateRole" style="display:none;">
                         <div style="color: tomato;"> 
                             <p style="margin-top:-10px; margin-bottom:20px;">Role already exist</p>
-                    </div> 
+                        </div> 
                     </div>
                     <div class="form-group"><label> Role Name <span class="mandatory" style="color: red"> *</span> :</label><form:input path="name" class="form-control required name" placeholder="Role name" required="required" /></div>
                     <div class="form-group"><label> Description <span class="mandatory" style="color: red"> *</span> : </label><form:input path="description" class="form-control required name" placeholder="Description" required="required" onblur="emptyCheck();"/></div>
@@ -148,14 +153,14 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <form:button class="btn btn-primary" id="btn-save" >Save</form:button>
                     </div>
-                    
+
             </form:form>
         </div>
     </div>
 </div>
 <br>
-<div class="row">
-    <div class="table-responsive">
+<div class="row" style="padding-left: 235px; padding-right: 20px;">
+    <div class="table-responsive" style="">
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
                 <tr>
@@ -187,4 +192,31 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
+    <c:url value="/systemsettings" var="sysurl"/>
+    <security:authorize access="isAuthenticated()">
+        <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
+            <c:forEach var="menuIdList" items="${menuIdList}" >
+                <c:if test="${menuIdList=='1'}">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_1.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
+                        <ul class="dropdown-menu" style="padding-bottom: 0;">
+                            <li><a href='<c:url value="/user"/>'>&nbsp;&nbsp;&nbsp; Users</a></li>
+                            <li style="border-bottom:none;"><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
+                        </ul>
+                    </li>
+                </c:if>
+                <c:if test="${menuIdList==2}">
+                    <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_1.png"></i>&nbsp; System Settings<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='6'}">
+                    <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_1.png"></i>&nbsp; E-mail/SMS Settings<div class="active_arrow"></div></a></li>
+                            </c:if>  
+                        </c:forEach>
+        </ul>
+    </li>-->
+</ul>
+</security:authorize>
 </div>

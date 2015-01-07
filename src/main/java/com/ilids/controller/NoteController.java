@@ -59,7 +59,7 @@ public class NoteController {
      *
      * @return
      */
-    @RequestMapping(value = "/note/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String show() {
 	getModuleName();
 	return "/note/add";
@@ -101,7 +101,7 @@ public class NoteController {
 		    "Note creation is failed [ Controller : ' " + this.getClass().toString() + " '@@ Method Name : 'add' ]");
 	}
 
-	return "redirect:/note/add";
+	return "redirect:/add";
     }
 
     /**
@@ -117,7 +117,7 @@ public class NoteController {
 	    exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,
 		    "Note deletion is failed [ Controller : ' " + this.getClass().toString() + " '@@ Method Name : 'delete' ]");
 	}
-	return "redirect:/note/add";
+	return "redirect:/add";
     }
 
     /**

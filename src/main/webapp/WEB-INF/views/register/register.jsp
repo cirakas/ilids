@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
 <h1>Register form</h1>
 <c:if test="${not empty success}">
 	<div class="alert alert-success">

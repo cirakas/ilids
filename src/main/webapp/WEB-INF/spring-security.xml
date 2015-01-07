@@ -55,7 +55,7 @@
 
 	<bean id="customAuthenticationSuccessHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"
-		p:defaultTargetUrl="/home" />
+		p:defaultTargetUrl="/options" />
 
 	<bean id="customAuthenticationFailureHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"
@@ -86,7 +86,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/ilidskims_nov14" />
 		<property name="username" value="root" />
-		<property name="password" value="password" />
+		<property name="password" value="" />
 	</bean>
 
 	<bean id="passwordEncoder"

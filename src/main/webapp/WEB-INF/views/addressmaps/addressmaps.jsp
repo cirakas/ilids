@@ -4,6 +4,8 @@
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
 <script type="text/javascript">
     function EditAddressMap(val){
        ajaxLink('/ilids/EditAddressMap', {'id': val}, 'viewDiv');

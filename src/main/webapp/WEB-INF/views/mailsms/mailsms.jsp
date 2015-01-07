@@ -3,6 +3,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
+
 
 <script type="text/javascript">
 
@@ -11,7 +14,7 @@
             document.getElementById('mailSmsModel').action = "saveMailSms/" + data.id;
             document.getElementById('mail').value = data.mail;
             document.getElementById('sms').value = data.sms;
-            document.getElementById('myModalLabel_mail_sms').innerHTML='Edit Mail and Sms';
+            document.getElementById('myModalLabel_mail_sms').innerHTML = 'Edit Mail and Sms';
         });
     }
 
@@ -27,7 +30,7 @@
         document.getElementById('mailSmsModel').action = "saveMailSms/";
         document.getElementById('mail').value = "";
         document.getElementById('sms').value = "";
-        document.getElementById('myModalLabel_mail_sms').innerHTML='Add Mail and Sms';
+        document.getElementById('myModalLabel_mail_sms').innerHTML = 'Add Mail and Sms';
         var div = document.getElementById("errorPost");
         div.style.display = "none";
         var div1 = document.getElementById("duplicateMailPost");
@@ -35,13 +38,13 @@
 
     }
 
-     function checkEmail() {
+    function checkEmail() {
         var email = document.getElementById('mail');
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var div = document.getElementById("errorPost");
         var div1 = document.getElementById("duplicateMailPost");
         var val = true;
-        
+
         if (!filter.test(email.value)) {
             div.style.display = "block";
             div1.style.display = "none";
@@ -50,8 +53,8 @@
         if (val) {
             $.post('/ilids/duplicateMailSms', {'mail': email.value}, function(data) {
                 if (!data) {
-                   div1.style.display = "block";
-                   val = false;
+                    div1.style.display = "block";
+                    val = false;
                 }
                 if (data) {
                     div1.style.display = "none";
@@ -77,7 +80,7 @@
 </script>
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" style="padding-left: 235px;">
         <h1><spring:message code="label.mainAndSmsManagement" /></h1>
         <!--            <ol class="breadcrumb">
                       <li class="active"><i class="fa fa-dashboard"></i> Users</li>
@@ -90,7 +93,7 @@
 </div><!-- /.row -->
 
 <!-- Button trigger modal -->
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-top: 30px;">
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddMailSms()">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
@@ -129,7 +132,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-right: 20px;">
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
@@ -161,3 +164,29 @@
         </table>
     </div>
 </div><!-- /.row -->
+<div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
+    <c:url value="/systemsettings" var="sysurl"/>
+    <security:authorize access="isAuthenticated()">
+        <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
+            <c:forEach var="menuIdList" items="${menuIdList}" >
+                <c:if test="${menuIdList=='1'}">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_1.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
+                        <ul class="dropdown-menu" style="padding-bottom: 0;">
+                            <li><a href='<c:url value="/user"/>'>&nbsp;&nbsp;&nbsp; Users</a></li>
+                            <li style="border-bottom:none;"><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
+                        </ul>
+                    </li>
+                </c:if>
+                <c:if test="${menuIdList==2}">
+                    <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_1.png"></i>&nbsp; System Settings<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='6'}">
+                    <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_1.png"></i>&nbsp; E-mail/SMS Settings<div class="active_arrow"></div></a></li>
+                            </c:if>  
+                        </c:forEach>
+        </ul>
+    </li>-->
+</ul>
+</security:authorize>
+</div>

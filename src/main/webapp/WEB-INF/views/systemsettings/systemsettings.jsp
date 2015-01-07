@@ -3,6 +3,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ include file="../../header.jsp" %>
+<%@ include file="../../footer.jsp" %>
+
+
+
+
 <script type="text/javascript">
 
     function onClickEditsystemsettings(val) {
@@ -55,13 +61,13 @@
     }
 </script>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" style="padding-left: 235px;">
         <h1><spring:message code="label.systemSettingsManagement" /></h1>
     </div>
 </div><!-- /.row -->
 
 <!-- Button trigger modal -->
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-top: 30px;">
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="onClickAddsystemsettings()">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
@@ -95,7 +101,7 @@
 </div>
 
 
-<div class="row">
+<div class="row" style="padding-left: 235px; padding-right: 20px;">
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
@@ -134,3 +140,29 @@
     </div>
 </div><!-- /.row -->
 
+<div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
+    <c:url value="/systemsettings" var="sysurl"/>
+    <security:authorize access="isAuthenticated()">
+        <ul class="nav navbar-nav side-nav color-menu"  style="background: #272727;background: #4f5b6f;">             
+            <c:forEach var="menuIdList" items="${menuIdList}" >
+                <c:if test="${menuIdList=='1'}">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=""><img src="/ilids/resources/images/manage_1.png"></i>&nbsp; User Management<div class="active_arrow"></div><b class="caret"></b></a>
+                        <ul class="dropdown-menu" style="padding-bottom: 0;">
+                            <li><a href='<c:url value="/user"/>'>&nbsp;&nbsp;&nbsp; Users</a></li>
+                            <li style="border-bottom:none;"><a href="<c:url value="/role"/>">&nbsp;&nbsp;&nbsp; Roles</a></li>
+                        </ul>
+                    </li>
+                </c:if>
+                <c:if test="${menuIdList==2}">
+                    <li><a href="<c:url value="/systemsettings"/>"><i class=""><img src="/ilids/resources/images/system_1.png"></i>&nbsp; System Settings<div class="active_arrow"></div></a></li>
+                            </c:if>
+                            <c:if test="${menuIdList=='6'}">
+                    <li><a  href="<c:url value="/mailsms"/>"><i class=""><img src="/ilids/resources/images/sms_1.png"></i>&nbsp; E-mail/SMS Settings<div class="active_arrow"></div></a></li>
+                            </c:if>  
+                        </c:forEach>
+        </ul>
+    </li>-->
+</ul>
+</security:authorize>
+</div>
