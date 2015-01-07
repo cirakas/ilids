@@ -376,7 +376,6 @@ public class LoginController {
             ttoMinCook.setMaxAge(60 * 60);
 
         }
-
         return "login/login";
     }
 

@@ -91,7 +91,6 @@ public class TransducerDataServlet extends HttpServlet {
         ttoMinCook.setMaxAge(60*60);
         response.addCookie(ttoMinCook);
             
-                response.sendRedirect("thermal.jsp");
         
         }
         

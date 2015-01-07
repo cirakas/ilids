@@ -14,6 +14,8 @@
         <span class="icon-bar"></span>
     </button>
 </div>-->
+<meta charset="utf-8">
+
 <div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
     <c:url value="/systemsettings" var="sysurl"/>
     <security:authorize access="isAuthenticated()">

@@ -6,6 +6,7 @@
 <%@ include file="../../header.jsp" %>
 <%@ include file="../../footer.jsp" %>
 <!--<nav class="navbar navbar-inverse navbar-fixed-top main_nav"  role="navigation" style="">-->
+<meta charset="utf-8">
 <div>
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
         <span class="sr-only">Toggle navigation</span>

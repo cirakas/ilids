@@ -11,17 +11,12 @@ d3.json(servlet, function(data) {
     var dateFormat = d3.time.format("%m/%d/%Y %H:%M:%S").parse;
     var format = d3.time.format("%b-%d %H:%M")
 
-    //var numberFormat = d3.format(".2f");
-    //var mdvValue = mdvValue1;
     var mwidth = 1000;
     var main_margin = {top: 30, right: 60, bottom: 95, left: 75},
     mini_margin = {top: 345, right: 60, bottom: 20, left: 75},
     main_width = mwidth - main_margin.left - main_margin.right,
             main_height = 400 - main_margin.top - main_margin.bottom,
             mini_height = 400 - mini_margin.top - mini_margin.bottom;
-
-
-    //   var panExtent = {x: [0, main_width], y: [main_height, 100]};
 
     var width = $("#powGraph").width(),
             aspect = 400 / 1000;
@@ -55,6 +50,14 @@ d3.json(servlet, function(data) {
             .scale(main_y0)
             .orient("left")
             .ticks(4);
+
+    var brush = d3.svg.brush()
+            .x(mini_x)
+            .on("brush", brush3);
+
+    var zoom = d3.behavior.zoom()
+            .scaleExtent([1, 100])
+            .on("zoom", draw);
 
     var main_line0 = d3.svg.line()
             .interpolate("linear")
@@ -102,26 +105,17 @@ d3.json(servlet, function(data) {
             .attr("width", width)
             .attr("height", width * aspect);
 
-    $(window).resize(function() {
-        var width = $("#powGraph").width();
-        svg.attr("width", width);
-        svg.attr("height", width * aspect);
-    });
-
-
-    var brush = d3.svg.brush()
-            .x(mini_x)
-            .on("brush", brush3);
-
     svg.append("defs").append("clipPath")
             .attr("id", "clip")
             .append("rect")
             .attr("width", main_width)
             .attr("height", main_height);
 
-    var zoom = d3.behavior.zoom()
-            .scaleExtent([1, 10])
-            .on("zoom", draw);
+    $(window).resize(function() {
+        var width = $("#powGraph").width();
+        svg.attr("width", width);
+        svg.attr("height", width * aspect);
+    });
 
 
     //vertical lines
@@ -164,19 +158,6 @@ d3.json(servlet, function(data) {
     var mini = svg.append("g")
             .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");
 
-//var valueline2 = d3.svg.line()
-//    .x(function(d) { return main_x(dateFormat.parse(d.date)); })
-//    .y(function(d) { return main_y0(mdvValue); });
-
-    var main1 = svg.append("g")
-            .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");
-    var main2 = svg.append("g")
-            .attr("transform", "translate(" + main_margin.left + "," + main_margin.top + ")");
-
-    var mini2 = svg.append("g")
-            .attr("transform", "translate(" + mini_margin.left + "," + mini_margin.top + ")");
-
-
     main_x.domain([dateFormat(data[0].date), dateFormat(data[data.length - 1].date)]);
     main_y0.domain(d3.extent(data, function(d) {
         return +d.temp;
@@ -194,7 +175,7 @@ d3.json(servlet, function(data) {
 
 
 
-    main2.append("path")
+    main.append("path")
             .datum(data)
             .attr("clip-path", "url(#clip)")
             .attr("class", "area")
@@ -217,7 +198,7 @@ d3.json(servlet, function(data) {
             .attr("class", "heading_top_")
             .text("Temperature");//Specified in the home.jsp
 
-    main1.append("text")      // text label for the x axis
+    main.append("text")      // text label for the x axis
             .attr("x", 890)
             .attr("y", 65)
             .style("text-anchor", "middle")
@@ -229,23 +210,23 @@ d3.json(servlet, function(data) {
 
     mini.append("path")
             .datum(data)
-            .attr("class", "line")
+            .attr("class", "line line0")
             .attr("d", mini_line0);
 
-    mini2.append("path")
+    mini.append("path")
             .datum(data)
             .attr("clip-path", "url(#clip)")
             .attr("class", "area")
             .attr("d", miniarea);
 
-    mini2.append("g")
+    mini.append("g")
             .attr("class", "x brush")
             .call(brush)
             .selectAll("rect")
             .attr("y", -6)
             .attr("height", mini_height + 7);
 
-    var focus = main2.append("g")
+    var focus = main.append("g")
             .attr("class", "focus")
             .style("display", "none");
 
@@ -273,7 +254,7 @@ d3.json(servlet, function(data) {
             .style("stroke", "green");
 
 //main graph functionality-zoom
-    main2.append("rect")
+    main.append("rect")
             .attr("class", "pane")
             .attr("width", main_width)
             .attr("height", main_height)
@@ -312,7 +293,7 @@ d3.json(servlet, function(data) {
     function brush3() {
         main_x.domain(brush.empty() ? mini_x.domain() : brush.extent());
         main.select(".line0").attr("d", main_line0);
-        main2.select(".area").attr("d", mainarea);
+        main.select(".area").attr("d", mainarea);
         main.select(".x.axis").call(main_xAxis);
     }
 

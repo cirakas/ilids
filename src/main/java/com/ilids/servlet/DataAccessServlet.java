@@ -107,7 +107,6 @@ public class DataAccessServlet extends HttpServlet {
             toMinCook.setMaxAge(60 * 60);
             response.addCookie(toMinCook);
 
-            response.sendRedirect("energy.jsp");
 
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

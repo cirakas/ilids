@@ -6,6 +6,8 @@
 <%@ include file="../../header.jsp" %>
 <%@ include file="../../footer.jsp" %>
 
+<meta charset="utf-8">
+
 <div class="collapse  navbar-collapse navbar-ex1-collapse bg_res">
     <c:url value="/systemsettings" var="sysurl"/>
     <security:authorize access="isAuthenticated()">
