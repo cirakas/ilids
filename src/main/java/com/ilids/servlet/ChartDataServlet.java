@@ -60,26 +60,50 @@ public class ChartDataServlet extends HttpServlet {
         SimpleDateFormat parseFormat = new SimpleDateFormat(toDateFormat);
         String start = parseFormat.format(parsePattern.parse(start1));
         String end = parseFormat.format(parsePattern.parse(end1));
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String st = start + " " + fromTime;
+        Date dt1 = formatter.parse(st);
+        String ed = end + " " + toTime;
+        Date dt2 = formatter.parse(ed);
+        long dff = dt2.getTime() - dt1.getTime();
+        long dSeconds = dff / 1000 % 60;
+        long dMinutes = dff / (60 * 1000) % 60;
+        long dHours = dff / (60 * 60 * 1000);
+        int dInDays = (int) ((dt2.getTime() - dt1.getTime()) / (1000 * 60 * 60 * 24));
+        String tabName = "";
+
+        if (dInDays > 365) {
+            tabName = "3hours_data";
+        } else if (dInDays > 151 && dInDays < 365) {
+            tabName = "2hours_data";
+        } else if (dInDays > 30 && dInDays < 151) {
+            tabName = "1hour_data";
+        } else if (dInDays < 30 && dInDays > 1) {
+            tabName = "30min_data";
+        } else {
+            tabName = "data_3m_1";
+        }
 
         //String selectQuery = "SELECT time as data_time , data as real_data FROM data_3m_1 WHERE `time` BETWEEN '"+start+" "+fromTime+"' AND '"+end+" "+toTime+"'  and address_map="+addressMap+""+deviceCondition+" ORDER BY time ";
         String selectQuery1
                 = "SELECT device_id, address_map, data, YEAR(`time`) as year, MONTH(`time`) as month, "
                 + "DAY(`time`) as day, HOUR(`time`) as hour, MINUTE(`time`) as minute, "
-                + "SECOND(`time`) as second FROM `data_3m_1` "
+                + "SECOND(`time`) as second FROM " + tabName + " d "
                 + "WHERE TIME BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' "
                 + "AND device_id = " + deviceId + " AND address_map = 6 ORDER BY time";
 
         String selectQuery2
                 = "SELECT device_id, address_map, data, YEAR(`time`) as year, MONTH(`time`) as month, "
                 + "DAY(`time`) as day, HOUR(`time`) as hour, MINUTE(`time`) as minute, "
-                + "SECOND(`time`) as second FROM `data_3m_1` "
+                + "SECOND(`time`) as second FROM " + tabName + " d "
                 + "WHERE TIME BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' "
                 + "AND device_id = " + deviceId + " AND address_map = 8 ORDER BY time";
 
         String selectQuery3
                 = "SELECT device_id, address_map, data, YEAR(`time`) as year, MONTH(`time`) as month, "
                 + "DAY(`time`) as day, HOUR(`time`) as hour, MINUTE(`time`) as minute, "
-                + "SECOND(`time`) as second FROM `data_3m_1` "
+                + "SECOND(`time`) as second FROM " + tabName + " d "
                 + "WHERE TIME BETWEEN '" + start + " " + fromTime + "' AND '" + end + " " + toTime + "' "
                 + "AND device_id = " + deviceId + " AND address_map = 10 ORDER BY time";
 

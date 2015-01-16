@@ -94,7 +94,7 @@ public class NoteController {
 	    if (status) {
 		flash.addFlashAttribute("success", "Note has been successfully added.");
 	    } else {
-		flash.addFlashAttribute("error", "User cannot be created.");
+		flash.addFlashAttribute("error", "Note cannot be created.");
 	    }
 	} catch (Exception ex) {
 	    exceptionLogService.createLog((User) sessionRegistry.getSessionInformation("loginUser").getPrincipal(), ex, module,

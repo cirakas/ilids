@@ -7,11 +7,11 @@
 <style>
 
     body{background: #27a9e3;}
-    .container {
+    .container1 {
         margin: 110px auto;
         width: 45%;
-        float: left;
-        margin-left: 15%;
+/*        float: left;*/
+/*        margin-left: 15%;*/
     }
 
     .login {
@@ -195,7 +195,7 @@
 </script>
 
 <security:authorize access="isAnonymous()">   
-    <section class="container">
+    <section class="container1">
         <div class="login">
             <h1>Login to iLids</h1>
 
